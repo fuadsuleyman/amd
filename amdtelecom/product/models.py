@@ -6,26 +6,19 @@ from django.contrib.auth.models import User
 class Brand(models.Model):
     name = models.CharField(max_length=200)
     description = models.CharField(max_length=400)
-    image = models.CharField(max_length=200)
+    image = models.FileField(upload_to='uploads/')
 
     def __str__(self):
-        return self.name
-    # products = db.relationship('Product', backref='brand', lazy=True)
+        return f'{self.name}, {self.description}'
 
 class Category(models.Model):
     name = models.CharField(max_length=200)
     parent_id = models.IntegerField(default=0)
     description = models.TextField()
-    image = models.CharField(max_length=200)
-    # products = db.relationship('Product', backref='category', lazy=True)
+    image = models.FileField(upload_to='uploads/')
 
-    # class Category(db.Model):
-    # id = db.Column(db.Integer, primary_key=True)
-    # parent_id = db.Column(db.Integer, nullable=False)
-    # name = db.Column(db.String(20), unique=True, nullable=False)
-    # description = db.Column(db.Text, nullable=False)
-    # image = db.Column(db.String(20), nullable=True)
-    # products = db.relationship('Product', backref='category', lazy=True)
+    def __str__(self):
+        return f'{self.name}, {self.description}'
 
 class Product(models.Model):
     title = models.CharField(max_length=200)
@@ -33,12 +26,15 @@ class Product(models.Model):
     price = models.IntegerField(default=0)
     price_old = models.IntegerField(default=0)
     description = models.TextField()
-    status = models.IntegerField(default=0)
-    date_posted = models.DateTimeField('date published')
+    status = models.BooleanField(default=False)
+    date_posted = models.DateTimeField(auto_now_add=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     brand_id = models.ForeignKey(Brand, on_delete=models.CASCADE)
     category_id = models.ForeignKey(Category, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f'{self.title}, {self.description}'
+
 class Product_image(models.Model):
-    image = models.CharField(max_length=400)
+    image = models.FileField(upload_to='uploads/')
     product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
