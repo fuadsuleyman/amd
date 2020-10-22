@@ -1,5 +1,7 @@
 from django.shortcuts import render
 
+from django.views.generic import ListView, DetailView
+
 # Create your views here.
 from django.http import HttpResponse
 from .models import Product
@@ -33,5 +35,16 @@ def home(request):
     }
     return render(request, 'product/home.html', context)
 
+class ProductListView(ListView):
+    model = Product
+    template_name = 'product/home.html'
+    context_object_name = 'products'
+    ordering = ['-date_posted']
+
+class ProductDetailView(DetailView):
+    model = Product
+
+
 def about(request):
     return render(request, 'product/about.html', {'title': 'About'})
+
