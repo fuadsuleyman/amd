@@ -4,7 +4,7 @@ from django.views.generic import ListView, DetailView
 
 # Create your views here.
 from django.http import HttpResponse
-from .models import Product
+from .models import Product, Product_image
 
 
 products = [
@@ -43,6 +43,7 @@ class ProductListView(ListView):
 
 class ProductDetailView(DetailView):
     model = Product
+
 
 
 def about(request):
