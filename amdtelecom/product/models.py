@@ -1,6 +1,9 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django import template
+
+register = template.Library()
 
 # Create your models here.
 class Category(models.Model):
@@ -20,35 +23,58 @@ class Brand(models.Model):
     def __str__(self):
         return f'{self.name}'
 
+class Color_p(models.Model):
+    color_name = models.CharField(max_length=50, blank=True, null=True, default=None)
+    color_code = models.CharField(max_length=50, blank=True, null=True, default=None)
+
+    def __str__(self):
+        return f'{self.color_name}'
+
 class Product(models.Model):
     title = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='uploads/', blank=True, null=True)
     sku = models.CharField(max_length=200)
     price = models.IntegerField(default=0)
     price_old = models.IntegerField(default=0)
     description = models.TextField()
     status = models.BooleanField(default=False)
     date_posted = models.DateTimeField(auto_now_add=True)
+    internal_storage = models.CharField(max_length=50, blank=True, null=True, default=None)
+    ram = models.CharField(max_length=50, blank=True, null=True, default=None)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    color_pro = models.ForeignKey(Color_p, on_delete=models.CASCADE, default=1)
 
     def __str__(self):
         return f'{self.title}, {self.description}'
+    
+    # @property
+    # def sorted_image_set(self):
+    #     return self.images.last().image
+
+    # def get_last_image(self):
+    #     try:
+    #         last_image = self.images.last().image
+    #     except AttributeError:
+    #         last_image = self.image
 
 class Product_image(models.Model):
     image = models.ImageField(upload_to='uploads/')
-    product_id = models.ForeignKey(Product, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
 
     def __str__(self):
-        return f'{self.image}'
+        return f'{self.product.title} image'
+
 
 class Product_details(models.Model):
-    product_id = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
     size = models.CharField(max_length=50, blank=True, null=True, default=None)
-    color = models.CharField(max_length=50, blank=True, null=True, default=None)
+    # color = models.CharField(max_length=50, blank=True, null=True, default=None)
     video = models.CharField(max_length=200, blank=True, null=True, default=None)
-    internal_storage = models.CharField(max_length=50, blank=True, null=True, default=None)
-    ram = models.CharField(max_length=50, blank=True, null=True, default=None)
+    # internal_storage = models.CharField(max_length=50, blank=True, null=True, default=None)
+    external_storage = models.CharField(max_length=50, blank=True, null=True, default=None)
+    # ram = models.CharField(max_length=50, blank=True, null=True, default=None)
     production_year = models.CharField(max_length=50, blank=True, null=True, default=None)
     sim_count = models.CharField(max_length=50, blank=True, null=True, default=None)
     sim_type = models.CharField(max_length=50, blank=True, null=True, default=None)
@@ -75,4 +101,6 @@ class Product_details(models.Model):
     shockproof = models.BooleanField(blank=True, null=True, default=None)
 
     def __str__(self):
-        return f'{self.product_id} details'
+        return f'{self.product.title} details'
+
+        
