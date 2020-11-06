@@ -58,14 +58,6 @@ class Product(models.Model):
         return url
     
     # @property
-	# def imageURL(self):
-	# 	try:
-	# 		url = self.image.url
-	# 	except:
-	# 		url = ''
-	# 	return url
-    
-    # @property
     # def sorted_image_set(self):
     #     return self.images.last().image
 
