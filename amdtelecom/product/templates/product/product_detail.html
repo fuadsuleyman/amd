@@ -1,4 +1,4 @@
-{% extends "product/base.html" %}
+{% extends "base.html" %}
 {% block content %}
 
 {% load static %}
@@ -313,183 +313,36 @@
                                             <!-- <li class="bg-light1"></li>
                                             <li class="bg-light2"></li> -->
                                         </ul>
-                                        <div class="border-product">
-                                            <!-- <h6 class="product-title size-text">select size <span><a href=""
-                                                        data-toggle="modal" data-target="#sizemodal">size
-                                                        chart</a></span></h6>
-                                            <div class="modal fade" id="sizemodal" tabindex="-1" role="dialog"
-                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="exampleModalLabel">Sheer
-                                                                Straight Kurta</h5>
-                                                            <button type="button" class="close" data-dismiss="modal"
-                                                                aria-label="Close"><span
-                                                                    aria-hidden="true">&times;</span></button>
-                                                        </div>
-                                                        <div class="modal-body"><img
-                                                                src="{% static 'product/images/size-chart.jpg' %}"alt=""
-                                                                class="img-fluid blur-up lazyload"></div>
+                                        <form method="POST" action="{% url 'product-detail' product.id %}">
+                                            {% csrf_token %}
+                                            <div class="border-product">
+                                                <h6 class="product-title">quantity</h6>
+                                                <div class="qty-box">
+                                                    <div class="input-group">
+                                                        <span class="input-group-prepend">
+                                                            <button type="button" class="btn quantity-left-minus" data-type="minus" data-field="">
+                                                                <i class="ti-angle-left"></i>
+                                                            </button>
+                                                        </span>
+                                                        <input type="number" name="quantity" class="form-control input-number" value=1>
+                                                        <span class="input-group-prepend">
+                                                            <button type="button" class="btn quantity-right-plus" data-type="plus" data-field="">
+                                                                <i class="ti-angle-right"></i>
+                                                            </button>
+                                                        </span>
                                                     </div>
                                                 </div>
-                                            </div> -->
-                                            <!-- <div class="size-box">
-                                                <ul>
-                                                    <li class="active"><a href="#">s</a></li>
-                                                    <li><a href="#">m</a></li>
-                                                    <li><a href="#">l</a></li>
-                                                    <li><a href="#">xl</a></li>
-                                                </ul>
-                                            </div> -->
-                                            <!-- <h6 class="product-title">quantity</h6>
-                                            <div class="qty-box">
-                                                <div class="input-group"><span class="input-group-prepend"><button
-                                                            type="button" class="btn quantity-left-minus"
-                                                            data-type="minus" data-field=""><i
-                                                                class="ti-angle-left"></i></button> </span>
-                                                    <input type="text" name="quantity" class="form-control input-number"
-                                                        value="1"> <span class="input-group-prepend"><button
-                                                            type="button" class="btn quantity-right-plus"
-                                                            data-type="plus" data-field=""><i
-                                                                class="ti-angle-right"></i></button></span></div>
-                                            </div> -->
-                                            
-                                                <!-- <table>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Length</td>
-                                                            <td>50 Inches</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Size</td>
-                                                            <td>S, M, L .XXL</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table> -->
                                             </div>                                        
-                                        
-                                        <div class="product-description product-buttons"><a href="#" data-toggle="modal"
-                                                data-target="#addtocart" class="btn btn-solid">add to cart</a> <a
-                                                href="#" class="btn btn-solid">buy now</a></div>
-                                        
+                                            
+                                            <div class="product-description product-buttons">
+                                                <input data-target="#addtocart" type="submit" class="btn btn-solid" value="Add to Cart">
+                                                <a href="#" class="btn btn-solid">buy now</a>
+                                            </div>
+                                        </form>
+                                    
                                         {% if product.description %}
                                         <div class="border-product product-description">
-                                            
                                             <h6 class="product-title">Məhsulun Təsviri</h6>
-                                            <div class="single-product-tables detail-section">
-                                                <!-- <table>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="detail-header">Istehsalçı:</td>
-                                                            <td class="detail-text">{{ product.brand.name |title }}</td>
-                                                        </tr> -->
-                                                        <!-- {% if details %}
-                                                        {% for detail in details %} 
-                                                        {% if detail.production_year %}
-                                                        <tr>
-                                                            <td class="detail-header">Istehsal ili:</td>
-                                                            <td class="detail-text">{{ detail.production_year }}</td>
-                                                        </tr>
-                                                        {% endif %}
-
-                                                        {% if detail.operation_system %}
-                                                        <tr>
-                                                            <td class="detail-header">Əməliyyat sistemi:</td>
-                                                            <td class="detail-text">{{ detail.operation_system }}</td>
-                                                        </tr>
-                                                        {% endif %}
-
-                                                        {% if detail.screen_size %}
-                                                        <tr>
-                                                            <td class="detail-header">Ekran ölçüsü:</td>
-                                                            <td class="detail-text">{{ detail.screen_size }}</td>
-                                                        </tr>
-                                                        {% endif %}
-
-                                                        {% if detail.resolution %}
-                                                        <tr>
-                                                            <td class="detail-header">Ekran imkanları:</td>
-                                                            <td class="detail-text">{{ detail.resolution }}</td>
-                                                        </tr>
-                                                        {% endif %}
-
-                                                        {% if detail.ram %}
-                                                        <tr>
-                                                            <td class="detail-header">RAM:</td>
-                                                            <td class="detail-text">{{ detail.ram }}</td>
-                                                        </tr>
-                                                        {% endif %}
-
-                                                        {% if detail.internal_storage %}
-                                                        <tr>
-                                                            <td class="detail-header">Daxili Yaddaş:</td>
-                                                            <td class="detail-text">{{ detail.internal_storage }}</td>
-                                                        </tr>
-                                                        {% endif %}
-
-                                                        {% if detail.guarantee %}
-                                                        <tr>
-                                                            <td class="detail-header">Zəmanət:</td>
-                                                            <td class="detail-text">{{ detail.guarantee }}</td>
-                                                        </tr>
-                                                        {% endif %}
-
-
-                                                        {% endfor %}
-                                                        {% endif %} -->
-                                                        
-                                            
-                                                    <!-- </tbody>
-                                                </table> -->
-                                                <!-- <table>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Febric:</td>
-                                                            <td>Chiffon</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Color:</td>
-                                                            <td>Red</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Material:</td>
-                                                            <td>Crepe printed</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table> -->
-                                            </div>
-                                            <!-- <div class="tab-pane fade" id="top-profile" role="tabpanel"
-                                            aria-labelledby="profile-top-tab"> -->
-                                            <!-- <div class="single-product-tables">
-                                                <table>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Febric</td>
-                                                            <td>Chiffon</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Color</td>
-                                                            <td>Red</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Material</td>
-                                                            <td>Crepe printed decscscsd c scsd</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table> -->
-                                                <!-- <table>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Length</td>
-                                                            <td>50 Inches</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Size</td>
-                                                            <td>S, M, L .XXL</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table> -->
                                                 <p>
                                                     {{ product.description }}
                                                 </p>

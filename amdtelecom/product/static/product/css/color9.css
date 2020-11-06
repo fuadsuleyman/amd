@@ -7778,7 +7778,7 @@ footer {
 .qty-box .input-group {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
-          justify-content: center; }
+          justify-content: right; }
   .qty-box .input-group span button {
     background: #ffffff !important;
     border: 1px solid #ced4da; }
@@ -8262,7 +8262,7 @@ footer {
   color: #222222;
   text-transform: capitalize;
   font-weight: 700;
-  margin-bottom: 0; }
+  margin-bottom: 5; }
 
 .product-right .border-product {
   padding-top: 15px;

@@ -1,10 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 
-from django.views.generic import ListView, DetailView
+# from django.views.generic import ListView, DetailView
 
 # Create your views here.
 from django.http import HttpResponse
-from .models import Product, Product_image, Product_details
+from .models import Product, Product_image, Product_details, OrderItem, Order, Customer
 
 
 # products = [
@@ -48,24 +48,32 @@ def home_page(request):
     context = {'products':products, 'details': details}
     return render(request, 'product/home.html', context)
 
-# def home_page(request, id):
-#     products = Product.objects.all()
-#     prod = 
-#     details = Product_details.objects.all() 
-#     headphoto = Product_image.objects.first()
-#     context = {'products':products, 'headphoto': headphoto, 'details': details}
-#     return render(request, 'product/home.html', context)
-
-# class ProductDetailView(DetailView):
- #     model = Product
-
 def product_detail(request, id):
-    product = Product.objects.get(pk=id)
+    product = Product.objects.get(id=id)
     photos = Product_image.objects.filter(product=product)
     details = Product_details.objects.filter(product=product)
+
+    if request.method == 'POST':
+        product = Product.objects.get(id=id)
+        device = request.COOKIES['device']
+        customer, created = Customer.objects.get_or_create(device=device)
+
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
+        orderItem.quantity=request.POST['quantity']
+        orderItem.save()
+
+        return redirect('cart')
     context = {'product':product,'photos':photos, 'details':details,}
     return render(request, 'product/product_detail.html', context)
 
+def cart(request):
+    device = request.COOKIES['device']
+    customer, created = Customer.objects.get_or_create(device=device)
+
+    order, created = Order.objects.get_or_create(customer=customer, complete=False)
+    context = {'order':order}
+    return render(request, 'product/cart.html', context)
 
 def about(request):
     return render(request, 'product/about.html', {'title': 'About'})

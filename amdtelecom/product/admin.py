@@ -2,12 +2,27 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 
 # Register your models here.
-from .models import Product, Brand, Category, Product_image, Product_details, Color_p
+from .models import Product, Brand, Category, Product_image, Product_details, Color_p, Customer, Order, OrderItem
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ("id", "name", "description")
     list_display_links = ("name",)
+
+@admin.register(Customer)
+class CustomerAdmin(admin.ModelAdmin):
+    list_display = ("id", "device")
+    list_display_links = ("device",)
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ("id", "date_ordered")
+    list_display_links = ("date_ordered",)
+
+@admin.register(OrderItem)
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = ("id", "quantity", "date_added")
+    list_display_links = ("quantity",)
 
 @admin.register(Brand)
 class BrandAdmin(admin.ModelAdmin):

@@ -1085,33 +1085,11 @@
                                 <h3>$32.96</h3>
                                 <ul class="color-variant">
                                     <li class="bg-light0"></li>
-                                    <li class="bg-light1"></li>
-                                    <li class="bg-light2"></li>
                                 </ul>
                                 <div class="border-product">
                                     <h6 class="product-title">product details</h6>
                                     <p>Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium
                                         doloremque laudantium</p>
-                                </div>
-                                <div class="product-description border-product">
-                                    <div class="size-box">
-                                        <ul>
-                                            <li class="active"><a href="#">s</a></li>
-                                            <li><a href="#">m</a></li>
-                                            <li><a href="#">l</a></li>
-                                            <li><a href="#">xl</a></li>
-                                        </ul>
-                                    </div>
-                                    <h6 class="product-title">quantity</h6>
-                                    <div class="qty-box">
-                                        <div class="input-group"><span class="input-group-prepend"><button type="button"
-                                                    class="btn quantity-left-minus" data-type="minus" data-field=""><i
-                                                        class="ti-angle-left"></i></button> </span>
-                                            <input type="text" name="quantity" class="form-control input-number"
-                                                value="1"> <span class="input-group-prepend"><button type="button"
-                                                    class="btn quantity-right-plus" data-type="plus" data-field=""><i
-                                                        class="ti-angle-right"></i></button></span></div>
-                                    </div>
                                 </div>
                                 <div class="product-buttons"><a href="#" class="btn btn-solid">add to cart</a> <a
                                         href="#" class="btn btn-solid">view detail</a></div>
@@ -2000,6 +1978,62 @@
         function closeSearch() {
             document.getElementById("search-overlay").style.display = "none";
         }
+    </script>
+    <script type="text/javascript">
+    //    function getCookie(name){
+    //        // Split cookie string and get all individial name=value in an array
+    //        var cookieArr = document.cookie.split(";");
+
+    //        // Loop through the array
+    //        for(var i = 0; i < cookieArr.length; i++){
+    //            var cookiePair = cookieArr[i].split("=");
+
+    //            /*Removing whitespace at the begining of the cookie
+    //            name compare it with the given string*/
+    //            if(name == cookiePair[0].trim()){
+    //                // Decode the cookie value and return
+    //                return decodeURIComponent(cookiePair[1]);
+    //            }
+    //        }
+    //        // Return null if nor found
+    //        return null
+    //    } 
+    //    var cart = JSON.parse(getCookie('cart'))
+    //    if(cart == undefined){
+    //        cart = {}
+    //        console.log('Cart was created!');
+    //        document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+    //    }
+    //    console.log('Cart:', cart);
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    function uuidv4(){
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c){
+            let r = Math.random() *16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+    // const csrftoken = getCookie('csrftoken');
+        let device = getCookie('device')
+        if (device == null || device == undefined){
+            device = uuidv4()
+        }
+        document.cookie = 'device=' + device + ";domain=;path=/"
     </script>
 </body>
 
