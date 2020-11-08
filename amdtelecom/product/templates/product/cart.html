@@ -49,7 +49,7 @@
                             <td>
                                 <a href="#"><img src="{{item.product.imageURL}}" alt=""></a>
                             </td>
-                            <td><a href="#">{{item.product.title}}</a>
+                            <td><a href="{% url 'product-detail' item.product.id %}">{{item.product.title}}</a>
                                 <div class="mobile-cart-content row">
                                     <div class="col-xs-3">
                                         <div class="qty-box">
@@ -62,8 +62,8 @@
                                     <div class="col-xs-3">
                                         <h2 class="td-color">$ {{item.product.price}}</h2>
                                     </div>
-                                    <div class="col-xs-3">
-                                        <h2 class="td-color"><a href="#" class="icon"><i class="ti-close"></i></a>
+                                    <div class="col-xs-3 cartquantity">
+                                        <h2 class="td-color"><a href="{% url 'deletefromcart' item.product.id %}" class="icon"><i class="ti-close"></i></a>
                                         </h2>
                                     </div>
                                 </div>
@@ -79,7 +79,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td><a href="#" class="icon"><i class="ti-close"></i></a></td>
+                            <td class="cartquantity"><a href="{% url 'deletefromcart' item.id %}" class="icon"><i class="ti-close"></i></a></td>
                             <td>
                                 <h2 class="td-color">$ {{item.get_total|floatformat:2}}</h2>
                             </td>

@@ -75,6 +75,12 @@ def cart(request):
     context = {'order':order}
     return render(request, 'product/cart.html', context)
 
+def deletefromcart(request, id):
+    cartitem = OrderItem.objects.get(id=id)
+    cartitem.delete()
+    return redirect('cart')
+
+
 def about(request):
     return render(request, 'product/about.html', {'title': 'About'})
 
