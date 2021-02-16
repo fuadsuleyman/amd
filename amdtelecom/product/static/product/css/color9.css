@@ -7775,10 +7775,16 @@ footer {
 .contact-page .form-control {
   border-radius: 0; }
 
+.customquantity{
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: right !important;
+}
+
 .qty-box .input-group {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
-          justify-content: right; }
+          justify-content: center; }
   .qty-box .input-group span button {
     background: #ffffff !important;
     border: 1px solid #ced4da; }
