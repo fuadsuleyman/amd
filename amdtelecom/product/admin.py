@@ -2,40 +2,42 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 
 # Register your models here.
-from .models import Product, Brand, Category, Product_image, Product_details, Color_p, Customer, Order, OrderItem
+from .models import Product, Marka, Category, Product_details, Product_colors, Product_images
+
+admin.site.register(Product_colors)
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "description")
-    list_display_links = ("name",)
+    list_display = ("id", "title", "description")
+    list_display_links = ("title",)
 
-@admin.register(Customer)
-class CustomerAdmin(admin.ModelAdmin):
-    list_display = ("id", "device")
-    list_display_links = ("device",)
+# @admin.register(Customer)
+# class CustomerAdmin(admin.ModelAdmin):
+#     list_display = ("id", "device")
+#     list_display_links = ("device",)
 
-@admin.register(Order)
-class OrderAdmin(admin.ModelAdmin):
-    list_display = ("id", "date_ordered")
-    list_display_links = ("date_ordered",)
+# @admin.register(Order)
+# class OrderAdmin(admin.ModelAdmin):
+#     list_display = ("id", "date_ordered")
+#     list_display_links = ("date_ordered",)
 
-@admin.register(OrderItem)
-class OrderItemAdmin(admin.ModelAdmin):
-    list_display = ("id", "quantity", "date_added")
-    list_display_links = ("quantity",)
+# @admin.register(OrderItem)
+# class OrderItemAdmin(admin.ModelAdmin):
+#     list_display = ("id", "quantity", "date_added")
+#     list_display_links = ("quantity",)
 
-@admin.register(Brand)
-class BrandAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "description")
-    list_display_links = ("name",)
+@admin.register(Marka)
+class MarkaAdmin(admin.ModelAdmin):
+    list_display = ("id", "title", "description")
+    list_display_links = ("title",)
 
-@admin.register(Color_p)
-class ColorpAdmin(admin.ModelAdmin):
-    list_display = ("id", "color_name", "color_code")
-    list_display_links = ("color_name",)
+# @admin.register(Product_colors)
+# class ColorpAdmin(admin.ModelAdmin):
+#     list_display = ("id", "color_name", "color_code")
+#     list_display_links = ("color_name",)
 
 class ImageInline(admin.TabularInline):
-    model = Product_image
+    model = Product_images
     extra = 0
 
 class DetailsInline(admin.StackedInline):
@@ -44,10 +46,10 @@ class DetailsInline(admin.StackedInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("title", "category","brand", "price", "get_image") #"get_image"
+    list_display = ("title", "category", "price", "get_image") #"get_image"
     list_display_links = ("title",)
-    list_filter = ("brand", "price", "category")
-    search_fields = ('title', "category__name", "brand__name")
+    list_filter = ("price", "category")
+    search_fields = ('title', "category__name")
     inlines = [ImageInline, DetailsInline]
     save_on_top = True
     save_as = True #create new product easy way
@@ -62,5 +64,5 @@ class ProductAdmin(admin.ModelAdmin):
 # admin.site.register(Product)
 # admin.site.register(Brand)
 # admin.site.register(Category, CategoryAdmin)
-admin.site.register(Product_image)
+admin.site.register(Product_images)
 admin.site.register(Product_details)

@@ -4,7 +4,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 
 # Create your views here.
 from django.http import HttpResponse
-from .models import Product, Product_image, Product_details, OrderItem, Order, Customer
+from .models import Product, Product_images, Product_details
+from order.models import OrderItem, Order
+from account.models import Customer
 
 
 # products = [
@@ -42,15 +44,15 @@ from .models import Product, Product_image, Product_details, OrderItem, Order, C
 #     ordering = ['-date_posted']
 
 # bu versiya ishleyir
-def home_page(request):
-    products = Product.objects.all()
-    details = Product_details.objects.all()
-    context = {'products':products, 'details': details}
-    return render(request, 'product/home.html', context)
+# def home_page(request):
+#     products = Product.objects.all()
+#     details = Product_details.objects.all()
+#     context = {'products':products, 'details': details}
+#     return render(request, 'product/home.html', context)
 
 def product_detail(request, id):
     product = Product.objects.get(id=id)
-    photos = Product_image.objects.filter(product=product)
+    photos = Product_images.objects.filter(product=product)
     details = Product_details.objects.filter(product=product)
 
     if request.method == 'POST':
@@ -67,18 +69,6 @@ def product_detail(request, id):
     context = {'product':product,'photos':photos, 'details':details,}
     return render(request, 'product/product_detail.html', context)
 
-def cart(request):
-    device = request.COOKIES['device']
-    customer, created = Customer.objects.get_or_create(device=device)
-
-    order, created = Order.objects.get_or_create(customer=customer, complete=False)
-    context = {'order':order}
-    return render(request, 'product/cart.html', context)
-
-def deletefromcart(request, id):
-    cartitem = OrderItem.objects.get(id=id)
-    cartitem.delete()
-    return redirect('cart')
 
 
 def about(request):
