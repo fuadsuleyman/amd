@@ -98,7 +98,7 @@ class Category(models.Model):
         if self.is_main:
             s = f'{self.title}'
         elif self.is_second:
-            s = f'{self.title} {self.parent.all()[1]}'
+            s = f'{self.title}'
         else:
             s = f'{self.parent.all().first()} {self.title} '
         return s 
