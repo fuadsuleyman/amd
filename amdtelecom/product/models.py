@@ -106,7 +106,7 @@ class Category(models.Model):
     def save(self, *args, **kwargs):        
         super(Category, self).save(*args, **kwargs)
         self.slug = f'{slugify(self.title)} {self.id}'       
-             
+
 
         super(Category, self).save(*args, **kwargs)
 
