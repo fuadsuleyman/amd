@@ -95,11 +95,19 @@ class Category(models.Model):
         unique_together = ('slug',)
 
     def __str__(self):
-        return self.title 
+        if self.is_main:
+            s = f'{self.title}'
+        elif self.is_second:
+            s = f'{self.title} {self.parent.all()[1]}'
+        else:
+            s = f'{self.parent.all().first()} {self.title} '
+        return s 
 
     def save(self, *args, **kwargs):        
-        super(Category, self).save(*args, **kwargs)        
-        self.slug = f'{slugify(self.title)}'       
+        super(Category, self).save(*args, **kwargs)
+        self.slug = f'{slugify(self.title)} {self.id}'       
+             
+
         super(Category, self).save(*args, **kwargs)
 
 
