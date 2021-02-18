@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-
+{% load static %}
 <!-- breadcrumb start -->
 <div class="breadcrumb-section">
 <div class="container">
@@ -121,8 +121,8 @@
                     <h5 class="title-border">new product</h5>
                     <div class="offer-slider slide-1">
                         <div>
-                            <div class="media">
-                                <a href=""><img class="img-fluid blur-up lazyload" src="../assets/images/pro/1.jpg" alt=""></a>
+                            <div class="media"> 
+                                <a href=""><img class="img-fluid blur-up lazyload" src="{% static 'images/pro/1.jpg' %}" alt=""></a>
                                 <div class="media-body align-self-center">
                                     <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
                                     <a href="product-page(no-sidebar).html">
@@ -132,7 +132,7 @@
                                 </div>
                             </div>
                             <div class="media">
-                                <a href=""><img class="img-fluid blur-up lazyload" src="../assets/images/pro/1.jpg" alt=""></a>
+                                <a href=""><img class="img-fluid blur-up lazyload" src="{% static 'images/pro/1.jpg' %}" alt=""></a>
                                 <div class="media-body align-self-center">
                                     <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
                                     <a href="product-page(no-sidebar).html">
@@ -142,7 +142,7 @@
                                 </div>
                             </div>
                             <div class="media">
-                                <a href=""><img class="img-fluid blur-up lazyload" src="../assets/images/pro/1.jpg" alt=""></a>
+                                <a href=""><img class="img-fluid blur-up lazyload" src="{% static 'images/pro/1.jpg' %}" alt=""></a>
                                 <div class="media-body align-self-center">
                                     <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
                                     <a href="product-page(no-sidebar).html">
@@ -154,7 +154,7 @@
                         </div>
                         <div>
                             <div class="media">
-                                <a href=""><img class="img-fluid blur-up lazyload" src="../assets/images/pro/1.jpg" alt=""></a>
+                                <a href=""><img class="img-fluid blur-up lazyload" src="{% static 'images/pro/1.jpg' %}" alt=""></a>
                                 <div class="media-body align-self-center">
                                     <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
                                     <a href="product-page(no-sidebar).html">
@@ -164,7 +164,7 @@
                                 </div>
                             </div>
                             <div class="media">
-                                <a href=""><img class="img-fluid blur-up lazyload" src="../assets/images/pro/1.jpg" alt=""></a>
+                                <a href=""><img class="img-fluid blur-up lazyload" src="{% static 'images/pro/1.jpg' %}" alt=""></a>
                                 <div class="media-body align-self-center">
                                     <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
                                     <a href="product-page(no-sidebar).html">
@@ -174,7 +174,7 @@
                                 </div>
                             </div>
                             <div class="media">
-                                <a href=""><img class="img-fluid blur-up lazyload" src="../assets/images/pro/1.jpg" alt=""></a>
+                                <a href=""><img class="img-fluid blur-up lazyload" src="{% static 'images/pro/1.jpg' %}" alt=""></a>
                                 <div class="media-body align-self-center">
                                     <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
                                     <a href="product-page(no-sidebar).html">
@@ -189,7 +189,8 @@
                 <!-- side-bar single product slider end -->
                 <!-- side-bar banner start here -->
                 <div class="collection-sidebar-banner">
-                    <a href="#"><img src="../assets/images/side-banner.png" class="img-fluid blur-up lazyload" alt=""></a>
+                
+                    <a href="#"><img src="{% static 'images/side-banner.png' %}" class="img-fluid blur-up lazyload" alt=""></a>
                 </div>
                 <!-- side-bar banner end here -->
             </div>
@@ -198,7 +199,7 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="top-banner-wrapper">
-                                <a href="#"><img src="../assets/images/mega-menu/2.jpg" class="img-fluid blur-up lazyload" alt=""></a>
+                                <a href="#"><img src="{% static 'images/mega-menu/2.jpg' %}" class="img-fluid blur-up lazyload" alt=""></a>
                                 <div class="top-banner-content small-section">
                                     <h4>fashion</h4>
                                     <h5>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
@@ -230,10 +231,10 @@
                                                 </div>
                                                 <div class="collection-grid-view">
                                                     <ul>
-                                                        <li><img src="../assets/images/icon/2.png" alt="" class="product-2-layout-view"></li>
-                                                        <li><img src="../assets/images/icon/3.png" alt="" class="product-3-layout-view"></li>
-                                                        <li><img src="../assets/images/icon/4.png" alt="" class="product-4-layout-view"></li>
-                                                        <li><img src="../assets/images/icon/6.png" alt="" class="product-6-layout-view"></li>
+                                                        <li><img src="{% static 'images/icon/2.png' %}" alt="" class="product-2-layout-view"></li>
+                                                        <li><img src="{% static 'images/icon/3.png' %}" alt="" class="product-3-layout-view"></li>
+                                                        <li><img src="{% static 'images/icon/4.png' %}" alt="" class="product-4-layout-view"></li>
+                                                        <li><img src="{% static 'images/icon/6.png' %}" alt="" class="product-6-layout-view"></li>
                                                     </ul>
                                                 </div>
                                                 <div class="product-page-per-view">
@@ -263,10 +264,10 @@
                                             <div class="product-box">
                                                 <div class="img-wrapper">
                                                     <div class="front">
-                                                        <a href="#"><img src="../assets/images/pro3/35.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/35.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="back">
-                                                        <a href="#"><img src="../assets/images/pro3/36.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/36.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="cart-info cart-wrap">
                                                         <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
@@ -299,10 +300,10 @@
                                             <div class="product-box">
                                                 <div class="img-wrapper">
                                                     <div class="front">
-                                                        <a href="#"><img src="../assets/images/pro3/27.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/27.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="back">
-                                                        <a href="#"><img src="../assets/images/pro3/28.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/28.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="cart-info cart-wrap">
                                                         <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
@@ -335,10 +336,10 @@
                                             <div class="product-box">
                                                 <div class="img-wrapper">
                                                     <div class="front">
-                                                        <a href="#"><img src="../assets/images/pro3/1.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/1.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="back">
-                                                        <a href="#"><img src="../assets/images/pro3/2.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/2.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="cart-info cart-wrap">
                                                         <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
@@ -371,10 +372,10 @@
                                             <div class="product-box">
                                                 <div class="img-wrapper">
                                                     <div class="front">
-                                                        <a href="#"><img src="../assets/images/pro3/33.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/33.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="back">
-                                                        <a href="#"><img src="../assets/images/pro3/34.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/34.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="cart-info cart-wrap">
                                                         <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
@@ -407,10 +408,10 @@
                                             <div class="product-box">
                                                 <div class="img-wrapper">
                                                     <div class="front">
-                                                        <a href="#"><img src="../assets/images/pro3/27.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/27.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="back">
-                                                        <a href="#"><img src="../assets/images/pro3/28.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/28.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="cart-info cart-wrap">
                                                         <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
@@ -443,10 +444,10 @@
                                             <div class="product-box">
                                                 <div class="img-wrapper">
                                                     <div class="front">
-                                                        <a href="#"><img src="../assets/images/pro3/35.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/35.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="back">
-                                                        <a href="#"><img src="../assets/images/pro3/36.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/36.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="cart-info cart-wrap">
                                                         <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
@@ -479,10 +480,10 @@
                                             <div class="product-box">
                                                 <div class="img-wrapper">
                                                     <div class="front">
-                                                        <a href="#"><img src="../assets/images/pro3/27.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/27.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="back">
-                                                        <a href="#"><img src="../assets/images/pro3/28.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/28.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="cart-info cart-wrap">
                                                         <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
@@ -515,10 +516,10 @@
                                             <div class="product-box">
                                                 <div class="img-wrapper">
                                                     <div class="front">
-                                                        <a href="#"><img src="../assets/images/pro3/1.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/1.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="back">
-                                                        <a href="#"><img src="../assets/images/pro3/2.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/2.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="cart-info cart-wrap">
                                                         <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
@@ -551,10 +552,10 @@
                                             <div class="product-box">
                                                 <div class="img-wrapper">
                                                     <div class="front">
-                                                        <a href="#"><img src="../assets/images/pro3/27.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/27.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="back">
-                                                        <a href="#"><img src="../assets/images/pro3/28.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/28.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="cart-info cart-wrap">
                                                         <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
@@ -587,10 +588,10 @@
                                             <div class="product-box">
                                                 <div class="img-wrapper">
                                                     <div class="front">
-                                                        <a href="#"><img src="../assets/images/pro3/1.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/1.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="back">
-                                                        <a href="#"><img src="../assets/images/pro3/2.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/2.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="cart-info cart-wrap">
                                                         <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
@@ -623,10 +624,10 @@
                                             <div class="product-box">
                                                 <div class="img-wrapper">
                                                     <div class="front">
-                                                        <a href="#"><img src="../assets/images/pro3/33.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/33.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="back">
-                                                        <a href="#"><img src="../assets/images/pro3/34.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/34.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="cart-info cart-wrap">
                                                         <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
@@ -659,10 +660,10 @@
                                             <div class="product-box">
                                                 <div class="img-wrapper">
                                                     <div class="front">
-                                                        <a href="#"><img src="../assets/images/pro3/1.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/1.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="back">
-                                                        <a href="#"><img src="../assets/images/pro3/2.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/2.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="cart-info cart-wrap">
                                                         <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
@@ -695,10 +696,10 @@
                                             <div class="product-box">
                                                 <div class="img-wrapper">
                                                     <div class="front">
-                                                        <a href="#"><img src="../assets/images/pro3/1.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/1.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="back">
-                                                        <a href="#"><img src="../assets/images/pro3/2.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/2.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="cart-info cart-wrap">
                                                         <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
@@ -731,10 +732,10 @@
                                             <div class="product-box">
                                                 <div class="img-wrapper">
                                                     <div class="front">
-                                                        <a href="#"><img src="../assets/images/pro3/33.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/33.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="back">
-                                                        <a href="#"><img src="../assets/images/pro3/34.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/34.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="cart-info cart-wrap">
                                                         <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
@@ -767,10 +768,10 @@
                                             <div class="product-box">
                                                 <div class="img-wrapper">
                                                     <div class="front">
-                                                        <a href="#"><img src="../assets/images/pro3/27.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/27.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="back">
-                                                        <a href="#"><img src="../assets/images/pro3/28.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/28.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="cart-info cart-wrap">
                                                         <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
@@ -803,10 +804,10 @@
                                             <div class="product-box">
                                                 <div class="img-wrapper">
                                                     <div class="front">
-                                                        <a href="#"><img src="../assets/images/pro3/35.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/35.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="back">
-                                                        <a href="#"><img src="../assets/images/pro3/36.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/36.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="cart-info cart-wrap">
                                                         <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
@@ -839,10 +840,10 @@
                                             <div class="product-box">
                                                 <div class="img-wrapper">
                                                     <div class="front">
-                                                        <a href="#"><img src="../assets/images/pro3/27.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/27.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="back">
-                                                        <a href="#"><img src="../assets/images/pro3/28.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/28.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="cart-info cart-wrap">
                                                         <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
@@ -875,10 +876,10 @@
                                             <div class="product-box">
                                                 <div class="img-wrapper">
                                                     <div class="front">
-                                                        <a href="#"><img src="../assets/images/pro3/35.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/35.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="back">
-                                                        <a href="#"><img src="../assets/images/pro3/36.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/36.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="cart-info cart-wrap">
                                                         <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
@@ -911,10 +912,10 @@
                                             <div class="product-box">
                                                 <div class="img-wrapper">
                                                     <div class="front">
-                                                        <a href="#"><img src="../assets/images/pro3/27.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/27.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="back">
-                                                        <a href="#"><img src="../assets/images/pro3/28.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/28.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="cart-info cart-wrap">
                                                         <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
@@ -947,10 +948,10 @@
                                             <div class="product-box">
                                                 <div class="img-wrapper">
                                                     <div class="front">
-                                                        <a href="#"><img src="../assets/images/pro3/1.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/1.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="back">
-                                                        <a href="#"><img src="../assets/images/pro3/2.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/2.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="cart-info cart-wrap">
                                                         <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
@@ -983,10 +984,10 @@
                                             <div class="product-box">
                                                 <div class="img-wrapper">
                                                     <div class="front">
-                                                        <a href="#"><img src="../assets/images/pro3/27.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/27.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="back">
-                                                        <a href="#"><img src="../assets/images/pro3/28.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/28.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="cart-info cart-wrap">
                                                         <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
@@ -1019,10 +1020,10 @@
                                             <div class="product-box">
                                                 <div class="img-wrapper">
                                                     <div class="front">
-                                                        <a href="#"><img src="../assets/images/pro3/1.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/1.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="back">
-                                                        <a href="#"><img src="../assets/images/pro3/2.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/2.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="cart-info cart-wrap">
                                                         <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
@@ -1055,10 +1056,10 @@
                                             <div class="product-box">
                                                 <div class="img-wrapper">
                                                     <div class="front">
-                                                        <a href="#"><img src="../assets/images/pro3/33.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/33.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="back">
-                                                        <a href="#"><img src="../assets/images/pro3/34.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/34.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="cart-info cart-wrap">
                                                         <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
@@ -1091,10 +1092,10 @@
                                             <div class="product-box">
                                                 <div class="img-wrapper">
                                                     <div class="front">
-                                                        <a href="#"><img src="../assets/images/pro3/33.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/33.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="back">
-                                                        <a href="#"><img src="../assets/images/pro3/34.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{% static 'images/pro3/34.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                                                     </div>
                                                     <div class="cart-info cart-wrap">
                                                         <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i

@@ -2,7 +2,15 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 
 # Register your models here.
-from .models import Product, Marka, Category, Product_details, Product_colors, Product_images
+from .models import (
+    Product, 
+    Marka, 
+    Category, 
+    Product_details, 
+    Product_colors, 
+    Product_images,
+    Tag,
+)
 
 admin.site.register(Product_colors)
 
@@ -64,8 +72,6 @@ class ProductAdmin(admin.ModelAdmin):
     # get_image.allow_tags = True
 
 
-# admin.site.register(Product)
-# admin.site.register(Brand)
-# admin.site.register(Category, CategoryAdmin)
+admin.site.register(Tag)
 admin.site.register(Product_images)
 admin.site.register(Product_details)
