@@ -12,7 +12,7 @@ def cart(request):
 
     order, created = Order.objects.get_or_create(customer=customer, complete=False)
     context = {'order':order}
-    return render(request, 'order/cart.html', context)
+    return render(request, 'cart.html', context)
 
 def deletefromcart(request, id):
     cartitem = OrderItem.objects.get(id=id)

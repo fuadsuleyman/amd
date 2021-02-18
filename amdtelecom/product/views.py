@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 
-# from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView
 
 # Create your views here.
 from django.http import HttpResponse
@@ -50,6 +50,18 @@ from account.models import Customer
 #     context = {'products':products, 'details': details}
 #     return render(request, 'product/home.html', context)
 
+
+class ProductListView(ListView):
+    model = Product
+    template_name = 'products.html'
+    context_object_name = 'products'
+    ordering = ['-created_at']
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
 def product_detail(request, id):
     product = Product.objects.get(id=id)
     photos = Product_images.objects.filter(product=product)
@@ -67,10 +79,12 @@ def product_detail(request, id):
 
         return redirect('cart')
     context = {'product':product,'photos':photos, 'details':details,}
-    return render(request, 'product/product_detail.html', context)
+    return render(request, 'product_detail.html', context)
 
 
 
-def about(request):
-    return render(request, 'product/about.html', {'title': 'About'})
+# def about(request):
+#     return render(request, 'product/about.html', {'title': 'About'})
+
+
 
