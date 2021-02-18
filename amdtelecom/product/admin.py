@@ -10,6 +10,9 @@ admin.site.register(Product_colors)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ("id", "title", "description")
     list_display_links = ("title",)
+    readonly_fields = (
+        'slug',
+    )
 
 # @admin.register(Customer)
 # class CustomerAdmin(admin.ModelAdmin):

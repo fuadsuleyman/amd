@@ -5,6 +5,7 @@ from account.models import Customer
 from django import template
 from amdtelecom.utils import unique_slug_generator
 from django.db.models.signals import pre_save
+from .common import slugify
 
 register = template.Library()
 
@@ -45,7 +46,7 @@ class Marka(models.Model):
     title = models.CharField('Title', max_length=100, db_index=True)
     image = models.ImageField('Image', blank=True, upload_to='marka_images')
     description = models.CharField(max_length=255, blank=True)
-    slug = models.SlugField('Slug', max_length=110, unique = True)
+    slug = models.SlugField('Slug', editable=False, default='',  max_length=110, unique = True)
 
     # moderations
     status = models.BooleanField('is_active', default=True)
@@ -60,19 +61,23 @@ class Marka(models.Model):
 
     def __str__(self):
         return self.title 
+    
+    def save(self, *args, **kwargs):        
+        super(Marka, self).save(*args, **kwargs)        
+        self.slug = f'{slugify(self.title)}'       
+        super(Marka, self).save(*args, **kwargs)
 
 
 class Category(models.Model):
 
     # relation
-    marka = models.ManyToManyField(Marka, related_name='categories')
     parent = models.ManyToManyField('self', related_name='children', blank=True)
 
     # information
     title = models.CharField('Title', max_length=100, db_index=True)
     image = models.ImageField('Image', blank=True, upload_to='categories_images')
     description = models.CharField(max_length=255, blank=True)
-    slug = models.SlugField('Slug', max_length=110, unique = True)
+    slug = models.SlugField('Slug', max_length=110, editable=False, default='', unique = True)
     is_main = models.BooleanField('is_main', default=False)
     is_second = models.BooleanField('is_second', default=False)
     is_third = models.BooleanField('is_third', default=False)
@@ -90,7 +95,12 @@ class Category(models.Model):
         unique_together = ('slug',)
 
     def __str__(self):
-        return self.title
+        return self.title 
+
+    def save(self, *args, **kwargs):        
+        super(Category, self).save(*args, **kwargs)        
+        self.slug = f'{slugify(self.title)}'       
+        super(Category, self).save(*args, **kwargs)
 
 
 # class Brand(models.Model):
@@ -121,6 +131,8 @@ class Product(models.Model):
     same_product = models.ManyToManyField('self', related_name='same_products', blank=True)
     category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='product_categories')
     who_like = models.ManyToManyField(Customer, related_name='liked_products', blank=True)
+    marka = models.ManyToManyField(Marka, related_name='marka')
+
 
     # informations
     color_title = models.CharField('Color Name', max_length=50, blank=True, null=True)
