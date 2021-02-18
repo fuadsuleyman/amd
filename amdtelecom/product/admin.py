@@ -74,4 +74,4 @@ class ProductAdmin(admin.ModelAdmin):
 
 admin.site.register(Tag)
 admin.site.register(Product_images)
-admin.site.register(Product_details)
+admin.site.register([Product_details, Tag])
