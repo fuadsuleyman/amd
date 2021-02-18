@@ -20,6 +20,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
+admin.sites.AdminSite.site_header = 'Amd telecom'
+admin.sites.AdminSite.site_title = 'Amd telecom
+admin.sites.AdminSite.index_title = 'Amd telecom'
+
 urlpatterns = [
     path('jet/', include('jet.urls', 'jet')),
     path('jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),
