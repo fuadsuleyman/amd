@@ -9,4 +9,4 @@ def home_page(request):
     products = Product.objects.all()
     details = Product_details.objects.all()
     context = {'products':products, 'details': details}
-    return render(request, 'index/home.html', context)
+    return render(request, 'home.html', context)
