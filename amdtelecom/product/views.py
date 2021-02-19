@@ -44,13 +44,6 @@ def product_detail(request, id):
 #     model = Product
 #     template_name = "product.html"
 
-<<<<<<< HEAD
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context[""] = 
-#         return context
-    
-=======
 
 class CategoryListView(ListView):
     model = Category
@@ -59,10 +52,5 @@ class CategoryListView(ListView):
     queryset = Category.objects.filter(status=True)
 
 
-    
-# def about(request):
-#     return render(request, 'product/about.html', {'title': 'About'})
 
 
-
->>>>>>> 749d53ca7164499fa87649956dfe6c0505cbedfb
