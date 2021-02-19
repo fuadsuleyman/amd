@@ -4,7 +4,7 @@ from django.views.generic import ListView, DetailView
 
 # Create your views here.
 from django.http import HttpResponse
-from .models import Product, Product_images, Product_details
+from .models import Product, Product_images, Product_details, Category
 from order.models import OrderItem, Order
 from account.models import Customer
 
@@ -83,6 +83,14 @@ def product_detail(request, id):
 
 
 
+class CategoryListView(ListView):
+    model = Category
+    context_object_name = 'category_list'
+    template_name = 'base.html'
+    queryset = Category.objects.filter(status=True)
+
+
+    
 # def about(request):
 #     return render(request, 'product/about.html', {'title': 'About'})
 

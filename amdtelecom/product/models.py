@@ -91,7 +91,7 @@ class Category(models.Model):
         db_table = 'category'
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
-        ordering = ('-created_at', 'title')
+        ordering = ('created_at', 'title')
         unique_together = ('slug',)
 
     def __str__(self):
@@ -106,7 +106,6 @@ class Category(models.Model):
     def save(self, *args, **kwargs):        
         super(Category, self).save(*args, **kwargs)
         self.slug = f'{slugify(self.title)} {self.id}'       
-             
 
         super(Category, self).save(*args, **kwargs)
 

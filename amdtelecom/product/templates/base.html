@@ -457,28 +457,48 @@
                                             <div class="mobile-back text-right">Back<i class="fa fa-angle-right pl-2"
                                                     aria-hidden="true"></i></div>
                                         </li>
+                                        
+                                        {% for category in category_list %}
                                         <li>
-                                            <a href="#">Telefon və planşetlər</a>
+                                            
+                                            {% if category.is_main %}
+                                            <a href="#">{{category.title}}</a>
+                                            {% endif %}
+                                            
+                                            
                                             <ul>
+                                                {% for sub_category in category.parent.all %}
+                                                {% if sub_category.is_second %}
                                                 <li>
-                                                    <a href="#">new demos <span class="new-tag">new</span></a>
+                                                    <a href="#">{{sub_category.title}}</a>
                                                     <ul>
-                                                        <li><a target="_blank" href="tools.html">tools</a></li>
-                                                        <li><a target="_blank"
-                                                                href="marketplace-demo.html">marketplace</a></li>
-                                                        <li><a target="_blank" href="game.html">game</a></li>
-                                                        <li><a target="_blank" href="gym-product.html">gym</a></li>
-                                                        <li><a target="_blank" href="marijuana.html">marijuana</a></li>
-                                                        <li><a target="_blank" href="left_sidebar-demo.html">left
-                                                                sidebar</a></li>
-                                                        <li><a target="_blank" href="jewellery.html">jewellery</a></li>
-                                                        <li><a target="_blank" href="pets.html">pets</a></li>
-                                                        <li><a target="_blank" href="metro.html">metro</a></li>
-                                                        <li><a target="_blank" href="video-slider.html">video slider</a>
-                                                        </li>
+                                                       
+                                                        {% for last_category in sub_category.parent.all %}
+                                                        {% if not last_category.is_third %}
+
+                                                        {% if last_category.is_third %}
+                                                       
+
+                                                        <li><a target="_blank" href="tools.html">{{last_category.title}}</a></li>
+                                                        
+                                                        {% endif %}
+
+                                                        {% endfor %}
+                                                        
                                                     </ul>
+                                                    
                                                 </li>
-                                                <li>
+                                                {% endif %}
+                                            {% endfor %}
+                                            </ul>
+                                            
+                                           
+                                            </li>
+                                            {% endfor %}
+
+
+
+                                                <!-- <li>
                                                     <a href="#">clothing</a>
                                                     <ul>
                                                         <li><a target="_blank" href="index.html">fashion 1</a></li>
@@ -486,10 +506,10 @@
                                                         <li><a target="_blank" href="fashion-3.html">fashion 3</a></li>
                                                         <li><a target="_blank" href="kids.html">kids</a></li>
                                                     </ul>
-                                                </li>
-                                                <li><a target="_blank" href="watch.html">watch</a></li>
-                                                <li><a target="_blank" href="shoes.html">shoes</a></li>
-                                                <li>
+                                                </li> -->
+                                                <!-- <li><a target="_blank" href="watch.html">watch</a></li>
+                                                <li><a target="_blank" href="shoes.html">shoes</a></li> -->
+                                                <!-- <li>
                                                     <a href="#">electronics</a>
                                                     <ul>
                                                         <li><a target="_blank" href="electronic-1.html">electronic 1</a>
@@ -497,8 +517,8 @@
                                                         <li><a target="_blank" href="electronic-2.html">electronic 2</a>
                                                         </li>
                                                     </ul>
-                                                </li>
-                                                <li><a target="_blank" href="bags.html">bags</a></li>
+                                                </li> -->
+                                                <!-- <li><a target="_blank" href="bags.html">bags</a></li>
                                                 <li><a target="_blank" href="nursery.html">nursery</a></li>
                                                 <li><a target="_blank" href="flower.html">flower</a></li>
                                                 <li><a target="_blank" href="vegetables.html">vegetable</a></li>
@@ -519,7 +539,9 @@
                                                     </ul>
                                                 </li>
                                             </ul>
+                                            
                                         </li>
+
                                         <li>
                                             <a href="#">Aksessuarlar</a>
                                             <ul>
@@ -583,9 +605,9 @@
                                             </ul>
                                         </li>
                                         
-                                        <li class="mega" id="hover-cls"><a href="#">Nömrə
+                                        <li class="mega" id="hover-cls"><a href="#">Nömrə -->
                                                 <!-- <div class="lable-nav">new</div> -->
-                                            </a>
+                                            <!-- </a>
                                             <ul class="mega-menu full-mega-menu">
                                                 <li>
                                                     <div class="container">
@@ -707,7 +729,7 @@
                                                     </div>
                                                 </li>
                                             </ul>
-                                        </li>
+                                        </li> -->
                                         <!-- <li><a href="#">pages</a>
                                             <ul>
                                                 <li>
