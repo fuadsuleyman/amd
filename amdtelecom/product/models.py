@@ -1,6 +1,6 @@
+from datetime import datetime
 from django.db import models
 from django.utils import timezone
-# from django.contrib.auth.models import User
 from account.models import Customer
 from django import template
 from amdtelecom.utils import unique_slug_generator
@@ -8,6 +8,8 @@ from django.db.models.signals import pre_save
 from .common import slugify
 
 register = template.Library()
+
+
 
 
 class Tag(models.Model):
@@ -28,16 +30,6 @@ class Tag(models.Model):
     def __str__(self):
         return self.title
 
-
-# Create your models here.
-# class Category(models.Model):
-#     name = models.CharField(max_length=200)
-#     parent_id = models.IntegerField(default=0)
-#     description = models.TextField()
-#     image = models.ImageField(upload_to='uploads/')
-
-#     def __str__(self):
-#         return f'{self.name}'
 
 class Marka(models.Model):  
     # adidasin alt marka-lari saxlanilacaq
@@ -69,7 +61,6 @@ class Marka(models.Model):
 
 
 class Category(models.Model):
-
     # relation
     parent = models.ManyToManyField('self', related_name='children', blank=True)
 
@@ -86,6 +77,7 @@ class Category(models.Model):
     status = models.BooleanField('is_active', default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
 
     class Meta:
         db_table = 'category'
@@ -106,28 +98,7 @@ class Category(models.Model):
     def save(self, *args, **kwargs):        
         super(Category, self).save(*args, **kwargs)
         self.slug = f'{slugify(self.title)} {self.id}'       
-             
-
         super(Category, self).save(*args, **kwargs)
-
-
-# class Brand(models.Model):
-#     name = models.CharField(max_length=200)
-#     description = models.CharField(max_length=400)
-#     image = models.ImageField(upload_to='uploads/')
-
-#     def __str__(self):
-#         return f'{self.name}'
-
-
-
-
-# class Color_p(models.Model):
-#     color_name = models.CharField(max_length=50, blank=True, null=True, default=None)
-#     color_code = models.CharField(max_length=50, blank=True, null=True, default=None)
-
-#     def __str__(self):
-#         return f'{self.color_name}'
 
 
 class Product(models.Model):
@@ -135,11 +106,11 @@ class Product(models.Model):
     very important table
     """
     # relations
-    tags = models.ManyToManyField(Tag, related_name='products')
+    tags = models.ManyToManyField(Tag, related_name='products', blank=True)
     same_product = models.ManyToManyField('self', related_name='same_products', blank=True)
     category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='product_categories')
     who_like = models.ManyToManyField(Customer, related_name='liked_products', blank=True)
-    marka = models.ManyToManyField(Marka, related_name='marka')
+    marka = models.ManyToManyField(Marka, related_name='marka', blank=True)
 
 
     # informations
@@ -188,107 +159,73 @@ class Product(models.Model):
     
     def get_is_discount(self):
         if self.get_price() < self.price:
-             is_discount = True
+            is_discount = True
     
     def get_is_new(self):
         delta = datetime.now().date() - self.created_at
         if delta.days <= 30:
-             is_new = True
+            is_new = True
 
     def __str__(self):
         return f'{self.title} {self.color_title}'
 
 
-# slug 
-def slug_generator(sender, instance, *args, **kwargs):
-    if not instance.slug:
-        instance.slug = unique_slug_generator(instance)
-
-# herdefe Product-un instance-i yarandiqda asagidaki funqsiya ishe dushur
-pre_save.connect(slug_generator, sender=Product)
-# pre_save.connect(slug_generator, sender=Category)
-
-# class Product(models.Model):
-#     title = models.CharField(max_length=200)
-#     image = models.ImageField(upload_to='uploads/', blank=True, null=True)
-#     sku = models.CharField(max_length=200)
-#     price = models.DecimalField(max_digits=7, decimal_places=2, default=1)
-#     price_old = models.DecimalField(max_digits=7, decimal_places=2, default=1)
-#     description = models.TextField()
-#     status = models.BooleanField(default=False)
-#     date_posted = models.DateTimeField(auto_now_add=True)
-#     internal_storage = models.CharField(max_length=50, blank=True, null=True, default=None)
-#     ram = models.CharField(max_length=50, blank=True, null=True, default=None)
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#     brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
-#     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-#     color_pro = models.ForeignKey(Color_p, on_delete=models.CASCADE, default=1)
-
-#     def __str__(self):
-#         return f'{self.title}, {self.description}'
-    
-#     @property
-#     def imageURL(self):
-#         try:
-#             url = self.image.url
-#         except:
-#             url = ''
-#         return url
-    
-    # @property
-    # def sorted_image_set(self):
-    #     return self.images.last().image
-
-    # def get_last_image(self):
-    #     try:
-    #         last_image = self.images.last().image
-    #     except AttributeError:
-    #         last_image = self.image
-
-
-# class Product_image(models.Model):
-#     image = models.ImageField(upload_to='uploads/')
-#     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
-
-#     def __str__(self):
-#         return f'{self.product.title} image'
-
 
 class Product_details(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True)
-    size = models.CharField(max_length=50, blank=True, null=True, default=None)
-    # color = models.CharField(max_length=50, blank=True, null=True, default=None)
-    video = models.CharField(max_length=200, blank=True, null=True, default=None)
-    # internal_storage = models.CharField(max_length=50, blank=True, null=True, default=None)
-    external_storage = models.CharField(max_length=50, blank=True, null=True, default=None)
-    # ram = models.CharField(max_length=50, blank=True, null=True, default=None)
-    production_year = models.CharField(max_length=50, blank=True, null=True, default=None)
-    sim_count = models.CharField(max_length=50, blank=True, null=True, default=None)
-    sim_type = models.CharField(max_length=50, blank=True, null=True, default=None)
-    operation_system = models.CharField(max_length=100, blank=True, null=True, default=None)
-    operation_system_version = models.CharField(max_length=100, blank=True, null=True, default=None)
-    screen_size = models.CharField(max_length=50, blank=True, null=True, default=None)
-    resolution = models.CharField(max_length=50, blank=True, null=True, default=None)
-    back_camera = models.CharField(max_length=50, blank=True, null=True, default=None)
-    front_camera = models.CharField(max_length=50, blank=True, null=True, default=None)
-    battery = models.CharField(max_length=50, blank=True, null=True, default=None)
-    weigth = models.CharField(max_length=50, blank=True, null=True, default=None)
-    prosessor = models.CharField(max_length=50, blank=True, null=True, default=None)
-    security = models.CharField(max_length=50, blank=True, null=True, default=None)
-    guarantee = models.CharField(max_length=50, blank=True, null=True, default=None)
-    operator_prefix = models.CharField(max_length=50, blank=True, null=True, default=None)
-    wifi = models.BooleanField(blank=True, null=True, default=None)
-    allow_3G = models.BooleanField(blank=True, null=True, default=None)
-    allow_4G = models.BooleanField(blank=True, null=True, default=None)
-    nfc = models.BooleanField(blank=True, null=True, default=None)
-    gps = models.BooleanField(blank=True, null=True, default=None)
-    eye_recognition = models.BooleanField(blank=True, null=True, default=None)
-    waterproof = models.BooleanField(blank=True, null=True, default=None)
-    faceID = models.BooleanField(blank=True, null=True, default=None)
-    shockproof = models.BooleanField(blank=True, null=True, default=None)
+    # relations
+    product = models.ForeignKey('product.Product', related_name='products', default="Not", on_delete=models.CASCADE, blank=True, null=True)
+    product_details_property = models.ForeignKey("Product_details_property", on_delete=models.CASCADE, related_name='product_details_properties')
+    Product_details_property_name = models.ForeignKey("product_details_property_name", on_delete=models.CASCADE, related_name='product_details_property_name')
+
+    # moderations
+    status = models.BooleanField('Status', default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.product.title} details'
+        return self.product.title
+
+    class Meta:
+        db_table = 'Product details'
+        verbose_name = 'Product details'
+        verbose_name_plural = 'Products details'
+
+
+class Product_details_property(models.Model):
+    # informations 
+    title = models.CharField("Title", max_length=50)
+
+    # moderations
+    status = models.BooleanField('Status', default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        db_table = 'Product property'
+        verbose_name = 'Product property'
+        verbose_name_plural = 'Products properties'
+
+class Product_details_property_name(models.Model):
+    # relations 
+
+    # informations 
+    title = models.CharField("Content", max_length=50)
+
+    # moderations
+    status = models.BooleanField('Status', default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        db_table = 'Property name'
+        verbose_name = 'Property name'
+        verbose_name_plural = 'Properties names'
 
 
 class Product_images(models.Model):
@@ -297,7 +234,7 @@ class Product_images(models.Model):
     # is_second_main olan shekil coxlu product sehifesinde hover edende gelen sekildi
 
     # relations
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
+    product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='images')
 
     # informations
     image = models.ImageField('Image', upload_to='product_images')
@@ -335,45 +272,12 @@ class Product_colors(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        db_table = 'product_colors'
-        verbose_name = 'Product_color'
-        verbose_name_plural = 'Product_colors'
+        db_table = 'Product colors'
+        verbose_name = 'Product color'
+        verbose_name_plural = 'Product colors'
         ordering = ('created_at',)
 
     def __str__(self):
         return f'{self.title}'
 
-
-        
-# class Order(models.Model):
-#     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
-#     date_ordered = models.DateTimeField(auto_now_add=True)
-#     complete = models.BooleanField(default=False)
-#     transaction_id = models.CharField(max_length=100, null=True)
-
-#     def __str__(self):
-#         return f'{self.id}'
-
-#     @property
-#     def get_cart_total(self):
-#         orderitems = self.orderitem_set.all()
-#         total = sum([item.get_total for item in orderitems])
-#         return total 
-
-#     @property
-#     def get_cart_items(self):
-#         orderitems = self.orderitem_set.all()
-#         total = sum([item.quantity for item in orderitems])
-#         return total
-
-# class OrderItem(models.Model):
-#     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
-#     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
-#     quantity = models.IntegerField(default=0, null=True, blank=True)
-#     date_added = models.DateTimeField(auto_now_add=True)
-    
-#     @property
-#     def get_total(self):
-#         total = self.product.price * self.quantity
-#         return total
 
