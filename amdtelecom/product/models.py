@@ -85,7 +85,7 @@ class Category(models.Model):
         db_table = 'category'
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
-        ordering = ('-created_at', 'title')
+        ordering = ('created_at', 'title')
         unique_together = ('slug',)
 
     def __str__(self):
