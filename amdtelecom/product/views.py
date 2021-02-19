@@ -10,14 +10,6 @@ from account.models import Customer
 
 
 
-# class ProductListView(ListView):
-#     model = Product
-#     template_name = 'product/home.html'
-#     context_object_name = 'products'
-#     ordering = ['-date_posted']
-
-
-
 class ProductListView(ListView):
     model = Product
     template_name = 'products.html'
@@ -48,3 +40,12 @@ def product_detail(request, id):
     context = {'product':product,'photos':photos, 'details':details,}
     return render(request, 'product_detail.html', context)
 
+# class ProducDetailView(DetailView):
+#     model = Product
+#     template_name = "product.html"
+
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context[""] = 
+#         return context
+    

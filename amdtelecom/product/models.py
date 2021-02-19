@@ -32,13 +32,12 @@ class Tag(models.Model):
 
 
 class Marka(models.Model):  
-    # adidasin alt marka-lari saxlanilacaq
-    
     # informations
     title = models.CharField('Title', max_length=100, db_index=True)
     image = models.ImageField('Image', blank=True, upload_to='marka_images')
     description = models.CharField(max_length=255, blank=True)
-    slug = models.SlugField('Slug', editable=False, default='',  max_length=110, unique = True)
+    slug = models.SlugField('Slug', max_length=110, editable=False, default='', unique = True)
+    
 
     # moderations
     status = models.BooleanField('is_active', default=True)
@@ -55,8 +54,12 @@ class Marka(models.Model):
         return self.title 
     
     def save(self, *args, **kwargs):        
-        super(Marka, self).save(*args, **kwargs)        
-        self.slug = f'{slugify(self.title)}'       
+        title = Marka.objects.filter(title=self.title).first()
+        super(Marka, self).save(*args, **kwargs)
+        if title:
+            self.slug = f'{slugify(self.title)} {self.id}'
+        else:
+            self.slug = slugify(self.title)
         super(Marka, self).save(*args, **kwargs)
 
 
@@ -77,7 +80,6 @@ class Category(models.Model):
     status = models.BooleanField('is_active', default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-
 
     class Meta:
         db_table = 'category'
@@ -106,9 +108,9 @@ class Product(models.Model):
     very important table
     """
     # relations
-    tags = models.ManyToManyField(Tag, related_name='products', blank=True)
+    tags = models.ManyToManyField(Tag, related_name='tags', blank=True)
     same_product = models.ManyToManyField('self', related_name='same_products', blank=True)
-    category = models.ForeignKey('Category', on_delete=models.CASCADE, related_name='product_categories')
+    category = models.ManyToManyField('Category', related_name='categories')
     who_like = models.ManyToManyField(Customer, related_name='liked_products', blank=True)
     marka = models.ManyToManyField(Marka, related_name='marka', blank=True)
 
@@ -168,7 +170,6 @@ class Product(models.Model):
 
     def __str__(self):
         return f'{self.title} {self.color_title}'
-
 
 
 class Product_details(models.Model):

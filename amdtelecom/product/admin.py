@@ -43,6 +43,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class MarkaAdmin(admin.ModelAdmin):
     list_display = ("id", "title", "description")
     list_display_links = ("title",)
+    readonly_fields = ('slug',)
 
 # @admin.register(Product_colors)
 # class ColorpAdmin(admin.ModelAdmin):
@@ -71,9 +72,9 @@ class DetailsInline(admin.TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("title", "category", "price") #"get_image"
+    list_display = ("title", "price") #"get_image"
     list_display_links = ("title",)
-    list_filter = ("price", "category")
+    list_filter = ("price",)
     search_fields = ('title', "category__name")
     inlines = [ImageInline, DetailsInline]
     save_on_top = True
