@@ -480,7 +480,7 @@
                                                             {% if last_category.is_third %}
                                                         
                                                             
-                                                                <li><a target="_blank" href="tools.html">{{last_category.title}}</a></li>
+                                                                <li><a href="{% url 'product:products_filter' last_category.slug %}">{{last_category.title}}</a></li>
                                                             {% endif %}
                                                         
                                                         

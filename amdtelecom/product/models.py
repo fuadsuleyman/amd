@@ -99,7 +99,9 @@ class Category(models.Model):
 
     def save(self, *args, **kwargs):        
         super(Category, self).save(*args, **kwargs)
+        print(self.parent.all().last(), 'test')
         if self.parent.all().last():
+            print(self.parent.all().last(), 'test1')
             parent = str(self.parent.all().last())
             self.slug = f'{slugify(parent)}-{slugify(self.title)}' 
         else:
