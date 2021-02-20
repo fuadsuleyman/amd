@@ -133,6 +133,9 @@ class Product(models.Model):
     is_featured = models.BooleanField('is_featured', default=False)
     is_discount = models.BooleanField('is_discount', default=False)
 
+    # moderations
+    is_published = models.BooleanField("Published", default=True)
+
     # price info
     CHOICES = (
         (1, 'Not'),

@@ -51,31 +51,36 @@ class CategoryListView(ListView):
 
 
 
-# class ProductsFilterListView(ListView):
-#     model = Product
-#     template_name = 'products.html'
+class ProductsFilterListView(ListView):
+    model = Product
+    template_name = 'products.html'
 
 
-#     def get_context_data(self, request, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         url = request.GET.get('slug')
-#         print(url, 'kokiii')
-#         category = get_object_or_404(Category, slug=self.kwargs['category'])
-#         context["category"] = get_object_or_404(Category, slug=self.kwargs['category'])
-#         return context
-
-#     def get_queryset(self):
-#         category = get_object_or_404(Category, slug=self.kwargs['category'])
-#         queryset = Product.objects.filter(category=category).filter(is_published=True)
-#         return queryset
-
-
-def product_filter(request, slug):
-    category = Category.objects.get(slug=slug)
-    products = Product.objects.filter(category=category)
-    print(products, 'elcn')
-    context = {
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category = get_object_or_404(Category, slug=self.kwargs['slug'])
+        products = Product.objects.filter(category=category)
+        context["category"] = get_object_or_404(Category, slug=self.kwargs['slug'])
+        context = {
         'products_list': products,
         'categories': category
-    }
-    return render(request, 'products.html', context)
+        }
+        return context
+
+    def get_queryset(self):
+        category = get_object_or_404(Category, slug=self.kwargs['slug'])
+        queryset = Product.objects.filter(category=category).filter(is_published=True)
+        return queryset
+
+
+# def product_filter(request, slug):
+#     print(slug, 'belede')
+#     category = Category.objects.get(slug=slug)
+#     print(category, 'belede')
+#     products = Product.objects.filter(category=category).first()
+#     print(products, 'elcn')
+#     context = {
+#         'products_list': products,
+#         'categories': category
+#     }
+#     return render(request, 'products.html', context)
