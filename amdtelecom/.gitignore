@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/django
 # Edit at https://www.toptal.com/developers/gitignore?templates=django
 
+# Front end 
+_frontend/
+
 ### Django ###
 *.log
 *.pot
@@ -115,7 +118,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-
+.env
 .venv
 env/
 venv/
@@ -123,7 +126,6 @@ ENV/
 env.bak/
 venv.bak/
 pythonenv*
-pgdb/
 
 # Spyder project settings
 .spyderproject

@@ -7,6 +7,10 @@ from amdtelecom.utils import unique_slug_generator
 from django.db.models.signals import pre_save
 from .common import slugify
 
+from colorful.fields import RGBColorField
+from colorfield.fields import ColorField
+
+
 register = template.Library()
 
 
@@ -122,9 +126,9 @@ class Product(models.Model):
 
 
     # informations
-    color_title = models.CharField('Color Name', max_length=50, blank=True, null=True)
-    color_code = models.CharField('Color code', max_length=50, blank=True, null=True)
     title = models.CharField('Title', max_length=100, db_index=True)
+    color_title = models.CharField('Color Name', max_length=50, blank=True, null=True)
+    color_code = ColorField('Color code', blank=True)
     slug = models.SlugField('Slug', max_length=110, unique = True, blank=True)
     sku = models.CharField('SKU', max_length=50, db_index=True)
     description = models.TextField('Description', null=True, blank=True)
