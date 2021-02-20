@@ -267,12 +267,13 @@
 
                                         <div><img src="{{ product.image.url }}" alt="{{ product.image }}"
                                                 class="img-fluid blur-up lazyload image_zoom_cls-0"></div>
-                                    {% if photos %}
+                                        
                                     {% for photo in photos %}
+                                    {{photo}}
                                         <div><img src="{{ photo.image.url }}" alt=""
                                                 class="img-fluid blur-up lazyload image_zoom_cls-1"></div>
                                     {% endfor %}
-                                    {% endif %}
+
                                         <!-- <div><img src="{% static 'images/pro3/27.jpg' %}" alt=""
                                                 class="img-fluid blur-up lazyload image_zoom_cls-2"></div>
                                         <div><img src="{% static 'images/pro3/27.jpg' %}" alt=""

@@ -462,7 +462,7 @@
                                         <li>
                                             
                                             {% if category.is_main %}
-                                            <a href="{% if sub_category.slug %}{% url 'product:products_filter' category.slug %}{% endif %}">{{category.title | title}}</a>
+                                            <a href="{% url 'product:products_filter' category.slug %}">{{category.title | title}}</a>
                                             {% endif %}
                                             
                                             
@@ -473,7 +473,7 @@
 
                                                     
                                                 <li>
-                                                    <a href="{% if sub_category.slug %}{% url 'product:products_filter' sub_category.slug %}{% endif %}">{{sub_category.title | title}}</a>
+                                                    <a href="{% url 'product:products_filter' sub_category.slug %}">{{sub_category.title | title}}</a>
                                                     <ul>
                                                         {% for last_category in sub_category.parent.all %}
 
