@@ -1,5 +1,5 @@
 {% load static %}
-
+{% load custom_tags %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -457,39 +457,40 @@
                                             <div class="mobile-back text-right">Back<i class="fa fa-angle-right pl-2"
                                                     aria-hidden="true"></i></div>
                                         </li>
-                                        
+                                        {% get_navbar as category_list%}
                                         {% for category in category_list %}
                                         <li>
                                             
                                             {% if category.is_main %}
-                                            <a href="#">{{category.title}}</a>
+                                            <a href="{% url 'product:products_filter' category.slug %}">{{category.title}}</a>
                                             {% endif %}
                                             
                                             
                                             <ul>
                                                 {% for sub_category in category.parent.all %}
+                                                
                                                 {% if sub_category.is_second %}
+                                                    
                                                 <li>
-                                                    <a href="#">{{sub_category.title}}</a>
+                                                    <a href="{% url 'product:products_filter' sub_category.slug %}">{{sub_category.title}}</a>
                                                     <ul>
-                                                       
                                                         {% for last_category in sub_category.parent.all %}
-                                                        {% if not last_category.is_third %}
-
-                                                        {% if last_category.is_third %}
-                                                       
-
-                                                        <li><a target="_blank" href="tools.html">{{last_category.title}}</a></li>
                                                         
-                                                        {% endif %}
-
+                                                        
+                                                            {% if last_category.is_third %}
+                                                        
+                                                            
+                                                                <li><a target="_blank" href="tools.html">{{last_category.title}}</a></li>
+                                                            {% endif %}
+                                                        
+                                                        
                                                         {% endfor %}
                                                         
                                                     </ul>
                                                     
                                                 </li>
                                                 {% endif %}
-                                            {% endfor %}
+                                                {% endfor %}
                                             </ul>
                                             
                                            
@@ -679,7 +680,7 @@
                                                                             </li>
                                                                             <li><a href="element-image-ratio.html">image
                                                                                     size ratio <i
-                                                                                        class="fa fa-bolt icon-trend"
+                                                    r                                    class="fa fa-bolt icon-trend"
                                                                                         aria-hidden="true"></i></a></li>
                                                                         </ul>
                                                                     </div>

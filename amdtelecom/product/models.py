@@ -57,7 +57,7 @@ class Marka(models.Model):
         title = Marka.objects.filter(title=self.title).first()
         super(Marka, self).save(*args, **kwargs)
         if title:
-            self.slug = f'{slugify(self.title)} {self.id}'
+            self.slug = f'{slugify(self.title)}-{self.id}'
         else:
             self.slug = slugify(self.title)
         super(Marka, self).save(*args, **kwargs)
@@ -90,16 +90,20 @@ class Category(models.Model):
 
     def __str__(self):
         if self.is_main:
-            s = f'{self.title}'
+            title = f'{self.title}'
         elif self.is_second:
-            s = f'{self.title}'
+            title = f'{self.title}'
         else:
-            s = f'{self.parent.all().first()} {self.title} '
-        return s 
+            title = f'{self.parent.all().last()} {self.title} '
+        return title 
 
     def save(self, *args, **kwargs):        
         super(Category, self).save(*args, **kwargs)
-        self.slug = f'{slugify(self.title)} {self.id}'       
+        if self.parent.all().last():
+            parent = str(self.parent.all().last())
+            self.slug = f'{slugify(parent)}-{slugify(self.title)}' 
+        else:
+            self.slug = f'{slugify(self.title)}'    
         super(Category, self).save(*args, **kwargs)
 
 
@@ -264,8 +268,8 @@ class Product_colors(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='colors')
 
     # informations
-    # coler_title = models.CharField('Title', max_length=50, db_index=True, blank=True, null=True)
-    # color_code = models.CharField('Title', max_length=50, db_index=True, blank=True, null=True)
+    coler_title = models.CharField('Title', max_length=50, db_index=True, blank=True, null=True)
+    color_code = models.CharField('Title', max_length=50, db_index=True, blank=True, null=True)
 
     # moderations
     status = models.BooleanField('Status', default=True)
