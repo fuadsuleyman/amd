@@ -10,8 +10,8 @@ from .models import (
     Product_colors, 
     Product_images,
     Tag,
-    Product_details_property,
     Product_details_property_name,
+    Product_details_property_value,
 )
 
 admin.site.register(Product_colors)
@@ -89,4 +89,4 @@ class ProductAdmin(admin.ModelAdmin):
 
 admin.site.register(Tag)
 admin.site.register(Product_images)
-admin.site.register([Product_details, Product_details_property, Product_details_property_name])
+admin.site.register([Product_details, Product_details_property_name, Product_details_property_value])

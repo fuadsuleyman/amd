@@ -62,7 +62,7 @@ class ProductsFilterListView(ListView):
         products = Product.objects.filter(category=category)
         context["category"] = get_object_or_404(Category, slug=self.kwargs['slug'])
         context = {
-        'products_list': products,
+        'products': products,
         'categories': category
         }
         return context

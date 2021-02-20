@@ -260,6 +260,7 @@
                                 </div>
                                 <div class="product-wrapper-grid product-load-more">
                                     <div class="row margin-res">
+                                        {% for product in products %}
                                         <div class="col-xl-3 col-6 col-grid-box">
                                             <div class="product-box">
                                                 <div class="img-wrapper">
@@ -296,7 +297,7 @@
                                                 </div>
                                             </div>
                                         </div>
-
+                                        {% endfor %}
                                         <div class="col-xl-3 col-6 col-grid-box">
                                             <div class="product-box">
                                                 <div class="img-wrapper">
