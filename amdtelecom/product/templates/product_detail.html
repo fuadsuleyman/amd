@@ -15,7 +15,7 @@
                 <div class="col-sm-6">
                     <nav aria-label="breadcrumb" class="theme-breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{% url 'amd-home' %}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'index:home' %}">Home</a></li>
                             <li class="breadcrumb-item active" aria-current="page">product</li>
                         </ol>
                     </nav>
@@ -265,15 +265,17 @@
                                     
                                     <div class="product-slick">
 
-                                        <div><img src="{{ product.image.url }}" alt=""
+                                        <div><img src="{{ product.image.url }}" alt="{{ product.image }}"
                                                 class="img-fluid blur-up lazyload image_zoom_cls-0"></div>
+                                    {% if photos %}
                                     {% for photo in photos %}
                                         <div><img src="{{ photo.image.url }}" alt=""
                                                 class="img-fluid blur-up lazyload image_zoom_cls-1"></div>
                                     {% endfor %}
-                                        <!-- <div><img src="{% static 'product/images/pro3/27.jpg' %}" alt=""
+                                    {% endif %}
+                                        <!-- <div><img src="{% static 'images/pro3/27.jpg' %}" alt=""
                                                 class="img-fluid blur-up lazyload image_zoom_cls-2"></div>
-                                        <div><img src="{% static 'product/images/pro3/27.jpg' %}" alt=""
+                                        <div><img src="{% static 'images/pro3/27.jpg' %}" alt=""
                                                 class="img-fluid blur-up lazyload image_zoom_cls-3"></div> -->
                                     </div>
                                     <div class="row">
@@ -282,14 +284,16 @@
                                             <div class="slider-nav">
                                                 <div><img src="{{ product.image.url }}" alt=""
                                                         class="img-fluid blur-up lazyload"></div>
+                                                {% if photos %}
                                                 {% for photo in photos %}
                                                 <div><img src="{{ photo.image.url }}" alt=""
                                                         class="img-fluid blur-up lazyload"></div>
-                                                <!-- <div><img src="{% static 'product/images/pro3/27.jpg' %}" alt=""
+                                                <!-- <div><img src="{% static 'images/pro3/27.jpg' %}" alt=""
                                                         class="img-fluid blur-up lazyload"></div>
-                                                <div><img src="{% static 'product/images/pro3/27.jpg' %}" alt=""
+                                                <div><img src="{% static 'images/pro3/27.jpg' %}" alt=""
                                                         class="img-fluid blur-up lazyload"></div> -->
                                                 {% endfor %}
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
@@ -313,7 +317,7 @@
                                             <!-- <li class="bg-light1"></li>
                                             <li class="bg-light2"></li> -->
                                         </ul>
-                                        <form method="POST" action="{% url 'product-detail' product.id %}">
+                                        <form method="POST" action="{% url 'product:products_detail' product.id %}">
                                             {% csrf_token %}
                                             <div class="border-product">
                                                 <h6 class="product-title">quantity</h6>
@@ -680,11 +684,11 @@
                     <div class="product-box">
                         <div class="img-wrapper">
                             <div class="front">
-                                <a href="#"><img src="{% static 'product/images/pro3/33.jpg' %}"
+                                <a href="#"><img src="{% static 'images/pro3/33.jpg' %}"
                                         class="img-fluid blur-up lazyload bg-img" alt=""></a>
                             </div>
                             <div class="back">
-                                <a href="#"><img src="{% static 'product/images/pro3/34.jpg' %}"
+                                <a href="#"><img src="{% static 'images/pro3/34.jpg' %}"
                                         class="img-fluid blur-up lazyload bg-img" alt=""></a>
                             </div>
                             <div class="cart-info cart-wrap">
@@ -714,11 +718,11 @@
                     <div class="product-box">
                         <div class="img-wrapper">
                             <div class="front">
-                                <a href="#"><img src="{% static 'product/images/pro3/1.jpg' %}"
+                                <a href="#"><img src="{% static 'images/pro3/1.jpg' %}"
                                         class="img-fluid blur-up lazyload bg-img" alt=""></a>
                             </div>
                             <div class="back">
-                                <a href="#"><img src="{% static 'product/images/pro3/2.jpg' %}"
+                                <a href="#"><img src="{% static 'images/pro3/2.jpg' %}"
                                         class="img-fluid blur-up lazyload bg-img" alt=""></a>
                             </div>
                             <div class="cart-info cart-wrap">
@@ -748,11 +752,11 @@
                     <div class="product-box">
                         <div class="img-wrapper">
                             <div class="front">
-                                <a href="#"><img src="{% static 'product/images/pro3/27.jpg' %}"
+                                <a href="#"><img src="{% static 'images/pro3/27.jpg' %}"
                                         class="img-fluid blur-up lazyload bg-img" alt=""></a>
                             </div>
                             <div class="back">
-                                <a href="#"><img src="{% static 'product/images/pro3/28.jpg' %}"
+                                <a href="#"><img src="{% static 'images/pro3/28.jpg' %}"
                                         class="img-fluid blur-up lazyload bg-img" alt=""></a>
                             </div>
                             <div class="cart-info cart-wrap">
@@ -782,11 +786,11 @@
                     <div class="product-box">
                         <div class="img-wrapper">
                             <div class="front">
-                                <a href="#"><img src="{% static 'product/images/pro3/35.jpg' %}"
+                                <a href="#"><img src="{% static 'images/pro3/35.jpg' %}"
                                         class="img-fluid blur-up lazyload bg-img" alt=""></a>
                             </div>
                             <div class="back">
-                                <a href="{% static 'product/images/pro3/36.jpg' %}"
+                                <a href="{% static 'images/pro3/36.jpg' %}"
                                         class="img-fluid blur-up lazyload bg-img" alt=""></a>
                             </div>
                             <div class="cart-info cart-wrap">
@@ -816,11 +820,11 @@
                     <div class="product-box">
                         <div class="img-wrapper">
                             <div class="front">
-                                <a href="#"><img src="{% static 'product/images/pro3/2.jpg' %}"
+                                <a href="#"><img src="{% static 'images/pro3/2.jpg' %}"
                                         class="img-fluid blur-up lazyload bg-img" alt=""></a>
                             </div>
                             <div class="back">
-                                <a href="#"><img src="{% static 'product/images/pro3/1.jpg' %}"
+                                <a href="#"><img src="{% static 'images/pro3/1.jpg' %}"
                                         class="img-fluid blur-up lazyload bg-img" alt=""></a>
                             </div>
                             <div class="cart-info cart-wrap">
@@ -850,11 +854,11 @@
                     <div class="product-box">
                         <div class="img-wrapper">
                             <div class="front">
-                                <a href="#"><img src="{% static 'product/images/pro3/28.jpg' %}"
+                                <a href="#"><img src="{% static 'images/pro3/28.jpg' %}"
                                         class="img-fluid blur-up lazyload bg-img" alt=""></a>
                             </div>
                             <div class="back">
-                                <a href="#"><img src="{% static 'product/images/pro3/27.jpg' %}"
+                                <a href="#"><img src="{% static 'images/pro3/27.jpg' %}"
                                         class="img-fluid blur-up lazyload bg-img" alt=""></a>
                             </div>
                             <div class="cart-info cart-wrap">

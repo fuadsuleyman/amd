@@ -72,7 +72,7 @@ class DetailsInline(admin.TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("title", "price") #"get_image"
+    list_display = ("title", "price", 'id') #"get_image"
     list_display_links = ("title",)
     list_filter = ("price",)
     search_fields = ('title', "category__name")

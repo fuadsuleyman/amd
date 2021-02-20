@@ -182,7 +182,7 @@ class Product(models.Model):
             is_new = True
 
     def __str__(self):
-        return f'{self.title} {self.color_title}'
+        return f'{self.title}'
 
 
 class Product_details(models.Model):

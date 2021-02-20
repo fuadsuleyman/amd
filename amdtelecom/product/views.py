@@ -19,13 +19,15 @@ class ProductListView(ListView):
 
 
 
-def product_detail(request, id):
-    product = Product.objects.get(id=id)
+def product_detail(request, pk):
+    product = Product.objects.get(id=pk)
+    print(product, 'belkem')
     photos = Product_images.objects.filter(product=product)
+    print(photos, 'necelilk')
     details = Product_details.objects.filter(product=product)
 
     if request.method == 'POST':
-        product = Product.objects.get(id=id)
+        product = Product.objects.get(id=pk)
         device = request.COOKIES['device']
         customer, created = Customer.objects.get_or_create(device=device)
 
@@ -35,13 +37,23 @@ def product_detail(request, id):
         orderItem.save()
 
         return redirect('cart')
-    context = {'product':product,'photos':photos, 'details':details,}
+    context = {
+        'product': product, 
+        'photos': photos, 
+        'details': details,
+    }
     return render(request, 'product_detail.html', context)
 
 # class ProducDetailView(DetailView):
 #     model = Product
 #     template_name = "product.html"
+    
 
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         # context[""] = 
+#         return context
+    
 
 class CategoryListView(ListView):
     model = Category
