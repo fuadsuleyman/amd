@@ -472,8 +472,8 @@
                                                 {% if sub_category.is_second %}
                                                     
                                                 <li>
-                                                    <a href="{% url 'product:products_filter' sub_category.slug %}">{{sub_category.title}}</a>
-                                                    <ul>
+                                                    <a href="{% url 'product:products_filter' sub_category.slug %}" >{{sub_category.title}}</a>
+                                                    <ul class="thirdCategoryList">
                                                         {% for last_category in sub_category.parent.all %}
                                                         
                                                         
@@ -482,12 +482,11 @@
                                                             
                                                                 <li><a href="{% url 'product:products_filter' last_category.slug %}">{{last_category.title}}</a></li>
                                                             {% endif %}
-                                                        
+    
                                                         
                                                         {% endfor %}
                                                         
                                                     </ul>
-                                                    
                                                 </li>
                                                 {% endif %}
                                                 {% endfor %}
@@ -2002,6 +2001,14 @@
             document.getElementById("search-overlay").style.display = "none";
         }
     </script>
+    <style>
+        .none {
+            display: none !important;
+        }
+        .category-title-link span{
+            display: none !important;
+        }
+    </style>
     <script type="text/javascript">
     //    function getCookie(name){
     //        // Split cookie string and get all individial name=value in an array
@@ -2028,6 +2035,19 @@
     //        document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
     //    }
     //    console.log('Cart:', cart);
+
+    var thirdCategoryList = $('.thirdCategoryList')
+    for (let index = 0; index < thirdCategoryList.length; index++) {
+    console.log($(thirdCategoryList[index]).children().length); 
+        if ( $(thirdCategoryList[index]).children().length == 0 ) {
+            console.log($(thirdCategoryList[index]).parent().find('a'));
+            $(thirdCategoryList[index]).parent().find('a').addClass('category-title-link')
+            $(thirdCategoryList[index]).addClass('none')
+
+        }
+        
+    }
+    
 
     function getCookie(name) {
         let cookieValue = null;
