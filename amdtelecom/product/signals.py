@@ -8,5 +8,7 @@ from .common import slugify
 
 @receiver(pre_save, sender=Category)
 def create_product(sender, instance, **kwargs):
-    
+    category = Category.objects.all()
+    parent = category.parent
+    print(parent)
     instance.slug = f'{slugify(instance.title)}'
