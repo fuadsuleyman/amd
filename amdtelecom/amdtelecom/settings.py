@@ -44,12 +44,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'debug_toolbar',
+    'colorfield',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
@@ -59,6 +63,22 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'amdtelecom.urls'
+
+# CORS_ALLOWED_ORIGINS = [
+#     "http://localhost:8000",
+#     "http://127.0.0.1:8000"
+# ]
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
 
 TEMPLATES = [
     {
@@ -112,6 +132,12 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# REST_FRAMEWORK = {
+#     # 'DEFAULT_PERMISSION_CLASSES':["rest_framework.permissions.IsAuthenticated"],
+#     'DEFAULT_PARSER_CLASSES': ['rest_framework.parsers.JSONParser'],
+#     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+# }
 
 INTERNAL_IPS = [
     # ...
@@ -180,3 +206,12 @@ JET_THEMES = [
         'title': 'Light Gray'
     }
 ]
+
+
+# Email Settings
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'husubayli@gmail.com'
+EMAIL_HOST_PASSWORD = 'xdjnasiuddxikfax'

@@ -12,3 +12,5 @@ def home_page(request):
     details = Product_details.objects.all()
     context = {'products':products, 'details': details,'category':category }
     return render(request, 'home.html', context)
+
+    

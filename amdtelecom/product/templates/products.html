@@ -260,15 +260,22 @@
                                 </div>
                                 <div class="product-wrapper-grid product-load-more">
                                     <div class="row margin-res">
+                                        {% for product in products %}
                                         <div class="col-xl-3 col-6 col-grid-box">
                                             <div class="product-box">
                                                 <div class="img-wrapper">
+                                                    {% for product_image in product.images.all %}
+                                                    {% if product_image.is_main %}
                                                     <div class="front">
-                                                        <a href="#"><img src="{% static 'images/pro3/35.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="{% url 'product:products_detail' product.id %}"><img src="{{ product_image.image.url }}" class="img-fluid blur-up lazyload bg-img" alt="{{ product_image.image }}"></a>
                                                     </div>
+                                                    {% endif %}
+                                                    {% if product_image.is_second %}
                                                     <div class="back">
-                                                        <a href="#"><img src="{% static 'images/pro3/36.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                                                        <a href="#"><img src="{{ product_image.image.url }}" class="img-fluid blur-up lazyload bg-img" alt="{{ product_image.image }}"></a>
                                                     </div>
+                                                    {% endif %}
+                                                    {% endfor %}
                                                     <div class="cart-info cart-wrap">
                                                         <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
                                                                 class="ti-shopping-cart"></i></button> <a href="javascript:void(0)" title="Add to Wishlist"><i
@@ -281,23 +288,24 @@
                                                     <div>
                                                         <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
                                                         <a href="product-page(no-sidebar).html">
-                                                            <h6>Slim Fit Cotton Shirt</h6>
+                                                            <h6>{{ product.title | title }}</h6>
                                                         </a>
-                                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                                                            of type and scrambled it to make a type specimen book
+                                                        <p>{{ product.description }}
                                                         </p>
-                                                        <h4>$500.00</h4>
+                                                        <h4>{{ product.price }} AZN</h4>
+                                                        {% if product.color_title %}
                                                         <ul class="color-variant">
-                                                            <li class="bg-light0"></li>
-                                                            <li class="bg-light1"></li>
-                                                            <li class="bg-light2"></li>
+                                                            <li class="bg-light0" style="background-color: {{ product.color_code }} !important;"></li>
+                                                            <!-- <li class="bg-light1"></li>
+                                                            <li class="bg-light2"></li> -->
                                                         </ul>
+                                                        {% endif %}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
-                                        <div class="col-xl-3 col-6 col-grid-box">
+                                        {% endfor %}
+                                        <!-- <div class="col-xl-3 col-6 col-grid-box">
                                             <div class="product-box">
                                                 <div class="img-wrapper">
                                                     <div class="front">
@@ -369,7 +377,7 @@
                                                     </ul>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
 
 
                                     </div>
