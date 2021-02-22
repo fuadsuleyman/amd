@@ -1,3 +1,4 @@
+
 {% load static %}
 {% load custom_tags %}
 <!DOCTYPE html>
@@ -462,7 +463,7 @@
                                         <li>
                                             
                                             {% if category.is_main %}
-                                            <a href="{% url 'product:products_filter' category.slug %}">{{category.title | title}}</a>
+                                            <a href="{% url 'product:products_filter' category.slug %}">{{category.title}}</a>
                                             {% endif %}
                                             
                                             
@@ -470,25 +471,29 @@
                                                 {% for sub_category in category.parent.all %}
                                                 
                                                 {% if sub_category.is_second %}
-
                                                     
                                                 <li>
-
-                                                    <a href="{% url 'product:products_filter' sub_category.slug %}">{{sub_category.title | title}}</a>
-                                                    <ul>
+                                                    <a href="{% url 'product:products_filter' sub_category.slug %}" >{{sub_category.title}}</a>
+                                                    <ul class="thirdCategoryList">
                                                         {% for last_category in sub_category.parent.all %}
-
+                                                        
+                                                        
                                                             {% if last_category.is_third %}
+                                                        
+                                                            
                                                                 <li><a href="{% url 'product:products_filter' last_category.slug %}">{{last_category.title}}</a></li>
                                                             {% endif %}
-
+    
+                                                        
                                                         {% endfor %}
+                                                        
                                                     </ul>
                                                 </li>
                                                 {% endif %}
                                                 {% endfor %}
                                             </ul>
-
+                                            
+                                           
                                             </li>
                                             {% endfor %}
 
@@ -791,7 +796,7 @@
                         </div>
                         <div class="absolute-logo">
                             <div class="brand-logo">
-                                <a href="{% url 'index:home' %}"><img alt="AMD Telecom" src="{% static 'images/icon/logo/5.png' %}"></a>
+                                <a href="#"><img alt="AMD Telecom" src="{% static 'images/icon/logo/5.png' %}"></a>
                             </div>
                         </div>
                         <div class="">
@@ -909,7 +914,7 @@
         <div class="light-layout">
             <div class="container">
                 <!-- asagidaki subscribe hissesidi -->
-                <section class="small-section border-section border-top-0">
+                <!-- <section class="small-section border-section border-top-0">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="subscribe">
@@ -920,53 +925,19 @@
                             </div>
                         </div>
                         <div class="col-lg-6">
-                            <form action="" class="form-inline subscribe-form auth-form needs-validation" method="POST"
-                                id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form">
-                                {% csrf_token %}
-                                <div class="form-group mx-sm-3" style="position: relative;">
-                                    <input id="email" type="text" class="form-control" name="email" id="mce-EMAIL"
+                            <form
+                                action="https://pixelstrap.us19.list-manage.com/subscribe/post?u=5a128856334b598b395f1fc9b&amp;id=082f74cbda"
+                                class="form-inline subscribe-form auth-form needs-validation" method="post"
+                                id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank">
+                                <div class="form-group mx-sm-3">
+                                    <input type="text" class="form-control" name="EMAIL" id="mce-EMAIL"
                                         placeholder="Enter your email" required="required">
-                                        <div id="error_messages" style="position: absolute; height: 30px; width: 100%; bottom: -30px; "></div> 
-                                        
                                 </div>
                                 <button type="submit" class="btn btn-solid" id="mc-submit">subscribe</button>
                             </form>
-                            <script>
-                                let url = 'http://{{ request.META.HTTP_HOST }}'
-
-                                document.querySelector('#mc-embedded-subscribe-form').addEventListener('submit', async(e) => {
-                                    e.preventDefault()
-                                    let form = e.target
-                                    console.log(form)
-                                    let postData = {"email": form.email.value}
-                                    
-                                    let csrfToken = document.querySelector('[name="csrfmiddlewaretoken"]').getAttribute('value');
-
-                                    let response = await fetch(`${url}/api/v1.0/subscribe/`, {
-                                        headers: {
-                                            'content-type': 'application/json',
-                                            'X-CSRFToken': csrfToken
-                                        },
-                                        method: "POST",
-                                        body: JSON.stringify(postData)
-                                    })
-                                    data = await response.json()
-                                    if (response.status == 400){
-                                        errorMessage = data.email
-                                    }
-                                    else{
-                                        errorMessage = ''
-                                        document.querySelector('#email').value = ''
-                                    }
-                                    document.querySelector('#error_messages').innerHTML = errorMessage
-                                    
-                                    console.log(data)
-                                })
-                            </script>
-
                         </div>
                     </div>
-                </section>
+                </section> -->
             </div>
         </div>
         <section class="section-b-space light-layout">
@@ -1087,7 +1058,7 @@
                 <div class="modal-body modal9">
                     <div class="container-fluid p-0">
                         <div class="row">
-                            <!-- <div class="col-12">
+                            <div class="col-12">
                                 <div class="modal-bg">
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                             aria-hidden="true">&times;</span></button>
@@ -1108,7 +1079,7 @@
                                         </form>
                                     </div>
                                 </div>
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1408,7 +1379,7 @@
                                 <div class="demo-text">
                                     <h4>Beauty</h4>
                                     <div class="btn-group demo-btn" role="group" aria-label="Basic example"> <button
-                                            type="button"
+                                            type="button" onClick="window.open('beauty.html')"
                                             class="btn new-tab-btn">Preview</button></div>
                                 </div>
                             </div>
