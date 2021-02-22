@@ -294,8 +294,9 @@
                                 <div class="col-lg-6 rtl-text"> 
                                     <div class="product-right">
                                         
-                                        <h2>{{ product.brand.name }} {{ product.title }}
-                                            {% if product.internal_storage and  product.ram%}
+                                        <h2>{{ product.brand.name }} {{ product.title }} {{ product.color_title }}
+                    
+                                            {% if product.internal_storage and  product.ram %}
                                             <!-- {% for detail in details %}  -->
                                             <span>{{ product.ram }} / {{product.internal_storage}}</span>
                                             <!-- {% endfor %} -->
@@ -309,12 +310,12 @@
                                             <!-- <li class="bg-light1"></li>
                                             <li class="bg-light2"></li> -->
                                         </ul>
-                                        <form method="POST" action="{% url 'product:products_detail' product.id %}">
+                                        <form method="POST" action="{% url 'product:product_detail' product.id %}">
                                             {% csrf_token %}
                                             <div class="border-product">
                                                 <h6 class="product-title">quantity</h6>
                                                 <div class="qty-box customquantity">
-                                                    <div class="input-group">
+                                                    <div class="input-group" style="display: flex; justify-content: start;">
                                                         <span class="input-group-prepend">
                                                             <button type="button" class="btn quantity-left-minus" data-type="minus" data-field="">
                                                                 <i class="ti-angle-left"></i>
@@ -332,7 +333,7 @@
                                             
                                             <div class="product-description product-buttons">
                                                 <input data-target="#addtocart" type="submit" class="btn btn-solid" value="Add to Cart">
-                                                <a href="#" class="btn btn-solid">buy now</a>
+                                                <a href="#" class="btn btn-solid">Sifariş et</a>
                                             </div>
                                         </form>
                                     
@@ -398,13 +399,13 @@
                                             <div class="material-border"></div>
                                         </li> -->
                                         
-                                        {% if detail.video %}
+
                                         <li class="nav-item"><a class="nav-link" id="contact-top-tab" data-toggle="tab"
                                                 href="#top-contact" role="tab" aria-selected="false"><i
                                                     class="icofont icofont-contacts"></i>Video</a>
                                             <div class="material-border"></div>
                                         </li>
-                                        {% endif %}
+
                                         <!-- <li class="nav-item"><a class="nav-link" id="review-top-tab" data-toggle="tab"
                                                 href="#top-review" role="tab" aria-selected="false"><i
                                                     class="icofont icofont-contacts"></i>Write Review</a>
@@ -416,29 +417,24 @@
                                             aria-labelledby="top-home-tab">
                                             <table>
                                                 <tbody>
-                                                         
-                                                        {% if detail.production_year %}
+                                                    
                                                         <tr>
                                                             <td class="detail-header">Istehsal ili:</td>
-                                                            <td class="detail-text">{{ detail.production_year }}</td>
+                                                            <td class="detail-text"></td>
                                                         </tr>
-                                                        {% endif %}
 
-                                                        {% if detail.operation_system %}
-                                                        <tr>
+                                                        {% comment %} <tr>
                                                             <td class="detail-header">Əməliyyat sistemi:</td>
                                                             <td class="detail-text">{{ detail.operation_system }}</td>
                                                         </tr>
-                                                        {% endif %}
 
-                                                        {% if detail.screen_size %}
                                                         <tr>
                                                             <td class="detail-header">Ekran ölçüsü:</td>
                                                             <td class="detail-text">{{ detail.screen_size }}</td>
-                                                        </tr>
-                                                        {% endif %}
+                                                        </tr> {% endcomment %}
 
-                                                        {% if detail.resolution %}
+
+                                                        {% comment %} {% if detail.resolution %}
                                                         <tr>
                                                             <td class="detail-header">Ekran imkanları:</td>
                                                             <td class="detail-text">{{ detail.resolution }}</td>
@@ -590,7 +586,7 @@
                                                             <td class="detail-header">Zərbəyədavamlılıq:</td>
                                                             <td class="detail-text">Var</td>
                                                         </tr>
-                                                        {% endif %}
+                                                        {% endif %} {% endcomment %}
                 
                                                     </table>
                                                 </tbody>

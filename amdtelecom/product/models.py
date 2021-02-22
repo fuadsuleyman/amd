@@ -4,6 +4,7 @@ from django.utils import timezone
 from account.models import Customer
 from django import template
 from amdtelecom.utils import unique_slug_generator
+from colorfield.fields import ColorField
 from django.db.models.signals import pre_save
 from .common import slugify
 
@@ -124,12 +125,13 @@ class Product(models.Model):
 
     # informations
     color_title = models.CharField('Color Name', max_length=50, blank=True, null=True)
-    color_code = models.CharField('Color code', max_length=50, blank=True, null=True)
+    color_code = ColorField('Color code', default='', blank=True)
     title = models.CharField('Title', max_length=100, db_index=True)
     slug = models.SlugField('Slug', max_length=110, unique = True, blank=True)
     sku = models.CharField('SKU', max_length=50, db_index=True)
     description = models.TextField('Description', null=True, blank=True)
     sale_count = models.IntegerField('Sale Count', default=0)
+    is_published = models.BooleanField("Publishe", default=True)
     is_new = models.BooleanField('is_new', default=True)
     is_featured = models.BooleanField('is_featured', default=False)
     is_discount = models.BooleanField('is_discount', default=False)
@@ -179,10 +181,12 @@ class Product(models.Model):
         return f'{self.title} {self.color_title}'
 
 
+
+
 class Product_details(models.Model):
     # relations
     product = models.ForeignKey('product.Product', related_name='products', default="Not", on_delete=models.CASCADE, blank=True, null=True)
-    product_details_property = models.ForeignKey("Product_details_property_value", on_delete=models.CASCADE, related_name='product_details_properties')
+    product_details_propert_value = models.ForeignKey("Product_details_property_value", on_delete=models.CASCADE, related_name='product_details_properties')
     Product_details_property_name = models.ForeignKey("product_details_property_name", on_delete=models.CASCADE, related_name='product_details_property_name')
 
     # moderations
@@ -220,7 +224,8 @@ class Product_details_property_name(models.Model):
     # relations 
 
     # informations 
-    title = models.CharField("Content", max_length=50)
+    content = models.CharField("Content", max_length=50)
+    file = models.FileField("File", upload_to='products_files', max_length=100, blank=True, null=True)
 
     # moderations
     status = models.BooleanField('Status', default=True)
@@ -262,6 +267,14 @@ class Product_images(models.Model):
 
     def __str__(self):
         return f'{self.image}'
+
+    @property
+    def imageURL(self):
+        try:
+            url = self.image.url
+        except:
+            url = ''
+        return url
 
 
 

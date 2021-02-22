@@ -52,7 +52,7 @@ class ProductDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # product = get_object_or_404(Product, id=self.kwargs['pk'])
-        product = Product.objects.get(id=self.object.id)
+        product = Product.objects.get(slug=self.object.slug)
         print(product, 'salas')
         # photos = get_object_or_404(Product_images, product=product)
         photos = Product_images.objects.filter(product=product)
