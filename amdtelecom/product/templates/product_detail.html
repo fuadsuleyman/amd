@@ -262,29 +262,21 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">
-                                    
                                     <div class="product-slick">
-
-                                        <div><img src="{{ product.image.url }}" alt="{{ product.image }}"
-                                                class="img-fluid blur-up lazyload image_zoom_cls-0"></div>
-                                        
-                                    {% for photo in photos %}
-                                    {{photo}}
-                                        <div><img src="{{ photo.image.url }}" alt=""
-                                                class="img-fluid blur-up lazyload image_zoom_cls-1"></div>
-                                    {% endfor %}
-
-                                        <!-- <div><img src="{% static 'images/pro3/27.jpg' %}" alt=""
-                                                class="img-fluid blur-up lazyload image_zoom_cls-2"></div>
-                                        <div><img src="{% static 'images/pro3/27.jpg' %}" alt=""
-                                                class="img-fluid blur-up lazyload image_zoom_cls-3"></div> -->
-                                    </div>
+                                        {% for image in product.images.all %}
+                                            <div><img src="{{ image.image.url }}" alt=""
+                                                    class="img-fluid blur-up lazyload image_zoom_cls-0"></div>
+                                        {% endfor %}
+                                        {% for photo in photos %}
+                                            <div><img src="{{ photo.image.url }}" alt=""
+                                                    class="img-fluid blur-up lazyload image_zoom_cls-1"></div>
+                                        {% endfor %}
+                                        </div>
                                     <div class="row">
                                         <div class="col-12 p-0">
                                             
                                             <div class="slider-nav">
-                                                <div><img src="{{ product.image.url }}" alt=""
-                                                        class="img-fluid blur-up lazyload"></div>
+
                                                 {% if photos %}
                                                 {% for photo in photos %}
                                                 <div><img src="{{ photo.image.url }}" alt=""
