@@ -473,6 +473,7 @@
 
                                                     
                                                 <li>
+
                                                     <a href="{% url 'product:products_filter' sub_category.slug %}">{{sub_category.title | title}}</a>
                                                     <ul>
                                                         {% for last_category in sub_category.parent.all %}
@@ -480,7 +481,7 @@
                                                             {% if last_category.is_third %}
                                                                 <li><a href="{% url 'product:products_filter' last_category.slug %}">{{last_category.title}}</a></li>
                                                             {% endif %}
-                                                        
+
                                                         {% endfor %}
                                                     </ul>
                                                 </li>
@@ -952,13 +953,13 @@
                                     data = await response.json()
                                     if (response.status == 400){
                                         errorMessage = data.email
-                                        errorData = data.email
                                     }
                                     else{
                                         errorMessage = ''
+                                        document.querySelector('#email').value = ''
                                     }
                                     document.querySelector('#error_messages').innerHTML = errorMessage
-                                    document.querySelector('#email').value = errorMessage
+                                    
                                     console.log(data)
                                 })
                             </script>
