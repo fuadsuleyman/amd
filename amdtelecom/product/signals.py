@@ -1,14 +1,17 @@
 
-from django.db.models.signals import pre_save
+from django.db.models.signals import post_save
 from django.utils.timezone import now
 from django.dispatch import receiver
 from .models import Category
 from .common import slugify
 
 
-@receiver(pre_save, sender=Category)
+@receiver(post_save, sender=Category)
 def create_product(sender, instance, **kwargs):
-    category = Category.objects.all()
-    parent = category.parent
-    print(parent)
+    queryset = Category.objects.filter(status=True)
+    # for category in queryset:
+    print(instance.parent, 'sasasaaaaaa')
+
+
+  
     instance.slug = f'{slugify(instance.title)}'
