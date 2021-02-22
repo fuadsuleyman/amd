@@ -43,7 +43,7 @@
                             <th scope="col">total</th>
                         </tr>
                     </thead>
-                    {% for item in order.orderitem_set.all %}
+                    {% comment %} {% for item in order.orderitem_set.all %}
                     <tbody>
                         <tr>
                             <td>
@@ -85,7 +85,7 @@
                             </td>
                         </tr>
                     </tbody>
-                    {% endfor %}
+                    {% endfor %} {% endcomment %}
                 </table>
                 <table class="table cart-table table-responsive-md">
                     <tfoot>

@@ -2,7 +2,17 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 
 # Register your models here.
-from .models import Product, Marka, Category, Product_details, Product_colors, Product_images, Tag
+from .models import (
+    Product, 
+    Marka, 
+    Category, 
+    Product_details, 
+    Product_colors, 
+    Product_images,
+    Tag,
+    Product_details_property,
+    Product_details_property_name,
+)
 
 admin.site.register(Product_colors)
 
@@ -33,6 +43,7 @@ class CategoryAdmin(admin.ModelAdmin):
 class MarkaAdmin(admin.ModelAdmin):
     list_display = ("id", "title", "description")
     list_display_links = ("title",)
+    readonly_fields = ('slug',)
 
 # @admin.register(Product_colors)
 # class ColorpAdmin(admin.ModelAdmin):
@@ -42,30 +53,40 @@ class MarkaAdmin(admin.ModelAdmin):
 class ImageInline(admin.TabularInline):
     model = Product_images
     extra = 0
-
-class DetailsInline(admin.StackedInline):
-    model = Product_details
+class ImageInline(admin.TabularInline):
+    model = Product_images
     extra = 0
+
+# class DetailsInline(admin.t):
+#     model = Product_details
+#     extra = 0
+
+class DetailsInline(admin.TabularInline):
+    '''Tabular Inline View for '''
+
+    model = Product_details
+    # min_num = 3
+    # max_num = 20
+    # extra = 1
+    # raw_id_fields = (,)
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("title", "category", "price", "get_image") #"get_image"
+    list_display = ("title", "price") #"get_image"
     list_display_links = ("title",)
-    list_filter = ("price", "category")
+    list_filter = ("price",)
     search_fields = ('title', "category__name")
     inlines = [ImageInline, DetailsInline]
     save_on_top = True
     save_as = True #create new product easy way
 
-    def get_image(self, obj):
-        return mark_safe(f'<img src={obj.image.url} width="50" height="60"')
+    # def get_image(self, obj):
+    #     return mark_safe(f'<img src={obj.image.url} width="50" height="60"')
 
-    get_image.short_description = "Image"
+    # get_image.short_description = "Image"
     # get_image.allow_tags = True
 
 
-# admin.site.register(Product)
-# admin.site.register(Brand)
-# admin.site.register(Category, CategoryAdmin)
+admin.site.register(Tag)
 admin.site.register(Product_images)
-admin.site.register([Product_details, Tag])
+admin.site.register([Product_details, Product_details_property, Product_details_property_name])

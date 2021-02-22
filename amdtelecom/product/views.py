@@ -4,51 +4,10 @@ from django.views.generic import ListView, DetailView
 
 # Create your views here.
 from django.http import HttpResponse
-from .models import Product, Product_images, Product_details
+from .models import Product, Product_images, Product_details, Category
 from order.models import OrderItem, Order
 from account.models import Customer
 
-
-# products = [
-#     {
-#         'author': 'Fuad Suleymanov',
-#         'title': 'Galaxy S9 Pro',
-#         'description': 'So powerfull, so nice',
-#         'data_posted': 'October 17, 2020'
-#     },
-#     {
-#         'author': 'Elxan Bayramov',
-#         'title': 'Galaxy S10',
-#         'description': 'it is so awesome',
-#         'data_posted': 'October 16, 2020'
-#     },
-#     {
-#         'author': 'Vaqif Balayev',
-#         'title': 'Apple S11',
-#         'description': 'just difference',
-#         'data_posted': 'October 15, 2020'
-#     }
-
-# ]
-# Product.objects.all()
-# def home(request):
-#     context = {
-#         'products': Product.objects.all()
-#     }
-#     return render(request, 'product/home.html', context)
-
-# class ProductListView(ListView):
-#     model = Product
-#     template_name = 'product/home.html'
-#     context_object_name = 'products'
-#     ordering = ['-date_posted']
-
-# bu versiya ishleyir
-# def home_page(request):
-#     products = Product.objects.all()
-#     details = Product_details.objects.all()
-#     context = {'products':products, 'details': details}
-#     return render(request, 'product/home.html', context)
 
 
 class ProductListView(ListView):
@@ -58,9 +17,7 @@ class ProductListView(ListView):
     ordering = ['-created_at']
 
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
+
 
 def product_detail(request, id):
     product = Product.objects.get(id=id)
@@ -81,10 +38,44 @@ def product_detail(request, id):
     context = {'product':product,'photos':photos, 'details':details,}
     return render(request, 'product_detail.html', context)
 
+# class ProducDetailView(DetailView):
+#     model = Product
+#     template_name = "product.html"
 
 
-# def about(request):
-#     return render(request, 'product/about.html', {'title': 'About'})
+class CategoryListView(ListView):
+    model = Category
+    context_object_name = 'category_list'
+    template_name = 'base.html'
+    queryset = Category.objects.filter(status=True)
 
 
 
+# class ProductsFilterListView(ListView):
+#     model = Product
+#     template_name = 'products.html'
+
+
+#     def get_context_data(self, request, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         url = request.GET.get('slug')
+#         print(url, 'kokiii')
+#         category = get_object_or_404(Category, slug=self.kwargs['category'])
+#         context["category"] = get_object_or_404(Category, slug=self.kwargs['category'])
+#         return context
+
+#     def get_queryset(self):
+#         category = get_object_or_404(Category, slug=self.kwargs['category'])
+#         queryset = Product.objects.filter(category=category).filter(is_published=True)
+#         return queryset
+
+
+def product_filter(request, slug):
+    category = Category.objects.get(slug=slug)
+    products = Product.objects.filter(category=category)
+    print(products, 'elcn')
+    context = {
+        'products_list': products,
+        'categories': category
+    }
+    return render(request, 'products.html', context)
