@@ -10,83 +10,77 @@ from .models import (
     Product_colors, 
     Product_images,
     Tag,
-    Product_details_property,
     Product_details_property_name,
+    Product_details_property_value,
 )
 
 admin.site.register(Product_colors)
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("id", "title", "description")
+    list_display = ("id", "title", "description", "is_main", "status")
     list_display_links = ("title",)
-    readonly_fields = (
-        'slug',
-    )
-
-# @admin.register(Customer)
-# class CustomerAdmin(admin.ModelAdmin):
-#     list_display = ("id", "device")
-#     list_display_links = ("device",)
-
-# @admin.register(Order)
-# class OrderAdmin(admin.ModelAdmin):
-#     list_display = ("id", "date_ordered")
-#     list_display_links = ("date_ordered",)
-
-# @admin.register(OrderItem)
-# class OrderItemAdmin(admin.ModelAdmin):
-#     list_display = ("id", "quantity", "date_added")
-#     list_display_links = ("quantity",)
+    readonly_fields = ('slug',)
+    list_filter = ("title", "status")
+    search_fields = ('title',)
 
 @admin.register(Marka)
 class MarkaAdmin(admin.ModelAdmin):
     list_display = ("id", "title", "description")
     list_display_links = ("title",)
-    readonly_fields = ('slug',)
 
-# @admin.register(Product_colors)
-# class ColorpAdmin(admin.ModelAdmin):
-#     list_display = ("id", "color_name", "color_code")
-#     list_display_links = ("color_name",)
+@admin.register(Product_images)
+class ImageAdmin(admin.ModelAdmin):
+    list_display = ("image", "product")
+
 
 class ImageInline(admin.TabularInline):
     model = Product_images
     extra = 0
-class ImageInline(admin.TabularInline):
-    model = Product_images
-    extra = 0
 
-# class DetailsInline(admin.t):
-#     model = Product_details
-#     extra = 0
+@admin.register(Product_details_property_name)
+class DetailAdmin(admin.ModelAdmin):
+    list_display = ("title", "status")
 
-class DetailsInline(admin.TabularInline):
-    '''Tabular Inline View for '''
 
+@admin.register(Product_details_property_value)
+class DetailAdmin(admin.ModelAdmin):
+    list_display = ("title", "status")
+
+
+class ProductDetailNameAdmin(admin.TabularInline):
     model = Product_details
-    # min_num = 3
-    # max_num = 20
-    # extra = 1
-    # raw_id_fields = (,)
+    extra = 0
+
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("title", "price") #"get_image"
+    list_display = ("title", "price", "is_new", 'get_image', ) #"get_image"
     list_display_links = ("title",)
-    list_filter = ("price",)
-    search_fields = ('title', "category__name")
-    inlines = [ImageInline, DetailsInline]
+    list_filter = ("price", "category",)
+    search_fields = ('title', "category__title", "Marka")
+    inlines = [ImageInline, ProductDetailNameAdmin]
     save_on_top = True
     save_as = True #create new product easy way
 
-    # def get_image(self, obj):
-    #     return mark_safe(f'<img src={obj.image.url} width="50" height="60"')
+    fieldsets = (
+        ('Relations', {
+            'fields': ('category','marka', 'tags', 'same_product'),
+        }),
+        ('Informations', {
+            'fields': (('title', 'slug'), 'sku', ('color_title', 'color_code',), 'description', 'sale_count', ('is_new', 'is_featured', 'is_discount'), 'status')
+        }),
+        ('Price Info', {
+            'fields': ('price', 'discount_type', 'discount_value'),
+        }),
+    )
 
-    # get_image.short_description = "Image"
-    # get_image.allow_tags = True
+    def get_image(self, obj):
+        return mark_safe(f'<img src={obj.images.get(is_main=True).imageURL} width="50" height="60"')
+
+
+    get_image.short_description = "Image"
+    
 
 
 admin.site.register(Tag)
-admin.site.register(Product_images)
-admin.site.register([Product_details, Product_details_property, Product_details_property_name])

@@ -7,6 +7,10 @@ from amdtelecom.utils import unique_slug_generator
 from django.db.models.signals import pre_save
 from .common import slugify
 
+from colorful.fields import RGBColorField
+from colorfield.fields import ColorField
+
+
 register = template.Library()
 
 
@@ -118,9 +122,9 @@ class Product(models.Model):
 
 
     # informations
-    color_title = models.CharField('Color Name', max_length=50, blank=True, null=True)
-    color_code = models.CharField('Color code', max_length=50, blank=True, null=True)
     title = models.CharField('Title', max_length=100, db_index=True)
+    color_title = models.CharField('Color Name', max_length=50, blank=True, null=True)
+    color_code = ColorField('Color code', blank=True)
     slug = models.SlugField('Slug', max_length=110, unique = True, blank=True)
     sku = models.CharField('SKU', max_length=50, db_index=True)
     description = models.TextField('Description', null=True, blank=True)
@@ -128,6 +132,9 @@ class Product(models.Model):
     is_new = models.BooleanField('is_new', default=True)
     is_featured = models.BooleanField('is_featured', default=False)
     is_discount = models.BooleanField('is_discount', default=False)
+
+    # moderations
+    is_published = models.BooleanField("Published", default=True)
 
     # price info
     CHOICES = (
@@ -171,14 +178,14 @@ class Product(models.Model):
             is_new = True
 
     def __str__(self):
-        return f'{self.title} {self.color_title}'
+        return f'{self.title}'
 
 
 class Product_details(models.Model):
     # relations
     product = models.ForeignKey('product.Product', related_name='products', default="Not", on_delete=models.CASCADE, blank=True, null=True)
-    product_details_property = models.ForeignKey("Product_details_property", on_delete=models.CASCADE, related_name='product_details_properties')
-    Product_details_property_name = models.ForeignKey("product_details_property_name", on_delete=models.CASCADE, related_name='product_details_property_name')
+    product_details_property = models.ForeignKey("Product_details_property_name", on_delete=models.CASCADE, related_name='product_details_properties')
+    Product_details_property_name = models.ForeignKey("product_details_property_value", on_delete=models.CASCADE, related_name='product_details_property_name')
 
     # moderations
     status = models.BooleanField('Status', default=True)
@@ -194,7 +201,7 @@ class Product_details(models.Model):
         verbose_name_plural = 'Products details'
 
 
-class Product_details_property(models.Model):
+class Product_details_property_name(models.Model):
     # informations 
     title = models.CharField("Title", max_length=50)
 
@@ -207,11 +214,11 @@ class Product_details_property(models.Model):
         return self.title
 
     class Meta:
-        db_table = 'Product property'
-        verbose_name = 'Product property'
-        verbose_name_plural = 'Products properties'
+        db_table = 'Detail property key'
+        verbose_name = 'Detail property key'
+        verbose_name_plural = 'Details properties keys'
 
-class Product_details_property_name(models.Model):
+class Product_details_property_value(models.Model):
     # relations 
 
     # informations 
@@ -226,9 +233,9 @@ class Product_details_property_name(models.Model):
         return self.title
 
     class Meta:
-        db_table = 'Property name'
-        verbose_name = 'Property name'
-        verbose_name_plural = 'Properties names'
+        db_table = 'Detail property value'
+        verbose_name = 'Detail property value'
+        verbose_name_plural = 'Details properties values'
 
 
 class Product_images(models.Model):
@@ -257,6 +264,14 @@ class Product_images(models.Model):
 
     def __str__(self):
         return f'{self.image}'
+        
+    @property
+    def imageURL(self):
+        try:
+            url = self.image.url
+        except:
+            url = ''
+        return url
 
 
 
