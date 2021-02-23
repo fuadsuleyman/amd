@@ -15,7 +15,6 @@ from django.views.generic import TemplateView
 #     return render(request, 'home.html', context)
 
 
-<<<<<<< HEAD
 class HomePageTemplateView(TemplateView):
     template_name = 'home.html'
 
@@ -29,5 +28,3 @@ class HomePageTemplateView(TemplateView):
         context["category"] = category
         return context
     
-=======
->>>>>>> efd50362e41cc993b38d4fd530682685a39d2e93
