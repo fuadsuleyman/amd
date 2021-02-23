@@ -16,11 +16,10 @@ def send_form(sender, instance, **kwargs):
     tel_number = instance.tel_number
 
     user_form = f'''
-
         Name: {name}
         Surname: {surname}
         Email: {email}
-        Telefon: {num_title} {tel_number}
+        Telefon: {num_title}{tel_number}
     '''
 
     send_mail(subject, user_form, 'husubayli@gmail.com', ['koki.suleymanov@mail.ru'])
