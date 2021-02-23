@@ -11,7 +11,7 @@ from .models import (
     Product_images,
     Tag,
     Product_details_property_name,
-    Product_details_property_value,
+    # Product_details_property_value,
 )
 
 admin.site.register(Product_colors)
@@ -23,6 +23,10 @@ class CategoryAdmin(admin.ModelAdmin):
     readonly_fields = ('slug',)
     list_filter = ("title", "status")
     search_fields = ('title',)
+
+    def save_related(self, request, form, formsets, change):
+        super(CategoryAdmin, self).save_related(request, form, formsets, change)
+        
 
 @admin.register(Marka)
 class MarkaAdmin(admin.ModelAdmin):
@@ -43,9 +47,9 @@ class DetailAdmin(admin.ModelAdmin):
     list_display = ("title", "status")
 
 
-@admin.register(Product_details_property_value)
-class DetailAdmin(admin.ModelAdmin):
-    list_display = ("title", "status")
+# @admin.register(Product_details_property_value)
+# class DetailAdmin(admin.ModelAdmin):
+#     list_display = ("title", "status")
 
 
 class ProductDetailNameAdmin(admin.TabularInline):
