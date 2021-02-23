@@ -24,13 +24,6 @@ class CategoryAdmin(admin.ModelAdmin):
     list_filter = ("title", "status")
     search_fields = ('title',)
 
-<<<<<<< HEAD
-=======
-    def save_related(self, request, form, formsets, change):
-        super(CategoryAdmin, self).save_related(request, form, formsets, change)
-        
-
->>>>>>> efd50362e41cc993b38d4fd530682685a39d2e93
 @admin.register(Marka)
 class MarkaAdmin(admin.ModelAdmin):
     list_display = ("id", "title", "description")
