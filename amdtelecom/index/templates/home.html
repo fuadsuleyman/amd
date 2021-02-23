@@ -4,7 +4,7 @@
 {% load static %}
 
 
-    <!-- home banner start -->
+    {% comment %} <!-- home banner start -->
     <div class="container banner-slider">
         <div class="row">
             <div class="col-md-7"><img src="{% static 'images/electronics/1.jpg' %}"
@@ -23,9 +23,9 @@
             </div>
         </div>
     </div>
-    <!-- home banner end  -->
+    <!-- home banner end  --> {% endcomment %}
 
-
+{% comment %} 
     <!-- collection banner -->
     <section class="banner-padding banner-goggles ratio2_1">
         <div class="container">
@@ -81,7 +81,7 @@
             </div>
         </div>
     </section>
-    <!-- collection banner end -->
+    <!-- collection banner end --> {% endcomment %}
 
 
     <!-- slider tab  -->
@@ -139,10 +139,10 @@
                                                     class="fa fa-star"></i> <i class="fa fa-star"></i> <i
                                                     class="fa fa-star"></i></div> -->
                                             <a href="{% url 'product:product_detail' product.id %}">
-                                                <h6>{{ product.brand.name |title }} {{product.title}}
-                                                    {% if product.internal_storage %}
+                                                <h6>{{ product.marka.all.0 | upper }} {{ product.title | upper }}
+                                                    {% comment %} {% if product.internal_storage %}
                                                     <span>{{product.internal_storage}}</span>
-                                                    {% endif %}
+                                                    {% endif %} {% endcomment %}
                                                 </h6>
                                             </a>
                                             <h4>{{product.price}} manat</h4>

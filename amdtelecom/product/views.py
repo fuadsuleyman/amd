@@ -13,8 +13,21 @@ from account.models import Customer
 class ProductListView(ListView):
     model = Product
     template_name = 'products.html'
-    context_object_name = 'products'
+    # context_object_name = 'products'
     ordering = ['-created_at']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        products = Product.objects.all()
+
+        for product in products:
+            markas = product.marka.all()
+
+
+        context["products"] = products
+        context['markas'] = markas
+        return context
+    
 
 
 
