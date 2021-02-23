@@ -13,7 +13,7 @@
         <div class="col-sm-6">
             <nav aria-label="breadcrumb" class="theme-breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">home</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'index:home' %}">home</a></li>
                     <li class="breadcrumb-item active" aria-current="page">collection</li>
                 </ol>
             </nav>
@@ -29,6 +29,7 @@
 <div class="collection-wrapper">
     <div class="container">
         <div class="row">
+        
             <div class="col-sm-3 collection-filter">
                 <!-- side-bar colleps block stat -->
                 <div class="collection-filter-block">
@@ -37,13 +38,19 @@
                                 aria-hidden="true"></i> back</span></div>
                     <div class="collection-collapse-block open">
                         <h3 class="collapse-block-title">brand</h3>
+                        {{markas}}
                         <div class="collection-collapse-block-content">
                             <div class="collection-brand-filter">
+                            {% for product in products %}
+                            {% for product in product.marka.all  %}
                                 <div class="custom-control custom-checkbox collection-filter-checkbox">
-                                    <input type="checkbox" class="custom-control-input" id="zara">
-                                    <label class="custom-control-label" for="zara">zara</label>
+                                    <input type="checkbox" class="custom-control-input" id="{{ product.title }}">
+                                    <label class="custom-control-label" for="{{ product.title }}">{{ product.title }}</label>
                                 </div>
-                                <div class="custom-control custom-checkbox collection-filter-checkbox">
+                            {% endfor %}
+                            {% endfor %}
+
+                                {% comment %} <div class="custom-control custom-checkbox collection-filter-checkbox">
                                     <input type="checkbox" class="custom-control-input" id="vera-moda">
                                     <label class="custom-control-label" for="vera-moda">vera-moda</label>
                                 </div>
@@ -58,7 +65,7 @@
                                 <div class="custom-control custom-checkbox collection-filter-checkbox">
                                     <input type="checkbox" class="custom-control-input" id="only">
                                     <label class="custom-control-label" for="only">only</label>
-                                </div>
+                                </div> {% endcomment %}
                             </div>
                         </div>
                     </div>
@@ -68,13 +75,16 @@
                         <div class="collection-collapse-block-content">
                             <div class="color-selector">
                                 <ul>
-                                    <li class="color-1 active"></li>
-                                    <li class="color-2"></li>
+                                {% for product in products %}
+                                    <li class="color-1" style="background-color: {{ product.color_code }}; border-color: {{ product.color_code }}"></li>
+                                    {% comment %} <li class="color-2"></li>
                                     <li class="color-3"></li>
                                     <li class="color-4"></li>
                                     <li class="color-5"></li>
                                     <li class="color-6"></li>
-                                    <li class="color-7"></li>
+                                    <li class="color-7"></li> {% endcomment %}
+
+                                {% endfor %}
                                 </ul>
                             </div>
                         </div>
@@ -194,6 +204,7 @@
                 </div>
                 <!-- side-bar banner end here -->
             </div>
+
             <div class="collection-content col">
                 <div class="page-main-content">
                     <div class="row">
@@ -267,7 +278,7 @@
                                                     {% for product_image in product.images.all %}
                                                     {% if product_image.is_main %}
                                                     <div class="front">
-                                                        <a href="{% url 'product:products_detail' product.id %}"><img src="{{ product_image.image.url }}" class="img-fluid blur-up lazyload bg-img" alt="{{ product_image.image }}"></a>
+                                                        <a href="{% url 'product:product_detail' product.slug %}"><img src="{{ product_image.image.url }}" class="img-fluid blur-up lazyload bg-img" alt="{{ product_image.image }}"></a>
                                                     </div>
                                                     {% endif %}
                                                     {% if product_image.is_second %}
@@ -288,7 +299,7 @@
                                                     <div>
                                                         <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
                                                         <a href="product-page(no-sidebar).html">
-                                                            <h6>{{ product.title | title }}</h6>
+                                                            <h6>{{ product.title | upper }}</h6>
                                                         </a>
                                                         <p>{{ product.description }}
                                                         </p>

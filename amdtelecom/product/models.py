@@ -4,6 +4,7 @@ from django.utils import timezone
 from account.models import Customer
 from django import template
 from amdtelecom.utils import unique_slug_generator
+from colorfield.fields import ColorField
 from django.db.models.signals import pre_save
 from .common import slugify
 
@@ -99,6 +100,7 @@ class Category(models.Model):
 
     def save(self, *args, **kwargs):        
         super(Category, self).save(*args, **kwargs)
+        print(self.parent.all().last())
         if self.parent.all().last():
             parent = str(self.parent.all().last())
             self.slug = f'{slugify(parent)}-{slugify(self.title)}'
@@ -128,12 +130,13 @@ class Product(models.Model):
 
     # informations
     color_title = models.CharField('Color Name', max_length=50, blank=True, null=True)
-    color_code = models.CharField('Color code', max_length=50, blank=True, null=True)
+    color_code = ColorField('Color code', default='', blank=True, null=True)
     title = models.CharField('Title', max_length=100, db_index=True)
-    slug = models.SlugField('Slug', max_length=110, unique = True, blank=True)
+    slug = models.SlugField('Slug', editable=False, max_length=110, unique = True, blank=True)
     sku = models.CharField('SKU', max_length=50, db_index=True)
     description = models.TextField('Description', null=True, blank=True)
     sale_count = models.IntegerField('Sale Count', default=0)
+    is_published = models.BooleanField("Publishe", default=True)
     is_new = models.BooleanField('is_new', default=True)
     is_featured = models.BooleanField('is_featured', default=False)
     is_discount = models.BooleanField('is_discount', default=False)
@@ -160,7 +163,13 @@ class Product(models.Model):
         verbose_name = 'Product'
         verbose_name_plural = 'Products'
         ordering = ('-created_at', 'title')
-    
+
+
+    def save(self, *args, **kwargs):        
+        super(Product, self).save(*args, **kwargs)
+        self.slug = f'{slugify(self.title)}-{self.id}'
+        super(Product, self).save(*args, **kwargs)
+
 
     def get_price(self):
         if self.discount_type == 1:
@@ -186,8 +195,11 @@ class Product(models.Model):
 class Product_details(models.Model):
     # relations
     product = models.ForeignKey('product.Product', related_name='products', default="Not", on_delete=models.CASCADE, blank=True, null=True)
-    product_details_property = models.ForeignKey("Product_details_property_value", on_delete=models.CASCADE, related_name='product_details_properties')
-    Product_details_property_name = models.ForeignKey("product_details_property_name", on_delete=models.CASCADE, related_name='product_details_property_name')
+    product_details_property_name = models.ForeignKey("Product_details_property_name", on_delete=models.CASCADE, related_name='product_details_property_name')
+    product_details_propert_value = models.ForeignKey("Product_details_property_value", on_delete=models.CASCADE, related_name='product_details_property_value')
+    is_feature = models.BooleanField("Is feature", default=False, blank=True, null=True)
+    is_detail = models.BooleanField("Is detail", default=False, blank=True, null=True)
+    is_file = models.BooleanField('Is file', default=False, blank=True, null=True)
 
     # moderations
     status = models.BooleanField('Status', default=True)
@@ -203,9 +215,9 @@ class Product_details(models.Model):
         verbose_name_plural = 'Products details'
 
 
-class Product_details_property_value(models.Model):
+class Product_details_property_name(models.Model):
     # informations 
-    title = models.CharField("Title", max_length=50)
+    title = models.CharField("Title", max_length=50, blank=True, null=True)
 
     # moderations
     status = models.BooleanField('Status', default=True)
@@ -216,15 +228,16 @@ class Product_details_property_value(models.Model):
         return self.title
 
     class Meta:
-        db_table = 'Property value '
-        verbose_name = 'Property value'
-        verbose_name_plural = 'Properties values'
+        db_table = 'Property name '
+        verbose_name = 'Property name'
+        verbose_name_plural = 'Properties names'
 
-class Product_details_property_name(models.Model):
+class Product_details_property_value(models.Model):
     # relations 
 
     # informations 
-    title = models.CharField("Content", max_length=50)
+    content = models.CharField("Content", max_length=50, blank=True, null=True)
+    file = models.FileField("File", upload_to='products_files', max_length=100, blank=True, null=True)
 
     # moderations
     status = models.BooleanField('Status', default=True)
@@ -232,12 +245,12 @@ class Product_details_property_name(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     def __str__(self):
-        return self.title
+        return self.content
 
     class Meta:
-        db_table = 'Property name'
-        verbose_name = 'Property name'
-        verbose_name_plural = 'Properties names'
+        db_table = 'Property value'
+        verbose_name = 'Property value'
+        verbose_name_plural = 'Properties values'
 
 
 class Product_images(models.Model):
@@ -262,10 +275,18 @@ class Product_images(models.Model):
         db_table = 'image'
         verbose_name = 'Image'
         verbose_name_plural = 'Images'
-        ordering = ('created_at',)
+        ordering = ('-created_at',)
 
     def __str__(self):
         return f'{self.image}'
+
+    @property
+    def imageURL(self):
+        try:
+            url = self.image.url
+        except:
+            url = ''
+        return url
 
 
 

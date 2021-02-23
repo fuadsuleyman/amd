@@ -294,27 +294,26 @@
                                 <div class="col-lg-6 rtl-text"> 
                                     <div class="product-right">
                                         
-                                        <h2>{{ product.brand.name }} {{ product.title }}
-                                            {% if product.internal_storage and  product.ram%}
+                                        <h2>{{ product.marka.all.0 }} {{ product.title }} {{ product.color_title }}
+                    
                                             <!-- {% for detail in details %}  -->
-                                            <span>{{ product.ram }} / {{product.internal_storage}}</span>
+                                            <!-- <span>ram / yaddas </span> -->
                                             <!-- {% endfor %} -->
-                                            {% endif %}
                                         </h2>
-                                        <h4><del>${{ product.price_old }}</del></h4>
-                                        <h3>$ {{ product.price }}</h3>
+                                        <h4><del>old price</del></h4>
+                                        <h3>{{ product.price }} AZN</h3>
 
                                         <ul class="color-variant" style="border-block-color: black;">
-                                            <li style="background-color:{{ product.color_pro.color_code }}; border: 5px solid #808080;" ></li>
+                                            <li style="background-color:{{ product.color_code }}; border: 5px solid {{ product.color_code }};" ></li>
                                             <!-- <li class="bg-light1"></li>
                                             <li class="bg-light2"></li> -->
                                         </ul>
-                                        <form method="POST" action="{% url 'product:products_detail' product.id %}">
+                                        <form method="POST" action="{% url 'product:product_detail' product.id %}">
                                             {% csrf_token %}
                                             <div class="border-product">
                                                 <h6 class="product-title">quantity</h6>
                                                 <div class="qty-box customquantity">
-                                                    <div class="input-group">
+                                                    <div class="input-group" style="display: flex; justify-content: start;">
                                                         <span class="input-group-prepend">
                                                             <button type="button" class="btn quantity-left-minus" data-type="minus" data-field="">
                                                                 <i class="ti-angle-left"></i>
@@ -332,7 +331,7 @@
                                             
                                             <div class="product-description product-buttons">
                                                 <input data-target="#addtocart" type="submit" class="btn btn-solid" value="Add to Cart">
-                                                <a href="#" class="btn btn-solid">buy now</a>
+                                                <a href="#" class="btn btn-solid">Sifariş et</a>
                                             </div>
                                         </form>
                                     
@@ -382,10 +381,10 @@
                         </div>
                     </div>
                     {% if details %}
-                    {% for detail in details %}
                         <section class="tab-product m-0">
                             <div class="row">
                                 <div class="col-sm-12 col-lg-12">
+                                    
                                     <ul class="nav nav-tabs nav-material" id="top-tab" role="tablist">
                                         <li class="nav-item"><a class="nav-link active" id="top-home-tab"
                                                 data-toggle="tab" href="#top-home" role="tab" aria-selected="true"><i
@@ -396,49 +395,44 @@
                                                 href="#top-profile" role="tab" aria-selected="false"><i
                                                     class="icofont icofont-man-in-glasses"></i>Details</a>
                                             <div class="material-border"></div>
-                                        </li> -->
+                                        </li>  -->
                                         
-                                        {% if detail.video %}
+<!-- 
                                         <li class="nav-item"><a class="nav-link" id="contact-top-tab" data-toggle="tab"
                                                 href="#top-contact" role="tab" aria-selected="false"><i
                                                     class="icofont icofont-contacts"></i>Video</a>
                                             <div class="material-border"></div>
                                         </li>
-                                        {% endif %}
-                                        <!-- <li class="nav-item"><a class="nav-link" id="review-top-tab" data-toggle="tab"
+
+                                        <li class="nav-item"><a class="nav-link" id="review-top-tab" data-toggle="tab"
                                                 href="#top-review" role="tab" aria-selected="false"><i
                                                     class="icofont icofont-contacts"></i>Write Review</a>
                                             <div class="material-border"></div>
-                                        </li> -->
+                                        </li>  -->
                                     </ul>
                                     <div class="tab-content nav-material" id="top-tabContent">
                                         <div class="tab-pane fade show active" id="top-home" role="tabpanel"
                                             aria-labelledby="top-home-tab">
                                             <table>
                                                 <tbody>
-                                                         
-                                                        {% if detail.production_year %}
+                                                        {% for detail in details %}
                                                         <tr>
-                                                            <td class="detail-header">Istehsal ili:</td>
-                                                            <td class="detail-text">{{ detail.production_year }}</td>
+                                                            <td class="detail-header">{{detail.product_details_property_name}}</td>
+                                                            <td class="detail-text">{{ detail.product_details_propert_value }}</td>
                                                         </tr>
-                                                        {% endif %}
-
-                                                        {% if detail.operation_system %}
-                                                        <tr>
+                                                        {% endfor %}
+                                                        {% comment %} <tr>
                                                             <td class="detail-header">Əməliyyat sistemi:</td>
                                                             <td class="detail-text">{{ detail.operation_system }}</td>
                                                         </tr>
-                                                        {% endif %}
 
-                                                        {% if detail.screen_size %}
                                                         <tr>
                                                             <td class="detail-header">Ekran ölçüsü:</td>
                                                             <td class="detail-text">{{ detail.screen_size }}</td>
-                                                        </tr>
-                                                        {% endif %}
+                                                        </tr> {% endcomment %}
 
-                                                        {% if detail.resolution %}
+
+                                                        {% comment %} {% if detail.resolution %}
                                                         <tr>
                                                             <td class="detail-header">Ekran imkanları:</td>
                                                             <td class="detail-text">{{ detail.resolution }}</td>
@@ -590,7 +584,7 @@
                                                             <td class="detail-header">Zərbəyədavamlılıq:</td>
                                                             <td class="detail-text">Var</td>
                                                         </tr>
-                                                        {% endif %}
+                                                        {% endif %} {% endcomment %}
                 
                                                     </table>
                                                 </tbody>
@@ -605,7 +599,6 @@
                                                     allow="autoplay; encrypted-media" allowfullscreen></iframe>
                                             </div>
                                         </div>
-                                        {% endfor %}
                                         {% endif %}
                                         <!-- <div class="tab-pane fade" id="top-review" role="tabpanel"
                                             aria-labelledby="review-top-tab">

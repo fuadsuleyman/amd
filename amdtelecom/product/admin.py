@@ -11,7 +11,7 @@ from .models import (
     Product_images,
     Tag,
     Product_details_property_name,
-    # Product_details_property_value,
+    Product_details_property_value,
 )
 
 admin.site.register(Product_colors)
@@ -23,10 +23,6 @@ class CategoryAdmin(admin.ModelAdmin):
     readonly_fields = ('slug',)
     list_filter = ("title", "status")
     search_fields = ('title',)
-
-    def save_related(self, request, form, formsets, change):
-        super(CategoryAdmin, self).save_related(request, form, formsets, change)
-        
 
 @admin.register(Marka)
 class MarkaAdmin(admin.ModelAdmin):
@@ -42,14 +38,15 @@ class ImageInline(admin.TabularInline):
     model = Product_images
     extra = 0
 
+
 @admin.register(Product_details_property_name)
-class DetailAdmin(admin.ModelAdmin):
+class PropertyNameAdmin(admin.ModelAdmin):
     list_display = ("title", "status")
 
 
-# @admin.register(Product_details_property_value)
-# class DetailAdmin(admin.ModelAdmin):
-#     list_display = ("title", "status")
+@admin.register(Product_details_property_value)
+class PropertyValueAdmin(admin.ModelAdmin):
+    list_display = ("content", "file", "status")
 
 
 class ProductDetailNameAdmin(admin.TabularInline):
@@ -63,6 +60,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_display_links = ("title",)
     list_filter = ("price", "category",)
     search_fields = ('title', "category__title", "Marka")
+    readonly_fields = ('slug',)
     inlines = [ImageInline, ProductDetailNameAdmin]
     save_on_top = True
     save_as = True #create new product easy way
@@ -87,4 +85,4 @@ class ProductAdmin(admin.ModelAdmin):
     
 
 
-# admin.site.register(Tag)
+admin.site.register(Tag)

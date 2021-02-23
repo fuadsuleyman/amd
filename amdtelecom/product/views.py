@@ -13,8 +13,21 @@ from account.models import Customer
 class ProductListView(ListView):
     model = Product
     template_name = 'products.html'
-    context_object_name = 'products'
+    # context_object_name = 'products'
     ordering = ['-created_at']
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        products = Product.objects.all()
+
+        for product in products:
+            markas = product.marka.all()
+
+
+        context["products"] = products
+        context['markas'] = markas
+        return context
+    
 
 
 
@@ -52,7 +65,7 @@ class ProductDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # product = get_object_or_404(Product, id=self.kwargs['pk'])
-        product = Product.objects.get(id=self.object.id)
+        product = Product.objects.get(slug=self.object.slug)
         print(product, 'salas')
         # photos = get_object_or_404(Product_images, product=product)
         photos = Product_images.objects.filter(product=product)
@@ -60,7 +73,7 @@ class ProductDetailView(DetailView):
         context['product'] = product
         context['photos'] = photos
         context['details'] = details
-        print(photos, 'sekilci')
+        print(details, 'sekilci')
         return context
 
     def post(self, request, pk):
@@ -74,11 +87,11 @@ class ProductDetailView(DetailView):
         orderItem.save()
     
 
-class CategoryListView(ListView):
-    model = Category
-    context_object_name = 'category_list'
-    template_name = 'base.html'
-    queryset = Category.objects.filter(status=True)
+# class CategoryListView(ListView):
+#     model = Category
+#     context_object_name = 'category_list'
+#     template_name = 'base.html'
+#     queryset = Category.objects.filter(status=True)
 
 
 
