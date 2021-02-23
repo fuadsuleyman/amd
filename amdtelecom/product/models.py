@@ -102,13 +102,18 @@ class Category(models.Model):
         super(Category, self).save(*args, **kwargs)
         print(self.parent.all().last())
         if self.parent.all().last():
-            print(self.parent.all().last())
             parent = str(self.parent.all().last())
-            self.slug = f'{slugify(parent)}-{slugify(self.title)}' 
-            super(Category, self).save(*args, **kwargs)
+            self.slug = f'{slugify(parent)}-{slugify(self.title)}'
         else:
             self.slug = f'{slugify(self.title)}'    
-            super(Category, self).save(*args, **kwargs)
+        super(Category, self).save(*args, **kwargs)
+
+
+
+
+    
+    
+   
 
 
 class Product(models.Model):

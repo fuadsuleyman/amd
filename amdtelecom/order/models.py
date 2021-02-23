@@ -79,3 +79,37 @@ class ShippingAddress(models.Model):
 
     def __str__(self):
         return self.address
+
+
+from django.db import models
+from django.utils.translation import gettext as _
+
+
+class Checkout(models.Model):
+    #information
+    NUMBER_CHOICES = (
+        ('050', '050'),
+        ('051', '051'),
+        ('055', '055'),
+        ('070', '070'),
+        ('077', '077'),
+        ('099', '099'),
+    )
+ 
+    name = models.CharField('name', max_length=50)
+    surname = models.CharField('surname', max_length=50)
+    email = models.EmailField('email',max_length=50)
+    num_title = models.CharField('num title',max_length=10, choices=NUMBER_CHOICES)
+    tel_number = models.CharField('telefon', max_length=20)
+
+    # moderations
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
+
+    class Meta:
+        db_table = ('checkout')
+        verbose_name = ('checkout')
+        verbose_name_plural = ('checkout')
+        
+    def __str__(self):
+        return self.name
