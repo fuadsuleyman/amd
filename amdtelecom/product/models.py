@@ -186,7 +186,7 @@ class Product(models.Model):
 class Product_details(models.Model):
     # relations
     product = models.ForeignKey('product.Product', related_name='products', default="Not", on_delete=models.CASCADE, blank=True, null=True)
-    product_details_property = models.ForeignKey("Product_details_property", on_delete=models.CASCADE, related_name='product_details_properties')
+    product_details_property = models.ForeignKey("Product_details_property_value", on_delete=models.CASCADE, related_name='product_details_properties')
     Product_details_property_name = models.ForeignKey("product_details_property_name", on_delete=models.CASCADE, related_name='product_details_property_name')
 
     # moderations
@@ -203,7 +203,7 @@ class Product_details(models.Model):
         verbose_name_plural = 'Products details'
 
 
-class Product_details_property(models.Model):
+class Product_details_property_value(models.Model):
     # informations 
     title = models.CharField("Title", max_length=50)
 
@@ -216,9 +216,9 @@ class Product_details_property(models.Model):
         return self.title
 
     class Meta:
-        db_table = 'Product property'
-        verbose_name = 'Product property'
-        verbose_name_plural = 'Products properties'
+        db_table = 'Property value '
+        verbose_name = 'Property value'
+        verbose_name_plural = 'Properties values'
 
 class Product_details_property_name(models.Model):
     # relations 
