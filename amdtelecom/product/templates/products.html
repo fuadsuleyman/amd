@@ -82,11 +82,14 @@
                                             <h6>{{ product.title }}</h6>
                                         </a>
                                         <h4>{{ product.get_price }}</h4>
+                                        {% if product.same_product.all %}
                                         <ul class="color-variant">
-                                            <li class="bg-light0"></li>
-                                            <li class="bg-light1"></li>
-                                            <li class="bg-light2"></li>
+                                            <li class="bg-light0" style="background-color: {{ product.color_code }} !important;"></li>
+                                        {% for rel_product in  product.same_product.all%}
+                                            <li class="bg-light0" style="background-color: {{ rel_product.color_code }} !important;"></li>
+                                        {% endfor %}
                                         </ul>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 {% endfor %}
@@ -99,14 +102,14 @@
                                     <div class="img-wrapper">
                                         <div class="front">
                                             
-                                            <a href="{% url 'product:product_detail' product.id %}"><img alt=""
+                                            <a href="{% url 'product:product_detail' product.slug %}"><img alt=""
                                                     src="{{ product.image.url }}"
                                                     class="img-fluid blur-up lazyload bg-img"></a>
                                                     
                                         </div>
                                         {% for image in product.images.all %}
                                         <div class="back">
-                                            <a href="{% url 'product:product_detail' product.id %}"><img alt=""
+                                            <a href="{% url 'product:product_detail' product.slug %}"><img alt=""
                                                     src="{{ image.image.url }}"
                                                     class="img-fluid blur-up lazyload bg-img"></a>
                                         </div>
@@ -126,7 +129,7 @@
                                         <!-- <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
                                                 class="fa fa-star"></i> <i class="fa fa-star"></i> <i
                                                 class="fa fa-star"></i></div> -->
-                                        <a href="{% url 'product:product_detail' product.id %}">
+                                        <a href="{% url 'product:product_detail' product.slug %}">
                                             <h6>{{ product.brand.name |title }} {{product.title}}
                                                 {% if product.internal_storage %}
                                                 <span>{{product.internal_storage}}</span>
@@ -145,7 +148,7 @@
                                 <div class="product-box product-wrap">
                                     <div class="img-wrapper">
                                         <div class="front">
-                                            <a href="{% url 'product:product_detail' product.id %}"><img alt=""
+                                            <a href="{% url 'product:product_detail' product.slug %}"><img alt=""
                                                     src="{% static 'product/images/electronics/product/7.jpg' %}"
                                                     class="img-fluid blur-up lazyload bg-img"></a>
                                         </div>
@@ -167,11 +170,11 @@
                                         <!-- <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
                                                 class="fa fa-star"></i> <i class="fa fa-star"></i> <i
                                                 class="fa fa-star"></i></div> -->
-                                        <a href="{% url 'product:product_detail' product.id %}">
-                                            <h6>{{ product.brand.name |title }} {{product.title}}
-                                                {% if product.internal_storage %}
+                                        <a href="{% url 'product:product_detail' product.slug %}">
+                                            <h6>{{ product.marka.all.0 |title }} {{product.title}}
+                                                {% comment %} {% if product.internal_storage %}
                                                 <span>{{product.internal_storage}}</span>
-                                                {% endif %}
+                                                {% endif %} {% endcomment %}
                                             </h6>
                                         </a>
                                         <h4>{{product.price}} manat</h4>
@@ -186,12 +189,12 @@
                                 <div class="product-box product-wrap">
                                     <div class="img-wrapper">
                                         <div class="front">
-                                            <a href="{% url 'product:product_detail' product.id %}"><img alt=""
+                                            <a href="{% url 'product:product_detail' product.slug %}"><img alt=""
                                                     src="{% static 'product/images/electronics/product/3.jpg' %}"
                                                     class="img-fluid blur-up lazyload bg-img"></a>
                                         </div>
                                         <div class="back">
-                                            <a href="{% url 'product:product_detail' product.id %}"><img alt=""
+                                            <a href="{% url 'product:product_detail' product.slug %}"><img alt=""
                                                     src="{% static 'product/images/electronics/product/4.jpg' %}"
                                                     class="img-fluid blur-up lazyload bg-img"></a>
                                         </div>
@@ -210,11 +213,11 @@
                                         <!-- <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
                                                 class="fa fa-star"></i> <i class="fa fa-star"></i> <i
                                                 class="fa fa-star"></i></div> -->
-                                        <a href="{% url 'product:product_detail' product.id %}">
-                                            <h6>{{ product.brand.name |title }} {{product.title}}
-                                                {% if product.internal_storage %}
-                                                <span>{{product.internal_storage}}</span>
-                                                {% endif %}
+                                        <a href="{% url 'product:product_detail' product.slug %}">
+                                            <h6>{{ product.marka.all.0 |title }} {{product.title}}
+                                                {% comment %} { {% if product.internal_storage %}
+                                                <span>{{product.internal_storage}}</span> 
+                                                {% endif %} {% endcomment %}
                                             </h6>
                                         </a>
                                         <h4>{{product.price}} manat</h4>

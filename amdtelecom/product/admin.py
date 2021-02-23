@@ -38,14 +38,15 @@ class ImageInline(admin.TabularInline):
     model = Product_images
     extra = 0
 
+
 @admin.register(Product_details_property_name)
 class PropertyNameAdmin(admin.ModelAdmin):
-    list_display = ("content", "file", "status")
+    list_display = ("title", "status")
 
 
 @admin.register(Product_details_property_value)
 class PropertyValueAdmin(admin.ModelAdmin):
-    list_display = ("title", "status")
+    list_display = ("content", "file", "status")
 
 
 class ProductDetailNameAdmin(admin.TabularInline):
@@ -59,6 +60,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_display_links = ("title",)
     list_filter = ("price", "category",)
     search_fields = ('title', "category__title", "Marka")
+    readonly_fields = ('slug',)
     inlines = [ImageInline, ProductDetailNameAdmin]
     save_on_top = True
     save_as = True #create new product easy way

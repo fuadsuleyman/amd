@@ -2,7 +2,7 @@ from django.urls import path, include
 from .import views
 from .views import (
     ProductListView, 
-    CategoryListView,
+    # CategoryListView,
     ProductsFilterListView,
     # product_filter
     # product_detail,
@@ -13,7 +13,7 @@ from django.conf.urls.static import static
 app_name = 'product'
 
 urlpatterns = [
-    path('', CategoryListView.as_view(), name='amd-home'),
+    # path('', CategoryListView.as_view(), name='amd-home'),
     path('products/', ProductListView.as_view(), name='products_list'),
     path('products/<slug:slug>/', ProductsFilterListView.as_view(), name='products_filter'),
     # path('products/<slug:slug>/', product_filter, name='products_filter'),

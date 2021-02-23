@@ -13,4 +13,5 @@ def home_page(request):
     context = {'products':products, 'details': details,'category':category }
     return render(request, 'home.html', context)
 
-    
+
+

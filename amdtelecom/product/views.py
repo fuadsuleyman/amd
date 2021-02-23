@@ -60,7 +60,7 @@ class ProductDetailView(DetailView):
         context['product'] = product
         context['photos'] = photos
         context['details'] = details
-        print(photos, 'sekilci')
+        print(details, 'sekilci')
         return context
 
     def post(self, request, pk):
@@ -74,11 +74,11 @@ class ProductDetailView(DetailView):
         orderItem.save()
     
 
-class CategoryListView(ListView):
-    model = Category
-    context_object_name = 'category_list'
-    template_name = 'base.html'
-    queryset = Category.objects.filter(status=True)
+# class CategoryListView(ListView):
+#     model = Category
+#     context_object_name = 'category_list'
+#     template_name = 'base.html'
+#     queryset = Category.objects.filter(status=True)
 
 
 
