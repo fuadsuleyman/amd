@@ -8,6 +8,7 @@ from django.core.mail import send_mail
 
 @receiver(post_save, sender=Checkout)
 def send_form(sender, instance, **kwargs):
+    subject= 'Checkout'
     name = instance.name
     surname = instance.surname
     email = instance.email
@@ -15,8 +16,9 @@ def send_form(sender, instance, **kwargs):
     tel_number = instance.tel_number
 
     user_form = f'''
+
         Name: {name}
-        Surname: {Surname}
+        Surname: {surname}
         Email: {email}
         Telefon: {num_title} {tel_number}
     '''

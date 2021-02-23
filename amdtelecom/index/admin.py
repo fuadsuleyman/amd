@@ -3,4 +3,4 @@ from .models import Subscriber, SaleFutures
 # Register your models here.
 
 
-admin.site.register([Subscriber,SaleFutures])
+admin.site.register([Subscriber,SaleFutures,])
