@@ -22,7 +22,7 @@ def deletefromcart(request, id):
     return redirect('cart')
 
 
-class ContactCreateView(CreateView):
+class CheckoutView(CreateView):
     form_class = CheckoutForm
-    template_name = 'contact.html'
+    template_name = 'checkout.html'
     success_url = reverse_lazy('index:home')

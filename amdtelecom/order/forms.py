@@ -3,11 +3,13 @@ from .models import Checkout
 
 class CheckoutForm(forms.ModelForm):
     num_title = forms.ChoiceField(widget = forms.Select(attrs={
-                'class': 'form-control col-12',
+                'class': 'form-group',
+                'style': 'padding: 0 15px !important;',
                 
             }) , 
                      choices = (
-        [('050', '050'),
+        [('---', '---'),
+        ('050', '050'),
         ('051', '051'),
         ('055', '055'),
         ('070', '070'),
@@ -29,19 +31,19 @@ class CheckoutForm(forms.ModelForm):
         widgets = {
             
             'name': forms.TextInput(attrs={
-                'class': 'form-control col-12',
+                'class': 'form-group ',
                 'placeholder': 'Ad '
             }),
             'surname': forms.TextInput(attrs={
-                'class': 'form-control col-12',
+                'class': 'form-group',
                 'placeholder': 'Soyad '
             }),
             'email': forms.EmailInput(attrs={
-                'class': 'form-control ',
+                'class': 'form-group ',
                 'placeholder': 'E-posta adresiniz'
             }),
             'tel_number': forms.NumberInput(attrs={
-                'class': 'form-control ',
+                'class': 'form-group',
                 'placeholder': 'Mobil nömrə'
             }),
             

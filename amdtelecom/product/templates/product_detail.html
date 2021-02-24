@@ -373,7 +373,7 @@
                                                 });
                                             }
                                         </script> -->
-                                        <form method="POST" action="{% url 'product:product_detail' product.id %}">
+                                        <form method="POST" action="{% url 'product:product_detail' product.slug %}">
                                             {% csrf_token %}
                                             <div class="border-product">
                                                 <h6 class="product-title">quantity</h6>
