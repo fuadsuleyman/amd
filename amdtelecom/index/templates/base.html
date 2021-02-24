@@ -11,8 +11,15 @@
     <meta name="description" content="multikart">
     <meta name="keywords" content="multikart">
     <meta name="author" content="multikart">
-    <link rel="icon" href="{% static 'images/favicon/9.png' %}" type="image/x-icon">
-    <link rel="shortcut icon" href="{% static 'images/favicon/9.png' %}" type="image/x-icon">
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.2.0/css/ion.rangeSlider.skinHTML5.min.css"> -->
+    <!--Plugin CSS file with desired skin-->
+    {% block head_content_icon %}
+
+        {% comment %} <link rel="icon" href="{% static 'images/favicon/1.png' %}" type="image/x-icon">
+        <link rel="shortcut icon" href="{% static 'images/favicon/1.png' %}" type="image/x-icon"> {% endcomment %}
+    {% endblock head_content_icon %}
     {% if title %}
         <title>AMD - {{ title }}</title>
     {% else %}
@@ -27,21 +34,27 @@
     <!--Slick slider css-->
     <link rel="stylesheet" type="text/css" href="{% static 'css/slick.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/slick-theme.css' %}">
-
+    
     <!-- Animate icon -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
 
+    {% comment %} {% block js_plugin %} {% endcomment %}
+    <!-- price range -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/price-range.css' %}"> 
+    {% comment %} {% endblock %} {% endcomment %}
     <!-- Themify icon -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/themify-icons.css' %}">
 
     <!-- Bootstrap css -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
 
-    <!-- My custom css -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
+    {% comment %} My custom css {% endcomment %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}"> 
+
+    <!-- price range -->
 
     <!-- Theme css -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/color9.css' %}" media="screen" id="color">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/color1.css' %}" media="screen" id="color">
 
 </head>
 
@@ -942,7 +955,6 @@
                             document.querySelector('#mc-embedded-subscribe-form').addEventListener('submit', async(e) => {
                                 e.preventDefault()
                                 let form = e.target
-                                console.log(form)
                                 let postData = {"email": form.email.value}
 
                                 let csrfToken = document.querySelector('[name="csrfmiddlewaretoken"]').getAttribute('value');
@@ -965,7 +977,6 @@
                                 }
                                 document.querySelector('#error_messages').innerHTML = errorMessage
                                 
-                                console.log(data)
                             })
                         </script>
                         </div>
@@ -1995,8 +2006,11 @@
     <!-- tap to top end -->
 
 
-    latest jquery
-    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <!--jQuery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!--Plugin JavaScript file-->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>    -->
 
     <!-- menu js-->
     <script src="{% static 'js/menu.js' %}"></script>
@@ -2008,7 +2022,7 @@
     <script src="{% static 'js/popper.min.js' %}"></script>
 
     <!-- price_range js -->
-    <!-- <script src="{% static 'js/price-range.js' %}"></script> -->
+    <script src="{% static 'js/price-range.js' %}"></script>
 
     <!-- slick js-->
     <script src="{% static 'js/slick.js' %}"></script>
@@ -2021,18 +2035,20 @@
 
     <!-- Theme js-->
     <script src="{% static 'js/script.js' %}"></script>
-    <script src="{% static 'js/product-filter.js' %}"></script>
+    <!-- <script src="{% static 'js/product-filter.js' %}"></script> -->
 
-    <script>
+    <!-- <script>
         $(".js-range-slider").ionRangeSlider({
             type: "double",
             min: 0,
-            max: 1000,
-            from: 200,
+            max: 1500,
+            from: 100,
             to: 500,
-            grid: true
+            //hide_min: true,
+            //grid: true,
+            //prefix: "AZN",
         });
-    </script>
+    </script> -->
 
     <script>
         // sehife acilan kimi cixan modal
@@ -2087,9 +2103,7 @@
 
     var thirdCategoryList = $('.thirdCategoryList')
     for (let index = 0; index < thirdCategoryList.length; index++) {
-    console.log($(thirdCategoryList[index]).children().length); 
         if ( $(thirdCategoryList[index]).children().length == 0 ) {
-            console.log($(thirdCategoryList[index]).parent().find('a'));
             $(thirdCategoryList[index]).parent().find('a').addClass('category-title-link')
             $(thirdCategoryList[index]).addClass('none')
 
