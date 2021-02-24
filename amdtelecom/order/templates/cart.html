@@ -16,7 +16,7 @@
             <div class="col-sm-6">
                 <nav aria-label="breadcrumb" class="theme-breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{% url 'amd-home' %}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'index:home' %}">Home</a></li>
                         <li class="breadcrumb-item active">cart</li>
                     </ol>
                 </nav>
@@ -100,8 +100,8 @@
             </div>
         </div>
         <div class="row cart-buttons">
-            <div class="col-6"><a href="{% url 'amd-home' %}" class="btn btn-solid">continue shopping</a></div>
-            <div class="col-6"><a href="#" class="btn btn-solid">check out</a></div>
+            <div class="col-6"><a href="{% url 'index:home' %}" class="btn btn-solid">continue shopping</a></div>
+            <div class="col-6"><a href="{% url 'order:checkout' %}" class="btn btn-solid">check out</a></div>
         </div>
     </div>
 </section>
