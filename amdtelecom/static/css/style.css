@@ -1,0 +1,7 @@
+/* for slick photo position in center  */
+/* product_detail page */
+.product-slick .slick-slide > div > div {
+    display: flex !important; 
+    justify-content: center; 
+    align-items: center;
+}
