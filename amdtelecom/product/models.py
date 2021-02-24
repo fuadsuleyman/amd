@@ -57,10 +57,7 @@ class Marka(models.Model):
     def save(self, *args, **kwargs):        
         title = Marka.objects.filter(title=self.title).first()
         super(Marka, self).save(*args, **kwargs)
-        if title:
-            self.slug = f'{slugify(self.title)}-{self.id}'
-        else:
-            self.slug = slugify(self.title)
+        self.slug = f'{slugify(self.title)}-{self.id}'
         super(Marka, self).save(*args, **kwargs)
 
 

@@ -1995,7 +1995,7 @@
     <!-- tap to top end -->
 
 
-    <!-- latest jquery-->
+    latest jquery
     <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
 
     <!-- menu js-->
@@ -2006,6 +2006,9 @@
 
     <!-- popper js-->
     <script src="{% static 'js/popper.min.js' %}"></script>
+
+    <!-- price_range js -->
+    <!-- <script src="{% static 'js/price-range.js' %}"></script> -->
 
     <!-- slick js-->
     <script src="{% static 'js/slick.js' %}"></script>
@@ -2018,6 +2021,18 @@
 
     <!-- Theme js-->
     <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/product-filter.js' %}"></script>
+
+    <script>
+        $(".js-range-slider").ionRangeSlider({
+            type: "double",
+            min: 0,
+            max: 1000,
+            from: 200,
+            to: 500,
+            grid: true
+        });
+    </script>
 
     <script>
         // sehife acilan kimi cixan modal

@@ -261,25 +261,28 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 slick-container">
                                     <div class="product-slick">
-                                        {% for image in product.images.all %}
-                                            <div><img src="{{ image.image.url }}" alt=""
-                                                    class="img-fluid blur-up lazyload image_zoom_cls-0"></div>
-                                        {% endfor %}
-                                        {% for photo in photos %}
-                                            <div><img src="{{ photo.image.url }}" alt=""
-                                                    class="img-fluid blur-up lazyload image_zoom_cls-1"></div>
-                                        {% endfor %}
-                                        </div>
+                                            {% for image in product.images.all %}
+                                                <div>
+                                                    <img src="{{ image.image.url }}" alt="{{ image.image }}" class="img-fluid blur-up lazyload image_zoom_cls-0" style="max-width: 580px !important; max-height: 580px !important;">
+                                                </div>
+                                            {% endfor %}
+                                            {% for photo in photos %}
+                                                <div>
+                                                    <img src="{{ photo.image.url }}" alt="{{ photo.image }}" class="img-fluid blur-up lazyload image_zoom_cls-1"style="max-width: 580px !important; max-height: 580px !important;">
+                                                </div>
+                                            {% endfor %}
+                                    </div>
                                     <div class="row">
                                         <div class="col-12 p-0">
                                             
                                             <div class="slider-nav">
 
                                                 {% for photo in photos %}
-                                                <div><img src="{{ photo.image.url }}" alt=""
-                                                        class="img-fluid blur-up lazyload"></div>
+                                                <div>
+                                                    <img src="{{ photo.image.url }}" alt="{{ photo.image.url }}" class="img-fluid blur-up lazyload" style="max-width: 197px !important; height: 197px !important;">
+                                                </div>
                                                 <!-- <div><img src="{% static 'images/pro3/27.jpg' %}" alt=""
                                                         class="img-fluid blur-up lazyload"></div>
                                                 <div><img src="{% static 'images/pro3/27.jpg' %}" alt=""
@@ -294,20 +297,82 @@
                                 <div class="col-lg-6 rtl-text"> 
                                     <div class="product-right">
                                         
-                                        <h2>{{ product.marka.all.0 }} {{ product.title }} {{ product.color_title }}
+                                        <h2 class="marka-title">{{ product.marka.all.0 }} {{ product.title }} {% if product.color_title %}{{ product.color_title }} {% endif %}
                     
                                             <!-- {% for detail in details %}  -->
                                             <!-- <span>ram / yaddas </span> -->
                                             <!-- {% endfor %} -->
                                         </h2>
-                                        <h4><del>old price</del></h4>
+                                        <!-- <h4><del>old price</del></h4> -->
                                         <h3>{{ product.price }} AZN</h3>
 
                                         <ul class="color-variant" style="border-block-color: black;">
-                                            <li style="background-color:{{ product.color_code }}; border: 5px solid {{ product.color_code }};" ></li>
+                                            <!-- onclick="changeColor(event,{{product.id}}) -->
+                                            <li style="background-color:{{ product.color_code }}; border: 5px solid {{ product.color_code }}; position: relative !important; ">
+                                                <a href="{% url 'product:product_detail' product.slug %}" style="position: absolute; width: 100%; height: 100%;"></a>
+                                            </li>
+                                            {% if product.same_product.all %}
+                                                {% for productt in product.same_product.all %}
+                                                <li style="background-color:{{ productt.color_code }}; border: 5px solid {{ productt.color_code }}; position: relative !important;">
+                                                    <a href="{% url 'product:product_detail' productt.slug %}" style="position: absolute; width: 100%; height: 100%;"></a>
+                                                </li> 
+                                                {% endfor %}
+                                            {% endif %}
+                                                
                                             <!-- <li class="bg-light1"></li>
                                             <li class="bg-light2"></li> -->
                                         </ul>
+                                        <!-- <script>
+
+
+                                            function changeColor(event, id){
+
+                                                
+                                                let product
+                                                let imageContent = ''
+                                                let productTitle = document.querySelector('.marka-title')
+                                                let productMainImage = document.querySelector('.slick-container')
+                                                
+
+                                                let url = `http://{{ request.META.HTTP_HOST }}/api/v1.0/filter-api-product/${id}`;
+                                                // let response = await fetch(url);
+                                                fetch(url, {mode: 'cors'})
+                                                .then(function(response) {
+                                                    return response.json();
+                                                })
+                                                .then(function(data) {
+                                                    product = data[0]
+                                                    console.log('Request successful', data);
+                                                    productTitle.innerHTML = `${product.marka[0]} ${product.title} ${product.color_title}`
+                                                    console.log(product.images.length, 'uuuu')
+                                                    for(let i = 0; product.images.length - 1; i++){
+                                                        console.log(product.images[i], 'ncsc')
+                                                        if (product.images[i] != undefined){
+                                                            imageContent += `
+                                                            <div>
+                                                                <img src="/media/${product.images[i]}" alt="${product.images[i]}" class="img-fluid blur-up lazyload image_zoom_cls-0">
+                                                            </div>
+                                                            `
+                                                        }
+                                                        if (i > product.images.length) {
+                                                            break
+                                                        }
+                                                    }
+                                                    console.log(imageContent, 'salam')
+                                                    productMainImage.innerHTML = ''
+                                                    let slickContainer = document.createElement('div')
+                                                    slickContainer.classList.add('product-slick')
+                                                    slickContainer.append(imageContent)
+
+                                                    productMainImage.innerHTML = slickContainer
+                                                    imageContent = ''
+
+                                                })
+                                                .catch(function(error) {
+                                                    console.log('Request failed', error)
+                                                });
+                                            }
+                                        </script> -->
                                         <form method="POST" action="{% url 'product:product_detail' product.id %}">
                                             {% csrf_token %}
                                             <div class="border-product">
