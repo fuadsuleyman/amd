@@ -1,17 +1,16 @@
 $(document).ready(() => {
-    // $(".ajaxLoader").hide();
-
-    // var _filterObj={}
-
-    // async function changeColor(e, id){
-    //     e.preventDefault()
-
-    //     let url = `http://{{ request.META.HTTP_HOST }}/api/v1.0/filter-api-product/${id}`
-    //     await fetch(url)
-    //     .then(res => res.json())
-    //     .then(console.log(res))
-
-    // }
-
+    function test() {
+			
+		
+        var category = $('#categoryId').data('category')
+        console.log($(this))
+        var _filterObj={};
+        $(".filter-item-checkbox").each(function(index,ele){
+            var _filterVal=$(this).val();
+            var _filterKey=$(this).data('filter');
+            _filterObj[_filterKey]=Array.from(document.querySelectorAll('input[data-filter='+_filterKey+']:checked')).map(function(el){
+                return el.value;
+            });
+        });
 
 })

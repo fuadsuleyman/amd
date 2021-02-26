@@ -21,11 +21,6 @@ class ProductListView(ListView):
         products = Product.objects.all()
         details = Product_details.objects.all()
 
-
-        for product in products:
-            markas = product.marka.all()
-
-
         context["products"] = products
         context['detauls'] = details
         return context

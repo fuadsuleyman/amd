@@ -53,7 +53,7 @@
                             {% ifchanged product.marka.all.0.title %}
                             {% for product in product.marka.all  %}
                                 <div class="custom-control custom-checkbox collection-filter-checkbox">
-                                    <input  type="checkbox" class="filter-item-checkbox custom-control-input" id="{{ product.title }}">
+                                    <input onclick="getData()" data-category='{{ product.pk }}' type="checkbox" class="filter-item-checkbox custom-control-input" id="{{ product.title }}">
                                     <label class="custom-control-label" for="{{ product.title }}">{{ product.title }}</label>
                                 </div>
                             {% endfor %}
