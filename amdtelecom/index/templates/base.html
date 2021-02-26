@@ -11,13 +11,17 @@
     <meta name="description" content="multikart">
     <meta name="keywords" content="multikart">
     <meta name="author" content="multikart">
-    <link rel="icon" href="{% static 'images/favicon/9.png' %}" type="image/x-icon">
-    <link rel="shortcut icon" href="{% static 'images/favicon/9.png' %}" type="image/x-icon">
+
+    <!--Plugin CSS file with desired skin-->
+    <link rel="icon" href="{% static 'images/favicon/1.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'images/favicon/1.png' %}" type="image/x-icon">
+
     {% if title %}
         <title>AMD - {{ title }}</title>
     {% else %}
         <title>AMD</title>
     {% endif %}
+    
     <!--Google font-->
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
 
@@ -27,10 +31,13 @@
     <!--Slick slider css-->
     <link rel="stylesheet" type="text/css" href="{% static 'css/slick.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/slick-theme.css' %}">
-
+    
     <!-- Animate icon -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
 
+    {% block price_range_css %}
+
+    {% endblock %}
     <!-- Themify icon -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/themify-icons.css' %}">
 
@@ -38,8 +45,9 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
 
     <!-- My custom css -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}">
-
+    <link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}"> 
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> 
+    
     <!-- Theme css -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/color9.css' %}" media="screen" id="color">
 
@@ -796,7 +804,7 @@
                         </div>
                         <div class="absolute-logo">
                             <div class="brand-logo">
-                                <a href="{% url 'index:home' %}"><img alt="AMD Telecom" src="{% static 'images/icon/logo/5.png' %}"></a>
+                                <a href="{% url 'index:home' %}"><img alt="AMD Telecom" src="{% static 'images/icon/logo/amd_telecom.png' %}"style=" height: 100px; width: 150px;"></a>
                             </div>
                         </div>
                         <div class="">
@@ -942,7 +950,6 @@
                             document.querySelector('#mc-embedded-subscribe-form').addEventListener('submit', async(e) => {
                                 e.preventDefault()
                                 let form = e.target
-                                console.log(form)
                                 let postData = {"email": form.email.value}
 
                                 let csrfToken = document.querySelector('[name="csrfmiddlewaretoken"]').getAttribute('value');
@@ -965,7 +972,6 @@
                                 }
                                 document.querySelector('#error_messages').innerHTML = errorMessage
                                 
-                                console.log(data)
                             })
                         </script>
                         </div>
@@ -981,7 +987,7 @@
                             <h4>about</h4>
                         </div>
                         <div class="footer-contant">
-                            <div class="footer-logo"><img src="{% static 'images/icon/logo/5.png' %}" alt=""></div>
+                            <div class="footer-logo"><img src="{% static 'images/icon/logo/amd_telecom.png' %}" style="width: 179px; max-height: 90px;" alt=""></div>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
                                 ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
                             <div class="footer-social">
@@ -1022,7 +1028,7 @@
                                     <li><a href="#">secure shopping</a></li>
                                     <li><a href="#">gallary</a></li>
                                     <li><a href="#">affiliates</a></li>
-                                    <li><a href="#">contacts</a></li>
+                                    <li><a href="{% url 'contact:contact' %}">contacts</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -1052,7 +1058,7 @@
                     <div class="col-xl-6 col-md-6 col-sm-12">
                         <div class="footer-end">
                             <p><i class="fa fa-copyright" aria-hidden="true"></i> 2020 powered by
-                                Fuad Suleymanov</p>
+                                NFE Groups</p>
                         </div>
                     </div>
                     <!-- <div class="col-xl-6 col-md-6 col-sm-12">
@@ -1995,8 +2001,11 @@
     <!-- tap to top end -->
 
 
-    <!-- latest jquery-->
-    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <!--jQuery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!--Plugin JavaScript file-->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>    -->
 
     <!-- menu js-->
     <script src="{% static 'js/menu.js' %}"></script>
@@ -2018,6 +2027,7 @@
 
     <!-- Theme js-->
     <script src="{% static 'js/script.js' %}"></script>
+    <!-- <script src="{% static 'js/product-filter.js' %}"></script> -->
 
     <script>
         // sehife acilan kimi cixan modal
@@ -2072,9 +2082,7 @@
 
     var thirdCategoryList = $('.thirdCategoryList')
     for (let index = 0; index < thirdCategoryList.length; index++) {
-    console.log($(thirdCategoryList[index]).children().length); 
         if ( $(thirdCategoryList[index]).children().length == 0 ) {
-            console.log($(thirdCategoryList[index]).parent().find('a'));
             $(thirdCategoryList[index]).parent().find('a').addClass('category-title-link')
             $(thirdCategoryList[index]).addClass('none')
 
@@ -2112,6 +2120,9 @@
         }
         document.cookie = 'device=' + device + ";domain=;path=/"
     </script>
+    {% block price_range_js %}
+    {% endblock price_range_js %}
+
 </body>
 
 </html>

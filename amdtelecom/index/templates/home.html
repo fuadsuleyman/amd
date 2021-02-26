@@ -1,7 +1,6 @@
 {% extends "base.html" %}
-{% block content %}
-
 {% load static %}
+{% block head_content_icon %}
 
 {% if messages %}
     {% for message in messages %}
@@ -9,7 +8,7 @@
                     {{message}}
                 </div>
     {% endfor %}
-    {% endif %}
+{% endif %}
     {% comment %} <!-- home banner start -->
     
     <div class="container banner-slider">

@@ -26,7 +26,8 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Marka)
 class MarkaAdmin(admin.ModelAdmin):
-    list_display = ("id", "title", "description")
+    readonly_fields = ('slug',)
+    list_display = ("id", "title", "description", "slug")
     list_display_links = ("title",)
 
 @admin.register(Product_images)
@@ -56,7 +57,7 @@ class ProductDetailNameAdmin(admin.TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("title", "price", "is_new", 'get_image', ) #"get_image"
+    list_display = ("title", "price", "is_new", 'get_image', 'id', ) #"get_image"
     list_display_links = ("title",)
     list_filter = ("price", "category",)
     search_fields = ('title', "category__title", "Marka")

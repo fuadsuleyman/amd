@@ -19,13 +19,10 @@ class ProductListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         products = Product.objects.all()
-
-        for product in products:
-            markas = product.marka.all()
-
+        details = Product_details.objects.all()
 
         context["products"] = products
-        context['markas'] = markas
+        context['detauls'] = details
         return context
     
 

@@ -261,25 +261,29 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 slick-container">
                                     <div class="product-slick">
-                                        {% for image in product.images.all %}
-                                            <div><img src="{{ image.image.url }}" alt=""
-                                                    class="img-fluid blur-up lazyload image_zoom_cls-0"></div>
-                                        {% endfor %}
-                                        {% for photo in photos %}
-                                            <div><img src="{{ photo.image.url }}" alt=""
-                                                    class="img-fluid blur-up lazyload image_zoom_cls-1"></div>
-                                        {% endfor %}
-                                        </div>
+                                            {% for image in product.images.all %}
+                                                <div>
+                                                    <img src="{{ image.image.url }}" alt="{{ image.image }}" class="img-fluid blur-up lazyload image_zoom_cls-0" style="max-width: 580px !important; max-height: 400px !important;">
+                                                </div>
+                                            {% endfor %}
+                                            {% for photo in photos %}
+                                                <div>
+                                                    <img src="{{ photo.image.url }}" alt="{{ photo.image }}" class="img-fluid blur-up lazyload image_zoom_cls-1"style="max-width: 580px !important; max-height: 400px !important;">
+                                                </div>
+                                            {% endfor %}
+                                    </div>
+
                                     <div class="row">
                                         <div class="col-12 p-0">
                                             
                                             <div class="slider-nav">
 
                                                 {% for photo in photos %}
-                                                <div><img src="{{ photo.image.url }}" alt=""
-                                                        class="img-fluid blur-up lazyload"></div>
+                                                <div>
+                                                    <img src="{{ photo.image.url }}" alt="{{ photo.image }}" class="img-fluid blur-up lazyload" style="height: 197px !important;">
+                                                </div>
                                                 <!-- <div><img src="{% static 'images/pro3/27.jpg' %}" alt=""
                                                         class="img-fluid blur-up lazyload"></div>
                                                 <div><img src="{% static 'images/pro3/27.jpg' %}" alt=""
@@ -294,20 +298,82 @@
                                 <div class="col-lg-6 rtl-text"> 
                                     <div class="product-right">
                                         
-                                        <h2>{{ product.marka.all.0 }} {{ product.title }} {{ product.color_title }}
+                                        <h2 class="marka-title">{{ product.marka.all.0 }} {{ product.title }} {% if product.color_title %}{{ product.color_title }} {% endif %}
                     
                                             <!-- {% for detail in details %}  -->
                                             <!-- <span>ram / yaddas </span> -->
                                             <!-- {% endfor %} -->
                                         </h2>
-                                        <h4><del>old price</del></h4>
+                                        <!-- <h4><del>old price</del></h4> -->
                                         <h3>{{ product.price }} AZN</h3>
 
                                         <ul class="color-variant" style="border-block-color: black;">
-                                            <li style="background-color:{{ product.color_code }}; border: 5px solid {{ product.color_code }};" ></li>
+                                            <!-- onclick="changeColor(event,{{product.id}}) -->
+                                            <li style="background-color:{{ product.color_code }}; border: 5px solid {{ product.color_code }}; position: relative !important; ">
+                                                <a href="{% url 'product:product_detail' product.slug %}" style="position: absolute; width: 100%; height: 100%;"></a>
+                                            </li>
+                                            {% if product.same_product.all %}
+                                                {% for productt in product.same_product.all %}
+                                                <li style="background-color:{{ productt.color_code }}; border: 5px solid {{ productt.color_code }}; position: relative !important;">
+                                                    <a href="{% url 'product:product_detail' productt.slug %}" style="position: absolute; width: 100%; height: 100%;"></a>
+                                                </li> 
+                                                {% endfor %}
+                                            {% endif %}
+                                                
                                             <!-- <li class="bg-light1"></li>
                                             <li class="bg-light2"></li> -->
                                         </ul>
+                                        <!-- <script>
+
+
+                                            function changeColor(event, id){
+
+                                                
+                                                let product
+                                                let imageContent = ''
+                                                let productTitle = document.querySelector('.marka-title')
+                                                let productMainImage = document.querySelector('.slick-container')
+                                                
+
+                                                let url = `http://{{ request.META.HTTP_HOST }}/api/v1.0/filter-api-product/${id}`;
+                                                // let response = await fetch(url);
+                                                fetch(url, {mode: 'cors'})
+                                                .then(function(response) {
+                                                    return response.json();
+                                                })
+                                                .then(function(data) {
+                                                    product = data[0]
+                                                    console.log('Request successful', data);
+                                                    productTitle.innerHTML = `${product.marka[0]} ${product.title} ${product.color_title}`
+                                                    console.log(product.images.length, 'uuuu')
+                                                    for(let i = 0; product.images.length - 1; i++){
+                                                        console.log(product.images[i], 'ncsc')
+                                                        if (product.images[i] != undefined){
+                                                            imageContent += `
+                                                            <div>
+                                                                <img src="/media/${product.images[i]}" alt="${product.images[i]}" class="img-fluid blur-up lazyload image_zoom_cls-0">
+                                                            </div>
+                                                            `
+                                                        }
+                                                        if (i > product.images.length) {
+                                                            break
+                                                        }
+                                                    }
+                                                    console.log(imageContent, 'salam')
+                                                    productMainImage.innerHTML = ''
+                                                    let slickContainer = document.createElement('div')
+                                                    slickContainer.classList.add('product-slick')
+                                                    slickContainer.append(imageContent)
+
+                                                    productMainImage.innerHTML = slickContainer
+                                                    imageContent = ''
+
+                                                })
+                                                .catch(function(error) {
+                                                    console.log('Request failed', error)
+                                                });
+                                            }
+                                        </script> -->
                                         <form method="POST" action="{% url 'product:product_detail' product.slug %}">
                                             {% csrf_token %}
                                             <div class="border-product">
@@ -421,170 +487,6 @@
                                                             <td class="detail-text">{{ detail.product_details_propert_value }}</td>
                                                         </tr>
                                                         {% endfor %}
-                                                        {% comment %} <tr>
-                                                            <td class="detail-header">Əməliyyat sistemi:</td>
-                                                            <td class="detail-text">{{ detail.operation_system }}</td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td class="detail-header">Ekran ölçüsü:</td>
-                                                            <td class="detail-text">{{ detail.screen_size }}</td>
-                                                        </tr> {% endcomment %}
-
-
-                                                        {% comment %} {% if detail.resolution %}
-                                                        <tr>
-                                                            <td class="detail-header">Ekran imkanları:</td>
-                                                            <td class="detail-text">{{ detail.resolution }}</td>
-                                                        </tr>
-                                                        {% endif %}
-
-                                                        {% if product.ram %}
-                                                        <tr>
-                                                            <td class="detail-header">RAM:</td>
-                                                            <td class="detail-text">{{ product.ram }}</td>
-                                                        </tr>
-                                                        {% endif %}
-
-                                                        {% if product.internal_storage %}
-                                                        <tr>
-                                                            <td class="detail-header">Daxili Yaddaş:</td>
-                                                            <td class="detail-text">{{ product.internal_storage }}</td>
-                                                        </tr>
-                                                        {% endif %}
-
-                                                        {% if detail.back_camera %}
-                                                        <tr>
-                                                            <td class="detail-header">Əsas kamera:</td>
-                                                            <td class="detail-text">{{ detail.back_camera }}</td>
-                                                        </tr>
-                                                        {% endif %}
-
-                                                        {% if detail.front_camera %}
-                                                        <tr>
-                                                            <td class="detail-header">Ön kamera:</td>
-                                                            <td class="detail-text">{{ detail.front_camera }}</td>
-                                                        </tr>
-                                                        {% endif %}
-
-                                                        {% if detail.prosessor %}
-                                                        <tr>
-                                                            <td class="detail-header">Prosessor:</td>
-                                                            <td class="detail-text">{{ detail.prosessor }}</td>
-                                                        </tr>
-                                                        {% endif %}
-
-                                                        {% if detail.battery %}
-                                                        <tr>
-                                                            <td class="detail-header">Batareya tutumu:</td>
-                                                            <td class="detail-text">{{ detail.battery }}</td>
-                                                        </tr>
-                                                        {% endif %}
-
-                                                        {% if detail.weigth %}
-                                                        <tr>
-                                                            <td class="detail-header">Çəki:</td>
-                                                            <td class="detail-text">{{ detail.weigth }}</td>
-                                                        </tr>
-                                                        {% endif %}
-
-                                                        {% if detail.size %}
-                                                        <tr>
-                                                            <td class="detail-header">Ölçülər(H*E*D), mm:</td>
-                                                            <td class="detail-text">{{ detail.size }}</td>
-                                                        </tr>
-                                                        {% endif %}
-
-                                                        {% if detail.operator_prefix %}
-                                                        <tr>
-                                                            <td class="detail-header">Operator Prefiksi:</td>
-                                                            <td class="detail-text">{{ detail.operator_prefix }}</td>
-                                                        </tr>
-                                                        {% endif %}
-
-                                                        {% if detail.security %}
-                                                        <tr>
-                                                            <td class="detail-header">Təhlükəsizlik:</td>
-                                                            <td class="detail-text">{{ detail.security }}</td>
-                                                        </tr>
-                                                        {% endif %}
-
-                                                        {% if detail.external_storage %}
-                                                        <tr>
-                                                            <td class="detail-header">Yaddaş kartı:</td>
-                                                            <td class="detail-text">{{ detail.external_storage }}</td>
-                                                        </tr>
-                                                        {% endif %}
-
-                                                        {% if detail.sim_count %}
-                                                        <tr>
-                                                            <td class="detail-header">Sim-kart sayı:</td>
-                                                            <td class="detail-text">{{ detail.sim_count }}</td>
-                                                        </tr>
-                                                        {% endif %}
-
-                                                        {% if detail.guarantee %}
-                                                        <tr>
-                                                            <td class="detail-header">Zəmanət:</td>
-                                                            <td class="detail-text">{{ detail.guarantee }}</td>
-                                                        </tr>
-                                                        {% endif %}
-
-                                                        {% if detail.wifi %}
-                                                        <tr>
-                                                            <td class="detail-header">Wi-Fi:</td>
-                                                            <td class="detail-text">Var</td>
-                                                        </tr>
-                                                        {% endif %}
-
-                                                        {% if detail.faceID %}
-                                                        <tr>
-                                                            <td class="detail-header">Üz tanıma(Face ID):</td>
-                                                            <td class="detail-text">Var</td>
-                                                        </tr>
-                                                        {% endif %}
-
-                                                        {% if detail.allow_3G %}
-                                                        <tr>
-                                                            <td class="detail-header">3G:</td>
-                                                            <td class="detail-text">Var</td>
-                                                        </tr>
-                                                        {% endif %}
-
-                                                        {% if detail.allow_4G %}
-                                                        <tr>
-                                                            <td class="detail-header">4G:</td>
-                                                            <td class="detail-text">Var</td>
-                                                        </tr>
-                                                        {% endif %}
-
-                                                        {% if detail.nfc %}
-                                                        <tr>
-                                                            <td class="detail-header">NFC:</td>
-                                                            <td class="detail-text">Var</td>
-                                                        </tr>
-                                                        {% endif %}
-
-                                                        {% if detail.gps %}
-                                                        <tr>
-                                                            <td class="detail-header">GPS:</td>
-                                                            <td class="detail-text">Var</td>
-                                                        </tr>
-                                                        {% endif %}
-
-                                                        {% if detail.waterproof %}
-                                                        <tr>
-                                                            <td class="detail-header">Suyadavamlılıq:</td>
-                                                            <td class="detail-text">Var</td>
-                                                        </tr>
-                                                        {% endif %}
-
-                                                        {% if detail.shockproof %}
-                                                        <tr>
-                                                            <td class="detail-header">Zərbəyədavamlılıq:</td>
-                                                            <td class="detail-text">Var</td>
-                                                        </tr>
-                                                        {% endif %} {% endcomment %}
                 
                                                     </table>
                                                 </tbody>
@@ -685,8 +587,8 @@
                                     title="Compare"><i class="ti-reload" aria-hidden="true"></i></a></div>
                         </div>
                         <div class="product-detail">
-                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
+                            <!-- <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div> -->
                             <a href="product-page(no-sidebar).html">
                                 <h6>Slim Fit Cotton Shirt</h6>
                             </a>
@@ -719,8 +621,8 @@
                                     title="Compare"><i class="ti-reload" aria-hidden="true"></i></a></div>
                         </div>
                         <div class="product-detail">
-                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
+                            <!-- <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div> -->
                             <a href="product-page(no-sidebar).html">
                                 <h6>Slim Fit Cotton Shirt</h6>
                             </a>
@@ -753,8 +655,8 @@
                                     title="Compare"><i class="ti-reload" aria-hidden="true"></i></a></div>
                         </div>
                         <div class="product-detail">
-                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
+                            <!-- <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div> -->
                             <a href="product-page(no-sidebar).html">
                                 <h6>Slim Fit Cotton Shirt</h6>
                             </a>
@@ -787,8 +689,8 @@
                                     title="Compare"><i class="ti-reload" aria-hidden="true"></i></a></div>
                         </div>
                         <div class="product-detail">
-                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
+                            <!-- <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div> -->
                             <a href="product-page(no-sidebar).html">
                                 <h6>Slim Fit Cotton Shirt</h6>
                             </a>
@@ -821,8 +723,8 @@
                                     title="Compare"><i class="ti-reload" aria-hidden="true"></i></a></div>
                         </div>
                         <div class="product-detail">
-                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
+                            <!-- <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div> -->
                             <a href="product-page(no-sidebar).html">
                                 <h6>Slim Fit Cotton Shirt</h6>
                             </a>
@@ -855,8 +757,8 @@
                                     title="Compare"><i class="ti-reload" aria-hidden="true"></i></a></div>
                         </div>
                         <div class="product-detail">
-                            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
+                            <!-- <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div> -->
                             <a href="product-page(no-sidebar).html">
                                 <h6>Slim Fit Cotton Shirt</h6>
                             </a>

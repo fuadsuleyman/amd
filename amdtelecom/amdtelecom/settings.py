@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'jet.dashboard',
     'jet',
+    'contact.apps.ContactConfig',
     'product.apps.ProductConfig',
     'account.apps.AccountConfig',
     'order.apps.OrderConfig',
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'phonenumber_field',
     'corsheaders',
     'debug_toolbar',
     'colorfield',
@@ -145,6 +147,11 @@ INTERNAL_IPS = [
     'localhost',
     # ...
 ]
+
+# PHONE NUMBER CONFIG
+PHONENUMBER_DB_FORMAT = 'NATIONAL'
+PHONENUMBER_DEFAULT_REGION = 'az'
+
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -215,3 +222,6 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'husubayli@gmail.com'
 EMAIL_HOST_PASSWORD = 'xdjnasiuddxikfax'
+
+
+ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL')

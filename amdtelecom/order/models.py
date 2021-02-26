@@ -95,7 +95,7 @@ class Checkout(models.Model):
         ('077', '077'),
         ('099', '099'),
     )
- 
+
     name = models.CharField('name', max_length=50)
     surname = models.CharField('surname', max_length=50)
     email = models.EmailField('email',max_length=50)
