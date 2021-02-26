@@ -107,7 +107,7 @@
                                     {% for product in products %}
                                     <div class="product-box product-wrap">
                                         <div class="img-wrapper">
-                                           <div class="front">
+                                            <div class="front">
                                                 <a href="{% url 'product:product_detail' product.slug %}">
                                                     {% for image in product.images.all %}
                                                     {% if image.is_main %}
@@ -162,7 +162,7 @@
                                     {% for product in products %}
                                     <div class="product-box product-wrap">
                                         <div class="img-wrapper">
-                                           <div class="front">
+                                            <div class="front">
                                                 <a href="{% url 'product:product_detail' product.slug %}">
                                                     {% for image in product.images.all %}
                                                     {% if image.is_main %}
