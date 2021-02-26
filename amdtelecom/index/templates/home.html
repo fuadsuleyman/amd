@@ -3,8 +3,15 @@
 
 {% load static %}
 
-
+{% if messages %}
+    {% for message in messages %}
+                <div class="result alert alert-success">
+                    {{message}}
+                </div>
+    {% endfor %}
+    {% endif %}
     {% comment %} <!-- home banner start -->
+    
     <div class="container banner-slider">
         <div class="row">
             <div class="col-md-7"><img src="{% static 'images/electronics/1.jpg' %}"

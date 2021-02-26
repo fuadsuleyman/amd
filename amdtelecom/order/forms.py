@@ -1,6 +1,7 @@
 from django import forms
 from .models import Checkout
 
+
 class CheckoutForm(forms.ModelForm):
     num_title = forms.ChoiceField(widget = forms.Select(attrs={
                 'class': 'form-group',
@@ -15,8 +16,10 @@ class CheckoutForm(forms.ModelForm):
         ('070', '070'),
         ('077', '077'),
         ('099', '099'),]
-    ), initial='---', required = True,)
-   
+    ), initial='---', required = True,
+    
+    )
+  
     class Meta:
         model = Checkout
         fields = (
@@ -25,8 +28,18 @@ class CheckoutForm(forms.ModelForm):
             'email',
             'num_title',
             'tel_number',
-            
         )
+
+        
+        
+    # def __init__(self, *args, **kwargs):
+    #     super(CheckoutForm, self).__init__(*args, **kwargs)
+    # # add custom error messages
+    #     self.fields['num_title'].error_messages.update({
+    #         'required': 'Operatoru bos qoymayin',
+    #         'invalid': 'Operatoru bos qoymayin'
+
+    #     })
 
         widgets = {
             
@@ -48,4 +61,11 @@ class CheckoutForm(forms.ModelForm):
             }),
             
 
+        }
+
+        error_messages = {
+            'tel_number': {
+                'required': "Thssas.",
+                'invalid': "salam"
+            },
         }

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView
 from django.urls.base import reverse_lazy
+from django.contrib.messages import success
 # Create your views here.
 
 from account.models import Customer
@@ -25,4 +26,7 @@ def deletefromcart(request, id):
 class CheckoutView(CreateView):
     form_class = CheckoutForm
     template_name = 'checkout.html'
-    success_url = reverse_lazy('index:home')
+    def form_valid(self, form):
+        success(self.request, 'Sifarisiniz qeyde alinmisdir tez bir zamanda sizinle elaqe saxlanilicaq.')
+        # success_url = reverse_lazy('index:home')
+        return redirect('index:home')
