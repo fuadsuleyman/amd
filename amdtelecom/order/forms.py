@@ -2,21 +2,21 @@ from django import forms
 from .models import Checkout
 
 class CheckoutForm(forms.ModelForm):
-    num_title = forms.ChoiceField(widget = forms.Select(attrs={
-                'class': 'form-group',
-                'style': 'padding: 0 15px !important;',
-                
-            }) , 
-                     choices = (
-        [('---', '---'),
-        ('050', '050'),
-        ('051', '051'),
-        ('055', '055'),
-        ('070', '070'),
-        ('077', '077'),
-        ('099', '099'),]
-    ), initial='---', required = True,)
-   
+    num_title = forms.ChoiceField(
+                widget = forms.Select(attrs={
+                    'class': 'form-group',
+                    'style': 'padding: 0 15px !important;',
+                    
+                }) , 
+                choices = (
+                    [('---', '---'),
+                    ('050', '050'),
+                    ('051', '051'),
+                    ('055', '055'),
+                    ('070', '070'),
+                    ('077', '077'),
+                    ('099', '099'),]
+                ), initial='---', required = True,)
     class Meta:
         model = Checkout
         fields = (
