@@ -8,31 +8,6 @@ from .models import Contact
 
 class ContactForm(forms.ModelForm):
 
-    # def __init__(self, *args, **kwargs):
-    #     super(ContactForm, self).__init__(*args, **kwargs)
-
-    #     # add custom error messages
-    #     self.fields['phone_number'].error_messages.update({
-    #         'required': 'Please let us know what to call you!',
-    #     })
-
-    # phone_number = forms.CharField(
-    #     widget=forms.TextInput(attrs={
-    #         'class': "form-control",
-    #         'id': "review",
-    #         'placeholder': "Əlaqə nomrəsini daxil edin",
-    #         'required': True
-    #     }),
-    #     error_messages={'invalid': 'your custom error message'}
-    # )
-
-    # def __init__(self, *args, **kwargs):
-    #     super(ContactForm, self).__init__(*args, **kwargs)
-    #     self.fields['first_name'].label = "name"
-    #     self.fields['last_name'].label = "last-name"
-    #     self.fields['phone_number'].label = "review"
-    #     self.fields['email'].label = "email"
-    #     self.fields['message'].label = "exampleFormControlTextarea1"
 
     class Meta:
         model = Contact
@@ -48,27 +23,28 @@ class ContactForm(forms.ModelForm):
             'first_name': forms.TextInput(attrs={
                 'class': "form-control",
                 'id': "name",
-                'placeholder': "Adıvızı daxil edin",
+                'placeholder': "Adıvızı daxil edin *",
                 'maxlength': 50,
                 'required': True
             }),
             'last_name': forms.TextInput(attrs={
                 'class': "form-control",
                 'id': "last-name",
-                'placeholder': "Soyadivızı daxil edin",
+                'placeholder': "Soyadivızı daxil edin *",
                 'maxlength': 50,
                 'required': True
             }),
             'phone_number': forms.TextInput(attrs={
                 'class': "form-control",
                 'id': "review",
-                'placeholder': "Əlaqə nomrəsini daxil edin",
+                'placeholder': "Əlaqə nomrəsini daxil edin *",
+                'maxlength': 13,
                 'required': True
             }),
             'email': forms.EmailInput(attrs={
                 'class': "form-control",
                 'id': "email",
-                'placeholder': "Elektron poçt ünvanınızı daxil edin",
+                'placeholder': "Elektron poçt ünvanınızı daxil edin *",
                 'required': True
             }),
             'message': forms.Textarea(attrs={
@@ -90,6 +66,6 @@ class ContactForm(forms.ModelForm):
         error_messages = {
             'phone_number': {
                 # 'required': "This writer's name is too long.",
-                'invalid': 'salam'
+                'invalid': 'Düzgün bir telefon nömrəsi daxil edin (məs. (012) 312 34 56) və ya beynəlxalq zəng prefiksi olan bir nömrə daxil edin.'
             },
         }

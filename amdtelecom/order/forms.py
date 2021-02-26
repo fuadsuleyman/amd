@@ -46,6 +46,11 @@ class CheckoutForm(forms.ModelForm):
                 'class': 'form-group',
                 'placeholder': 'Mobil nömrə'
             }),
-            
-
         }
+        # error_messages = {
+        #     'tel_number': {
+        #         'required': "This writer's name is too long.",
+        #         'maxlength': 'necesen',
+        #         'invalid': 'salam'
+        #     },
+        # }

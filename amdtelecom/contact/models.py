@@ -9,7 +9,7 @@ class Contact(models.Model):
     # informations
     first_name = models.CharField("First name", max_length=50, null=False)
     last_name = models.CharField("Last name", max_length=50, null=False)
-    phone_number = PhoneNumberField(null=False, unique=True, region="AZ")
+    phone_number = PhoneNumberField(null=False, max_length=14, region="AZ")
     email = models.EmailField("Email", max_length=254, null=False)
     message = models.TextField("Message", null=False)
 
