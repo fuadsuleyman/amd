@@ -1,5 +1,7 @@
 
 from django.urls import reverse_lazy
+from django.contrib.messages import success
+from django.shortcuts import redirect
 from django.views.generic.edit import (
     CreateView,
 )
@@ -14,5 +16,7 @@ class ContactCreateView(CreateView):
     template_name = "contact.html"
     success_url = reverse_lazy('index:home')
 
-    def form_valid(self, form):
-        super().form_valid(form)
+def form_valid(self, form):
+        success(self.request, 'Sifarisiniz qeyde alinmisdir tez bir zamanda sizinle elaqe saxlanilicaq.')
+        # success_url = reverse_lazy('index:home')
+        return redirect('index:home')
