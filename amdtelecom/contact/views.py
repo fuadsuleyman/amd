@@ -19,5 +19,4 @@ class ContactCreateView(CreateView):
 
     def form_valid(self, form):
         success(self.request, 'Mesajiniz qeyde alinmisdir tez bir zamanda sizinle elaqe saxlanilicaq.')
-        # success_url = reverse_lazy('index:home')
         return redirect('index:home')
