@@ -1,11 +1,13 @@
+from django import template
 from datetime import datetime
 from django.db import models
 from django.utils import timezone
-from account.models import Customer
-from django import template
 from amdtelecom.utils import unique_slug_generator
+from django_resized import ResizedImageField
 from colorfield.fields import ColorField
 from django.db.models.signals import pre_save
+
+from account.models import Customer
 from .common import slugify
 
 register = template.Library()
@@ -104,13 +106,6 @@ class Category(models.Model):
         else:
             self.slug = f'{slugify(self.title)}'    
         super(Category, self).save(*args, **kwargs)
-
-
-
-
-    
-    
-   
 
 
 class Product(models.Model):
@@ -229,6 +224,7 @@ class Product_details_property_name(models.Model):
         verbose_name = 'Property name'
         verbose_name_plural = 'Properties names'
 
+
 class Product_details_property_value(models.Model):
     # relations 
 
@@ -259,7 +255,8 @@ class Product_images(models.Model):
     product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='images')
 
     # informations
-    image = models.ImageField('Image', upload_to='product_images')
+    # image = models.ImageField('Image', upload_to='product_images')
+    image = ResizedImageField(size=[800, 500], upload_to='product_images')
     is_main = models.BooleanField('Main Image', default=False) 
     is_second_main = models.BooleanField('Second Main Image', default=False) 
 

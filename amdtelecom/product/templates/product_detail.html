@@ -265,12 +265,12 @@
                                     <div class="product-slick">
                                             {% for image in product.images.all %}
                                                 <div>
-                                                    <img src="{{ image.image.url }}" alt="{{ image.image }}" class="img-fluid blur-up lazyload image_zoom_cls-0" style="max-width: 580px !important; max-height: 400px !important;">
+                                                    <img src="{{ image.image.url }}" alt="{{ image.image }}" class="img-fluid blur-up lazyload image_zoom_cls-0">
                                                 </div>
                                             {% endfor %}
                                             {% for photo in photos %}
                                                 <div>
-                                                    <img src="{{ photo.image.url }}" alt="{{ photo.image }}" class="img-fluid blur-up lazyload image_zoom_cls-1"style="max-width: 580px !important; max-height: 400px !important;">
+                                                    <img src="{{ photo.image.url }}" alt="{{ photo.image }}" class="img-fluid blur-up lazyload image_zoom_cls-1">
                                                 </div>
                                             {% endfor %}
                                     </div>

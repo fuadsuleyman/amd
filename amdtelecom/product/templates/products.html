@@ -14,14 +14,14 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="page-title">
-                <h2>collection</h2>
+                <h2>Kolleksiya</h2>
             </div>
         </div>
         <div class="col-sm-6">
             <nav aria-label="breadcrumb" class="theme-breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{% url 'index:home' %}">home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">collection</li>
+                    <li class="breadcrumb-item"><a href="{% url 'index:home' %}">Əsas səhifə</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Kolleksiya</li>
                 </ol>
             </nav>
         </div>
@@ -42,7 +42,7 @@
                 <div class="collection-filter-block">
                     <!-- brand filter start -->
                     <div class="collection-mobile-back">
-                    <span class="filter-back"><i class="fa fa-angle-left" aria-hidden="true"></i> back</span>
+                    <span class="filter-back"><i class="fa fa-angle-left" aria-hidden="true"></i>Geri</span>
                     </div>
                     {% if products.all.0.products.all %}
                     <div class="collection-collapse-block open">
@@ -51,10 +51,10 @@
                             <div class="collection-brand-filter">
                             {% for product in products %}
                             {% ifchanged product.marka.all.0.title %}
-                            {% for product in product.marka.all  %}
+                            {% for marka in product.marka.all  %}
                                 <div class="custom-control custom-checkbox collection-filter-checkbox">
-                                    <input onclick="getData()" data-category='{{ product.pk }}' type="checkbox" class="filter-item-checkbox custom-control-input" id="{{ product.title }}">
-                                    <label class="custom-control-label" for="{{ product.title }}">{{ product.title }}</label>
+                                    <input onclick="getData()" data-filter='marka' value="{{ marka.id }}" type="checkbox"  class="filter-item-checkbox custom-control-input" id="{{ marka.title }}">
+                                    <label class="custom-control-label" for="{{ marka.title }}">{{ marka.title }}</label>
                                 </div>
                             {% endfor %}
                             {% endifchanged %}
@@ -67,17 +67,14 @@
                         <h3 class="collapse-block-title">Rənglər</h3>
                         <div class="collection-collapse-block-content">
                             <div class="color-selector collection-brand-filter">
-                                {% comment %} <ul> {% endcomment %}
                                 {% for product in products %}
                                 {% if product.color_code %}
                                 <div class="custom-control custom-checkbox collection-filter-checkbox">
-                                    <input type="checkbox" class="filter-item-checkbox custom-control-input" id="{{ product.color_title }}" style="border: 1px solid {{ product.color_code }}">
+                                    <input type="checkbox" onclick="getData()" data-filter="color_title" value="{{ product.color_title }}" class="filter-item-checkbox custom-control-input" id="{{ product.color_title }}" style="border: 1px solid {{ product.color_code }}">
                                     <label class="custom-control-label" for="{{ product.color_title }}" style="color: {{ product.color_code }}"> {{ product.color_title }} </label>
                                 </div>
-                                    {% comment %} <li class="color-{{ product.id }}" style="background-color: {{ product.color_code }}; border-color: {{ product.color_code }}"></li> {% endcomment %}
                                 {% endif %}
                                 {% endfor %}
-                                {% comment %} </ul> {% endcomment %}
                             </div>
                         </div>
                     </div>
@@ -90,11 +87,11 @@
                                     
                                 {% comment %} {% for product in products %} {% endcomment %}
                                 <div class="custom-control custom-checkbox collection-filter-checkbox">
-                                    <input type="radio" class="custom-control-input" name='is_used' id="new" value='is_new'>
+                                    <input onclick="getData()" data-filter="is_new" type="checkbox" class="custom-control-input" name='is_used' id="new" value='True'>
                                     <label class="custom-control-label" for="new">Yeni</label>
                                 </div>
                                 <div class="custom-control custom-checkbox collection-filter-checkbox">
-                                    <input type="radio" class="custom-control-input" name='is_used' id="old" value='is_old'>
+                                    <input onclick="getData()" type="checkbox" data-filter="is_new" value="False" class="filter-item-checkbox custom-control-input" name='is_used' id="old" value='is_old'>
                                     <label class="custom-control-label" for="old">Köhnə</label>
                                 </div>
                                 {% comment %} {% endfor %} {% endcomment %}
@@ -121,7 +118,7 @@
                         <div class="collection-collapse-block-content">
                             <div class="wrapper mt-3">
                                 <div class="range-slider">
-                                    <input type="text" class="js-range-slider" value="" />
+                                    <input type="text" id='range' class="js-range-slider" value="" />
                                 </div>
                             </div>
                         </div>
@@ -271,9 +268,9 @@
                                     </div>
                                 </div>
                                 <div class="product-wrapper-grid product-load-more">
-                                    <div class="row margin-res">
+                                    <div class="row margin-res prod-items">
                                         {% for product in products %}
-                                        <div class="col-xl-3 col-6 col-grid-box">
+                                        <div class="col-xl-3 col-6 col-grid-box category-pro" for-filter="{{product.category.all.0.id}}">
                                             <div class="product-box">
                                                 <div class="img-wrapper">
                                                     <div class="front">
@@ -424,5 +421,6 @@
 
 <!-- price_range js -->
 <script src="{% static 'js/price-range.js' %}"></script>
-
+<!-- product filter js -->
+<script src="{% static  'js/product-filter.js' %}"></script>
 {% endblock price_range_js %}
