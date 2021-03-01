@@ -14,7 +14,7 @@ def slugify(title):
         (' ', '-'),
     )
     # print(title.get('title'), 'cina')
-    print(type(title), 'cina')
+    # print(type(title), 'cina')
     title_url = title.strip().lower()
     for before, after in symbol_mapping:
         title_url = title_url.replace(before, after)

@@ -85,16 +85,14 @@
                             <div class="collection-brand-filter">
                                 
                                     
-                                {% comment %} {% for product in products %} {% endcomment %}
                                 <div class="custom-control custom-checkbox collection-filter-checkbox">
-                                    <input onclick="getData()" data-filter="is_new" type="checkbox" class="custom-control-input" name='is_used' id="new" value='True'>
+                                    <input onclick="getData()" data-filter="is_new" type="radio" class="filter-item-checkbox for-checked custom-control-input" name='is_used' id="new" value='True'>
                                     <label class="custom-control-label" for="new">Yeni</label>
                                 </div>
                                 <div class="custom-control custom-checkbox collection-filter-checkbox">
-                                    <input onclick="getData()" type="checkbox" data-filter="is_new" value="False" class="filter-item-checkbox custom-control-input" name='is_used' id="old" value='is_old'>
+                                    <input onclick="getData()" type="radio" data-filter="is_new" value="False" class="filter-item-checkbox for-checked custom-control-input" name='is_used' id="old">
                                     <label class="custom-control-label" for="old">Köhnə</label>
                                 </div>
-                                {% comment %} {% endfor %} {% endcomment %}
                                     
                                 <!-- <div class="custom-control custom-checkbox collection-filter-checkbox">
                                     <input type="checkbox" class="custom-control-input" id="twohundred">
