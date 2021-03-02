@@ -14,3 +14,9 @@ def get_navbar():
         # 'last_second_index': last_s_index
     }
     return category_list
+
+
+# @register.filter
+# def index(indexable, i):
+
+#     return value

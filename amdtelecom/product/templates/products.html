@@ -4,6 +4,8 @@
 {% block price_range_css %}
 <!-- price range -->
 <link rel="stylesheet" type="text/css" href="{% static 'css/price-range.css' %}"> 
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> 
+
 {% endblock %}
 
 {% block content %}
@@ -44,7 +46,8 @@
                     <div class="collection-mobile-back">
                     <span class="filter-back"><i class="fa fa-angle-left" aria-hidden="true"></i>Geri</span>
                     </div>
-                    {% if products.all.0.products.all %}
+
+                    {% if marka %}
                     <div class="collection-collapse-block open">
                         <h3 class="collapse-block-title">Marka</h3>
                         <div class="collection-collapse-block-content">
@@ -63,6 +66,7 @@
                         </div>
                     </div>
                     <!-- color filter start here -->
+                    {% if color_filter %}
                     <div class="collection-collapse-block open">
                         <h3 class="collapse-block-title">Rənglər</h3>
                         <div class="collection-collapse-block-content">
@@ -78,6 +82,28 @@
                             </div>
                         </div>
                     </div>
+                    {% endif %}
+
+                    <!-- operator filter start here -->
+                    {% if operator %}
+                    <div class="collection-collapse-block open">
+                        <h3 class="collapse-block-title">Operator</h3>
+                        <div class="collection-collapse-block-content">
+                            <div class="color-selector collection-brand-filter">
+                                {% for product in products %}
+                                {% if product.operator_code %}
+                                <div class="custom-control custom-checkbox collection-filter-checkbox">
+                                    <input type="checkbox" onclick="getData()" data-filter="operator_code" value="{{ product.operator_code }}" class="filter-item-checkbox custom-control-input" id="{{ product.operator_code }}">
+                                    <label class="custom-control-label" for="{{ product.operator_code }}"> {{ product.operator_code }} </label>
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if condition %}
                     <!-- new or old filter start here -->
                     <div class="collection-collapse-block border-0 open">
                         <h3 class="collapse-block-title">Vəziyyəti</h3>
@@ -109,6 +135,7 @@
                             </div>
                         </div>
                     </div>
+                    {% endif %}
                     {% endif %}
                     <!-- price filter start here -->
                     <div class="collection-collapse-block border-0 open">
@@ -268,134 +295,113 @@
                                 <div class="product-wrapper-grid product-load-more">
                                     <div class="row margin-res prod-items">
                                         {% for product in products %}
-                                        <div class="col-xl-3 col-6 col-grid-box category-pro" for-filter="{{product.category.all.0.id}}">
-                                            <div class="product-box">
-                                                <div class="img-wrapper">
-                                                    <div class="front">
-                                                        <a href="{% url 'product:product_detail' product.slug %}">
-                                                            {% for image in product.images.all %}
-                                                            {% if image.is_main %}
-                                                            <img
-                                                                src="{{ image.image.url }}"
-                                                                class="img-fluid blur-up lazyload bg-img" alt="">
-                                                            {% endif %}
-                                                            {% endfor %}
+                                            {% if product.operator_code == None %}
+                                            <div class="col-xl-4 col-sm-12 col-md-6 col-grid-box category-pro" for-filter="{{product.category.all.0.id}}">
+                                                <div class="product-box">
+                                                    <div class="img-wrapper">
+                                                        <div class="front">
+                                                            <a href="{% url 'product:product_detail' product.slug %}">
+                                                                {% for image in product.images.all %}
+                                                                {% if image.is_main %}
+                                                                <img
+                                                                    src="{{ image.image.url }}"
+                                                                    class="img-fluid blur-up lazyload bg-img" alt="">
+                                                                {% endif %}
+                                                                {% endfor %}
+                                                                </a>
+                                                        </div>
+                                                        <div class="back">
+                                                            <a href="{% url 'product:product_detail' product.slug %}">
+                                                                {% for image in product.images.all %}
+                                                                {% if image.is_second_main %}
+                                                                <img
+                                                                    src="{{ image.image.url }}"
+                                                                    class="img-fluid blur-up lazyload bg-img" alt="{{ image.image }}">
+                                                                {% endif %}
+                                                                {% endfor %}
+                                                                </a>
+                                                        </div>
+                                                        <div class="cart-info cart-wrap">
+                                                            <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
+                                                                    class="ti-shopping-cart"></i></button> <a href="javascript:void(0)" title="Add to Wishlist"><i
+                                                                    class="ti-heart" aria-hidden="true"></i></a> <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View"><i
+                                                                    class="ti-search" aria-hidden="true"></i></a> <a href="compare.html" title="Compare"><i
+                                                                    class="ti-reload" aria-hidden="true"></i></a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-detail">
+                                                        <div>
+                                                            {% comment %} <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div> {% endcomment %}
+                                                            <a href="product-page(no-sidebar).html">
+                                                                <h6>{{ product.title | upper }}</h6>
                                                             </a>
-                                                    </div>
-                                                    <div class="back">
-                                                        <a href="{% url 'product:product_detail' product.slug %}">
-                                                            {% for image in product.images.all %}
-                                                            {% if image.is_second_main %}
-                                                            <img
-                                                                src="{{ image.image.url }}"
-                                                                class="img-fluid blur-up lazyload bg-img" alt="{{ image.image }}">
+                                                            <p>{{ product.description }}
+                                                            </p>
+                                                            <h4>{{ product.price }} AZN</h4>
+                                                            {% if product.color_title %}
+                                                            <ul class="color-variant">
+                                                                <li class="bg-light0" style="background-color: {{ product.color_code }} !important;"></li>
+                                                                <!-- <li class="bg-light1"></li>
+                                                                <li class="bg-light2"></li> -->
+                                                            </ul>
                                                             {% endif %}
-                                                            {% endfor %}
-                                                            </a>
-                                                    </div>
-                                                    <div class="cart-info cart-wrap">
-                                                        <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
-                                                                class="ti-shopping-cart"></i></button> <a href="javascript:void(0)" title="Add to Wishlist"><i
-                                                                class="ti-heart" aria-hidden="true"></i></a> <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View"><i
-                                                                class="ti-search" aria-hidden="true"></i></a> <a href="compare.html" title="Compare"><i
-                                                                class="ti-reload" aria-hidden="true"></i></a>
-                                                    </div>
-                                                </div>
-                                                <div class="product-detail">
-                                                    <div>
-                                                        {% comment %} <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div> {% endcomment %}
-                                                        <a href="product-page(no-sidebar).html">
-                                                            <h6>{{ product.title | upper }}</h6>
-                                                        </a>
-                                                        <p>{{ product.description }}
-                                                        </p>
-                                                        <h4>{{ product.price }} AZN</h4>
-                                                        {% if product.color_title %}
-                                                        <ul class="color-variant">
-                                                            <li class="bg-light0" style="background-color: {{ product.color_code }} !important;"></li>
-                                                            <!-- <li class="bg-light1"></li>
-                                                            <li class="bg-light2"></li> -->
-                                                        </ul>
-                                                        {% endif %}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                            {% else %}
+                                                <div class="col-xl-4  col-sm-12 col-md-6 col-grid-box category-pro" for-filter="{{product.category.all.0.id}}" style="margin-top: 20px;">
+                                                    <div class="numberCard">
+                                                        <div class="numberCard__container">
+
+                                                            <div class="numberCard__container__head">
+
+                                                                <ul>
+                                                                    <li>
+                                                                        <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true" style="cursor:pointer">
+                                                                            <path d="M15.55 13c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.37-.66-.11-1.48-.87-1.48H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7l1.1-2h7.45zM6.16 6h12.15l-2.76 5H8.53L6.16 6zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"></path>
+                                                                        </svg>
+                                                                    </li>
+                                                                    <li>
+                                                                        <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
+                                                                            <path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"></path>
+                                                                        </svg>
+                                                                    </li>
+                                                                </ul>
+
+                                                            </div>
+
+                                                            <div class="numberCard__container__body">
+                                                                <div class="numberCard__container__body-img">
+                                                                    <img src="{{ product.marka.all.0.image.url }}" alt="" style="height: 72px; width: 72px;">
+                                                                </div>
+                                                                <div class="numberCard__container__body-number">
+                                                                    <p class="m-0 text-dark">(<!-- -->{{ product.operator_code }}<!-- -->) <!-- -->{{ product.title }}</p>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="numberCard__container__footer">
+                                                                <div class="numberCard__container__footer-price">
+                                                                    <span class="text-dark">
+                                                                        {{ product.price }}
+                                                                        <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
+                                                                            <defs>
+                                                                                <style>
+                                                                                    .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
+                                                                                </style>
+                                                                            </defs>
+                                                                            <title>manat</title>
+                                                                            <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
+                                                                        </svg>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                </div>
+                                            {% endif %}
                                         {% endfor %}
-                                        <!-- <div class="col-xl-3 col-6 col-grid-box">
-                                            <div class="product-box">
-                                                <div class="img-wrapper">
-                                                    <div class="front">
-                                                        <a href="#"><img src="{% static 'images/pro3/27.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                                                    </div>
-                                                    <div class="back">
-                                                        <a href="#"><img src="{% static 'images/pro3/28.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                                                    </div>
-                                                    <div class="cart-info cart-wrap">
-                                                        <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
-                                                                class="ti-shopping-cart"></i></button> <a href="javascript:void(0)" title="Add to Wishlist"><i
-                                                                class="ti-heart" aria-hidden="true"></i></a> <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View"><i
-                                                                class="ti-search" aria-hidden="true"></i></a> <a href="compare.html" title="Compare"><i
-                                                                class="ti-reload" aria-hidden="true"></i></a>
-                                                    </div>
-                                                </div>
-                                                <div class="product-detail">
-                                                    <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                                                    </div>
-                                                    <a href="product-page(no-sidebar).html">
-                                                        <h6>Slim Fit Cotton Shirt</h6>
-                                                    </a>
-                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                                                        of type and scrambled it to make a type specimen book
-                                                    </p>
-                                                    <h4>$500.00</h4>
-                                                    <ul class="color-variant">
-                                                        <li class="bg-light0"></li>
-                                                        <li class="bg-light1"></li>
-                                                        <li class="bg-light2"></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-3 col-6 col-grid-box">
-                                            <div class="product-box">
-                                                <div class="img-wrapper">
-                                                    <div class="front">
-                                                        <a href="#"><img src="{% static 'images/pro3/1.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                                                    </div>
-                                                    <div class="back">
-                                                        <a href="#"><img src="{% static 'images/pro3/2.jpg' %}" class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                                                    </div>
-                                                    <div class="cart-info cart-wrap">
-                                                        <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
-                                                                class="ti-shopping-cart"></i></button> <a href="javascript:void(0)" title="Add to Wishlist"><i
-                                                                class="ti-heart" aria-hidden="true"></i></a> <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View"><i
-                                                                class="ti-search" aria-hidden="true"></i></a> <a href="compare.html" title="Compare"><i
-                                                                class="ti-reload" aria-hidden="true"></i></a>
-                                                    </div>
-                                                </div>
-                                                <div class="product-detail">
-                                                    <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-                                                    </div>
-                                                    <a href="product-page(no-sidebar).html">
-                                                        <h6>Slim Fit Cotton Shirt</h6>
-                                                    </a>
-                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                                                        of type and scrambled it to make a type specimen book
-                                                    </p>
-                                                    <h4>$500.00</h4>
-                                                    <ul class="color-variant">
-                                                        <li class="bg-light0"></li>
-                                                        <li class="bg-light1"></li>
-                                                        <li class="bg-light2"></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div> -->
-
 
                                     </div>
                                 </div>

@@ -9,10 +9,12 @@ from rest_framework.response import Response
 from ..models import (
     Product, 
     Product_images,
+    Marka,
 )
 from .serializers import (
     ProductSerializer, 
     ProductImageSerializer,
+    ProductMarkaSerializer,
 )
 
 
@@ -38,16 +40,26 @@ class ProductFilterListAPIView(ListAPIView):
         marka = self.request.GET.getlist('marka[]')
         min_price = self.request.GET.get('price_min')
         max_price = self.request.GET.get('price_max')
+        operators = self.request.GET.getlist('operator_code[]')
 
+        if operators:
+            if min_price:
+                products = products.filter(operator_code__in=operators).filter(price__range=(min_price, max_price) or None)
+            else:
+                products = products.filter(operator_code__in=operators or None).distinct()
+        else:
+            if min_price:
+                products = products.filter(price__range=(min_price, max_price) or None)
+                
         if color_title:
             if min_price:
                 products = products.filter(color_title__in=color_title).filter(price__range=(min_price, max_price) or None)
             else:
                 products = products.filter(color_title__in=color_title or None).distinct()
-            print(products)
         else:
             if min_price:
                 products = products.filter(price__range=(min_price, max_price) or None)
+
         if is_new:
             if min_price:
                 products = products.filter(is_new=is_new[0]).filter(price__range=(min_price, max_price) or None)
@@ -56,6 +68,7 @@ class ProductFilterListAPIView(ListAPIView):
         else:
             if min_price:
                 products = products.filter(price__range=(min_price, max_price) or None)
+
         if marka:
             if min_price:
                 products = products.filter(marka__id__in=marka).filter(price__range=(min_price, max_price) or None)
@@ -65,10 +78,14 @@ class ProductFilterListAPIView(ListAPIView):
         else:
             if min_price:
                 products = products.filter(price__range=(min_price, max_price) or None)
-                
+
         return products
 
 
 class ProductImageListAPIView(ListAPIView):
     serializer_class = ProductImageSerializer
     queryset = Product_images.objects.all()
+
+class ProductMarkaListAPIView(ListAPIView):
+    serializer_class = ProductMarkaSerializer
+    queryset = Marka.objects.all()
