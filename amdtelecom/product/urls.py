@@ -1,10 +1,7 @@
 from django.urls import path, include
 from .import views
 from .views import (
-    # CategoryListView,
     ProductsFilterListView,
-    # product_filter
-    # product_detail,
     ProductDetailView
 )
 from django.conf.urls.static import static

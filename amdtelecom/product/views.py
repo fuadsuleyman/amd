@@ -42,33 +42,37 @@ class ProductsFilterListView(ListView):
         context = super().get_context_data(**kwargs)
         category = get_object_or_404(Category, slug=self.kwargs['slug'])
         products = Product.objects.filter(category=category)
-
+        
         # for filter template page for view or no
         marka = False
-        color_filter = False
+        color_title = False
         condition = False
         operator = False
+        operator_data = ''
 
-        for product in products:
-            print(product.operator_code)
-            if product.marka.all():
+        for item in products:
+            if item.marka.all():
                 marka = True
-            if product.color_title:
-                color_filter = True
-            if product.is_new:
+                print(marka)
+            if item.color_title:
+                color_title = True
+            if item.is_new:
                 condition = True
-            if product.operator_code != '':
+            if item.operator_code != None:
                 operator = True
-                print(operator)
+            else:
+                operator_data = item.operator_code
+            
         # context["category"] = get_object_or_404(Category, slug=self.kwargs['slug'])
-        # context["marka"] = marka
         context = {
-        'products': products,
-        'categories': category,
-        'marka': marka,
-        'color_filter': color_filter,
-        'operator': operator,
+            'products': products,
+            'categories': category,
+            'marka': marka,
+            'color_title': color_title,
+            'operator': operator,
+            'operator_data': operator_data,
         }
+        print(context)
         return context
 
     def get_queryset(self):

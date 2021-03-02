@@ -292,29 +292,152 @@
     </div> -->
     <!-- loader end -->
 
-
-    <!-- header start -->
-    <header>
-        <div class="mobile-fix-option"></div>
-        <div class="top-header top-header-dark2">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="header-contact">
-                            <ul>
-                                <li>Welcome to Our store AMD Telecom</li>
-                                
-                            </ul>
-                         </div>
-                    </div>
-                    <div class="col-lg-6 text-right header-contact">
+    <div class="top-header top-header-dark2">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 header-contact-left brand">
+                    <div class="header-contact">
                         <ul>
-                            <li><i class="fa fa-phone" aria-hidden="true"></i>Call Us: 050 270 25 69</li>
+                            <li>Welcome to Our store AMD Telecom</li>
+                            
                         </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-right header-contact" style="padding: 0;">
+                    <!-- <ul>
+                        <li><i class="fa fa-phone" aria-hidden="true"></i>Call Us: 050 270 25 69</li>
+                    </ul> -->
+                    <div class="">
+
+                        <div class="icon-nav">
+                            <ul>
+                                <li class="onhover-div mobile-search">
+                                    <div class="mobile-search--body">
+                                        <input id="search-filter-btn" class="mobile-search--body--input" type="text" name="" id="">
+                                        <i class="ti-search"></i>
+                                        <div class="mobile-search--body-results">
+                                            <a href="#" class="body">
+                                                <div class="data-img"></div>
+                                                <div class="data-title"></div>
+                                            </a>
+                                            <a href="#" class="body">
+                                                <div class="data-img"></div>
+                                                <div class="data-title"></div>
+                                            </a>
+                                            <a href="#" class="body">
+                                                <div class="data-img"></div>
+                                                <div class="data-title"></div>
+                                            </a>
+                                            <a href="#" class="body">
+                                                <div class="data-img"></div>
+                                                <div class="data-title"></div>
+                                            </a>
+                                            <a href="#" class="body">
+                                                <div class="data-img"></div>
+                                                <div class="data-title"></div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="onhover-div mobile-cart ">
+                                    <div>
+                                        <a href="{% url 'order:cart' %}">
+                                            <i class="ti-shopping-cart"></i>
+                                        </a>
+                                    </div>
+
+                                </li>
+                            </ul>
+                            
+                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
+    <style>
+        .header-contact-left.brand{
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .icon-nav  > ul {
+            display: flex;
+            justify-content: flex-end;
+        }
+        .icon-nav  li {
+            padding: 20px 0;
+        }
+        .icon-nav  .onhover-div.mobile-cart  {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .top-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+        }
+        .mobile-search--body {
+            position: relative;
+            width: 300px;
+            background-color: white;
+            border-radius: 25px;
+
+        }
+        .mobile-search--body--input {
+            width: 100%;
+            padding: .5em 0 0.5em 10px;
+            /* z-index: -1; */
+            height: 100%;
+            border-radius: 25px;
+            outline: none;
+        }
+        .mobile-search--body > i {
+            position: absolute;
+            right: 0;
+            top: 27%;
+            bottom: 50%;
+            /* z-index: 2; */
+        }
+        .mobile-search--body-results {
+            width: 100%;
+            position: absolute;
+            border: 1px solid black;
+            height: auto;
+            background-color: red;
+            margin-top: 10px;
+        }
+
+        .mobile-search--body-results .body {
+            display: flex;
+            height: 75px;
+            border-bottom: 1px solid black;
+        }
+
+        .body:last-child{
+            border-bottom: 0;
+        }
+        .body > .data-img {
+            width: 20%;
+            height: 100%;
+            background-color: blue;
+        }
+        .body > .data-title {
+            width: 80%;
+            height: 100%;
+            background-color: green;
+        }
+    </style>
+
+    <!-- header start -->
+    <header style="margin-top: 61px;">
+        <div class="mobile-fix-option"></div>
+
 
         <!-- bu hisse mobilde sol menyu yaradir -->
         <div class="container layout3-menu">
@@ -807,17 +930,19 @@
                                 <a href="{% url 'index:home' %}"><img alt="AMD Telecom" src="{% static 'images/icon/logo/amd_telecom.png' %}"style=" height: 100px; width: 150px;"></a>
                             </div>
                         </div>
-                        <div class="">
+                        <!-- <div class="">
                             <div class="menu-right pull-right">
                                 <div>
                                     <div class="icon-nav">
                                         <ul>
                                             <li class="onhover-div mobile-search">
-                                                <div><img alt="" src="{% static 'images/icon/layout4/search.png' %}"
-                                                        onclick="openSearch()" class="img-fluid blur-up lazyload"> <i
-                                                        class="ti-search" onclick="openSearch()"></i></div>
+                                                <div>
+                                                    <img alt="" src="{% static 'images/icon/layout4/search.png' %}"
+                                                        onclick="openSearch()" class="img-fluid blur-up lazyload">
+                                                        <i class="ti-search" onclick="openSearch()"></i>
+                                                </div>
                                                 <div id="search-overlay" class="search-overlay">
-                                                    <div> <span class="closebtn" onclick="closeSearch()"
+                                                    <!-- <div> <span class="closebtn" onclick="closeSearch()"
                                                             title="Close Overlay">×</span>
                                                         <div class="overlay-content">
                                                             <div class="container">
@@ -837,7 +962,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </li>
                                             <!-- <li class="onhover-div mobile-setting">
@@ -859,10 +984,10 @@
                                                     </ul>
                                                 </div>
                                             </li> -->
-                                            <li class="onhover-div mobile-cart">
+                                            <!-- <li class="onhover-div mobile-cart">
                                                 <div><a href="{% url 'order:cart' %}"><img alt="" src="{% static 'images/icon/layout4/cart.png' %}"
                                                         class="img-fluid blur-up lazyload"> <i
-                                                        class="ti-shopping-cart"></i></a></div>
+                                                        class="ti-shopping-cart"></i></a></div> -->
                                                 <!-- <ul class="show-div shopping-cart">
                                                     <li>
                                                         <div class="media">
@@ -2027,7 +2152,9 @@
 
     <!-- Theme js-->
     <script src="{% static 'js/script.js' %}"></script>
-    <!-- <script src="{% static 'js/product-filter.js' %}"></script> -->
+
+    <!-- Search filter js -->
+    <script src="{% static 'js/search-filter.js' %}"></script>
 
     <script>
         // sehife acilan kimi cixan modal
