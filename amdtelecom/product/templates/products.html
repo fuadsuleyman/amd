@@ -47,7 +47,7 @@
                     <span class="filter-back"><i class="fa fa-angle-left" aria-hidden="true"></i>Geri</span>
                     </div>
                     {% if operator_data == None %}
-                    {% if marka == True %}
+                    {% if marka %}
                     <div class="collection-collapse-block open">
                         <h3 class="collapse-block-title">Marka</h3>
                         <div class="collection-collapse-block-content">
@@ -88,7 +88,7 @@
                     {% endif %}
 
                     <!-- operator filter start here -->
-                    {% if operator == True %}
+                    {% if operator %}
                     <div class="collection-collapse-block open">
                         <h3 class="collapse-block-title">Operator</h3>
                         <div class="collection-collapse-block-content">
@@ -106,7 +106,8 @@
                     </div>
                     {% endif %}
 
-                    {% if condition == True %}
+                    {% if operator_data == None %}
+                    {% if condition %}
                     <!-- new or old filter start here -->
                     <div class="collection-collapse-block border-0 open">
                         <h3 class="collapse-block-title">Vəziyyəti</h3>
@@ -138,6 +139,7 @@
                             </div>
                         </div>
                     </div>
+                    {% endif %}
                     {% endif %}
 
                     <!-- price filter start here -->

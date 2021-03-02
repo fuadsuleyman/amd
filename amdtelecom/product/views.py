@@ -69,6 +69,7 @@ class ProductsFilterListView(ListView):
             'categories': category,
             'marka': marka,
             'color_title': color_title,
+            'condition': condition,
             'operator': operator,
             'operator_data': operator_data,
         }

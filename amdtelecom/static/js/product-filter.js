@@ -120,6 +120,7 @@ function getData() { // filter product data return products
 
                 for(let product of response){
                     console.log(product, 'datalar');
+                    // nomrelerin filteri ucun
                     if(product.operator_code) {
                         products += `
                             <div class="col-xl-4 col-6 col-grid-box category-pro" style="margin-top: 20px;">
@@ -174,7 +175,7 @@ function getData() { // filter product data return products
                         </div>
                         `
                     }
-                    if (product.color_code != null){
+                    if (product.color_code != null){ // productun rengi ucun
                         if (product.images.length > 1){
                             products += `
                                     <div class="col-xl-3 col-6 col-grid-box">
@@ -261,9 +262,8 @@ function getData() { // filter product data return products
                     `
                         }
                     }
-                    else {
 
-                        if(product.operator_code == ''){
+                    if(product.operator_code == ''){
                             if (product.images.length > 1){
                                 products += `
                                         <div class="col-xl-3 col-6 col-grid-box">
@@ -339,7 +339,6 @@ function getData() { // filter product data return products
                             </div>
                             `
                             }
-                        }
                     }
                     DOM.html(products)
                     
