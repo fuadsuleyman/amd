@@ -12,10 +12,16 @@ class ProductSerializer(serializers.ModelSerializer):
         model = Product
         fields = '__all__'
 
-    # def to_representation(self, instance):
-    #     data = super(ProductSerializer, self).to_representation(instance)
-    #     # manipulate data here 
-    #     return data
+class SearchSerializer(serializers.ModelSerializer):
+    category = serializers.StringRelatedField(many=True, read_only=True)
+    products = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    images = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    marka = serializers.StringRelatedField(many=True, read_only=True)
+
+    class Meta:
+        model = Product
+        fields = '__all__'
+
 
 class ProductImageSerializer(serializers.ModelSerializer):
     class Meta:

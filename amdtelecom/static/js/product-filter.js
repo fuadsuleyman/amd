@@ -76,7 +76,7 @@ function getProMarka(id){
 }
 
 function getData() { // filter product data return products
-    $(".ajaxLoader").hide();
+    // $(".ajaxLoader").hide();
 
     var _filterObj={};
     _filterObj['price_min'] = min
@@ -119,9 +119,44 @@ function getData() { // filter product data return products
             if (response.length > 0){  
 
                 for(let product of response){
-                    console.log(product, 'datalar');
+                    // console.log(product, 'datalar');
+                    mainSeconImage = `
+                    <div class="front">
+                        <a href="${domain}product/${product.slug}/">
+                        <img
+                            src="${getProImage(product.images[1])}"
+                            class="img-fluid blur-up lazyload bg-img" alt="${product.title}" style="height: 271px;">
+                        </a>
+                    </div>
+                    <div class="back">
+                        <a href="${domain}product/${product.slug}/">
+                            <img
+                                src="${getProImage(product.images[0])}"
+                                class="img-fluid blur-up lazyload bg-img" alt="${product.title}" style="height: 271px;">
+                            </a>
+                    </div>
+                    <div class="cart-info cart-wrap">
+                        <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
+                                class="ti-shopping-cart"></i></button> <a href="javascript:void(0)" title="Add to Wishlist"><i
+                                class="ti-heart" aria-hidden="true"></i></a> <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View"><i
+                                class="ti-search" aria-hidden="true"></i></a> <a href="compare.html" title="Compare"><i
+                                class="ti-reload" aria-hidden="true"></i></a>
+                    </div>
+                    `
+
+                    secondImage = `
+                    <div class="front">
+                        <a href="${domain}product/${product.slug}/">
+                        <img
+                            src="${getProImage(product.images[0])}"
+                            class="img-fluid blur-up lazyload bg-img" alt="${product.title}" style="height: 271px;">
+                        </a>
+                    </div>
+                    `
+
                     // nomrelerin filteri ucun
                     if(product.operator_code) {
+
                         products += `
                             <div class="col-xl-4 col-6 col-grid-box category-pro" style="margin-top: 20px;">
                             <div class="numberCard">
@@ -176,147 +211,11 @@ function getData() { // filter product data return products
                         `
                     }
                     if (product.color_code != null){ // productun rengi ucun
-                        if (product.images.length > 1){
-                            products += `
-                                    <div class="col-xl-3 col-6 col-grid-box">
-                                    <div class="product-box">
-                                        <div class="img-wrapper">
-                                            <div class="front">
-                                                    <a href="http://localhost:8000/product/${product.slug}/">
-                                                    <img
-                                                        src="${getProImage(product.images[1])}"
-                                                        class="img-fluid blur-up lazyload bg-img" alt="${product.title}" style="height: 271px;">
-                                                    </a>
-                                            </div>
-                                            <div class="back">
-                                                <a href="http://localhost:8000/product/${product.slug}/">
-                                                    <img
-                                                        src="${getProImage(product.images[0])}"
-                                                        class="img-fluid blur-up lazyload bg-img" alt="${product.title}" style="height: 271px;">
-                                                    </a>
-                                            </div>
-                                            <div class="cart-info cart-wrap">
-                                                <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
-                                                        class="ti-shopping-cart"></i></button> <a href="javascript:void(0)" title="Add to Wishlist"><i
-                                                        class="ti-heart" aria-hidden="true"></i></a> <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View"><i
-                                                        class="ti-search" aria-hidden="true"></i></a> <a href="compare.html" title="Compare"><i
-                                                        class="ti-reload" aria-hidden="true"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="product-detail">
-                                            <div>
-                                                <a href="product-page(no-sidebar).html">
-                                                    <h6>${product.title}</h6>
-                                                </a>
-                                                <p>${product.description}
-                                                </p>
-                                                <h4>${product.price} AZN</h4>
-                                                <ul class="color-variant">
-                                                    <li class="bg-light0" style="background-color: ${product.color_code} !important;"></li>
-                                                    <!-- <li class="bg-light1"></li>
-                                                    <li class="bg-light2"></li> -->
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            `
-                        }
-                        else{
-                            products += `
-                            <div class="col-xl-3 col-6 col-grid-box">
-                            <div class="product-box">
-                                <div class="img-wrapper">
-                                    <div class="front">
-                                            <a href="http://localhost:8000/product/${product.slug}/">
-                                            <img
-                                                src="${getProImage(product.images[0])}"
-                                                class="img-fluid blur-up lazyload bg-img" alt="${product.title}" style="height: 271px;">
-                                            </a>
-                                    </div>
-                                    <div class="cart-info cart-wrap">
-                                        <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
-                                                class="ti-shopping-cart"></i></button> <a href="javascript:void(0)" title="Add to Wishlist"><i
-                                                class="ti-heart" aria-hidden="true"></i></a> <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View"><i
-                                                class="ti-search" aria-hidden="true"></i></a> <a href="compare.html" title="Compare"><i
-                                                class="ti-reload" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                                <div class="product-detail">
-                                    <div>
-                                        <a href="product-page(no-sidebar).html">
-                                            <h6>${product.title}</h6>
-                                        </a>
-                                        <p>${product.description}
-                                        </p>
-                                        <h4>${product.price} AZN</h4>
-                                        <ul class="color-variant">
-                                            <li class="bg-light0" style="background-color: ${product.color_code} !important;"></li>
-                                            <!-- <li class="bg-light1"></li>
-                                            <li class="bg-light2"></li> -->
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `
-                        }
-                    }
-
-                    if(product.operator_code == ''){
-                            if (product.images.length > 1){
-                                products += `
-                                        <div class="col-xl-3 col-6 col-grid-box">
-                                        <div class="product-box">
-                                            <div class="img-wrapper">
-                                                <div class="front">
-                                                        <a href="http://localhost:8000/product/${product.slug}/">
-                                                        <img
-                                                            src="${getProImage(product.images[1])}"
-                                                            class="img-fluid blur-up lazyload bg-img" alt="${product.title}" style="height: 271px;">
-                                                        </a>
-                                                </div>
-                                                <div class="back">
-                                                    <a href="http://localhost:8000/product/${product.slug}/">
-                                                        <img
-                                                            src="${getProImage(product.images[0])}"
-                                                            class="img-fluid blur-up lazyload bg-img" alt="${product.title}" style="height: 271px;">
-                                                        </a>
-                                                </div>
-                                                <div class="cart-info cart-wrap">
-                                                    <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
-                                                            class="ti-shopping-cart"></i></button> <a href="javascript:void(0)" title="Add to Wishlist"><i
-                                                            class="ti-heart" aria-hidden="true"></i></a> <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View"><i
-                                                            class="ti-search" aria-hidden="true"></i></a> <a href="compare.html" title="Compare"><i
-                                                            class="ti-reload" aria-hidden="true"></i></a>
-                                                </div>
-                                            </div>
-                                            <div class="product-detail">
-                                                <div>
-                                                    <a href="product-page(no-sidebar).html">
-                                                        <h6>${product.title}</h6>
-                                                    </a>
-                                                    <p>${product.description}
-                                                    </p>
-                                                    <h4>${product.price} AZN</h4>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                `
-                            }
-                            else{
-                                products += `
+                        products += `
                                 <div class="col-xl-3 col-6 col-grid-box">
                                 <div class="product-box">
                                     <div class="img-wrapper">
-                                        <div class="front">
-                                                <a href="http://localhost:8000/product/${product.slug}/">
-                                                <img
-                                                    src="${getProImage(product.images[0])}"
-                                                    class="img-fluid blur-up lazyload bg-img" alt="${product.title}" style="height: 271px;">
-                                                </a>
-                                        </div>
+                                        ${ product.images.length > 1 ? mainSeconImage : secondImage }
                                         <div class="cart-info cart-wrap">
                                             <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
                                                     class="ti-shopping-cart"></i></button> <a href="javascript:void(0)" title="Add to Wishlist"><i
@@ -333,17 +232,46 @@ function getData() { // filter product data return products
                                             <p>${product.description}
                                             </p>
                                             <h4>${product.price} AZN</h4>
+                                            <ul class="color-variant">
+                                                <li class="bg-light0" style="background-color: ${product.color_code} !important;"></li>
+                                                <!-- <li class="bg-light1"></li>
+                                                <li class="bg-light2"></li> -->
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            `
-                            }
+                        `
+                    
                     }
+                    else {
+                        products += `
+                                <div class="col-xl-3 col-6 col-grid-box">
+                                <div class="product-box">
+                                    <div class="img-wrapper">
+                                    ${ product.images.length > 1 ? mainSeconImage : secondImage }
+                                    </div>
+                                    <div class="product-detail">
+                                        <div>
+                                            <a href="product-page(no-sidebar).html">
+                                                <h6>${product.title}</h6>
+                                            </a>
+                                            <p>${product.description}
+                                            </p>
+                                            <h4>${product.price} AZN</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `
+                    } // ${a == 1 && retun}
+
                     DOM.html(products)
+                    mainSeconImage = ''
+                    secondImage = ''
                     
 
-                }
+                }  
             }
             else {
                 DOM.html('')

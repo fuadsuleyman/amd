@@ -1,8 +1,9 @@
+from django.shortcuts import get_object_or_404
 from rest_framework.generics import ListAPIView
 from rest_framework.decorators import api_view
 from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED
-from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
+from django.db.models import Prefetch
 
 
 
@@ -10,11 +11,13 @@ from ..models import (
     Product, 
     Product_images,
     Marka,
+    Category
 )
 from .serializers import (
     ProductSerializer, 
     ProductImageSerializer,
     ProductMarkaSerializer,
+    SearchSerializer,
 )
 
 
@@ -89,3 +92,21 @@ class ProductImageListAPIView(ListAPIView):
 class ProductMarkaListAPIView(ListAPIView):
     serializer_class = ProductMarkaSerializer
     queryset = Marka.objects.all()
+
+
+class SearchListAPIView(ListAPIView):
+    serializer_class = SearchSerializer
+    
+    def get_queryset(self):
+        queryset = Product.objects.filter(is_published=True).order_by('-created_at')
+        title = self.kwargs.get('title')
+        if title:
+            category = queryset.filter(category__title__icontains=title)[:6]
+            if category:
+                queryset = category
+            else:
+                queryset = queryset.filter(title__icontains=title)[:6]
+        print(queryset)
+        return queryset
+        
+        
