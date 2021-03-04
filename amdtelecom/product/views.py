@@ -27,7 +27,7 @@ class SearchProductListView(ListView):
     def get_context_data(self, **kwargs):
         hide_filter = True
         context = super().get_context_data(**kwargs)
-        category = get_object_or_404(Category, slug=self.kwargs['slug'])
+        category = get_object_or_404(Category, title=self.kwargs['title'])
         products = Product.objects.filter(is_published=True).filter(operator_code=None).order_by('-created_at')
 
         title = self.kwargs.get('title')

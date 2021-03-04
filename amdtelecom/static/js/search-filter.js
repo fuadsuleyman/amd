@@ -14,8 +14,8 @@ searchValue.addEventListener('keyup', (e) => {
     console.log('salam');
     if(e.keyCode == 13) {
         // e.preventDefault();
-        window.open('newpage')
-        getSearchData(searchValueAll, searchAllProducts)
+        window.open(`search/${searchValueAll}/`)
+        getSearchData(value, searchAllProducts)
         
     }
     

@@ -11,7 +11,7 @@ from .views import (
 app_name = 'product'
 
 urlpatterns = [
-    path('search/<str:title>', SearchProductListView.as_view(), name='products_list_filter'),
+    path('search/<str:title>/', SearchProductListView.as_view(), name='products_list_filter'),
     path('products/<slug:slug>/', ProductsFilterListView.as_view(), name='products_filter'),
     path('product/<slug:slug>/', ProductDetailView.as_view(), name='product_detail'),
     # path('products/filter/<int:pk>/', views.product_detail, name='products_detail'),
