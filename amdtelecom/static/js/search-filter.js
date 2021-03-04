@@ -1,7 +1,7 @@
 let urlDomain = `http://localhost:8000/`
 let searchBody = $('#search-filter-body')
 searchBody.css('display', 'none')
-
+let searchValue = document.querySelector('#search-filter-value')
 
 
 $(document).on('input', '#search-filter-value', function() { 
@@ -14,9 +14,21 @@ $(document).on('input', '#search-filter-value', function() {
     }
     else{
         searchBody.css('display', 'none')
+        searchBody.html('')
     }
     
 });
+
+searchValue.addEventListener('focusout', (event) => {
+        searchBody.css('display', 'none')
+        // searchBody.html('')
+});
+
+searchValue.addEventListener('focusin', (event) => {
+        searchBody.css('display', 'block')
+
+});
+
 
 function getSearchProImage(id){ // filter product images returned product image
 
@@ -48,7 +60,7 @@ function getSearchProImage(id){ // filter product images returned product image
 
 function getSearchProMarka(title){
     try {
-        
+
         let image
         let jsonDatas
 
@@ -103,7 +115,7 @@ async function getSearchData(value){
                     <img src="${product.operator_code != null ? getSearchProMarka(product.marka[0]) : getSearchProImage(product.images[0]) }" alt="">
                 </div>
                 <div class="data-title">
-                    ${product.operator_code != null ? product.operator_code : product.marka[0]} ${product.title}
+                    ${product.operator_code != null ? product.operator_code : product.marka[0]} ${product.color_title ? product.title + ' ' + product.color_title : product.title }
                 </div>
             </a>
             `
@@ -120,14 +132,14 @@ async function getSearchData(value){
     }
 }
 
-function setStorage(key, value) { 
-    let newData = JSON.stringify(value);
-    localStorage.setItem(key, newData);
-}
+// function setStorage(key, value) { 
+//     let newData = JSON.stringify(value);
+//     localStorage.setItem(key, newData);
+// }
 
-function getStorage(key) { //Gelen datani yoxlayiram localstorage de yoxdusa olani gosterirem ve return edirem
-    if (localStorage.getItem(key) === null) {
-        localStorage.setItem(key, JSON.stringify([]));
-    }
-    return localStorage.getItem(key);
-}
+// function getStorage(key) { //Gelen datani yoxlayiram localstorage de yoxdusa olani gosterirem ve return edirem
+//     if (localStorage.getItem(key) === null) {
+//         localStorage.setItem(key, JSON.stringify([]));
+//     }
+//     return localStorage.getItem(key);
+// }

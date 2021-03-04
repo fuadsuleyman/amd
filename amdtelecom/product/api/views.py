@@ -101,19 +101,12 @@ class SearchListAPIView(ListAPIView):
         queryset = Product.objects.filter(is_published=True).order_by('-created_at')
         title = self.kwargs.get('title')
         if title:
-            category = queryset.filter(category__title__icontains=title).distinct()
-            product = queryset.filter(title__icontains=title).distinct()
+            category = queryset.filter(category__title__icontains=title).filter(operator_code=None).distinct()
+            product = queryset.filter(title__icontains=title).filter(operator_code=None).distinct()
 
             if category:
                 queryset = category
-                print('1')
-                print(queryset)
-            elif product and category:
-                print('2')
-                queryset = category
             else:
-                print('3')
-                print(product, category)
                 queryset = product
         # print(queryset) 
         return queryset
