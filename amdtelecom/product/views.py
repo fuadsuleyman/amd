@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
+from django.db.models import Q
 # Create your views here.
 from django.http import HttpResponse
 from .models import (
@@ -41,7 +42,7 @@ class ProductsFilterListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         category = get_object_or_404(Category, slug=self.kwargs['slug'])
-        products = Product.objects.filter(category=category)
+        products = Product.objects.filter(category=category).filter(is_published=True)
         
         # for filter template page for view or no
         marka = False
@@ -49,6 +50,9 @@ class ProductsFilterListView(ListView):
         condition = False
         operator = False
         operator_data = ''
+
+        # for news products slick slider 
+        new_products = products.filter(is_published=True)
 
         for item in products:
             if item.marka.all():
@@ -72,6 +76,7 @@ class ProductsFilterListView(ListView):
             'condition': condition,
             'operator': operator,
             'operator_data': operator_data,
+            'new_products': new_products,
         }
         print(context)
         return context
@@ -91,13 +96,25 @@ class ProductDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         # product = get_object_or_404(Product, id=self.kwargs['pk'])
         product = Product.objects.get(slug=self.object.slug)
-        print(product, 'salas')
-        # photos = get_object_or_404(Product_images, product=product)
+        the_category = Category.objects.filter(categories = product).values_list('title', flat=True).last()
+        print(the_category, 'idler')
+        # categories = Category.objects.all()
+        # for item in categories:
+        #     item
+        # related_products = Product.objects.filter(category__title__in=the_category_id).filter(is_published=True)
+        related_products = Product.objects.filter(category__title=the_category).order_by('-created_at')
+
+        # for item in category:
+        #     category_id = item.id
+        # print(category_id, 'kele')
+        # related_products = 
+        print(related_products, 'kategoriya')
         photos = Product_images.objects.filter(product=product)
         details = Product_details.objects.filter(product=product)
         context['product'] = product
         context['photos'] = photos
         context['details'] = details
+        context['related_products'] = related_products
         print(details, 'sekilci')
         return context
 

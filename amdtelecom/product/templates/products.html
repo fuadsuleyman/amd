@@ -157,10 +157,26 @@
                 <!-- silde-bar colleps block end here -->
                 <!-- side-bar single product slider start -->
                 <div class="theme-card">
-                    <h5 class="title-border">new product</h5>
+                    <h5 class="title-border">Yeni məhsullar</h5>
+                    
                     <div class="offer-slider slide-1">
+
                         <div>
+                            {% for product in new_products %}
+                            {% if product.operator_code == None %}
                             <div class="media"> 
+                                <a href="{% url 'product:product_detail' product.slug %}"><img class="img-fluid blur-up lazyload" src="{{ product.images.all.0.image.url }}" alt=""></a>
+                                <div class="media-body align-self-center">
+                                    {% comment %} <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div> {% endcomment %}
+                                    <a href="{% url 'product:product_detail' product.slug %}">
+                                        <h6>{{ product.title }}</h6>
+                                    </a>
+                                    <h4>{{product.price}} manat</h4>
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                            {% comment %} <div class="media">
                                 <a href=""><img class="img-fluid blur-up lazyload" src="{% static 'images/pro/1.jpg' %}" alt=""></a>
                                 <div class="media-body align-self-center">
                                     <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
@@ -170,6 +186,7 @@
                                     <h4>$500.00</h4>
                                 </div>
                             </div>
+                            
                             <div class="media">
                                 <a href=""><img class="img-fluid blur-up lazyload" src="{% static 'images/pro/1.jpg' %}" alt=""></a>
                                 <div class="media-body align-self-center">
@@ -179,18 +196,10 @@
                                     </a>
                                     <h4>$500.00</h4>
                                 </div>
-                            </div>
-                            <div class="media">
-                                <a href=""><img class="img-fluid blur-up lazyload" src="{% static 'images/pro/1.jpg' %}" alt=""></a>
-                                <div class="media-body align-self-center">
-                                    <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-                                    <a href="product-page(no-sidebar).html">
-                                        <h6>Slim Fit Cotton Shirt</h6>
-                                    </a>
-                                    <h4>$500.00</h4>
-                                </div>
-                            </div>
+                            </div> {% endcomment %}
+
                         </div>
+
                         <div>
                             <div class="media">
                                 <a href=""><img class="img-fluid blur-up lazyload" src="{% static 'images/pro/1.jpg' %}" alt=""></a>
@@ -202,6 +211,7 @@
                                     <h4>$500.00</h4>
                                 </div>
                             </div>
+
                             <div class="media">
                                 <a href=""><img class="img-fluid blur-up lazyload" src="{% static 'images/pro/1.jpg' %}" alt=""></a>
                                 <div class="media-body align-self-center">
@@ -212,6 +222,7 @@
                                     <h4>$500.00</h4>
                                 </div>
                             </div>
+
                             <div class="media">
                                 <a href=""><img class="img-fluid blur-up lazyload" src="{% static 'images/pro/1.jpg' %}" alt=""></a>
                                 <div class="media-body align-self-center">
@@ -222,6 +233,7 @@
                                     <h4>$500.00</h4>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -337,12 +349,12 @@
                                                     <div class="product-detail">
                                                         <div>
                                                             {% comment %} <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div> {% endcomment %}
-                                                            <a href="product-page(no-sidebar).html">
+                                                            <a href="{% url 'product:product_detail' product.slug %}">
                                                                 <h6>{{ product.title | upper }}</h6>
                                                             </a>
                                                             <p>{{ product.description }}
                                                             </p>
-                                                            <h4>{{ product.price }} AZN</h4>
+                                                            <h4>{{ product.price }} manat</h4>
                                                             {% if product.color_title %}
                                                             <ul class="color-variant">
                                                                 <li class="bg-light0" style="background-color: {{ product.color_code }} !important;"></li>

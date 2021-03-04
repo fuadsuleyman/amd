@@ -1,4 +1,6 @@
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
+
 from rest_framework.generics import ListAPIView
 from rest_framework.decorators import api_view
 from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED
@@ -101,6 +103,7 @@ class SearchListAPIView(ListAPIView):
         queryset = Product.objects.filter(is_published=True).order_by('-created_at')
         title = self.kwargs.get('title')
         if title:
+            # products = Product.objects.filter(Q(category__title__icontains=title) and Q(title__icontains=title) and Q(operator_code=None))
             category = queryset.filter(category__title__icontains=title).filter(operator_code=None).distinct()
             product = queryset.filter(title__icontains=title).filter(operator_code=None).distinct()
 

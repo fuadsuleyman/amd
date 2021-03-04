@@ -210,62 +210,61 @@ function getData() { // filter product data return products
                         </div>
                         `
                     }
-                    if (product.color_code != null){ // productun rengi ucun
-                        products += `
-                                <div class="col-xl-3 col-6 col-grid-box">
-                                <div class="product-box">
-                                    <div class="img-wrapper">
-                                        ${ product.images.length > 1 ? mainSeconImage : secondImage }
-                                        <div class="cart-info cart-wrap">
-                                            <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
-                                                    class="ti-shopping-cart"></i></button> <a href="javascript:void(0)" title="Add to Wishlist"><i
-                                                    class="ti-heart" aria-hidden="true"></i></a> <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View"><i
-                                                    class="ti-search" aria-hidden="true"></i></a> <a href="compare.html" title="Compare"><i
-                                                    class="ti-reload" aria-hidden="true"></i></a>
-                                        </div>
-                                    </div>
-                                    <div class="product-detail">
-                                        <div>
-                                            <a href="product-page(no-sidebar).html">
-                                                <h6>${product.title}</h6>
-                                            </a>
-                                            <p>${product.description}
-                                            </p>
-                                            <h4>${product.price} AZN</h4>
-                                            <ul class="color-variant">
-                                                <li class="bg-light0" style="background-color: ${product.color_code} !important;"></li>
-                                                <!-- <li class="bg-light1"></li>
-                                                <li class="bg-light2"></li> -->
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        `
-                    
-                    }
                     else {
-                        products += `
-                                <div class="col-xl-3 col-6 col-grid-box">
-                                <div class="product-box">
-                                    <div class="img-wrapper">
-                                    ${ product.images.length > 1 ? mainSeconImage : secondImage }
-                                    </div>
-                                    <div class="product-detail">
-                                        <div>
-                                            <a href="product-page(no-sidebar).html">
-                                                <h6>${product.title}</h6>
-                                            </a>
-                                            <p>${product.description}
-                                            </p>
-                                            <h4>${product.price} AZN</h4>
+                        if (product.color_code != null){ // productun rengi ucun
+                            products += `
+                                    <div class="col-xl-3 col-6 col-grid-box">
+                                    <div class="product-box">
+                                        <div class="img-wrapper">
+                                            ${ product.images.length > 1 ? mainSeconImage : secondImage }
+                                            <div class="cart-info cart-wrap">
+                                                <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
+                                                        class="ti-shopping-cart"></i></button> <a href="javascript:void(0)" title="Add to Wishlist"><i
+                                                        class="ti-heart" aria-hidden="true"></i></a> <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View"><i
+                                                        class="ti-search" aria-hidden="true"></i></a> <a href="compare.html" title="Compare"><i
+                                                        class="ti-reload" aria-hidden="true"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="product-detail">
+                                            <div>
+                                                <a href="product-page(no-sidebar).html">
+                                                    <h6>${product.title}</h6>
+                                                </a>
+                                                <p>${product.description}
+                                                </p>
+                                                <h4>${product.price} AZN</h4>
+                                                <ul class="color-variant">
+                                                    <li class="bg-light0" style="background-color: ${product.color_code} !important;"></li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        `
-                    } // ${a == 1 && retun}
-
+                            `
+                        
+                        }
+                        else {
+                            products += `
+                                    <div class="col-xl-3 col-6 col-grid-box">
+                                    <div class="product-box">
+                                        <div class="img-wrapper">
+                                        ${ product.images.length > 1 ? mainSeconImage : secondImage }
+                                        </div>
+                                        <div class="product-detail">
+                                            <div>
+                                                <a href="product-page(no-sidebar).html">
+                                                    <h6>${product.title}</h6>
+                                                </a>
+                                                <p>${product.description}
+                                                </p>
+                                                <h4>${product.price} AZN</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `
+                        } // ${a == 1 && retun}
+                    }
                     DOM.html(products)
                     mainSeconImage = ''
                     secondImage = ''

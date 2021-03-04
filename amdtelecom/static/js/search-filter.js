@@ -8,9 +8,10 @@ $(document).on('input', '#search-filter-value', function() {
     // price range when changed keep values(min,max)
     value = $(this).val()
     console.log(value.length, 'uzunkuq');
+    getSearchData(value)
+
     if (value.length > 0) {
         searchBody.css('display', 'block')
-        getSearchData(value)
     }
     else{
         searchBody.css('display', 'none')
@@ -19,15 +20,20 @@ $(document).on('input', '#search-filter-value', function() {
     
 });
 
-searchValue.addEventListener('focusout', (event) => {
-        searchBody.css('display', 'none')
-        // searchBody.html('')
-});
+// searchValue.addEventListener('focusout', () => {
+//     searchDataBody = $('#search-filter-body > *').on('focus', (event) => {
+//         console.log(event.target[0]);
+//         searchBody.css('display', 'block')
+//     })
+//     console.log(searchDataBody, 'mollar');
+//     searchBody.css('display', 'none')
+//     // searchBody.html('')
+// });
 
-searchValue.addEventListener('focusin', (event) => {
-        searchBody.css('display', 'block')
+// searchValue.addEventListener('focusin', () => {
+//     searchBody.css('display', 'block')
 
-});
+// });
 
 
 function getSearchProImage(id){ // filter product images returned product image
@@ -119,7 +125,6 @@ async function getSearchData(value){
                 </div>
             </a>
             `
-            
         }
 
         searchBody.html(productBody)
