@@ -18,20 +18,37 @@ from account.models import Customer
 
 
 
-# class ProductListView(ListView):
-#     model = Product
-#     template_name = 'products.html'
-#     # context_object_name = 'products'
-#     ordering = ['-created_at']
+class SearchProductListView(ListView):
+    model = Product
+    template_name = 'search.html'
+    # context_object_name = 'products'
+    ordering = ['-created_at']
 
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         products = Product.objects.all()
-#         details = Product_details.objects.all()
+    def get_context_data(self, **kwargs):
+        hide_filter = True
+        context = super().get_context_data(**kwargs)
+        category = get_object_or_404(Category, slug=self.kwargs['slug'])
+        products = Product.objects.filter(is_published=True).filter(operator_code=None).order_by('-created_at')
 
-#         context["products"] = products
-#         context['details'] = details
-#         return context
+        title = self.kwargs.get('title')
+        if title:
+            # products = Product.objects.filter(Q(category__title__icontains=title) and Q(title__icontains=title) and Q(operator_code=None))
+            category = products.filter(category__title__icontains=title).filter(operator_code=None).distinct()
+            product = products.filter(title__icontains=title).filter(operator_code=None).distinct()
+
+            if category:
+                products = category
+            else:
+                products = product
+        
+        return products
+
+    def get_queryset(self):
+        category = get_object_or_404(Category, title=self.kwargs['title'])
+        queryset = Product.objects.filter(category=category).filter(is_published=True)
+        return queryset
+
+
 
 
 class ProductsFilterListView(ListView):

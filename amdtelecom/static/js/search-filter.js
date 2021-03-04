@@ -3,6 +3,12 @@ let searchBody = $('#search-filter-body')
 searchBody.css('display', 'none')
 let searchValue = document.querySelector('#search-filter-value')
 
+searchValue.addEventListener('keyup', (e) => {
+    if(e.keyCode == 13) {
+        event.preventDefault();
+    }
+})
+
 
 $(document).on('input', '#search-filter-value', function() { 
     // price range when changed keep values(min,max)

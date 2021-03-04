@@ -99,13 +99,20 @@ class Category(models.Model):
 
     def save(self, *args, **kwargs):        
         super(Category, self).save(*args, **kwargs)
-        print(self.parent.all().last())
-        if self.parent.all().last():
-            parent = str(self.parent.all().last())
-            self.slug = f'{slugify(parent)}-{slugify(self.title)}'
+        parent = str(self.parent.all().last())
+        print(self.parent.all(), 'datalar')
+        print(parent, 'salam')
+        if self.is_main:
+            self.slug = f'{slugify(self.title)}'
         else:
-            self.slug = f'{slugify(self.title)}'    
-        super(Category, self).save(*args, **kwargs)
+            self.slug = f'{slugify(parent)}-{slugify(self.title)}'
+        # print(self.parent.all().last())
+        # if self.parent.all().last():
+        #     parent = str(self.parent.all().last())
+        #     self.slug = f'{slugify(parent)}-{slugify(self.title)}'
+        # else:
+        #     self.slug = f'{slugify(self.title)}'    
+        # super(Category, self).save(*args, **kwargs)
 
 
 class Product(models.Model):
@@ -182,7 +189,7 @@ class Product(models.Model):
             is_new = True
 
     def __str__(self):
-        return self.title
+        return f'{self.title}-{self.id}'
 
 
 class Product_details(models.Model):
