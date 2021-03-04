@@ -13,8 +13,10 @@ def cart(request):
     device = request.COOKIES['device']
     customer, created = Customer.objects.get_or_create(device=device)
 
-    order, created = Order.objects.get_or_create(customer=customer, complete=False)
-    context = {'order':order}
+    # order, created = Order.objects.get_or_create(customer=customer, complete=False)
+    order = Order.objects.filter(customer=customer)
+    print(order.values(), 'salam')
+    context = {'order': order}
     return render(request, 'cart.html', context)
 
 def deletefromcart(request, id):

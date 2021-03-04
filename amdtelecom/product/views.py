@@ -73,8 +73,8 @@ class ProductDetailView(DetailView):
         print(details, 'sekilci')
         return context
 
-    def post(self, request, pk):
-        product = Product.objects.get(id=pk)
+    def post(self, request, slug):
+        product = Product.objects.get(slug=slug)
         device = request.COOKIES['device']
         customer, created = Customer.objects.get_or_create(device=device)
 
@@ -82,7 +82,7 @@ class ProductDetailView(DetailView):
         orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
         orderItem.quantity=request.POST['quantity']
         orderItem.save()
-    
+        return HttpResponse(product)
 
 # class CategoryListView(ListView):
 #     model = Category
