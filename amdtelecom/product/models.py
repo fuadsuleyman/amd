@@ -122,7 +122,7 @@ class Product(models.Model):
     # informations
     color_title = models.CharField('Color Name', max_length=50, blank=True, null=True)
     color_code = ColorField('Color code', default='', blank=True, null=True)
-    operator_code = models.CharField('Operator code', max_length=3, blank=True, null=True)
+    operator_code = models.CharField('Operator code', max_length=3, default=None, blank=True, null=True)
     title = models.CharField('Title', max_length=100, db_index=True)
     slug = models.SlugField('Slug', editable=False, max_length=110, unique = True, blank=True)
     sku = models.CharField('SKU', max_length=50, db_index=True)

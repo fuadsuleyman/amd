@@ -100,19 +100,19 @@ class SearchListAPIView(ListAPIView):
     serializer_class = SearchSerializer
     
     def get_queryset(self):
-        queryset = Product.objects.filter(is_published=True).order_by('-created_at')
+        queryset = Product.objects.filter(is_published=True).filter(operator_code=None).order_by('-created_at')
         title = self.kwargs.get('title')
         
         if title:
             # products = Product.objects.filter(Q(category__title__icontains=title) and Q(title__icontains=title) and Q(operator_code=None))
-            category = queryset.filter(category__title__icontains=title).filter(operator_code=None).distinct()
-            product = queryset.filter(title__icontains=title).filter(operator_code=None).distinct()
+            category = queryset.filter(category__title__icontains=title).distinct()[:6]
+            product = queryset.filter(title__icontains=title).distinct()[:6]
 
             if category:
                 queryset = category
             else:
                 queryset = product
-                
+        print(queryset, 'datalar')
         return queryset
         
     # def get_queryset(self, *args, **kwargs):

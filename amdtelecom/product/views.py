@@ -22,11 +22,11 @@ class SearchProductListView(ListView):
     model = Product
     template_name = 'search.html'
     # context_object_name = 'products'
-    ordering = ['-created_at']
+    # ordering = ['-created_at']
 
     def get_context_data(self, **kwargs):
-        hide_filter = True
-        context = super().get_context_data(**kwargs)
+
+        super().get_context_data(**kwargs)
         category = get_object_or_404(Category, title=self.kwargs['title'])
         products = Product.objects.filter(is_published=True).filter(operator_code=None).order_by('-created_at')
 
@@ -37,11 +37,14 @@ class SearchProductListView(ListView):
             product = products.filter(title__icontains=title).filter(operator_code=None).distinct()
 
             if category:
-                products = category
+                product = category
             else:
-                products = product
+                product = product
+
+
+        # # context['products'] = products
         
-        return products
+        return product
 
     def get_queryset(self):
         category = get_object_or_404(Category, title=self.kwargs['title'])
@@ -69,7 +72,7 @@ class ProductsFilterListView(ListView):
         operator_data = ''
 
         # for news products slick slider 
-        new_products = products.filter(is_published=True)
+        new_products = products.filter(is_published=True).order_by('-created_at')[:3]
 
         for item in products:
             if item.marka.all():
@@ -114,18 +117,8 @@ class ProductDetailView(DetailView):
         # product = get_object_or_404(Product, id=self.kwargs['pk'])
         product = Product.objects.get(slug=self.object.slug)
         the_category = Category.objects.filter(categories = product).values_list('title', flat=True).last()
-        print(the_category, 'idler')
-        # categories = Category.objects.all()
-        # for item in categories:
-        #     item
-        # related_products = Product.objects.filter(category__title__in=the_category_id).filter(is_published=True)
         related_products = Product.objects.filter(category__title=the_category).order_by('-created_at')
 
-        # for item in category:
-        #     category_id = item.id
-        # print(category_id, 'kele')
-        # related_products = 
-        print(related_products, 'kategoriya')
         photos = Product_images.objects.filter(product=product)
         details = Product_details.objects.filter(product=product)
         context['product'] = product
