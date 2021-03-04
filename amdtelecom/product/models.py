@@ -1,4 +1,5 @@
 from django import template
+from asgiref.sync import sync_to_async
 from datetime import datetime
 from django.db import models
 from django.utils import timezone
@@ -55,7 +56,7 @@ class Marka(models.Model):
 
     def __str__(self):
         return self.title 
-    
+
     def save(self, *args, **kwargs):        
         title = Marka.objects.filter(title=self.title).first()
         super(Marka, self).save(*args, **kwargs)
@@ -88,6 +89,14 @@ class Category(models.Model):
         ordering = ('created_at', 'title')
         unique_together = ('slug',)
 
+    @property
+    def get_slug(self):
+        slug = ''
+        for item in self.parent.all():
+            slug += item.title
+        return slug
+
+
     def __str__(self):
         if self.is_main:
             title = f'{self.title}'
@@ -95,24 +104,28 @@ class Category(models.Model):
             title = f'{self.title}'
         else:
             title = f'{self.parent.all().last()} {self.title} '
-        return title 
+        # full_path = [self.title]                  
+        # k = self.parent.all().last()
+        # while k is not None:
+        #     full_path.append(k.title)
+        #     k = k.parent
+        #     print(k, 'necesen')
+        # return ' -> '.join(full_path[::-1])
+        return title
 
-    def save(self, *args, **kwargs):        
-        super(Category, self).save(*args, **kwargs)
-        parent = str(self.parent.all().last())
-        print(self.parent.all(), 'datalar')
-        print(parent, 'salam')
-        if self.is_main:
-            self.slug = f'{slugify(self.title)}'
-        else:
-            self.slug = f'{slugify(parent)}-{slugify(self.title)}'
-        # print(self.parent.all().last())
-        # if self.parent.all().last():
-        #     parent = str(self.parent.all().last())
-        #     self.slug = f'{slugify(parent)}-{slugify(self.title)}'
-        # else:
-        #     self.slug = f'{slugify(self.title)}'    
-        # super(Category, self).save(*args, **kwargs)
+
+    # def save(self, *args, **kwargs):  
+    #     super(Category, self).save(*args, **kwargs)
+        
+    #     print(self.id)
+    #     return
+        
+    #     if self.parent.all().last():
+    #         parent = str(self.parent.all().last())
+    #         self.slug = f'{slugify(parent)}-{slugify(self.title)}'
+    #     else:
+    #         self.slug = f'{slugify(self.title)}'    
+    #     super(Category, self).save(*args, **kwargs)
 
 
 class Product(models.Model):

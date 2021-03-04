@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
+from .common import slugify
 
 # Register your models here.
 from .models import (
@@ -18,11 +19,22 @@ admin.site.register(Product_colors)
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("id", "title", "description", "is_main", "status")
+    list_display = ("id", "title", "slug", "description", "is_main", "status")
     list_display_links = ("title",)
     readonly_fields = ('slug',)
     list_filter = ("title", "status")
     search_fields = ('title',)
+    # prepopulated_fields = {'slug': ('title',)}
+
+
+    def save_related(self, request, form, formsets, change):
+        super().save_related(request, form, formsets, change)
+        category = form.instance
+        category.slug = slugify(f'{category.parent.all().last()} {category.title}')
+        category.save()
+        # super().save_related(request, form, formsets, change)
+
+
 
 @admin.register(Marka)
 class MarkaAdmin(admin.ModelAdmin):
