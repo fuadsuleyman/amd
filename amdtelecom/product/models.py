@@ -1,11 +1,14 @@
+from django import template
+from asgiref.sync import sync_to_async
 from datetime import datetime
 from django.db import models
 from django.utils import timezone
-from account.models import Customer
-from django import template
 from amdtelecom.utils import unique_slug_generator
+from django_resized import ResizedImageField
 from colorfield.fields import ColorField
 from django.db.models.signals import pre_save
+
+from account.models import Customer
 from .common import slugify
 
 register = template.Library()
@@ -53,7 +56,7 @@ class Marka(models.Model):
 
     def __str__(self):
         return self.title 
-    
+
     def save(self, *args, **kwargs):        
         title = Marka.objects.filter(title=self.title).first()
         super(Marka, self).save(*args, **kwargs)
@@ -87,6 +90,14 @@ class Category(models.Model):
         unique_together = ('slug',)
     
 
+    @property
+    def get_slug(self):
+        slug = ''
+        for item in self.parent.all():
+            slug += item.title
+        return slug
+
+
     def __str__(self):
         if self.is_main:
             title = f'{self.title}'
@@ -94,41 +105,7 @@ class Category(models.Model):
             title = f'{self.title}'
         else:
             title = f'{self.parent.all().last()} {self.title} '
-        return title 
-    
-    # def save(self, *args, **kwargs):        
-    #         super(Category, self).save(*args, **kwargs)
-    #         print(self.parent.all())
-    #         print(self.parent.all().last())
-    #         if self.parent.all().last():
-    #             parent = str(self.parent.all().last())
-    #             self.slug = f'{slugify(parent)}-{slugify(self.title)}'
-    #         else:
-    #             self.slug = f'{slugify(self.title)}'     
-    #         super(Category, self).save(*args, **kwargs)
-
-    # def create(self, *args, **kwargs):        
-    #     super(Category, self).save(*args, **kwargs)
-    #     print(self.id, 'selfid')
-    #     print(self.parent.all().last())
-    #     if self.parent.all().last():
-    #         parent = str(self.parent.all().last())
-    #         self.slug = f'{slugify(parent)}-{slugify(self.title)}'
-    #     else:
-    #         self.slug = f'{slugify(self.title)}' 
-        
-
-    
-      
-        
-
-
-
-
-    
-    
-   
-
+        return title
 
 class Product(models.Model):
     """
@@ -145,6 +122,7 @@ class Product(models.Model):
     # informations
     color_title = models.CharField('Color Name', max_length=50, blank=True, null=True)
     color_code = ColorField('Color code', default='', blank=True, null=True)
+    operator_code = models.CharField('Operator code', max_length=3, blank=True, null=True)
     title = models.CharField('Title', max_length=100, db_index=True)
     slug = models.SlugField('Slug', editable=False, max_length=110, unique = True, blank=True)
     sku = models.CharField('SKU', max_length=50, db_index=True)
@@ -203,7 +181,7 @@ class Product(models.Model):
             is_new = True
 
     def __str__(self):
-        return f'{self.title} {self.color_title}'
+        return f'{self.title}-{self.id}'
 
 
 class Product_details(models.Model):
@@ -246,6 +224,7 @@ class Product_details_property_name(models.Model):
         verbose_name = 'Property name'
         verbose_name_plural = 'Properties names'
 
+
 class Product_details_property_value(models.Model):
     # relations 
 
@@ -276,7 +255,8 @@ class Product_images(models.Model):
     product = models.ForeignKey('Product', on_delete=models.CASCADE, related_name='images')
 
     # informations
-    image = models.ImageField('Image', upload_to='product_images')
+    # image = models.ImageField('Image', upload_to='product_images')
+    image = ResizedImageField(size=[800, 500], upload_to='product_images')
     is_main = models.BooleanField('Main Image', default=False) 
     is_second_main = models.BooleanField('Second Main Image', default=False) 
 

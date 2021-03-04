@@ -6,7 +6,7 @@ from .models import Category
 from .common import slugify
 
 
-# @receiver(m2m_changed, sender=Category)
+# @receiver(post_save, sender=Category)
 # def create_product(sender, instance, **kwargs):
 #     queryset = Category.objects.filter(status=True)
 #     for category in queryset:  

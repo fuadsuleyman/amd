@@ -108,9 +108,10 @@
                             <div id="tab-1" class="tab-content active default">
                                 <div class="row no-slider">
                                     {% for product in products %}
+                                    {% if product.operator_code == None %}
                                     <div class="product-box product-wrap">
                                         <div class="img-wrapper">
-                                           <div class="front">
+                                            <div class="front">
                                                 <a href="{% url 'product:product_detail' product.slug %}">
                                                     {% for image in product.images.all %}
                                                     {% if image.is_main %}
@@ -157,15 +158,17 @@
                                             <h4>{{product.price}} manat</h4>
                                         </div>
                                     </div>
+                                    {% endif %}
                                     {% endfor %}
                                 </div>
                             </div>
                             <div id="tab-2" class="tab-content">
                                 <div class="no-slider row">
                                     {% for product in products %}
+                                    {% if product.operator_code == None %}
                                     <div class="product-box product-wrap">
                                         <div class="img-wrapper">
-                                           <div class="front">
+                                            <div class="front">
                                                 <a href="{% url 'product:product_detail' product.slug %}">
                                                     {% for image in product.images.all %}
                                                     {% if image.is_main %}
@@ -212,12 +215,14 @@
                                             <h4>{{product.price}} manat</h4>
                                         </div>
                                     </div>
+                                    {% endif %}
                                     {% endfor %}
                                 </div>
                             </div>
                             <div id="tab-3" class="tab-content">
                                 <div class="no-slider row">
                                     {% for product in products %}
+                                    {% if product.operator_code == None %}
                                     <div class="product-box product-wrap">
                                         <div class="img-wrapper">
                                             <div class="front">
@@ -267,6 +272,7 @@
                                             <h4>{{product.price}} manat</h4>
                                         </div>
                                     </div>
+                                    {% endif %}
                                     {% endfor %}
                                 </div>
                             </div>

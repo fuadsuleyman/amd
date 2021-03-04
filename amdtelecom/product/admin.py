@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
+from .common import slugify
 
 # Register your models here.
 from .models import (
@@ -18,13 +19,19 @@ admin.site.register(Product_colors)
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("id", "title", "description", "is_main", "status")
+    list_display = ("id", "title", "slug", "description", "is_main", "status")
     list_display_links = ("title",)
     readonly_fields = ('slug',)
     list_filter = ("title", "status")
     search_fields = ('title',)
- 
+    # prepopulated_fields = {'slug': ('title',)}
 
+
+    def save_related(self, request, form, formsets, change):
+        super().save_related(request, form, formsets, change)
+        category = form.instance
+        category.slug = slugify(f'{category.parent.all().last()} {category.title}')
+        category.save()
 
 
 @admin.register(Marka)
@@ -74,7 +81,7 @@ class ProductAdmin(admin.ModelAdmin):
             'fields': ('category','marka', 'tags', 'same_product'),
         }),
         ('Informations', {
-            'fields': (('title', 'slug'), 'sku', ('color_title', 'color_code',), 'description', 'sale_count', ('is_new', 'is_featured', 'is_discount'), 'status')
+            'fields': (('title', 'slug'), 'sku', ('color_title', 'color_code',), 'description', 'sale_count', ('is_new', 'is_featured', 'is_discount'), 'operator_code', 'status')
         }),
         ('Price Info', {
             'fields': ('price', 'discount_type', 'discount_value'),
