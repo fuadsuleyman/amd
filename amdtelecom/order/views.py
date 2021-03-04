@@ -15,7 +15,7 @@ def cart(request):
 
     # order, created = Order.objects.get_or_create(customer=customer, complete=False)
     order = Order.objects.filter(customer=customer)
-    print(order.values(), 'salam')
+    # print(order.values(), 'salam')
     context = {'order': order}
     return render(request, 'cart.html', context)
 
