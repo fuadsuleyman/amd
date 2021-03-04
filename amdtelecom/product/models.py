@@ -85,6 +85,7 @@ class Category(models.Model):
         verbose_name_plural = 'Categories'
         ordering = ('created_at', 'title')
         unique_together = ('slug',)
+    
 
     def __str__(self):
         if self.is_main:
@@ -94,16 +95,32 @@ class Category(models.Model):
         else:
             title = f'{self.parent.all().last()} {self.title} '
         return title 
+    
+    # def save(self, *args, **kwargs):        
+    #         super(Category, self).save(*args, **kwargs)
+    #         print(self.parent.all())
+    #         print(self.parent.all().last())
+    #         if self.parent.all().last():
+    #             parent = str(self.parent.all().last())
+    #             self.slug = f'{slugify(parent)}-{slugify(self.title)}'
+    #         else:
+    #             self.slug = f'{slugify(self.title)}'     
+    #         super(Category, self).save(*args, **kwargs)
 
-    def save(self, *args, **kwargs):        
-        super(Category, self).save(*args, **kwargs)
-        print(self.parent.all().last())
-        if self.parent.all().last():
-            parent = str(self.parent.all().last())
-            self.slug = f'{slugify(parent)}-{slugify(self.title)}'
-        else:
-            self.slug = f'{slugify(self.title)}'    
-        super(Category, self).save(*args, **kwargs)
+    # def create(self, *args, **kwargs):        
+    #     super(Category, self).save(*args, **kwargs)
+    #     print(self.id, 'selfid')
+    #     print(self.parent.all().last())
+    #     if self.parent.all().last():
+    #         parent = str(self.parent.all().last())
+    #         self.slug = f'{slugify(parent)}-{slugify(self.title)}'
+    #     else:
+    #         self.slug = f'{slugify(self.title)}' 
+        
+
+    
+      
+        
 
 
 

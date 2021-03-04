@@ -23,6 +23,9 @@ class CategoryAdmin(admin.ModelAdmin):
     readonly_fields = ('slug',)
     list_filter = ("title", "status")
     search_fields = ('title',)
+ 
+
+
 
 @admin.register(Marka)
 class MarkaAdmin(admin.ModelAdmin):

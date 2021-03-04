@@ -6,6 +6,8 @@ from rest_framework.permissions import AllowAny
 from django.http import JsonResponse
 from django.http import HttpResponse
 from .serializers import SubscriberSerializer
+from django.shortcuts import render
+from product.models import Product
 
 
 
@@ -21,3 +23,6 @@ class SubscribeView(View):
             serializer.save()
             return JsonResponse(serializer.data, safe=False)
         return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST, safe=False)
+    
+
+

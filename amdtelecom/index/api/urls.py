@@ -11,5 +11,6 @@ subscriber_create = csrf_exempt(SubscribeView.as_view())
 
 urlpatterns = [
     path('subscribe/', subscriber_create, name='subscribe_api'),
+   
 ]
 
