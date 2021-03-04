@@ -1,11 +1,12 @@
 from django.urls import path, include
+from django.conf.urls.static import static
 from .import views
 from .views import (
     SearchProductListView,
     ProductsFilterListView,
     ProductDetailView,
 )
-from django.conf.urls.static import static
+
 
 app_name = 'product'
 
@@ -15,4 +16,5 @@ urlpatterns = [
     path('product/<slug:slug>/', ProductDetailView.as_view(), name='product_detail'),
     # path('products/filter/<int:pk>/', views.product_detail, name='products_detail'),
     path('api/v1.0/', include('product.api.urls')),
+    # path('products/', views.about, name='amd-about'),
 ]

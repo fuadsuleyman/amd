@@ -1,7 +1,8 @@
 from product.models import Product
 from product.models import Product_details, Category
 from django.views.generic import TemplateView
-
+from django.http import JsonResponse
+from django.shortcuts import render
 
 # Create your views here.
 
@@ -27,3 +28,14 @@ class HomePageTemplateView(TemplateView):
         context["category"] = category
         return context
     
+
+def autocomplete(request):
+    print(request.Get.get("term"))
+    if 'term' in request.GET:
+        qs = Product.objects.filter(title__icontains=request.GET.get('term'))
+        titles = list()
+        for product in qs:
+            titles.append(product.title)
+        # titles = [product.title for product in qs]
+        return JsonResponse(titles, safe=False)
+    return render(request, 'core/home.html')

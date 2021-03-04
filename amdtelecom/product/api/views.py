@@ -112,8 +112,19 @@ class SearchListAPIView(ListAPIView):
                 queryset = category
             else:
                 queryset = product
-
-        # print(queryset) 
+                
         return queryset
         
+    # def get_queryset(self, *args, **kwargs):
+    #     # context = super().get_queryset()
+    #     print('desa')
+    #     # product = get_object_or_404(Product, id=self.kwargs['id'])
+    #     product = Product.objects.filter(id=self.kwargs['id'])
+    #     if product:
+    #         return product  
+    #     return "Product not founded"
+
+    #     print(product, 'beledes')
+
+
         

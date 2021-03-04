@@ -88,6 +88,7 @@ class Category(models.Model):
         verbose_name_plural = 'Categories'
         ordering = ('created_at', 'title')
         unique_together = ('slug',)
+    
 
     @property
     def get_slug(self):
@@ -104,29 +105,7 @@ class Category(models.Model):
             title = f'{self.title}'
         else:
             title = f'{self.parent.all().last()} {self.title} '
-        # full_path = [self.title]                  
-        # k = self.parent.all().last()
-        # while k is not None:
-        #     full_path.append(k.title)
-        #     k = k.parent
-        #     print(k, 'necesen')
-        # return ' -> '.join(full_path[::-1])
         return title
-
-
-    # def save(self, *args, **kwargs):  
-    #     super(Category, self).save(*args, **kwargs)
-        
-    #     print(self.id)
-    #     return
-        
-    #     if self.parent.all().last():
-    #         parent = str(self.parent.all().last())
-    #         self.slug = f'{slugify(parent)}-{slugify(self.title)}'
-    #     else:
-    #         self.slug = f'{slugify(self.title)}'    
-    #     super(Category, self).save(*args, **kwargs)
-
 
 class Product(models.Model):
     """

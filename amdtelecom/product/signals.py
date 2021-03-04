@@ -10,6 +10,6 @@ from .common import slugify
 # def create_product(sender, instance, **kwargs):
 #     queryset = Category.objects.filter(status=True)
 #     for category in queryset:  
-#         print(instance.parent, 'sasasaaaaaa')
+#         print(category, 'sasasaaaaaa')
 
-#     instance.slug = f'{slugify(instance.title)}'
+#     instance.slug = f'{slugify(instance.description)}'
