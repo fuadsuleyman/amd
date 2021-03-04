@@ -32,8 +32,6 @@ class CategoryAdmin(admin.ModelAdmin):
         category = form.instance
         category.slug = slugify(f'{category.parent.all().last()} {category.title}')
         category.save()
-        # super().save_related(request, form, formsets, change)
-
 
 
 @admin.register(Marka)

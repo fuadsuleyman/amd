@@ -108,7 +108,7 @@
                                 </div>
                                 {% endif %}
                                 <div class="product-wrapper-grid product-load-more">
-                                    <div class="row margin-res prod-items">
+                                    <div id="all-search-page-body" class="row margin-res prod-items">
                                         {% for product in products %}
                                             {% if product.operator_code == None %}
                                             <div class="col-xl-4 col-sm-12 col-md-6 col-grid-box category-pro" for-filter="{{product.category.all.0.id}}">
@@ -238,8 +238,6 @@
 
 {% block price_range_js %}
 
-<!-- price_range js -->
-<script src="{% static 'js/price-range.js' %}"></script>
-<!-- product filter js -->
-<script src="{% static  'js/product-filter.js' %}"></script>
+<!-- search filter js -->
+<script src="{% static 'js/search-filter.js' %}"></script>
 {% endblock price_range_js %}

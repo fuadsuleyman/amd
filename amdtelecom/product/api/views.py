@@ -102,6 +102,7 @@ class SearchListAPIView(ListAPIView):
     def get_queryset(self):
         queryset = Product.objects.filter(is_published=True).order_by('-created_at')
         title = self.kwargs.get('title')
+        
         if title:
             # products = Product.objects.filter(Q(category__title__icontains=title) and Q(title__icontains=title) and Q(operator_code=None))
             category = queryset.filter(category__title__icontains=title).filter(operator_code=None).distinct()
@@ -111,6 +112,7 @@ class SearchListAPIView(ListAPIView):
                 queryset = category
             else:
                 queryset = product
+
         # print(queryset) 
         return queryset
         
