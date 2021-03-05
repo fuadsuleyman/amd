@@ -107,6 +107,13 @@ class Category(models.Model):
             title = f'{self.parent.all().last()} {self.title} '
         return title
 
+
+
+    
+    
+   
+
+
 class Product(models.Model):
     """
     very important table
