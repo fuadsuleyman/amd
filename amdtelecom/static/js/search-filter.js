@@ -3,13 +3,14 @@ let searchBody = $('#search-filter-body')
 searchBody.css('display', 'none')
 let searchValue = document.querySelector('#search-filter-value')
 
-searchValue.addEventListener('keyup', (e) => {
-    if(e.keyCode == 13) {
-        e.preventDefault();
-        let value = $(this).val()
-        getSearchData(value)
-    }
-})
+// searchValue.addEventListener('keyup', (e) => {
+//     if(e.keyCode == 13) {
+//         e.preventDefault();
+//         let value = $(this).val()
+            // window.open(urlDomain)
+//         getSearchData(value)
+//     }
+// })
 
 
 $(document).on('input', '#search-filter-value', function() { 
@@ -107,14 +108,16 @@ async function getSearchData(value){
     try {
         
         let productBody = ''
+        searchBody.html('')
         const title = value;
+        
         let slug = ''
 
         const datas = await $.ajax({
             dataType: 'json',
             async: true,
             global: false,
-            url: `${urlDomain}api/v1.0/search/${title}`,
+            url: `${urlDomain}api/v1.0/search/?q=${title}`,
         });
         if (datas.length > 1){
             for (let product of datas){

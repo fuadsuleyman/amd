@@ -54,16 +54,14 @@
                         <h3 class="collapse-block-title">Marka</h3>
                         <div class="collection-collapse-block-content">
                             <div class="collection-brand-filter">
-                            {% for product in products %}
-                            {% ifchanged product.marka.all.0.title %}
-                            {% for marka in product.marka.all  %}
+
+                            {% for marka in markas  %}
                                 <div class="custom-control custom-checkbox collection-filter-checkbox">
                                     <input onclick="getData()" data-filter='marka' value="{{ marka.id }}" type="checkbox"  class="filter-item-checkbox custom-control-input" id="{{ marka.title }}">
                                     <label class="custom-control-label" for="{{ marka.title }}">{{ marka.title }}</label>
                                 </div>
                             {% endfor %}
-                            {% endifchanged %}
-                            {% endfor %}
+
                             </div>
                         </div>
                     </div>
@@ -73,21 +71,21 @@
 
                     <!-- color filter start here -->
                     {% if color_title %}
+                    
                     <div class="collection-collapse-block open">
                         <h3 class="collapse-block-title">Rənglər</h3>
                         <div class="collection-collapse-block-content">
                             <div class="color-selector collection-brand-filter">
-                                {% for product in products %}
-                                {% if product.color_code %}
+                                {% for color in colors %}
                                 <div class="custom-control custom-checkbox collection-filter-checkbox">
-                                    <input type="checkbox" onclick="getData()" data-filter="color_title" value="{{ product.color_title }}" class="filter-item-checkbox custom-control-input" id="{{ product.color_title }}" style="border: 1px solid {{ product.color_code }}">
-                                    <label class="custom-control-label" for="{{ product.color_title }}" style="color: {{ product.color_code }}"> {{ product.color_title }} </label>
+                                    <input type="checkbox" onclick="getData()" data-filter="color_title" value="{{ color }}" class="filter-item-checkbox custom-control-input" id="{{ color }}" style="border: 1px solid {{ color }}">
+                                    <label class="custom-control-label" for="{{ color }}" style="color: {{ color }}"> {{ color }} </label>
                                 </div>
-                                {% endif %}
                                 {% endfor %}
                             </div>
                         </div>
                     </div>
+
                     {% endif %}
 
                     <!-- operator filter start here -->
@@ -96,13 +94,13 @@
                         <h3 class="collapse-block-title">Operator</h3>
                         <div class="collection-collapse-block-content">
                             <div class="color-selector collection-brand-filter">
-                                {% for product in products %}
-                                {% if product.operator_code %}
+                                {% for operator in operators_codes %}
+
                                 <div class="custom-control custom-checkbox collection-filter-checkbox">
-                                    <input type="checkbox" onclick="getData()" data-filter="operator_code" value="{{ product.operator_code }}" class="filter-item-checkbox custom-control-input" id="{{ product.operator_code }}">
-                                    <label class="custom-control-label" for="{{ product.operator_code }}"> {{ product.operator_code }} </label>
+                                    <input type="checkbox" onclick="getData()" data-filter="operator_code" value="{{ operator }}" class="filter-item-checkbox custom-control-input" id="{{ operator }}">
+                                    <label class="custom-control-label" for="{{ operator }}"> {{ operator}} </label>
                                 </div>
-                                {% endif %}
+
                                 {% endfor %}
                             </div>
                         </div>

@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
 from django.db.models import Q
+from collections import OrderedDict
 # Create your views here.
 from django.http import HttpResponse
 from .models import (
@@ -22,13 +23,12 @@ class SearchProductListView(ListView):
     model = Product
     template_name = 'search.html'
     # context_object_name = 'products'
-    # ordering = ['-created_at']
+    ordering = ['-created_at']
 
     def get_context_data(self, **kwargs):
-
-        super().get_context_data(**kwargs)
+        print('salam')
         category = get_object_or_404(Category, title=self.kwargs['title'])
-        products = Product.objects.filter(is_published=True).filter(operator_code=None).order_by('-created_at')
+        products = Product.objects.filter(is_published=True).filter(operator_code=None)
 
         title = self.kwargs.get('title')
         if title:
@@ -41,10 +41,11 @@ class SearchProductListView(ListView):
             else:
                 product = product
 
+            context = {
+                'products': product
+            }
 
-        # # context['products'] = products
-        
-        return product
+            return context
 
 #         order, created = Order.objects.get_or_create(customer=customer, complete=False)
 #         orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
@@ -124,7 +125,20 @@ class ProductsFilterListView(ListView):
         context = super().get_context_data(**kwargs)
         category = get_object_or_404(Category, slug=self.kwargs['slug'])
         products = Product.objects.filter(category=category).filter(is_published=True)
+        markas = Marka.objects.filter(marka__id__in=products.all()).filter(marka__isnull=False).distinct()
+        # colors = products
+
+        colors_list = products.values('color_title')
+        operators_list = products.values('operator_code')
+
         
+        # for remove duplicate color title in colors_list
+        colors = []
+        [colors.append(i['color_title']) for i in colors_list if i['color_title'] not in colors]
+        # remove duplicate operator code in list
+        operators_codes = []
+        [operators_codes.append(i['operator_code']) for i in operators_list if i['operator_code'] not in operators_codes]
+
         # for filter template page for view or no
         marka = False
         color_title = False
@@ -138,7 +152,6 @@ class ProductsFilterListView(ListView):
         for item in products:
             if item.marka.all():
                 marka = True
-                print(marka)
             if item.color_title:
                 color_title = True
             if item.is_new:
@@ -153,10 +166,13 @@ class ProductsFilterListView(ListView):
             'products': products,
             'categories': category,
             'marka': marka,
+            'markas': markas,
             'color_title': color_title,
+            'colors': colors,
             'condition': condition,
             'operator': operator,
             'operator_data': operator_data,
+            'operators_codes': operators_codes,
             'new_products': new_products,
         }
         print(context)
