@@ -60,46 +60,31 @@ class SearchProductListView(ListView):
 #     }
 #     return render(request, 'product_detail.html', context)
 
-# class ProductDetailView(DetailView):
-#     model = Product
-#     template_name = "product_detail.html"
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = "product_detail.html"
     
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         # product = get_object_or_404(Product, id=self.kwargs['pk'])
-#         product = Product.objects.get(slug=self.object.slug)
-#         print(product, 'salas')
-#         # photos = get_object_or_404(Product_images, product=product)
-#         photos = Product_images.objects.filter(product=product)
-#         details = Product_details.objects.filter(product=product)
-#         context['product'] = product
-#         context['photos'] = photos
-#         context['details'] = details
-#         return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # product = get_object_or_404(Product, id=self.kwargs['pk'])
+        product = Product.objects.get(slug=self.object.slug)
+        print(product, 'salas')
+        # photos = get_object_or_404(Product_images, product=product)
+        photos = Product_images.objects.filter(product=product)
+        details = Product_details.objects.filter(product=product)
+        context['product'] = product
+        context['photos'] = photos
+        context['details'] = details
+        return context
 
-#     def post(self, request, pk):
-#         product = Product.objects.get(id=pk)
-#         device = request.COOKIES['device']
-#         customer, created = Customer.objects.get_or_create(device=device)
-#         order, created = Order.objects.get_or_create(customer=customer, complete=False)
-#         orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
-#         orderItem.quantity=request.POST['quantity']
-#         orderItem.save()
-
-
-def product_detail(request, slug):
-    product = Product.objects.get(slug=slug)
-    photos = Product_images.objects.filter(product=product)
-    details = Product_details.objects.filter(product=product)
-    context = {'product':product,'photos':photos,'details':details}
-
-    if request.method == 'POST':
+    def post(self, request, **kwargs):
+        slug = self.kwargs['slug']
         product = Product.objects.get(slug=slug)
         #Get user account information
         try:
-            customer = request.user.customer	
+            customer = self.request.user.customer	
         except:
-            device = request.COOKIES['device']
+            device = self.request.COOKIES['device']
             customer, created = Customer.objects.get_or_create(device=device)
 
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
@@ -109,7 +94,30 @@ def product_detail(request, slug):
 
         return redirect('order:cart')
 
-    return render(request, 'product_detail.html', context)
+
+# def product_detail(request, slug):
+#     product = Product.objects.get(slug=slug)
+#     photos = Product_images.objects.filter(product=product)
+#     details = Product_details.objects.filter(product=product)
+#     context = {'product':product,'photos':photos,'details':details}
+
+#     if request.method == 'POST':
+#         product = Product.objects.get(slug=slug)
+#         #Get user account information
+#         try:
+#             customer = request.user.customer	
+#         except:
+#             device = request.COOKIES['device']
+#             customer, created = Customer.objects.get_or_create(device=device)
+
+#         order, created = Order.objects.get_or_create(customer=customer, complete=False)
+#         orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
+#         orderItem.quantity=request.POST['quantity']
+#         orderItem.save()
+
+#         return redirect('order:cart')
+
+#     return render(request, 'product_detail.html', context)
 
     
 
