@@ -26,6 +26,7 @@ def deletefromcart(request, id):
 class CheckoutView(CreateView):
     form_class = CheckoutForm
     template_name = 'checkout.html'
+    
     def form_valid(self, form):
         success(self.request, 'Sifarisiniz qeyde alinmisdir tez bir zamanda sizinle elaqe saxlanilicaq.')
         # success_url = reverse_lazy('index:home')

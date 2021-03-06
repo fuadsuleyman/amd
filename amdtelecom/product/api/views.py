@@ -5,7 +5,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework.decorators import api_view
 from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED
 from rest_framework.response import Response
-from django.db.models import Prefetch
+from rest_framework import filters
 
 
 
@@ -98,33 +98,19 @@ class ProductMarkaListAPIView(ListAPIView):
 
 class SearchListAPIView(ListAPIView):
     serializer_class = SearchSerializer
-    
+    # search_fields = ['title', 'category__title']
+    # filter_backends = (filters.SearchFilter,)
+
     def get_queryset(self):
-        queryset = Product.objects.filter(is_published=True).filter(operator_code=None).order_by('-created_at')
-        title = self.kwargs.get('title')
-        
-        if title:
+        queryset = Product.objects.filter(is_published=True).filter(operator_code__isnull=False).order_by('-created_at')
+        query = self.request.GET.get('q')
+        print(query)
+        if query:
+            print(query, 'basliq')
             # products = Product.objects.filter(Q(category__title__icontains=title) and Q(title__icontains=title) and Q(operator_code=None))
-            category = queryset.filter(category__title__icontains=title).distinct()[:6]
-            product = queryset.filter(title__icontains=title).distinct()[:6]
+            # category = queryset.filter(category__title__icontains=title).distinct()[:6]
+            # product = queryset.filter(title__icontains=title).distinct()[:6]
+            product = Product.objects.filter(operator_code=None).filter( Q(title__icontains=query) | Q(category__title__icontains=query)).order_by('-created_at').distinct()[:5]
+            print(product)
 
-            if category:
-                queryset = category
-            else:
-                queryset = product
-        print(queryset, 'datalar')
-        return queryset
-        
-    # def get_queryset(self, *args, **kwargs):
-    #     # context = super().get_queryset()
-    #     print('desa')
-    #     # product = get_object_or_404(Product, id=self.kwargs['id'])
-    #     product = Product.objects.filter(id=self.kwargs['id'])
-    #     if product:
-    #         return product  
-    #     return "Product not founded"
-
-    #     print(product, 'beledes')
-
-
-        
+        return product
