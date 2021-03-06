@@ -62,6 +62,7 @@ class SearchProductListView(ListView):
 # class ProductDetailView(DetailView):
 #     model = Product
 #     template_name = "product_detail.html"
+    
 #     def get_context_data(self, **kwargs):
 #         context = super().get_context_data(**kwargs)
 #         # product = get_object_or_404(Product, id=self.kwargs['pk'])
@@ -73,8 +74,8 @@ class SearchProductListView(ListView):
 #         context['product'] = product
 #         context['photos'] = photos
 #         context['details'] = details
-#         print(details, 'sekilci')
 #         return context
+
 #     def post(self, request, pk):
 #         product = Product.objects.get(id=pk)
 #         device = request.COOKIES['device']
