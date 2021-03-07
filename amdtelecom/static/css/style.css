@@ -53,7 +53,7 @@
     position: absolute;
     height: auto;
     margin-top: 10px;
-    border-radius: 15px;
+    border-radius: 16px;
     border: 1px solid black;
 }
 .body:first-child {
@@ -188,6 +188,4 @@
     font-size: 30px;
     color: #606060;
 }
-
-/* </product_content> */
 

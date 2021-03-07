@@ -112,6 +112,9 @@ function getData() { // filter product data return products
         type : 'GET',
         data: _filterObj,
         dataType:'json',
+        beforeSend: () => {
+            $('.loadMore').html('')
+        },
         success:function(response){
             console.log(response, 'product data');
             let DOM = $('.prod-items')

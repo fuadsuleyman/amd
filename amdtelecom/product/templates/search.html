@@ -217,6 +217,14 @@
                                         {% endfor %}
 
                                     </div>
+                                <script>
+                                    let count = 0
+                                    let datas = document.querySelectorAll('.category-pro')
+                                    count = datas.length
+                                    let resultCount = document.querySelector('#search-result-value')
+                                    resultCount.innerHTML = 'AXTARIŞIN NƏTİCƏLƏRİ: 0'
+                                    resultCount.innerHTML = `AXTARIŞIN NƏTİCƏLƏRİ: ${count}`
+                                </script>
                                 </div>
                                 <div class="load-more-sec"><a href="javascript:void(0)" class="loadMore">load
                                         more</a></div>

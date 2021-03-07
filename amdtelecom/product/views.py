@@ -26,39 +26,40 @@ class SearchProductListView(ListView):
     ordering = ['-created_at']
 
     def get_context_data(self, **kwargs):
-        print('salam')
-        category = get_object_or_404(Category, title=self.kwargs['title'])
-        products = Product.objects.filter(is_published=True).filter(operator_code=None)
+        # print('salam')
+        # category = get_object_or_404(Category, title=self.kwargs['title'])
+        # products = Product.objects.filter(is_published=True).filter(operator_code=None)
 
-        title = self.kwargs.get('title')
-        if title:
+        # query = self.kwargs.get('title')
+        # if query:
+        #     products = Product.objects.filter(operator_code=None).filter( Q(title__icontains=query) | Q(category__title__icontains=query)).order_by('-created_at').distinct()
+        products = self.get_queryset
+        print(products, 'datalar')
+        # count = 0
+        # for item in products:
+        #     count += 1
+        context = {
+            'products': self.get_queryset,
+
+        }
+
+        return context
+
+    def get_queryset(self):
+        queryset = Product.objects.filter(is_published=True).filter(operator_code__isnull=False).order_by('-created_at')
+        query = self.request.GET.get('q')
+        # query = self.query_parametr.get()
+        # query = self.kwargs['title']
+        # print(query)
+        if query:
+            print(query, 'basliq')
             # products = Product.objects.filter(Q(category__title__icontains=title) and Q(title__icontains=title) and Q(operator_code=None))
-            category = products.filter(category__title__icontains=title).filter(operator_code=None).distinct()
-            product = products.filter(title__icontains=title).filter(operator_code=None).distinct()
+            # category = queryset.filter(category__title__icontains=title).distinct()[:6]
+            # product = queryset.filter(title__icontains=title).distinct()[:6]
+            product = Product.objects.filter(operator_code=None).filter( Q(title__icontains=query) | Q(category__title__icontains=query)).order_by('-created_at').distinct()
 
-            if category:
-                product = category
-            else:
-                product = product
+        return product
 
-            context = {
-                'products': product
-            }
-
-            return context
-
-#         order, created = Order.objects.get_or_create(customer=customer, complete=False)
-#         orderItem, created = OrderItem.objects.get_or_create(order=order, product=product)
-#         orderItem.quantity=request.POST['quantity']
-#         orderItem.save()
-
-#         return redirect('cart')
-#     context = {
-#         'product': product, 
-#         'photos': photos, 
-#         'details': details,
-#     }
-#     return render(request, 'product_detail.html', context)
 
 class ProductDetailView(DetailView):
     model = Product
