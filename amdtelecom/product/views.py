@@ -65,17 +65,21 @@ class ProductDetailView(DetailView):
     model = Product
     template_name = "product_detail.html"
     
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # product = get_object_or_404(Product, id=self.kwargs['pk'])
         product = Product.objects.get(slug=self.object.slug)
-        print(product, 'salas')
-        # photos = get_object_or_404(Product_images, product=product)
+        the_category = Category.objects.filter(categories = product).values_list('title', flat=True).last()
+        related_products = Product.objects.filter(category__title=the_category).order_by('-created_at')
+
         photos = Product_images.objects.filter(product=product)
         details = Product_details.objects.filter(product=product)
         context['product'] = product
         context['photos'] = photos
         context['details'] = details
+        context['related_products'] = related_products
+        print(details, 'sekilci')
         return context
 
     def post(self, request, **kwargs):
