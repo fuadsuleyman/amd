@@ -1,4 +1,4 @@
-let urlDomain = `http://localhost:8000/`
+var urlDomain = `http://localhost:8000/`
 let searchBody = $('#search-filter-body')
 searchBody.css('display', 'none')
 let searchValue = document.querySelector('#search-filter-value')

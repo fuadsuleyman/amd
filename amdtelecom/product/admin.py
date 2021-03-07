@@ -67,7 +67,7 @@ class ProductDetailNameAdmin(admin.TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("title", "price", "is_new", 'get_image', 'id', ) #"get_image"
+    list_display = ("title", "price", "is_new", 'get_image', 'show_markas', ) #"get_image"
     list_display_links = ("title",)
     list_filter = ("price", "category",)
     search_fields = ('title', "category__title", "Marka")
@@ -88,12 +88,18 @@ class ProductAdmin(admin.ModelAdmin):
         }),
     )
 
+    def show_markas(self, obj):
+        return ' '.join([product.title for product in obj.marka.all()])
+
     def get_image(self, obj):
         return mark_safe(f'<img src={obj.images.get(is_main=True).imageURL} width="50" height="60"')
 
 
+    show_markas.short_description = "Marka"
+
     get_image.short_description = "Image"
-    
+
+
 
 
 admin.site.register(Tag)

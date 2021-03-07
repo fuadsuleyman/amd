@@ -109,11 +109,6 @@ class Category(models.Model):
 
 
 
-    
-    
-   
-
-
 class Product(models.Model):
     """
     very important table
@@ -188,7 +183,7 @@ class Product(models.Model):
             is_new = True
 
     def __str__(self):
-        return f'{self.title}-{self.id}'
+        return f'{self.title}'
 
 
 class Product_details(models.Model):

@@ -105,6 +105,7 @@
                         </div>
                     </div>
                     {% endif %}
+                    <!-- search filter custom js  -->
                     <script>
                         let markaBody = document.getElementById('marka-filter-body')
                         let markas = document.querySelectorAll('.marka-field')
@@ -115,21 +116,25 @@
                         let operatorBody = document.getElementById('operator-filter-body')
                         let operators = document.querySelectorAll('.operator-field')
 
-                        if (markas.length <= 1) {
-                            markaBody.classList.add('d-none')
-
-                            console.log('salam')
+                        if (markaBody) {
+                            if (markas.length <= 1) {
+                                markaBody.classList.add('d-none')
+                            }
                         }
-                        if (colors.length <= 1) {
-                            colorBody.classList.add('d-none')
-
-                            console.log('salam')
+                        if(colorBody){
+                            if (colors.length <= 1) {
+                                colorBody.classList.add('d-none')
+                            }
                         }
-                        if (operators.length <= 1) {
-                            operatorBody.classList.add('d-none')
+                        if(operatorBody){
+                            if (operators.length <= 1) {
+                                operatorBody.classList.add('d-none')
+                            }
                         }
 
                     </script>
+                    <!-- </search filter js>  -->
+
                     {% if operator_data == None %}
                     {% if condition %}
                     <!-- new or old filter start here -->

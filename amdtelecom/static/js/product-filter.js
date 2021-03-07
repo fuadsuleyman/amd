@@ -113,7 +113,7 @@ function getData() { // filter product data return products
         data: _filterObj,
         dataType:'json',
         beforeSend: () => {
-            $('.loadMore').html('')
+            $('.loadMore').html('Buraya klik edin')
         },
         success:function(response){
             console.log(response, 'product data');
