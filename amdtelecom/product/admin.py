@@ -84,7 +84,7 @@ class ProductAdmin(admin.ModelAdmin):
             'fields': (('title', 'slug'), 'sku', ('color_title', 'color_code',), 'description', 'sale_count', ('is_new', 'is_featured', 'is_discount'), 'operator_code', 'status')
         }),
         ('Price Info', {
-            'fields': ('price', 'discount_type', 'discount_value'),
+            'fields': ('price', 'old_price', 'discount_type', 'discount_value'),
         }),
     )
 

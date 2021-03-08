@@ -111,6 +111,8 @@
                                     {% if product.operator_code == None %}
                                     <div class="product-box product-wrap">
                                         <div class="img-wrapper">
+                                            {% if product.is_new %}<div class="lable-block"><span class="lable3">new</span></div>{% endif %}
+                                            {% if product.old_price %}<div class="lable-block"><span class="lable3" style="left:unset; right:7px">Endirim</span></div>{% endif %}
                                             <div class="front">
                                                 <a href="{% url 'product:product_detail' product.slug %}">
                                                     {% for image in product.images.all %}
@@ -133,7 +135,7 @@
                                                     {% endfor %}
                                                     </a>
                                             </div>
-                                            <div class="cart-detail">
+                                            <div class="cart-detail" style="top:45px">
                                                 <button data-toggle="modal" data-target="#addtocart"
                                                     title="Add to cart"><i class="ti-shopping-cart"></i></button>
                                                     <!-- <a href="javascript:void(0)" title="Add to Wishlist"><i
@@ -155,7 +157,7 @@
                                                     {% endif %} {% endcomment %}
                                                 </h6>
                                             </a>
-                                            <h4>{{product.price}} manat</h4>
+                                            <h4>{{product.price}} manat {% if product.old_price %} <del>{{ product.old_price }} manat</del> {% endif %}</h4>
                                         </div>
                                     </div>
                                     {% endif %}
@@ -168,6 +170,8 @@
                                     {% if product.operator_code == None %}
                                     <div class="product-box product-wrap">
                                         <div class="img-wrapper">
+                                        {% if product.is_new %}<div class="lable-block"><span class="lable3">new</span></div>{% endif %}
+                                        {% if product.old_price %}<div class="lable-block"><span class="lable3" style="left:unset; right:7px">Endirim</span></div>{% endif %}
                                             <div class="front">
                                                 <a href="{% url 'product:product_detail' product.slug %}">
                                                     {% for image in product.images.all %}
@@ -225,6 +229,8 @@
                                     {% if product.operator_code == None %}
                                     <div class="product-box product-wrap">
                                         <div class="img-wrapper">
+                                            {% if product.is_new %}<div class="lable-block"><span class="lable3">new</span></div>{% endif %}
+                                            {% if product.old_price %}<div class="lable-block"><span class="lable3" style="left:unset; right:7px">Endirim</span></div>{% endif %}
                                             <div class="front">
                                                 <a href="{% url 'product:product_detail' product.slug %}">
                                                     {% for image in product.images.all %}

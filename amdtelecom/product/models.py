@@ -147,6 +147,7 @@ class Product(models.Model):
         (3, 'Unit'),
     )
     price = models.DecimalField('Price', max_digits=7, decimal_places=2)
+    old_price = models.DecimalField('Old Price', max_digits=7, decimal_places=2, null=True, blank=True)
     discount_type = models.PositiveIntegerField("Discount Type", choices=CHOICES, default=1)
     discount_value = models.IntegerField('Discount Value', null=True, blank=True)
 
