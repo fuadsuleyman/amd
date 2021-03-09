@@ -36,11 +36,29 @@ def cart(request):
     context = {'order':order, 'imgs': imgs}
     return render(request, 'cart.html', context)
 
-class CheckoutView(CreateView):
-    form_class = CheckoutForm
-    template_name = 'checkout.html'
+# class CheckoutView(CreateView):
+#     form_class = CheckoutForm
+#     template_name = 'checkout.html'
     
-    def form_valid(self, form):
-        success(self.request, 'Sifarisiniz qeyde alinmisdir tez bir zamanda sizinle elaqe saxlanilicaq.')
-        # success_url = reverse_lazy('index:home')
-        return redirect('index:home')
+#     def form_valid(self, form):
+#         success(self.request, 'Sifarisiniz qeyde alinmisdir tez bir zamanda sizinle elaqe saxlanilicaq.')
+#         # success_url = reverse_lazy('index:home')
+#         return redirect('index:home')
+
+def checkout(request):
+    device = request.COOKIES['device']
+    customer, created = Customer.objects.get_or_create(device=device)
+    order, created = Order.objects.get_or_create(customer=customer, complete=False)
+    items = order.orderitem_set.all()
+    total = 0
+    for item in items:
+        total += item.get_total
+    context = {'order':order, 'form': CheckoutForm, 'total': total}
+
+    if request.method == 'POST':
+        form = CheckoutForm(request.POST)
+        if form.is_valid():
+            order.complete = True
+            success(request, 'Sifarisiniz qeyde alinmisdir tez bir zamanda sizinle elaqe saxlanilicaq.')
+            return redirect('index:home')
+    return render(request, 'checkout.html', context)

@@ -84,15 +84,17 @@
                                 }</style>
                             <div class="col-lg-6 col-sm-12 col-xs-12">
                                 <div class="checkout-details">
+                                
                                     <div class="order-box">
                                         <div class="title-box">
-                                            <div>Product <span>Total</span></div>
+                                            <div>Məhsul<span>Qiymət</span></div>
                                         </div>
+                                        {% for item in order.orderitem_set.all %}
                                         <ul class="qty">
-                                            <li>Pink Slim Shirt × 1 <span>$25.10</span></li>
-                                            <li>SLim Fit Jeans × 1 <span>$555.00</span></li>
+                                            <li>{{ item.product.title }} × {{ item.quantity }} ədəd <span>{{ item.product.price }} manat</span></li>
                                         </ul>
-                                        <ul class="sub-total">
+                                        {% endfor %}
+                                        {% comment %} <ul class="sub-total">
                                             <li>Subtotal <span class="count">$380.10</span></li>
                                             <li>Shipping
                                                 <div class="shipping">
@@ -106,9 +108,9 @@
                                                     </div>
                                                 </div>
                                             </li>
-                                        </ul>
+                                        </ul> {% endcomment %}
                                         <ul class="total">
-                                            <li>Total <span class="count">$620.00</span></li>
+                                            <li>Cəmi Məbləğ<span class="count">{{total}} manat</span></li>
                                         </ul>
                                     </div>
                                     <div class="payment-box">
@@ -145,7 +147,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <input class="text-right btn-solid btn" type="submit" value="Sifariş et">
+                                        <input class="text-right btn-solid btn" type="submit" value="Sifarişi göndər">
                                     </div>
                                 </div>
                             </div>
