@@ -17,13 +17,15 @@ class OrderAdmin(admin.ModelAdmin):
 
 @admin.register(OrderItem)
 class OrderItemAdmin(admin.ModelAdmin):
-    list_display = ("id", "product", "quantity", "created_at", "get_image")
+    list_display = ("id", "product", "quantity", "created_at")
     list_display_links = ("quantity",)
     list_filter = ("quantity", "product__title",)
     search_fields = ('product__title',)
 
-    def get_image(self, obj):
-        return mark_safe(f'<img src={obj.product.images.get(is_main=True).imageURL} width="50" height="60"')
+    # def get_image(self, obj):
+    #     return mark_safe(f'<img src={obj.product.images.get(is_main=True).imageURL} width="50" height="60"')
+
+    # def get_image(self, obj):
+    #     return mark_safe(f'<img src={obj.images.get(is_main=True).imageURL} width="50" height="60"')    
     
-    
-    get_image.short_description = "Image"
+    # get_image.short_description = "Image"

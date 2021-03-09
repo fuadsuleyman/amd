@@ -164,6 +164,13 @@ class Product(models.Model):
         verbose_name_plural = 'Products'
         ordering = ('-created_at', 'title')
 
+    @property
+    def imageURL(self):
+        try:
+            url = self.image.url
+        except:
+            url = ''
+        return url
 
     def save(self, *args, **kwargs):        
         super(Product, self).save(*args, **kwargs)
