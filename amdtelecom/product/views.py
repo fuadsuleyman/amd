@@ -135,6 +135,7 @@ class ProductsFilterListView(ListView):
 
 
     def get_context_data(self, **kwargs):
+        print('1-------', self.kwargs['slug'])
         context = super().get_context_data(**kwargs)
         category = get_object_or_404(Category, slug=self.kwargs['slug'])
         products = Product.objects.filter(category=category).filter(is_published=True)
@@ -143,7 +144,9 @@ class ProductsFilterListView(ListView):
 
         colors_list = products.values('color_title')
         operators_list = products.values('operator_code')
-
+        internal_storages_list = products.values('internal_storage')
+        print(internal_storages_list, 'rams list')
+        print(operators_list, 'listler')
         
         # for remove duplicate color title in colors_list
         colors = []
@@ -151,10 +154,22 @@ class ProductsFilterListView(ListView):
         # remove duplicate operator code in list
         operators_codes = []
         [operators_codes.append(i['operator_code']) for i in operators_list if i['operator_code'] not in operators_codes]
+        print(operators_codes, 'kodlar')
+
+        # for append list only defaul not none ram field no duplicate
+        internal_storages = []
+        # [internal_storages.append(i['internal_storage']) for i in internal_storages_list if i['internal_storage'] not in internal_storages]
+
+        for i in internal_storages_list:
+            if i['internal_storage'] != None:
+                internal_storages.append(i['internal_storage'])
+        internal_storages = list(dict.fromkeys(internal_storages))
+
 
         # for filter template page for view or no
         marka = False
         color_title = False
+        internal_storage = False
         condition = False
         operator = False
         operator_data = ''
@@ -167,6 +182,8 @@ class ProductsFilterListView(ListView):
                 marka = True
             if item.color_title:
                 color_title = True
+            if item.internal_storage:
+                internal_storage = True
             if item.is_new:
                 condition = True
             if item.operator_code != None:
@@ -174,13 +191,14 @@ class ProductsFilterListView(ListView):
             else:
                 operator_data = item.operator_code
             
-        # context["category"] = get_object_or_404(Category, slug=self.kwargs['slug'])
         context = {
             'products': products,
             'categories': category,
             'marka': marka,
             'markas': markas,
             'color_title': color_title,
+            'internal_storage': internal_storage,
+            'internal_storages': internal_storages,
             'colors': colors,
             'condition': condition,
             'operator': operator,

@@ -122,10 +122,12 @@ class Product(models.Model):
 
 
     # informations
+    title = models.CharField('Title', max_length=100, db_index=True)
     color_title = models.CharField('Color Name', max_length=50, blank=True, null=True)
     color_code = ColorField('Color code', default='', blank=True, null=True)
+    internal_storage = models.CharField('Daxili yaddaş', default=None, max_length=20, blank=True, null=True)
+    ram = models.CharField('Operativ yaddaş', default=None, max_length=20, blank=True, null=True)
     operator_code = models.CharField('Operator code', max_length=3, default=None, blank=True, null=True)
-    title = models.CharField('Title', max_length=100, db_index=True)
     slug = models.SlugField('Slug', editable=False, max_length=110, unique = True, blank=True)
     sku = models.CharField('SKU', max_length=50, db_index=True)
     description = models.TextField('Description', null=True, blank=True)
@@ -198,7 +200,8 @@ class Product_details(models.Model):
     # relations
     product = models.ForeignKey('product.Product', related_name='products', default="Not", on_delete=models.CASCADE, blank=True, null=True)
     product_details_property_name = models.ForeignKey("Product_details_property_name", on_delete=models.CASCADE, related_name='product_details_property_name')
-    product_details_propert_value = models.ForeignKey("Product_details_property_value", on_delete=models.CASCADE, related_name='product_details_property_value')
+    # product_details_propert_value = models.ForeignKey("Product_details_property_value", on_delete=models.CASCADE, related_name='product_details_property_value')
+    content = models.CharField('Value', max_length=50, blank=True, null=True)
     is_feature = models.BooleanField("Is feature", default=False, blank=True, null=True)
     is_detail = models.BooleanField("Is detail", default=False, blank=True, null=True)
     is_file = models.BooleanField('Is file', default=False, blank=True, null=True)
@@ -230,9 +233,9 @@ class Product_details_property_name(models.Model):
         return self.title
 
     class Meta:
-        db_table = 'Property name '
-        verbose_name = 'Property name'
-        verbose_name_plural = 'Properties names'
+        db_table = 'Detail name '
+        verbose_name = 'Detail name'
+        verbose_name_plural = 'Details names'
 
 
 class Product_details_property_value(models.Model):

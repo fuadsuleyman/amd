@@ -36,7 +36,7 @@ urlpatterns = [
     path('contact/', include('contact.urls')),
     path('api/v1.0/', include('index.api.urls', namespace='index_apis')),
     path('api/v1.0/', include('product.api.urls', namespace='product_apis')),
-    path('__debug__/', include(debug_toolbar.urls)),
+    # path('__debug__/', include(debug_toolbar.urls)),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

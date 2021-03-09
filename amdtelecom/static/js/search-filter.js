@@ -129,10 +129,7 @@ async function getSearchData(value){
             global: false,
             url: `${urlDomain}api/v1.0/search/?q=${title}`,
         });
-        // <div class="data-img">
-        //     <img src="${product.operator_code != null ? getSearchProMarka(product.marka[0]) : getSearchProImage(product.images[0]) }" alt="">
-        // </div>
-        if (datas.length > 1){
+        if (datas.length > 0){
             let productBody = ''
             searchBody.html('')
 
@@ -142,7 +139,9 @@ async function getSearchData(value){
                 console.log(product.operator_code);
                 productBody += `
                 <a href="${slug}" class="body">
-
+                    <div class="data-img">
+                        <img src="${product.operator_code != null ? getSearchProMarka(product.marka[0]) : getSearchProImage(product.images[0]) }" alt="">
+                    </div>
                     <div class="data-title">
                         ${product.marka[0]} ${ product.title }
                     </div>

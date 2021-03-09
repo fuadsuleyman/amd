@@ -19,7 +19,7 @@ admin.site.register(Product_colors)
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("id", "title", "slug", "description", "is_main", "status")
+    list_display = ("id", "title", "slug", "description", "is_main", "status", 'id')
     list_display_links = ("title",)
     readonly_fields = ('slug',)
     list_filter = ("title", "status")
@@ -59,7 +59,7 @@ class PropertyNameAdmin(admin.ModelAdmin):
 class PropertyValueAdmin(admin.ModelAdmin):
     list_display = ("content", "file", "status")
 
-
+admin.site.register(Product_details)
 class ProductDetailNameAdmin(admin.TabularInline):
     model = Product_details
     extra = 0
@@ -81,7 +81,7 @@ class ProductAdmin(admin.ModelAdmin):
             'fields': ('category','marka', 'tags', 'same_product'),
         }),
         ('Informations', {
-            'fields': (('title', 'slug'), 'sku', ('color_title', 'color_code',), 'description', 'sale_count', ('is_new', 'is_featured', 'is_discount'), 'operator_code', 'status')
+            'fields': (('title', 'slug'), 'sku', 'internal_storage', 'ram', ('color_title', 'color_code',), 'description', 'sale_count', ('is_new', 'is_featured', 'is_discount'), 'operator_code', 'status')
         }),
         ('Price Info', {
             'fields': ('price', 'old_price', 'discount_type', 'discount_value'),

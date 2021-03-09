@@ -68,6 +68,25 @@
                     {% endif %}
                     {% endif %}
 
+                    <!-- operator filter start here -->
+                    {% if internal_storage %}
+                    <div class="collection-collapse-block open" id="operator-filter-body">
+                        <h3 class="collapse-block-title">Daxili yaddaş</h3>
+                        <div class="collection-collapse-block-content">
+                            <div class="color-selector collection-brand-filter">
+                                {% for storage in internal_storages %}
+
+                                <div class="custom-control custom-checkbox collection-filter-checkbox operator-field">
+                                    <input type="checkbox" onclick="getData()" data-filter="internal_storage" value="{{ storage }}" class="filter-item-checkbox custom-control-input" id="{{ storage }}">
+                                    <label class="custom-control-label" for="{{ storage }}"> {{ storage }} </label>
+                                </div>
+
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
                     <!-- color filter start here -->
                     {% if color_title %}
                     
@@ -105,6 +124,7 @@
                         </div>
                     </div>
                     {% endif %}
+
                     <!-- search filter custom js  -->
                     <script>
                         
@@ -369,7 +389,7 @@
                                     <div class="row margin-res prod-items">
                                         {% for product in products %}
                                             {% if product.operator_code == None %}
-                                            <div class="col-xl-4 col-sm-12 col-md-6 col-grid-box category-pro" for-filter="{{product.category.all.0.id}}">
+                                            <div class="col-xl-4 col-sm-12 col-md-6 col-grid-box category-pro" for-filter="{% if categories %} {{categories.id}}{% endif %}">
                                                 <div class="product-box">
                                                     <div class="img-wrapper">
                                                         <div class="front">
