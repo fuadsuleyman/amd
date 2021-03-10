@@ -27,7 +27,6 @@ services:
             - 6379:6379
         restart: always
 
-
     web:
         container_name: amd
         build: .
@@ -42,6 +41,21 @@ services:
         depends_on:
             - "postgres"
         env_file: .env
+
+    celery:
+        build:
+            context: .
+            dockerfile: celery.dockerfile
+        volumes:
+            - .:/code
+        command: celery -A amdtelecom worker --beat --scheduler django --loglevel=info
+        links:
+            - redis
+            - postgres
+        depends_on:
+            - "redis"
+            - "postgres"
+        env_file: ./.env
 
 networks:
     default:
