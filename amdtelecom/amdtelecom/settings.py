@@ -261,15 +261,5 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Baku'
 
 
-from celery.schedules import crontab
-
-
-
-# CELERY_BEAT_SCHEDULE = {
-#     'check-insurance-daily': {
-#         'task': 'published_date',
-#         'schedule': crontab(minute='1')
-#     },
-# }
 
 ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL')
