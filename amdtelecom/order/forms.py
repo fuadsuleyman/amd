@@ -1,8 +1,14 @@
 from django import forms
-from .models import Checkout
+from .models import Order
 
 
 class CheckoutForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.Meta.required:
+            self.fields[field].required = True
+
     num_title = forms.ChoiceField(
                 widget = forms.Select(attrs={
                     'class': 'form-group',
@@ -19,8 +25,15 @@ class CheckoutForm(forms.ModelForm):
                     ('099', '099'),]
                 ), initial='---', required = True,)
     class Meta:
-        model = Checkout
+        model = Order
         fields = (
+            'name',
+            'surname',
+            'email',
+            'num_title',
+            'tel_number',
+        )
+        required = (
             'name',
             'surname',
             'email',
