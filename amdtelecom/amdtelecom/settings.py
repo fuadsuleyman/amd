@@ -35,6 +35,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'jet.dashboard',
     'jet',
+
     'contact.apps.ContactConfig',
     'product.apps.ProductConfig',
     'account.apps.AccountConfig',
@@ -51,8 +52,12 @@ INSTALLED_APPS = [
     # 'debug_toolbar',
     'colorfield',
     'rest_framework',
-    
+    'django_celery_beat',
+
 ]
+
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -179,6 +184,8 @@ USE_L10N = True
 USE_TZ = True
 
 
+SITE_ADDRESS = 'http://localhost:8000'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
@@ -199,6 +206,7 @@ DJANGORESIZED_DEFAULT_KEEP_META = True
 # DJANGORESIZED_DEFAULT_FORCE_FORMAT = 'JPEG'
 # DJANGORESIZED_DEFAULT_FORMAT_EXTENSIONS = {'JPEG': ".jpg"}
 # DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
+
 
 
 
@@ -244,5 +252,24 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'husubayli@gmail.com'
 EMAIL_HOST_PASSWORD = 'xdjnasiuddxikfax'
 
+# CELERY CONF
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Asia/Baku'
+
+
+from celery.schedules import crontab
+
+
+
+# CELERY_BEAT_SCHEDULE = {
+#     'check-insurance-daily': {
+#         'task': 'published_date',
+#         'schedule': crontab(minute='1')
+#     },
+# }
 
 ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL')

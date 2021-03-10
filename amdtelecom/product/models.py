@@ -6,7 +6,6 @@ from django.utils import timezone
 from amdtelecom.utils import unique_slug_generator
 from django_resized import ResizedImageField
 from colorfield.fields import ColorField
-from django.db.models.signals import pre_save
 
 from account.models import Customer
 from .common import slugify
@@ -132,6 +131,7 @@ class Product(models.Model):
     sku = models.CharField('SKU', max_length=50, db_index=True)
     description = models.TextField('Description', null=True, blank=True)
     sale_count = models.IntegerField('Sale Count', default=0)
+    published_expiration = models.DateTimeField(null=True)
     is_published = models.BooleanField("Publishe", default=True)
     is_new = models.BooleanField('is_new', default=True)
     is_featured = models.BooleanField('is_featured', default=False)
@@ -161,6 +161,16 @@ class Product(models.Model):
         verbose_name_plural = 'Products'
         ordering = ('-created_at', 'title')
 
+    # @property
+    # def is_published_expired(self):
+    #     from django.utils import timezone
+    #     if self.published_expiration > timezone.datetime.today():
+    #         print("Publishe Active")
+    #         return True
+    #     else:
+    #         print("Publishe Deactive")
+    #         return False
+
     @property
     def imageURL(self):
         try:
@@ -172,6 +182,7 @@ class Product(models.Model):
     def save(self, *args, **kwargs):        
         super(Product, self).save(*args, **kwargs)
         self.slug = f'{slugify(self.title)}-{self.id}'
+        self.title = f'{self.marka.all()[0].title} + {self.title}'
         super(Product, self).save(*args, **kwargs)
 
 

@@ -83,6 +83,9 @@ class ProductAdmin(admin.ModelAdmin):
         ('Informations', {
             'fields': (('title', 'slug'), 'sku', 'internal_storage', 'ram', ('color_title', 'color_code',), 'description', 'sale_count', ('is_new', 'is_featured', 'is_discount'), 'operator_code', 'status')
         }),
+        ('Publishe', {
+            'fields': ('is_published', 'published_expiration')
+        }),
         ('Price Info', {
             'fields': ('price', 'old_price', 'discount_type', 'discount_value'),
         }),
