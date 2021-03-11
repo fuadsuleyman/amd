@@ -132,7 +132,7 @@ class Product(models.Model):
     sku = models.CharField('SKU', max_length=50, db_index=True)
     description = models.TextField('Description', null=True, blank=True)
     sale_count = models.IntegerField('Sale Count', default=0)
-    published_expiration = models.DateTimeField(null=True)
+    published_expiration = models.DateTimeField(default= '', blank=True, null=True)
     is_published = models.BooleanField("Publishe", default=True)
     is_new = models.BooleanField('is_new', default=True)
     is_featured = models.BooleanField('is_featured', default=False)
