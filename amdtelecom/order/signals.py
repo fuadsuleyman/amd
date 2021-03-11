@@ -16,14 +16,23 @@ def send_form(sender, instance, **kwargs):
     email = instance.email
     num_title = instance.num_title
     tel_number = instance.tel_number
-    instance.complete = True
-    # print(instance.order_items.all(), 'orderitems')
-
+    
+    order= Order.objects.get(complete=False)
+    items = order.orderitem_set.all()
+    print(items, 'items sassasa')
+    # total = 0
+    imgs = {}
+    for item in items:
+        imgs.update({item.product.title: item.quantity})
     user_form = f'''
         Name: {name}
         Surname: {surname}
         Email: {email}
         Telefon: {num_title}{tel_number}
+        Model: {imgs}
+    
+
+
     '''
 
     send_mail(subject, user_form, settings.EMAIL_HOST_USER, ['koki.suleymanov@mail.ru'])

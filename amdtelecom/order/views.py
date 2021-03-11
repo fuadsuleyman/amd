@@ -30,8 +30,8 @@ def cart(request):
     items = order.orderitem_set.all()
     imgs = {}
     for item in items:
-        print('cart-item:', item)
-        print('cart-item.product:', item.product)
+        # print('cart-item:', item)
+        # print('cart-item.product:', item.product)
         imgs.update({item.id: item.product.images.get(is_main=True).imageURL})
     context = {'order':order, 'imgs': imgs}
     return render(request, 'cart.html', context)
