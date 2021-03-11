@@ -19,8 +19,8 @@ def debug_task(self):
     print('Request: {0!r}'.format(self.request))
 
 app.conf.beat_schedule = {
-    'check-published-date': {
-        'task': 'published_date',
+    'check-insurance-daily': {
+        'task': 'insurance_expired',
         'schedule': crontab(hour='23')
     },
 }
