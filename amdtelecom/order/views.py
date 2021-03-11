@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView
 from django.urls.base import reverse_lazy
-from django.contrib.messages import success
+from django.contrib.messages import success, error
 # Create your views here.
 
 from account.models import Customer
@@ -61,4 +61,7 @@ def checkout(request):
             order.complete = True
             success(request, 'Sifarisiniz qeyde alinmisdir tez bir zamanda sizinle elaqe saxlanilicaq.')
             return redirect('index:home')
+        else:
+            error(request, 'Sifaris formu yalnis doldurulub! Yeniden doldurmaginiz xahis olunur.')
+
     return render(request, 'checkout.html', context)

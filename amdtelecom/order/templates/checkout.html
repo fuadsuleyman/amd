@@ -1,7 +1,85 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+    {% if messages %}
+    {% for message in messages %}
+                <div class="result alert alert-danger">
+                    {{message}}
+                </div>
+    {% endfor %}
+    {% endif %}
+    <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+    <style>
+    /* .form-name:invalid {
+        border: 2px solid red;
+        color: red;
+    } */
 
+    /* .form-surname:invalid {
+        border: 2px solid red;
+    }
+    .form-surname input{
+        color: red;
+    }
+    .form-name input{
+        color: red;
+    } */
+    /* .form-num-prefix:invalid {
+        border: 2px solid red;
+    } */
+    /* .form-number:invalid {
+        border: 2px solid red;
+    } */
+    /* .form-email[type=email]{
+        
+    }
+    .form-email:invalid{
+        border-color: red;
+    } */
+
+    .form-number {
+        margin-top: -4px;
+    }
+
+    .form-number-kod {
+        margin-top: -7px;
+    }
+
+    .invalid-feedback {
+        margin-top: -20px !important;
+    }
+
+    .form-email {
+        margin-top: -4px;
+    }
+
+    .error {
+        width  : 100%;
+        padding: 0;
+
+        font-size: 80%;
+        color: white;
+        background-color: #900;
+        border-radius: 0 0 5px 5px;
+
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .error.active {
+        padding: 0.3em;
+    }
+
+    /* .select-country {
+        margin: auto !important;
+        padding: 40px;
+    } */
+
+    /* .opt {
+        margin:auto;
+        padding: 0 25px 0 0 !important;
+    } */
+    </style>
     <!-- breadcrumb start -->
     <div class="breadcrumb-section">
         <div class="container">
@@ -30,46 +108,51 @@
         <div class="container">
             <div class="checkout-page">
                 <div class="checkout-form">
-                    <form method="POST">
-                        <div class="row">
+                    <form method="POST" class="needs-validation" novalidate>
+                        <div class="row form-row">
                             <div class="col-lg-6 col-sm-12 col-xs-12">
                                 <div class="checkout-title">
-                                    <h3>Billing Details</h3>
+                                    <h3>Sifarişçi Məlumatları</h3>
                                 </div>
                                 <div class="row check-out">
                                     {% csrf_token %}
-                                    
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        {{form.name}}
-                                        {{form.name.errors}}
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12 form-name">
+                                        <label for="validationCustom01" class="form-label">Ad: *</label>
+                                            {{form.name}}
+                                            {{form.name.errors}}
+                                        <div class="invalid-feedback">Ad düzgün daxil edilməyib!</div>
                                     </div>
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        {{form.surname}}
-                                        {{form.surname.errors}}
-
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12 form-surname">
+                                        <label for="validationCustom01" class="form-label">Soyad: *</label>
+                                            {{form.surname}}
+                                            {{form.surname.errors}}
+                                        <div class="invalid-feedback">Soyad düzgün daxil edilməyib!</div>
                                     </div>
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12 m-0 ">
-                                        <div class="row">
-                                            <div class="field-label col-4" >
-                                                {{form.num_title}}
-                                                <span class="danger" style="color: red;">{{form.num_title.errors}}</span>
-
-        
-                                            </div>
-                                       
-                                        <div class="field-label col-8 ">
-                                        {{form.tel_number}}
-                                        
-                                        <span class="danger" style="color:red">{{form.tel_number.errors}}</span>
-                                        
-                                        </div>
+                                    <div class="form-group col-md-2 col-sm-2 col-xs-4 form-number-kod">
+                                        <label for="validationCustom01" class="form-label">Ölkə kodu: </label>
+                                        <select class="select-country form-control">
+                                            <option value="AZ" class='opt'>AZ</option>
+                                            <option value="TR" class='opt'>TR</option>
+                                            <option value="RU" class='opt'>RU</option>
+                                            <option value="US" class='opt'>US</option>
+                                        </select>
                                     </div>
+                                    <div class="form-group col-md-4 col-sm-4 col-xs-8 form-number">
+                                        <label for="validationCustom01" class="form-label">Telefon Nömrəsi: * </label>
+                                            {{form.tel_number}}
+                                        <div class="invalid-feedback">Nömrə qeyd olunmayıb!</div>
+                                        <span class="error" aria-live="polite"></span>
                                     </div>
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                        {{form.email}}
-                                        {{form.email.errors}}
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12 form-email">
+                                        <label for="validationCustom01" class="form-label">E-poçt: * </label>
+                                            {{form.email}}
+                                            {{form.email.errors}}
+                                        <div class="invalid-feedback">E-poçt düzgün daxil edilməyib</div>
                                     </div>
-                                    
+                                    <div class="form-group col-md-12">
+                                        <label for="validationCustom01" class="form-label">İsmarıc: </label>
+                                        {{ form.message }}
+                                    </div>
                                 </div>
                             </div>
                             <style>/* Chrome, Safari, Edge, Opera */
@@ -158,7 +241,64 @@
         </div>
     </section>
     <!-- section end -->
+    <script src="{% static 'js/cleave.js' %}"></script>
+    <script src="{% static 'js/cleave-phone.i18n.js' %}"></script>
+    <script>
+// var error = document.querySelector('.error');
+// var form  = document.getElementsByTagName('form')[0];
+//         form.addEventListener("submit", function (event) {
+//             // Каждый раз, когда пользователь пытается отправить данные, мы проверяем
+//             // валидность поля электронной почты.
 
+//             let numfield = document.querySelector('.form-number > input')
+//             console.log(`nomre uzunlugu: ${numfield.value.length}`)
+//             if (numfield.value.length < 13) {
+
+//             //     // Если поле невалидно, отображается пользовательское
+//             //     // сообщение об ошибке.
+//                 error.innerHTML = "I expect an e-mail, darling!";
+//                 error.className = "error active";
+//             //     // И мы предотвращаем отправку формы путем отмены события
+//                 event.preventDefault();
+//             }
+//             }, false);
+
+
+
+
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+                })
+            })()
+        
+
+        var cleave = new Cleave('.form-number > input', {
+            phone:true,
+            phoneRegionCode:'AZ'
+        }) 
+
+        $('.select-country').change(function(){
+            cleave.setPhoneRegionCode(this.value);
+            cleave.setRawValue('');
+        })
+
+        
+    </script>
 
     <!-- footer start -->
    {% endblock %}

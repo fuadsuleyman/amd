@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'colorfield',
     'rest_framework',
-    
 ]
 
 MIDDLEWARE = [

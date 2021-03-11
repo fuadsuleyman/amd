@@ -2,6 +2,8 @@ from django.db import models
 from account.models import Customer
 from product.models import Product
 from django.core.validators import MinLengthValidator
+# from phonenumber_field.modelfields import PhoneNumberField
+
 # Create your models here.
 
 class Order(models.Model):
@@ -102,7 +104,11 @@ class Checkout(models.Model):
     surname = models.CharField('surname', max_length=50)
     email = models.EmailField('email',max_length=50)
     num_title = models.CharField('num title',max_length=10, choices=NUMBER_CHOICES)
-    tel_number = models.CharField('telefon', max_length=7, validators=[MinLengthValidator(7)], error_messages={'required': 'Mobil nomre 7 reqemli olmalidir'})
+    tel_number = models.CharField('telefon', max_length=20)
+    # yuxaridakinin icinden cixdi validators=[MinLengthValidator(7)], error_messages={'required': 'Mobil nomre 7 reqemli olmalidir'}
+
+    # tel_number = PhoneNumberField()
+    message = models.TextField("Comment", null=True, blank=True)
 
     # moderations
     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)

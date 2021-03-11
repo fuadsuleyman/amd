@@ -8790,7 +8790,7 @@ footer {
 .checkout-page .checkout-form select,
 .checkout-page .checkout-form textarea {
   width: 100%;
-  padding: 0 22px;
+  padding: 5px;
   height: 45px;
   border: 1px solid #dddddd; }
 
