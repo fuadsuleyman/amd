@@ -6,10 +6,10 @@ from .models import Product
 from .common import slugify
 
 
-# @receiver(post_save, sender=Product)
-# def create_product(sender, instance, **kwargs):
-#     queryset = Category.objects.filter(status=True)
-#     for category in queryset:  
-#         print(category, 'sasasaaaaaa')
+@receiver(post_save, sender=Product)
+def create_product(sender, instance, **kwargs):
+    queryset = Category.objects.filter(status=True)
+    for category in queryset:  
+        print(category, 'sasasaaaaaa')
 
-#     instance.slug = f'{slugify(instance.description)}'
+    instance.slug = f'{slugify(instance.description)}'
