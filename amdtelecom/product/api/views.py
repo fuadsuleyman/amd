@@ -36,17 +36,18 @@ class ProductFilterListAPIView(ListAPIView):
     def get_queryset(self):
         result = True
         category = self.request.GET.get('category')
-
+        print(category, 'kaet')
         products = Product.objects.filter(category=category)
         # products = Product.objects.filter(is_published=True)
         
         color_title = self.request.GET.getlist('color_title[]')
+        internal_storages = self.request.GET.getlist('internal_storage[]')
         is_new = self.request.GET.getlist('is_new[]')
         marka = self.request.GET.getlist('marka[]')
         min_price = self.request.GET.get('price_min')
         max_price = self.request.GET.get('price_max')
         operators = self.request.GET.getlist('operator_code[]')
-
+        print(internal_storages, 'apilar')
         if operators:
             if min_price:
                 products = products.filter(operator_code__in=operators).filter(price__range=(min_price, max_price) or None)
@@ -61,6 +62,15 @@ class ProductFilterListAPIView(ListAPIView):
                 products = products.filter(color_title__in=color_title).filter(price__range=(min_price, max_price) or None)
             else:
                 products = products.filter(color_title__in=color_title or None).distinct()
+        else:
+            if min_price:
+                products = products.filter(price__range=(min_price, max_price) or None)
+
+        if internal_storages:
+            if min_price:
+                products = products.filter(internal_storage__in=internal_storages).filter(price__range=(min_price, max_price) or None)
+            else:
+                products = products.filter(internal_storage__in=internal_storages or None).distinct()
         else:
             if min_price:
                 products = products.filter(price__range=(min_price, max_price) or None)

@@ -54,7 +54,7 @@
                                     {% endif %}
                                 {% endfor %}
                             </td>
-                            <td><a class="product-title" href="{% url 'product:product_detail' item.product.id %}">{{item.product.title}}</a>
+                            <td><a class="product-title" href="{% url 'product:product_detail' item.product.slug %}">{{item.product.title}}</a>
                                 <div class="mobile-cart-content row">
                                     <div class="col-xs-3">
                                         <div class="qty-box">
@@ -65,7 +65,17 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-3">
-                                        <h2 class="td-color" class='data-price'>$ {{item.product.price}}</h2>
+                                        <h2 class="td-color" class='data-price'>{{item.product.price}}
+                                            <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
+                                                <defs>
+                                                    <style>
+                                                        .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
+                                                    </style>
+                                                </defs>
+                                                <title>manat</title>
+                                                <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
+                                            </svg>
+                                        </h2>
                                     </div>
                                     <div class="col-xs-3 cartquantity">
                                         <h2 class="td-color"><a href="{% url 'order:deletefromcart' item.product.id %}" class="icon"><i class="ti-close"></i></a>
@@ -74,7 +84,17 @@
                                 </div>
                             </td>
                             <td>
-                                <h2>$ {{item.product.price}}</h2>
+                                <h2 class="d-flex"> {{item.product.price}} 
+                                    <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
+                                        <defs>
+                                            <style>
+                                                .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
+                                            </style>
+                                        </defs>
+                                        <title>manat</title>
+                                        <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
+                                    </svg>
+                                </h2>
                             </td>
                             <td>
                                 <div class="qty-box">
@@ -92,7 +112,17 @@
                             </td>
                             <td><a href="#" class="icon" id="delete-order-item"><i data-id={{item.id}} class="ti-close del"></i></a></td>
                             <td>
-                                <h2 class="td-color">$ <span class="td-color price-total">{{item.get_total|floatformat:2}}</span></h2>
+                                <h2 class="td-color d-flex"> <span class="td-color price-total">{{item.get_total|floatformat:2}}</span>
+                                    <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
+                                        <defs>
+                                            <style>
+                                                .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
+                                            </style>
+                                        </defs>
+                                        <title>manat</title>
+                                        <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
+                                    </svg>
+                                </h2>
                             </td>
                         </tr>
                         {% endfor %}
@@ -104,7 +134,17 @@
                         <tr>
                             <td>total price :</td>
                             <td>
-                                <h2>$<span class="price-total-grand">{{order.get_cart_total|floatformat:2}}</span></h2>
+                                <h2 class="d-flex"><span class="price-total-grand">{{order.get_cart_total|floatformat:2}}</span>
+                                    <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
+                                        <defs>
+                                            <style>
+                                                .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
+                                            </style>
+                                        </defs>
+                                        <title>manat</title>
+                                        <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
+                                    </svg>
+                                </h2>
                             </td>
                         </tr>
                     </tfoot>

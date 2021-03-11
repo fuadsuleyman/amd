@@ -19,7 +19,6 @@ def send_form(sender, instance, **kwargs):
     
     order= Order.objects.get(complete=False)
     items = order.orderitem_set.all()
-    print(items, 'items sassasa')
     # total = 0
     imgs = {}
     for item in items:
@@ -30,8 +29,6 @@ def send_form(sender, instance, **kwargs):
         Email: {email}
         Telefon: {num_title}{tel_number}
         Model: {imgs}
-    
-
 
     '''
 

@@ -13,7 +13,7 @@ from .views import (
 app_name = 'product'
 
 urlpatterns = [
-    path('search/<str:title>/', SearchProductListView.as_view(), name='products_list_filter'),
+    path('search/', SearchProductListView.as_view(), name='products_list_filter'),
     path('products/<slug:slug>/', ProductsFilterListView.as_view(), name='products_filter'),
     # path('products/<slug:slug>/', product_filter, name='products_filter'),
     # path('', views.home_page, name='amd-home'),

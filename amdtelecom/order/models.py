@@ -44,9 +44,7 @@ class Order(models.Model):
         
 
 class OrderItem(models.Model):
-    # product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, related_name="order_items")
-
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
     quantity = models.IntegerField('Quantity', default=0, null=True, blank=True)
     
@@ -96,31 +94,31 @@ from django.db import models
 from django.utils.translation import gettext as _
 
 
-# class Checkout(models.Model):
-#     #information
-#     NUMBER_CHOICES = (
-#         ('050', '050'),
-#         ('051', '051'),
-#         ('055', '055'),
-#         ('070', '070'),
-#         ('077', '077'),
-#         ('099', '099'),
-#     )
+class Checkout(models.Model):
+    #information
+    NUMBER_CHOICES = (
+        ('050', '050'),
+        ('051', '051'),
+        ('055', '055'),
+        ('070', '070'),
+        ('077', '077'),
+        ('099', '099'),
+    )
+    order = models.OneToOneField(Order, on_delete=models.CASCADE, blank=True, null=True)
+    name = models.CharField('name', max_length=50)
+    surname = models.CharField('surname', max_length=50)
+    email = models.EmailField('email',max_length=50)
+    num_title = models.CharField('num title',max_length=10, choices=NUMBER_CHOICES)
+    tel_number = models.CharField('telefon', max_length=7, validators=[MinLengthValidator(7)], error_messages={'required': 'Mobil nomre 7 reqemli olmalidir'})
 
-#     name = models.CharField('name', max_length=50)
-#     surname = models.CharField('surname', max_length=50)
-#     email = models.EmailField('email',max_length=50)
-#     num_title = models.CharField('num title',max_length=10, choices=NUMBER_CHOICES)
-#     tel_number = models.CharField('telefon', max_length=7, validators=[MinLengthValidator(7)], error_messages={'required': 'Mobil nomre 7 reqemli olmalidir'})
+    # moderations
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
 
-#     # moderations
-#     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-#     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
-
-#     class Meta:
-#         db_table = ('checkout')
-#         verbose_name = ('checkout')
-#         verbose_name_plural = ('checkout')
+    class Meta:
+        db_table = ('checkout')
+        verbose_name = ('checkout')
+        verbose_name_plural = ('checkout')
         
 #     def __str__(self):
 #         return self.name
