@@ -59,7 +59,8 @@ class Marka(models.Model):
     def save(self, *args, **kwargs):        
         title = Marka.objects.filter(title=self.title).first()
         super(Marka, self).save(*args, **kwargs)
-        self.slug = f'{slugify(self.title)}-{self.id}'
+        if len(self.slug) == 0: 
+            self.slug = f'{slugify(self.title)}-{self.id}'
         super(Marka, self).save(*args, **kwargs)
 
 
@@ -181,8 +182,9 @@ class Product(models.Model):
 
     def save(self, *args, **kwargs):        
         super(Product, self).save(*args, **kwargs)
-        self.slug = f'{slugify(self.title)}-{self.id}'
-        self.title = f'{self.marka.all()[0].title} {self.title} {self.ram} {self.internal_storage} {self.color_title}'
+        if len(self.slug):
+            self.slug = f'{slugify(self.title)}-{self.id}'
+            self.title = f'{self.marka.all()[0].title} {self.title} {self.ram} {self.internal_storage} {self.color_title}'
         super(Product, self).save(*args, **kwargs)
 
 

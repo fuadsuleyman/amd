@@ -37,15 +37,6 @@ def cart(request):
     return render(request, 'cart.html', context)
 
 class CheckoutView(CreateView):
-<<<<<<< HEAD
-    form_class = CheckoutForm
-    template_name = 'checkout.html'
-    
-    def form_valid(self, form):
-        success(self.request, 'Sifarisiniz qeyde alinmisdir tez bir zamanda sizinle elaqe saxlanilicaq.')
-        # success_url = reverse_lazy('index:home')
-        return redirect('index:home')
-=======
     model = Order
     form_class = CheckoutForm
     template_name = 'checkout.html'
@@ -88,4 +79,3 @@ class CheckoutView(CreateView):
 #             success(request, 'Sifarisiniz qeyde alinmisdir tez bir zamanda sizinle elaqe saxlanilicaq.')
 #             return redirect('index:home')
 #     return render(request, 'checkout.html', context)
->>>>>>> ccbf6b3083310940e9edf78192a80ffa95b297b0
