@@ -37,14 +37,13 @@ def cart(request):
     return render(request, 'cart.html', context)
 
 class CheckoutView(CreateView):
-    model = Order
     form_class = CheckoutForm
     template_name = 'checkout.html'
 
     def get_context_data(self, **kwargs):
         device = self.request.COOKIES['device']
-        customer = Customer.objects.get(device=device)
-        order= Order.objects.get(customer=customer, complete=False)
+        customer, created = Customer.objects.get_or_create(device=device)
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
         items = order.orderitem_set.all()
         total = 0
         for item in items:
@@ -52,14 +51,13 @@ class CheckoutView(CreateView):
         context = {'order':order, 'form': CheckoutForm, 'total': total}
         return context
     
-    
     def form_valid(self, form):
         success(self.request, 'Sifarisiniz qeyde alinmisdir tez bir zamanda sizinle elaqe saxlanilicaq.')
-       
-        obj = form.save(commit=False)
-        obj.complete = True
-        obj.save()
+        # obj = form.save(commit=False)
+        # obj.is_published = True
+        # obj.save()
         # success_url = reverse_lazy('index:home')
+        # form.save()
         return redirect('index:home')
 
 # def checkout(request):

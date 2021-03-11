@@ -2,13 +2,13 @@
 from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from .models import Order
+from .models import Checkout, Order
 from django.core.mail import send_mail
 
 
 
 
-@receiver(post_save, sender=Order)
+@receiver(post_save, sender=Checkout)
 def send_form(sender, instance, **kwargs):
     subject= 'Checkout'
     name = instance.name
