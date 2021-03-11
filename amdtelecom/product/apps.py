@@ -6,3 +6,4 @@ class ProductConfig(AppConfig):
 
     def ready(self):
         import product.signals
+        import product.tasks

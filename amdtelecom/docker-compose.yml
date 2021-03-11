@@ -21,6 +21,11 @@ services:
             - "5432:5432"
         env_file: ./.env
 
+    redis:
+        image: redis
+        ports:
+            - 6379:6379
+        restart: always
 
     web:
         container_name: amd
@@ -37,7 +42,22 @@ services:
             - "postgres"
         env_file: .env
 
+    celery:
+        build:
+            context: .
+            dockerfile: celery.dockerfile
+        volumes:
+            - .:/code
+        command: celery -A amdtelecom worker --beat --scheduler django --loglevel=info
+        links:
+            - redis
+            - postgres
+        depends_on:
+            - "redis"
+            - "postgres"
+        env_file: ./.env
+
 networks:
-  default:
-    external:
-      name: nginx-proxy
+    default:
+        external:
+            name: nginx-proxy

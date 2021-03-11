@@ -29,7 +29,7 @@ class CheckoutForm(forms.ModelForm):
     # attrs={'class': 'form-group form-control form-select', 'required': 'true'},
 
     class Meta:
-        model = Checkout
+        model = Order
         fields = (
             'name',
             'surname',
@@ -37,6 +37,13 @@ class CheckoutForm(forms.ModelForm):
             # 'num_title',
             'tel_number',
             'message',
+        )
+        required = (
+            'name',
+            'surname',
+            'email',
+            'num_title',
+            'tel_number',
         )
 
  

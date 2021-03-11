@@ -30,38 +30,52 @@ def cart(request):
     items = order.orderitem_set.all()
     imgs = {}
     for item in items:
-        print('cart-item:', item)
-        print('cart-item.product:', item.product)
+        # print('cart-item:', item)
+        # print('cart-item.product:', item.product)
         imgs.update({item.id: item.product.images.get(is_main=True).imageURL})
     context = {'order':order, 'imgs': imgs}
     return render(request, 'cart.html', context)
 
-# class CheckoutView(CreateView):
-#     form_class = CheckoutForm
-#     template_name = 'checkout.html'
+class CheckoutView(CreateView):
+    model = Order
+    form_class = CheckoutForm
+    template_name = 'checkout.html'
+
+    def get_context_data(self, **kwargs):
+        device = self.request.COOKIES['device']
+        customer = Customer.objects.get(device=device)
+        order= Order.objects.get(customer=customer, complete=False)
+        items = order.orderitem_set.all()
+        total = 0
+        for item in items:
+            total += item.get_total
+        context = {'order':order, 'form': CheckoutForm, 'total': total}
+        return context
     
-#     def form_valid(self, form):
-#         success(self.request, 'Sifarisiniz qeyde alinmisdir tez bir zamanda sizinle elaqe saxlanilicaq.')
-#         # success_url = reverse_lazy('index:home')
-#         return redirect('index:home')
+    
+    def form_valid(self, form):
+        success(self.request, 'Sifarisiniz qeyde alinmisdir tez bir zamanda sizinle elaqe saxlanilicaq.')
+       
+        obj = form.save(commit=False)
+        obj.complete = True
+        obj.save()
+        # success_url = reverse_lazy('index:home')
+        return redirect('index:home')
 
-def checkout(request):
-    device = request.COOKIES['device']
-    customer, created = Customer.objects.get_or_create(device=device)
-    order, created = Order.objects.get_or_create(customer=customer, complete=False)
-    items = order.orderitem_set.all()
-    total = 0
-    for item in items:
-        total += item.get_total
-    context = {'order':order, 'form': CheckoutForm, 'total': total}
+# def checkout(request):
+#     device = request.COOKIES['device']
+#     customer, created = Customer.objects.get_or_create(device=device)
+#     order, created = Order.objects.get_or_create(customer=customer, complete=False)
+#     items = order.orderitem_set.all()
+#     total = 0
+#     for item in items:
+#         total += item.get_total
+#     context = {'order':order, 'form': CheckoutForm, 'total': total}
 
-    if request.method == 'POST':
-        form = CheckoutForm(request.POST)
-        if form.is_valid():
-            order.complete = True
-            success(request, 'Sifarisiniz qeyde alinmisdir tez bir zamanda sizinle elaqe saxlanilicaq.')
-            return redirect('index:home')
-        else:
-            error(request, 'Sifaris formu yalnis doldurulub! Yeniden doldurmaginiz xahis olunur.')
-
-    return render(request, 'checkout.html', context)
+#     if request.method == 'POST':
+#         form = CheckoutForm(request.POST)
+#         if form.is_valid():
+#             order.complete = True
+#             success(request, 'Sifarisiniz qeyde alinmisdir tez bir zamanda sizinle elaqe saxlanilicaq.')
+#             return redirect('index:home')
+#     return render(request, 'checkout.html', context)

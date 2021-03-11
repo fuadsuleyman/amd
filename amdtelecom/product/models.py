@@ -6,7 +6,6 @@ from django.utils import timezone
 from amdtelecom.utils import unique_slug_generator
 from django_resized import ResizedImageField
 from colorfield.fields import ColorField
-from django.db.models.signals import pre_save
 
 from account.models import Customer
 from .common import slugify
@@ -109,11 +108,6 @@ class Category(models.Model):
 
 
 
-    
-    
-   
-
-
 class Product(models.Model):
     """
     very important table
@@ -127,14 +121,17 @@ class Product(models.Model):
 
 
     # informations
+    title = models.CharField('Title', max_length=100, db_index=True)
     color_title = models.CharField('Color Name', max_length=50, blank=True, null=True)
     color_code = ColorField('Color code', default='', blank=True, null=True)
+    internal_storage = models.CharField('Daxili yaddaş', default=None, max_length=20, blank=True, null=True)
+    ram = models.CharField('Operativ yaddaş', default=None, max_length=20, blank=True, null=True)
     operator_code = models.CharField('Operator code', max_length=3, default=None, blank=True, null=True)
-    title = models.CharField('Title', max_length=100, db_index=True)
     slug = models.SlugField('Slug', editable=False, max_length=110, unique = True, blank=True)
     sku = models.CharField('SKU', max_length=50, db_index=True)
     description = models.TextField('Description', null=True, blank=True)
     sale_count = models.IntegerField('Sale Count', default=0)
+    published_expiration = models.DateTimeField(default=None, blank=True, null=True)
     is_published = models.BooleanField("Publishe", default=True)
     is_new = models.BooleanField('is_new', default=True)
     is_featured = models.BooleanField('is_featured', default=False)
@@ -164,6 +161,16 @@ class Product(models.Model):
         verbose_name_plural = 'Products'
         ordering = ('-created_at', 'title')
 
+    # @property
+    # def is_published_expired(self):
+    #     from django.utils import timezone
+    #     if self.published_expiration > timezone.datetime.today():
+    #         print("Publishe Active")
+    #         return True
+    #     else:
+    #         print("Publishe Deactive")
+    #         return False
+
     @property
     def imageURL(self):
         try:
@@ -174,9 +181,13 @@ class Product(models.Model):
 
     def save(self, *args, **kwargs):        
         super(Product, self).save(*args, **kwargs)
-        self.slug = f'{slugify(self.title)}-{self.id}'
+        if len(self.slug) == 0:
+            self.slug = f'{slugify(self.title)}-{self.id}'
+            self.title = f'{self.marka.all()[0].title} + {self.title}'
         super(Product, self).save(*args, **kwargs)
 
+
+# '{self.marka.all()[0].title} {self.title} {self.ram} {self.internal_storage} {self.color_title}'
 
     def get_price(self):
         if self.discount_type == 1:
@@ -196,14 +207,15 @@ class Product(models.Model):
             is_new = True
 
     def __str__(self):
-        return f'{self.title}-{self.id}'
+        return f'{self.title}'
 
 
 class Product_details(models.Model):
     # relations
     product = models.ForeignKey('product.Product', related_name='products', default="Not", on_delete=models.CASCADE, blank=True, null=True)
     product_details_property_name = models.ForeignKey("Product_details_property_name", on_delete=models.CASCADE, related_name='product_details_property_name')
-    product_details_propert_value = models.ForeignKey("Product_details_property_value", on_delete=models.CASCADE, related_name='product_details_property_value')
+    # product_details_propert_value = models.ForeignKey("Product_details_property_value", on_delete=models.CASCADE, related_name='product_details_property_value')
+    content = models.CharField('Value', max_length=50, blank=True, null=True)
     is_feature = models.BooleanField("Is feature", default=False, blank=True, null=True)
     is_detail = models.BooleanField("Is detail", default=False, blank=True, null=True)
     is_file = models.BooleanField('Is file', default=False, blank=True, null=True)
@@ -235,9 +247,9 @@ class Product_details_property_name(models.Model):
         return self.title
 
     class Meta:
-        db_table = 'Property name '
-        verbose_name = 'Property name'
-        verbose_name_plural = 'Properties names'
+        db_table = 'Detail name '
+        verbose_name = 'Detail name'
+        verbose_name_plural = 'Details names'
 
 
 class Product_details_property_value(models.Model):
