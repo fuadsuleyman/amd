@@ -1,6 +1,6 @@
 from django import forms
 # from typing_extensions import Required
-from .models import Checkout
+from .models import Order
 from phonenumber_field.formfields import PhoneNumberField
 from phonenumber_field.widgets import PhoneNumberPrefixWidget
 

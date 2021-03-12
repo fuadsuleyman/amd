@@ -23,6 +23,7 @@ class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
     complete = models.BooleanField('Complete', default=False)
     transaction_id = models.CharField('Transaction id', max_length=100, null=True)
+    message = models.TextField("Message", null=False, blank=True)
     # moderations
     status = models.BooleanField('Status', default=True)
     created_at = models.DateTimeField(auto_now_add=True)
