@@ -186,7 +186,6 @@ class Product(models.Model):
             self.title = f'{self.marka.all()[0].title} + {self.title}'
         super(Product, self).save(*args, **kwargs)
 
-
 # '{self.marka.all()[0].title} {self.title} {self.ram} {self.internal_storage} {self.color_title}'
 
     def get_price(self):
