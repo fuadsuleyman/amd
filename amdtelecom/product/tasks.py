@@ -13,8 +13,5 @@ from amdtelecom.celery import app
 
 
 @shared_task
-# @app.task
 def changed_is_new(prod_id):
     product = Product.objects.filter(id=prod_id).filter(is_new_expired__lte=timezone.datetime.today()).update(is_new = False)
-
-# changed_is_new.delay()

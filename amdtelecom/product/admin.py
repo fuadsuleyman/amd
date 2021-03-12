@@ -87,7 +87,7 @@ class ProductAdmin(admin.ModelAdmin):
             'fields': ('is_published',)
         }),
         ('Kampaniya', {
-            'fields': ('is_new', 'is_new_expired', 'is_discount', 'discount_type', 'discount_value')
+            'fields': ('is_new', 'is_discount', 'discount_type', 'discount_value')
         }),
         ('Price Info', {
             'fields': ('price', 'old_price'),
@@ -101,7 +101,7 @@ class ProductAdmin(admin.ModelAdmin):
         if not product.slug:
             # product.slug = f'{slugify(product.title)}-{product.id}'
             if product.ram and product.internal_storage:
-                slug = f'{product.marka.first().title} {product.title} {product.ram} {product.internal_storage} {product.color_title}'
+                slug = f'{product.marka.first().title} {product.title}-{product.ram}-{product.internal_storage}-{product.color_title}'
                 product.title = f'{product.marka.first().title} {product.title} {product.ram} {product.internal_storage} {product.color_title}'
                 product.slug = f'{slugify(slug)}'
                 
@@ -109,6 +109,7 @@ class ProductAdmin(admin.ModelAdmin):
                 product.title = f'{product.marka.first().title} {product.title} {product.color_title}'
         else:
             count += 1
+            product.title = f'{product.marka.first().title}-{product.title}-{product.ram}-{product.internal_storage}-{product.color_title}-{product.id}-{count}'
             product.slug = f'{slugify(product.slug)}{count}'
             product.save()
 
