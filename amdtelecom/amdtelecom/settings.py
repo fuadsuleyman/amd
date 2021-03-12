@@ -75,7 +75,8 @@ ROOT_URLCONF = 'amdtelecom.urls'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
-    "http://127.0.0.1:8000"
+    "http://127.0.0.1:8000",
+    "http://localhost"
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -184,7 +185,7 @@ USE_L10N = True
 USE_TZ = True
 
 
-SITE_ADDRESS = 'http://localhost:8000'
+# SITE_ADDRESS = 'http://localhost:8000'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
@@ -198,6 +199,8 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
+
+SITE_URL = 'http://localhost:80'
 
 # Image django resized
 # DJANGORESIZED_DEFAULT_SIZE = [1920, 1080]
@@ -262,4 +265,4 @@ CELERY_TIMEZONE = 'Asia/Baku'
 
 
 
-ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL')
+# ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL')

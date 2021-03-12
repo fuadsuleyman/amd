@@ -12,7 +12,7 @@ from .models import (
     Product_images,
     Tag,
     Product_details_property_name,
-    Product_details_property_value,
+    # Product_details_property_value,
 )
 
 admin.site.register(Product_colors)
@@ -55,9 +55,9 @@ class PropertyNameAdmin(admin.ModelAdmin):
     list_display = ("title", "status")
 
 
-@admin.register(Product_details_property_value)
-class PropertyValueAdmin(admin.ModelAdmin):
-    list_display = ("content", "file", "status")
+# @admin.register(Product_details_property_value)
+# class PropertyValueAdmin(admin.ModelAdmin):
+#     list_display = ("content", "file", "status")
 
 admin.site.register(Product_details)
 class ProductDetailNameAdmin(admin.TabularInline):
@@ -81,15 +81,37 @@ class ProductAdmin(admin.ModelAdmin):
             'fields': ('category','marka', 'tags', 'same_product'),
         }),
         ('Informations', {
-            'fields': (('title', 'slug'), 'sku', 'internal_storage', 'ram', ('color_title', 'color_code',), 'description', 'sale_count', ('is_new', 'is_featured', 'is_discount'), 'operator_code', 'status')
+            'fields': (('title', 'slug'), 'sku', 'internal_storage', 'ram', ('color_title', 'color_code',), 'operator_code', 'description', 'sale_count', ('is_featured',), 'status')
         }),
         ('Publishe', {
-            'fields': ('is_published', 'published_expiration')
+            'fields': ('is_published',)
+        }),
+        ('Kampaniya', {
+            'fields': ('is_new', 'is_new_expired', 'is_discount', 'discount_type', 'discount_value')
         }),
         ('Price Info', {
-            'fields': ('price', 'old_price', 'discount_type', 'discount_value'),
+            'fields': ('price', 'old_price'),
         }),
     )
+
+    def save_related(self, request, form, formsets, change):
+        super().save_related(request, form, formsets, change)
+        product = form.instance
+        count = 0
+        if not product.slug:
+            # product.slug = f'{slugify(product.title)}-{product.id}'
+            if product.ram and product.internal_storage:
+                slug = f'{product.marka.first().title} {product.title} {product.ram} {product.internal_storage} {product.color_title}'
+                product.title = f'{product.marka.first().title} {product.title} {product.ram} {product.internal_storage} {product.color_title}'
+                product.slug = f'{slugify(slug)}'
+                
+            else:
+                product.title = f'{product.marka.first().title} {product.title} {product.color_title}'
+        else:
+            count += 1
+            product.slug = f'{slugify(product.slug)}{count}'
+            product.save()
+
 
     def show_markas(self, obj):
         return ' '.join([product.title for product in obj.marka.all()])

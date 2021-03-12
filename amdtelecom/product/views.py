@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView
 from django.db.models import Q
@@ -138,7 +139,7 @@ class ProductsFilterListView(ListView):
         print('1-------', self.kwargs['slug'])
         context = super().get_context_data(**kwargs)
         category = get_object_or_404(Category, slug=self.kwargs['slug'])
-        products = Product.objects.filter(category=category).filter(is_published=True)
+        products = Product.objects.filter(category=category).filter(is_published=True).filter()
         markas = Marka.objects.filter(marka__id__in=products.all()).filter(marka__isnull=False).distinct()
         # colors = products
 
@@ -188,6 +189,7 @@ class ProductsFilterListView(ListView):
                 condition = True
             if item.operator_code != None:
                 operator = True
+            # if item.is_new == True:
             else:
                 operator_data = item.operator_code
             

@@ -8,8 +8,8 @@ from .common import slugify
 
 # @receiver(post_save, sender=Category)
 # def create_product(sender, instance, **kwargs):
-#     queryset = Category.objects.filter(status=True)
-#     for category in queryset:  
-#         print(category, 'sasasaaaaaa')
+    # queryset = Category.objects.filter(status=True)
+    # for category in queryset:  
+    #     print(category, 'sasasaaaaaa')
 
-#     instance.slug = f'{slugify(instance.description)}'
+    # instance.slug = f'{slugify(instance.description)}'

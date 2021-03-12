@@ -8,6 +8,6 @@ WORKDIR /code
 RUN pip install -r requirements.txt
 ADD . .
 
-RUN python manage.py collectstatic --noinput
+# RUN python manage.py collectstatic --noinput
 
 CMD [ "gunicorn", "--bind", "0.0.0.0", "-p", "8000",  "amdtelecom.wsgi" ]

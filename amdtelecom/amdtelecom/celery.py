@@ -18,12 +18,19 @@ app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 def debug_task(self):
     print('Request: {0!r}'.format(self.request))
 
-app.conf.beat_schedule = {
-    'check-insurance-daily': {
-        'task': 'insurance_expired',
-        'schedule': crontab(hour='23')
-    },
-}
+# app.conf.beat_schedule = {
+#     'check-new-product-daily': {
+#         'task': 'new_prod_published_date',
+#         'schedule': crontab(minute='2')
+#     },
+# }
+
+# app.conf.broker_transport_options = {
+#     'max_retries': 3,
+#     'interval_start': 0,
+#     'interval_step': 0.2,
+#     'interval_max': 0.2,
+# }
 
 # celery -A amdtelecom worker -l info
 # celery -A amdtelecom worker --beat --scheduler django --loglevel=info

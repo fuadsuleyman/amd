@@ -1,6 +1,6 @@
+from datetime import datetime, timedelta
 from django import template
 from asgiref.sync import sync_to_async
-from datetime import datetime
 from django.db import models
 from django.utils import timezone
 from amdtelecom.utils import unique_slug_generator
@@ -36,8 +36,8 @@ class Tag(models.Model):
 
 class Marka(models.Model):  
     # informations
-    title = models.CharField('Title', max_length=100, db_index=True)
-    image = models.ImageField('Image', blank=True, upload_to='marka_images')
+    title = models.CharField('Başlıq', max_length=100, db_index=True)
+    image = models.ImageField('Şəkil', blank=True, upload_to='marka_images')
     description = models.CharField(max_length=255, blank=True)
     slug = models.SlugField('Slug', max_length=110, editable=False, default='', unique = True)
     
@@ -50,13 +50,14 @@ class Marka(models.Model):
     class Meta:
         db_table = 'marka'
         verbose_name = 'Marka'
-        verbose_name_plural = 'Markas'
+        verbose_name_plural = 'Markalar'
         ordering = ('-created_at', 'title')
 
     def __str__(self):
         return self.title 
 
-    def save(self, *args, **kwargs):        
+    def save(self, *args, **kwargs):  
+        from .tasks import change_is_new
         title = Marka.objects.filter(title=self.title).first()
         super(Marka, self).save(*args, **kwargs)
         if len(self.slug) == 0: 
@@ -69,23 +70,23 @@ class Category(models.Model):
     parent = models.ManyToManyField('self', related_name='children', blank=True)
 
     # information
-    title = models.CharField('Title', max_length=100, db_index=True)
-    image = models.ImageField('Image', blank=True, upload_to='categories_images')
+    title = models.CharField('Başlıq', max_length=100, db_index=True)
+    image = models.ImageField('Şəkil', blank=True, upload_to='categories_images')
     description = models.CharField(max_length=255, blank=True)
     slug = models.SlugField('Slug', max_length=110, editable=False, default='', unique = True)
-    is_main = models.BooleanField('is_main', default=False)
-    is_second = models.BooleanField('is_second', default=False)
-    is_third = models.BooleanField('is_third', default=False)
+    is_main = models.BooleanField('Əsas', default=False)
+    is_second = models.BooleanField('İkinci', default=False)
+    is_third = models.BooleanField('Üçüncü', default=False)
 
     # moderations
-    status = models.BooleanField('is_active', default=True)
+    status = models.BooleanField('Aktiv', default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         db_table = 'category'
-        verbose_name = 'Category'
-        verbose_name_plural = 'Categories'
+        verbose_name = 'Kateqoriya'
+        verbose_name_plural = 'Kateqoriyalar'
         ordering = ('created_at', 'title')
         unique_together = ('slug',)
     
@@ -116,41 +117,41 @@ class Product(models.Model):
     # relations
     tags = models.ManyToManyField(Tag, related_name='tags', blank=True)
     same_product = models.ManyToManyField('self', related_name='same_products', blank=True)
-    category = models.ManyToManyField('Category', related_name='categories')
+    category = models.ManyToManyField('product.Category', related_name='categories')
     who_like = models.ManyToManyField(Customer, related_name='liked_products', blank=True)
     marka = models.ManyToManyField(Marka, related_name='marka', blank=True)
 
 
     # informations
-    title = models.CharField('Title', max_length=100, db_index=True)
-    color_title = models.CharField('Color Name', max_length=50, blank=True, null=True)
-    color_code = ColorField('Color code', default='', blank=True, null=True)
+    title = models.CharField('Başlıq', max_length=100, db_index=True)
+    color_title = models.CharField('Rəng adı', max_length=50, blank=True, null=True)
+    color_code = ColorField('Rəng kodu', default='', blank=True, null=True)
     internal_storage = models.CharField('Daxili yaddaş', default=None, max_length=20, blank=True, null=True)
     ram = models.CharField('Operativ yaddaş', default=None, max_length=20, blank=True, null=True)
     operator_code = models.CharField('Operator code', max_length=3, default=None, blank=True, null=True)
     slug = models.SlugField('Slug', editable=False, max_length=110, unique = True, blank=True)
     sku = models.CharField('SKU', max_length=50, db_index=True)
-    description = models.TextField('Description', null=True, blank=True)
-    sale_count = models.IntegerField('Sale Count', default=0)
-    published_expiration = models.DateTimeField(default= '', blank=True, null=True)
-    is_published = models.BooleanField("Publishe", default=True)
-    is_new = models.BooleanField('is_new', default=True)
+    description = models.TextField('Ətraflı', null=True, blank=True)
+    sale_count = models.IntegerField('Satış sayı', default=0)
+    is_published = models.BooleanField("Paylaş", default=True)
+    is_new = models.BooleanField('Yeni', default=True)
+    is_new_expired = models.DateTimeField('Bitmə vaxtı', default=datetime.now() + timedelta(days=30), blank=True, null=True)
     is_featured = models.BooleanField('is_featured', default=False)
-    is_discount = models.BooleanField('is_discount', default=False)
+    is_discount = models.BooleanField('Endirim', default=False)
 
     # price info
     CHOICES = (
-        (1, 'Not'),
-        (2, 'Percent'),
-        (3, 'Unit'),
+        (1, 'Yox'),
+        (2, 'Faiz'),
+        (3, 'Vahid'),
     )
-    price = models.DecimalField('Price', max_digits=7, decimal_places=2)
-    old_price = models.DecimalField('Old Price', max_digits=7, decimal_places=2, null=True, blank=True)
-    discount_type = models.PositiveIntegerField("Discount Type", choices=CHOICES, default=1)
-    discount_value = models.IntegerField('Discount Value', null=True, blank=True)
+    price = models.DecimalField('Qiymət', max_digits=7, decimal_places=2)
+    old_price = models.DecimalField('Köhnə qiymət Price', max_digits=7, decimal_places=2, null=True, blank=True)
+    discount_type = models.PositiveIntegerField("Endirim növü", choices=CHOICES, default=1)
+    discount_value = models.IntegerField('Endirim dəyəri', null=True, blank=True)
 
     # moderations
-    status = models.BooleanField('is_active', default=True)
+    status = models.BooleanField('Aktiv', default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -158,14 +159,14 @@ class Product(models.Model):
         unique_together = ('title', 'slug')
         # slug unique
         db_table = 'product'
-        verbose_name = 'Product'
-        verbose_name_plural = 'Products'
+        verbose_name = 'Məhsul'
+        verbose_name_plural = 'Məhsullar'
         ordering = ('-created_at', 'title')
 
     # @property
     # def is_published_expired(self):
     #     from django.utils import timezone
-    #     if self.published_expiration > timezone.datetime.today():
+    #     if self.is_new_expired > timezone.datetime.today():
     #         print("Publishe Active")
     #         return True
     #     else:
@@ -181,10 +182,11 @@ class Product(models.Model):
         return url
 
     def save(self, *args, **kwargs):        
+        from .tasks import changed_is_new
+
         super(Product, self).save(*args, **kwargs)
-        if len(self.slug):
-            self.slug = f'{slugify(self.title)}-{self.id}'
-            self.title = f'{self.marka.all()[0].title} {self.title} {self.ram} {self.internal_storage} {self.color_title}'
+        if self.is_new:
+            changed_is_new.apply_async(args=[self.id], eta=self.is_new_expired)
         super(Product, self).save(*args, **kwargs)
 
 
@@ -210,6 +212,7 @@ class Product(models.Model):
 
 
 class Product_details(models.Model):
+
     # relations
     product = models.ForeignKey('product.Product', related_name='products', default="Not", on_delete=models.CASCADE, blank=True, null=True)
     product_details_property_name = models.ForeignKey("Product_details_property_name", on_delete=models.CASCADE, related_name='product_details_property_name')
@@ -228,9 +231,9 @@ class Product_details(models.Model):
         return self.product.title
 
     class Meta:
-        db_table = 'Product details'
-        verbose_name = 'Product details'
-        verbose_name_plural = 'Products details'
+        db_table = 'product_details'
+        verbose_name = 'Məhsul detalı'
+        verbose_name_plural = 'Məhsul detalları'
 
 
 class Product_details_property_name(models.Model):
@@ -246,9 +249,9 @@ class Product_details_property_name(models.Model):
         return self.title
 
     class Meta:
-        db_table = 'Detail name '
-        verbose_name = 'Detail name'
-        verbose_name_plural = 'Details names'
+        db_table = 'detail_name'
+        verbose_name = 'Detalın növü'
+        verbose_name_plural = 'Detalın növləri'
 
 
 class Product_details_property_value(models.Model):
@@ -293,8 +296,8 @@ class Product_images(models.Model):
 
     class Meta:
         db_table = 'image'
-        verbose_name = 'Image'
-        verbose_name_plural = 'Images'
+        verbose_name = 'Şəkil'
+        verbose_name_plural = 'Şəkillər'
         ordering = ('-created_at',)
 
     def __str__(self):
@@ -325,9 +328,9 @@ class Product_colors(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        db_table = 'Product colors'
-        verbose_name = 'Product color'
-        verbose_name_plural = 'Product colors'
+        db_table = 'product_colors'
+        verbose_name = 'Məhsul rəngi'
+        verbose_name_plural = 'Məhsul rəngləri'
         ordering = ('created_at',)
 
     def __str__(self):
