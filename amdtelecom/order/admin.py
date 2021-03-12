@@ -2,11 +2,11 @@ from django.contrib import admin
 from django.utils.safestring import mark_safe
 
 # Register your models here.
-from .models import Order, OrderItem, Checkout
+from .models import Order, OrderItem
 
 # admin.site.register(Order)
 # admin.site.register(OrderItem)
-admin.site.register(Checkout)
+# admin.site.register(Checkout)
 
 
 @admin.register(Order)

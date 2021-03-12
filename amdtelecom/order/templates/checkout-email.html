@@ -1,0 +1,10 @@
+<div>
+    <p>Ad: {{ order.name }}</p>
+    <p>Soyad: {{ order.surname }}</p>
+    <p>Email: {{ order.email }}</p>
+    <p>Telefon: {{ order.tel_number }}</p>
+    <p>İsmarıc:: {{ order.message }}</p>
+    {% for item in order.orderitem_set.all %}
+    <p>Sifaris: {{item.product.title}}   Miqdar: {{item.quantity}}</p>
+    {% endfor %}
+</div>
