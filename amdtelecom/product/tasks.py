@@ -12,6 +12,7 @@ from amdtelecom.celery import app
 #     products = Product.objects.filter(is_new_expired__lte=timezone.datetime.today()).update(is_new = False)
 
 
-@shared_task
+@app.task()
 def changed_is_new(prod_id):
+    print('changed_is_new is working')
     product = Product.objects.filter(id=prod_id).filter(is_new_expired__lte=timezone.datetime.today()).update(is_new = False)

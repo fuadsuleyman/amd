@@ -49,7 +49,7 @@ services:
             dockerfile: celery.dockerfile
         volumes:
             - .:/code
-        command: celery -A food_stories worker --beat --scheduler django --loglevel=info
+        command: celery -A amdtelecom worker -l info   
         links:
             - redis
             - postgres

@@ -32,27 +32,8 @@ def debug_task(self):
 #     'interval_max': 0.2,
 # }
 
+
+# Procfile
 # celery -A amdtelecom worker -l info
 # celery -A amdtelecom worker --beat --scheduler django --loglevel=info
 
-
-
-# if settings.PROD:
-#     app.config.update(
-#         # CELERY CONF
-#         CELERY_BROKER_URL = 'redis://localhost:6379'
-#         CELERY_RESULT_BACKEND = 'redis://localhost:6379'
-#         CELERY_ACCEPT_CONTENT = ['application/json']
-#         CELERY_TASK_SERIALIZER = 'json'
-#         CELERY_RESULT_SERIALIZER = 'json'
-#         CELERY_TIMEZONE = 'Asia/Baku'
-#     )
-# else:
-#     app.config.update(
-#         CELERY_BROKER_URL = 'redis://localhost:6379'
-#         CELERY_RESULT_BACKEND = 'redis://localhost:6379'
-#         CELERY_ACCEPT_CONTENT = ['application/json']
-#         CELERY_TASK_SERIALIZER = 'json'
-#         CELERY_RESULT_SERIALIZER = 'json'
-#         CELERY_TIMEZONE = 'Asia/Baku'
-#     )

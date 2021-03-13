@@ -1,9 +1,7 @@
 from datetime import datetime, timedelta
-from django import template
-from asgiref.sync import sync_to_async
-from django.db import models
 from django.utils import timezone
-from amdtelecom.utils import unique_slug_generator
+from django import template
+from django.db import models
 from django_resized import ResizedImageField
 from colorfield.fields import ColorField
 
@@ -13,6 +11,9 @@ from .common import slugify
 register = template.Library()
 
 
+
+def one_month_from_today():
+    return timezone.now() + timedelta(days=30)
 
 
 class Tag(models.Model):
@@ -135,7 +136,7 @@ class Product(models.Model):
     sale_count = models.IntegerField('Satış sayı', default=0)
     is_published = models.BooleanField("Paylaş", default=True)
     is_new = models.BooleanField('Yeni', default=True)
-    is_new_expired = models.DateTimeField('Bitmə vaxtı', default=datetime.now() + timedelta(days=30), blank=True, null=True)
+    is_new_expired = models.DateTimeField('Bitmə vaxtı', default=one_month_from_today, blank=True, null=True)
     is_featured = models.BooleanField('is_featured', default=False)
     is_discount = models.BooleanField('Endirim', default=False)
 

@@ -30,7 +30,8 @@ class CategoryAdmin(admin.ModelAdmin):
     def save_related(self, request, form, formsets, change):
         super().save_related(request, form, formsets, change)
         category = form.instance
-        category.slug = slugify(f'{category.parent.all().last()} {category.title}')
+        if not category.slug:
+            category.slug = slugify(f'{category.parent.all().last()} {category.title}')
         category.save()
 
 
@@ -87,7 +88,7 @@ class ProductAdmin(admin.ModelAdmin):
             'fields': ('is_published',)
         }),
         ('Kampaniya', {
-            'fields': ('is_new', 'is_discount', 'discount_type', 'discount_value')
+            'fields': ('is_new', 'is_new_expired', 'is_discount', 'discount_type', 'discount_value')
         }),
         ('Price Info', {
             'fields': ('price', 'old_price'),
@@ -109,7 +110,7 @@ class ProductAdmin(admin.ModelAdmin):
                 product.title = f'{product.marka.first().title} {product.title} {product.color_title}'
         else:
             count += 1
-            product.title = f'{product.marka.first().title}-{product.title}-{product.ram}-{product.internal_storage}-{product.color_title}-{product.id}-{count}'
+            product.title = f'{product.title}{count}'
             product.slug = f'{slugify(product.slug)}{count}'
             product.save()
 
