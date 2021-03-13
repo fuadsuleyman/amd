@@ -8748,7 +8748,8 @@ footer {
   padding: 40px; }
 
 .checkout-page .checkout-form .check-out .form-group:last-child {
-  margin-bottom: -5px; }
+  /* margin-bottom: -5px; */
+ }
   .checkout-page .checkout-form .check-out .form-group:last-child label {
     margin-bottom: -5px; }
 
@@ -8791,7 +8792,7 @@ footer {
 .checkout-page .checkout-form textarea {
   width: 100%;
   padding: 5px;
-  height: 45px;
+  /* height: 45px; */
   border: 1px solid #dddddd; }
 
 .checkout-page .check-box {

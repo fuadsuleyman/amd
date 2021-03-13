@@ -37,7 +37,7 @@
         border-color: red;
     } */
 
-    .form-number {
+    /* .form-number {
         margin-top: -4px;
     }
 
@@ -46,29 +46,14 @@
     }
 
     .invalid-feedback {
-        margin-top: -20px !important;
+        margin-top: -20px;
     }
 
     .form-email {
         margin-top: -4px;
-    }
+    } */
 
-    .error {
-        width  : 100%;
-        padding: 0;
-
-        font-size: 80%;
-        color: white;
-        background-color: #900;
-        border-radius: 0 0 5px 5px;
-
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-    }
-
-    .error.active {
-        padding: 0.3em;
-    }
+    
 
     /* .select-country {
         margin: auto !important;
@@ -116,43 +101,43 @@
                                 </div>
                                 <div class="row check-out">
                                     {% csrf_token %}
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12 form-name">
-                                        <label for="validationCustom01" class="form-label">Ad: *</label>
-                                            {{form.name}}
-                                            {{form.name.errors}}
-                                        <div class="invalid-feedback">Ad düzgün daxil edilməyib!</div>
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12 form-surname">
-                                        <label for="validationCustom01" class="form-label">Soyad: *</label>
-                                            {{form.surname}}
-                                            {{form.surname.errors}}
-                                        <div class="invalid-feedback">Soyad düzgün daxil edilməyib!</div>
-                                    </div>
-                                    <div class="form-group col-md-2 col-sm-2 col-xs-4 form-number-kod">
-                                        <label for="validationCustom01" class="form-label">Ölkə kodu: </label>
-                                        <select class="select-country form-control">
-                                            <option value="AZ" class='opt'>AZ</option>
-                                            <option value="TR" class='opt'>TR</option>
-                                            <option value="RU" class='opt'>RU</option>
-                                            <option value="US" class='opt'>US</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-4 col-sm-4 col-xs-8 form-number">
-                                        <label for="validationCustom01" class="form-label">Telefon Nömrəsi: * </label>
-                                            {{form.tel_number}}
-                                        <div class="invalid-feedback">Nömrə qeyd olunmayıb!</div>
-                                        <span class="error" aria-live="polite"></span>
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-6 col-xs-12 form-email">
-                                        <label for="validationCustom01" class="form-label">E-poçt: * </label>
-                                            {{form.email}}
-                                            {{form.email.errors}}
-                                        <div class="invalid-feedback">E-poçt düzgün daxil edilməyib</div>
-                                    </div>
-                                    <div class="form-group col-md-12">
-                                        <label for="validationCustom01" class="form-label">İsmarıc: </label>
-                                        {{ form.message }}
-                                    </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div class="form-group form-name">
+                                                <label class="form-label">Ad: *</label>
+                                                {{form.name}}
+                                                {{form.name.errors}}
+                                                <div class="invalid-feedback err-name"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div class="form-group form-surename">
+                                                <label class="form-label">Soyad: *</label>
+                                                    {{form.surname}}
+                                                    {{form.surname.errors}}
+                                                <div class="invalid-feedback err-surename"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div class="form-group form-phone">
+                                                <label class="form-label">Telefon Nömrəsi: * </label>
+                                                {{form.tel_number}}
+                                                <div class="invalid-feedback err-phone"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-12">
+                                            <div class="form-group form-email">
+                                                <label class="form-label">E-poçt: * </label>
+                                                {{form.email}}
+                                                {{form.email.errors}}
+                                                <div class="invalid-feedback err-email"></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="validationCustom01" class="form-label">İsmarıc: </label>
+                                                {{ form.message }}
+                                            </div>
+                                        </div>
                                 </div>
                             </div>
                             <style>/* Chrome, Safari, Edge, Opera */
@@ -241,63 +226,266 @@
         </div>
     </section>
     <!-- section end -->
-    <script src="{% static 'js/cleave.js' %}"></script>
-    <script src="{% static 'js/cleave-phone.i18n.js' %}"></script>
+    <!-- <script src="{% static 'js/cleave.js' %}"></script>
+    <script src="{% static 'js/cleave-phone.i18n.js' %}"></script> -->
     <script>
-// var error = document.querySelector('.error');
-// var form  = document.getElementsByTagName('form')[0];
-//         form.addEventListener("submit", function (event) {
-//             // Каждый раз, когда пользователь пытается отправить данные, мы проверяем
-//             // валидность поля электронной почты.
+        // var error = document.querySelector('.error');
+        // var form  = document.getElementsByTagName('form')[0];
+        // form.addEventListener("submit", function (event) {
+        //     // Каждый раз, когда пользователь пытается отправить данные, мы проверяем
+        //     // валидность поля электронной почты.
 
-//             let numfield = document.querySelector('.form-number > input')
-//             console.log(`nomre uzunlugu: ${numfield.value.length}`)
-//             if (numfield.value.length < 13) {
+        //     let numfield = document.querySelector('.form-number > input')
+        //     console.log(`nomre uzunlugu: ${numfield.value.length}`)
+        //     if (numfield.value.length < 13) {
 
-//             //     // Если поле невалидно, отображается пользовательское
-//             //     // сообщение об ошибке.
-//                 error.innerHTML = "I expect an e-mail, darling!";
-//                 error.className = "error active";
-//             //     // И мы предотвращаем отправку формы путем отмены события
-//                 event.preventDefault();
-//             }
-//             }, false);
-
-
+        //     //     // Если поле невалидно, отображается пользовательское
+        //     //     // сообщение об ошибке.
+        //         error.innerHTML = "I expect an e-mail, darling!";
+        //         error.className = "error active";
+        //     //     // И мы предотвращаем отправку формы путем отмены события
+        //         event.preventDefault();
+        //     }
+        //     }, false);
 
 
-        (function () {
-            'use strict'
+        // (function () {
+        //     'use strict'
 
-            // Fetch all the forms we want to apply custom Bootstrap validation styles to
-            var forms = document.querySelectorAll('.needs-validation')
+        //     // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        //     var forms = document.querySelectorAll('.needs-validation')
 
-            // Loop over them and prevent submission
-            Array.prototype.slice.call(forms)
-                .forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                    }
+        //     // Loop over them and prevent submission
+        //     Array.prototype.slice.call(forms)
+        //         .forEach(function (form) {
+        //         form.addEventListener('submit', function (event) {
+        //             if (!form.checkValidity()) {
+        //             event.preventDefault()
+        //             event.stopPropagation()
+        //             }
 
-                    form.classList.add('was-validated')
-                }, false)
-                })
-            })()
+        //             form.classList.add('was-validated')
+        //         }, false)
+        //         })
+        //     })()
         
 
-        var cleave = new Cleave('.form-number > input', {
-            phone:true,
-            phoneRegionCode:'AZ'
-        }) 
+        // var cleave = new Cleave('.form-number > input', {
+        //     phone:true,
+        //     phoneRegionCode:'AZ'
+        // }) 
 
-        $('.select-country').change(function(){
-            cleave.setPhoneRegionCode(this.value);
-            cleave.setRawValue('');
+        // $('.select-country').change(function(){
+        //     cleave.setPhoneRegionCode(this.value);
+        //     cleave.setRawValue('');
+        // })
+
+        // name validation by input event
+        let errorName = document.querySelector('.err-name');
+        let nameInput = document.querySelector('.form-name > input')
+        nameInput.addEventListener('input', function (event) {
+            if (nameInput.value.length === 0) {
+                errorName.innerHTML = "Ad boş ola bilməz";
+                nameInput.classList.add("is-invalid");
+                event.preventDefault();
+                event.stopPropagation();
+            } else if(nameInput.value.length < 3){
+                if (!/^[a-zA-Z]+$/.test(nameInput.value)){
+                    errorName.innerHTML = "Ad yalnız hərflərdən ibarət olmalıdı";
+                    nameInput.classList.add("is-invalid");
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    errorName.innerHTML = "Ad minimum 3 hərfli olmalıdır";
+                    nameInput.classList.add("is-invalid");
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+            } else if(nameInput.value.length > 2){
+                if (!/^[a-zA-Z]+$/.test(nameInput.value)){
+                    console.log('girdi')
+                    // errorName.innerHTML = "";
+                    errorName.innerHTML = "Ad yalnız hərflərdən ibarət olmalıdı";
+                    nameInput.classList.add("is-invalid");
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else if (nameInput.value.length > 20){
+                    errorName.innerHTML = "Ad maximum 20 hərfli olmalıdı";
+                    nameInput.classList.add("is-invalid");
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    errorName.innerHTML = "";
+                    console.log(`${/^[a-zA-Z]+$/.test(nameInput.value)}`)
+                    nameInput.classList.remove('is-invalid');
+                    nameInput.classList.add("is-valid");
+                }
+            }  
         })
 
-        
+        // surename validation by input event
+        let errorSurename = document.querySelector('.err-surename');
+        let surenameInput = document.querySelector('.form-surename > input')
+        surenameInput.addEventListener('input', function (event) {
+            if (surenameInput.value.length === 0) {
+                errorSurename.innerHTML = "Soyad boş ola bilməz";
+                surenameInput.classList.add("is-invalid");
+                event.preventDefault();
+                event.stopPropagation();
+            } else if(surenameInput.value.length < 3){
+                if (!/^[a-zA-Z]+$/.test(surenameInput.value)){
+                    errorSurename.innerHTML = "Soyad yalnız hərflərdən ibarət olmalıdı";
+                    surenameInput.classList.add("is-invalid");
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    errorSurename.innerHTML = "Soyad minimum 3 hərfli olmalıdır";
+                    surenameInput.classList.add("is-invalid");
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+            } else if(surenameInput.value.length > 2){
+                if (!/^[a-zA-Z]+$/.test(surenameInput.value)){
+                    // console.log('girdi')
+                    // errorName.innerHTML = "";
+                    errorSurename.innerHTML = "Ad yalnız hərflərdən ibarət olmalıdı";
+                    surenameInput.classList.add("is-invalid");
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else if (surenameInput.value.length > 20){
+                    errorSurename.innerHTML = "Ad maximum 20 hərfli olmalıdı";
+                    surenameInput.classList.add("is-invalid");
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    errorSurename.innerHTML = "";
+                    // console.log(`${/^[a-zA-Z]+$/.test(surenameInput.value)}`)
+                    surenameInput.classList.remove('is-invalid');
+                    surenameInput.classList.add("is-valid");
+                }
+            }  
+        })
+
+        // phone number validation by input event
+        let errorPhone = document.querySelector('.err-phone');
+        let phoneInput = document.querySelector('.form-phone > input')
+        phoneInput.addEventListener('input', function (event) {
+            if (phoneInput.value.length === 0) {
+                errorPhone.innerHTML = "Mobil nömrə boş ola bilməz";
+                phoneInput.classList.add("is-invalid");
+                event.preventDefault();
+                event.stopPropagation();
+                // /^\d+$/.test(val)
+            } else if(phoneInput.value.length < 10){
+                if (!/^\d+$/.test(phoneInput.value)){
+                    errorPhone.innerHTML = "Mobil nömrə rəqəmlərdən ibarət olmalıdı";
+                    phoneInput.classList.add("is-invalid");
+                    event.preventDefault();{}
+                    event.stopPropagation();   
+                } else if (phoneInput.value.length >= 3 && phoneInput.value.slice(0, 3) !== "050" && phoneInput.value.slice(0, 3) !== "051" && phoneInput.value.slice(0, 3) !== "055" && phoneInput.value.slice(0, 3) !== "070" && phoneInput.value.slice(0, 3) !== "077" && phoneInput.value.slice(0, 3) !== "099"){
+                    errorPhone.innerHTML = "Yalnış prefix, nömrə bu prexiflərdən biri ilə başlamalıdr '050' '051' '055' '070' '077' '099'";
+                    phoneInput.classList.add("is-invalid");
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else if (phoneInput.value.length >= 4 && phoneInput.value.charAt(3) === '0') {
+                    errorPhone.innerHTML = "Mobil operator prefixindən sonrakı rəqəm 0 ola bilməz";
+                    phoneInput.classList.add("is-invalid");
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    errorPhone.innerHTML = "Nümunə format 0502702569";
+                    phoneInput.classList.add("is-invalid");
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+            } else if(phoneInput.value.length === 10){
+                console.log(phoneInput.value.slice(0, 3))
+                console.log(typeof(phoneInput.value.slice(0, 3)))
+                console.log('girdi')
+                if (!/^\d+$/.test(phoneInput.value)){
+                    // console.log('girdi')
+                    // errorName.innerHTML = "";
+                    errorPhone.innerHTML = "Mobil nömrə rəqəmlərdən ibarət olmalıdı";
+                    phoneInput.classList.add("is-invalid");
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    errorPhone.innerHTML = "";
+                    // console.log(`${/^[a-zA-Z]+$/.test(surenameInput.value)}`)
+                    phoneInput.classList.remove('is-invalid');
+                    phoneInput.classList.add("is-valid");
+                }
+            }
+        })
+
+        // email validation by input event
+        let re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        let errorEmail = document.querySelector('.err-email');
+        let emailInput = document.querySelector('.form-email > input')
+        emailInput.addEventListener('input', function (event) {
+            if (emailInput.value.length === 0) {
+                errorEmail.innerHTML = "E-poçt boş ola bilməz";
+                emailInput.classList.add("is-invalid");
+                event.preventDefault();
+                event.stopPropagation();
+                // /^\d+$/.test(val)
+            } else if(!re.test(String(emailInput.value).toLowerCase())){
+                errorEmail.innerHTML = "Yalnış e-poçt adresi";
+                emailInput.classList.add("is-invalid");
+                event.preventDefault();
+                event.stopPropagation();
+            }else {
+                    errorEmail.innerHTML = "";
+                    // console.log(`${/^[a-zA-Z]+$/.test(surenameInput.value)}`)
+                    emailInput.classList.remove('is-invalid');
+                    emailInput.classList.add("is-valid");
+                }
+        })
+
+        // submit button validation
+        let form  = document.getElementsByTagName('form')[0];
+        form.addEventListener("submit", function (event) {
+            //// name validation
+            if (nameInput.value.length === 0) {
+                errorName.innerHTML = "Ad boş ola bilməz";
+                nameInput.classList.add("is-invalid");
+                event.preventDefault();
+                event.stopPropagation();
+            } else if(nameInput.classList.contains("is-invalid")){
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            //// surename validation
+            if (surenameInput.value.length === 0) {
+                errorSurename.innerHTML = "Soyad boş ola bilməz";
+                surenameInput.classList.add("is-invalid");
+                event.preventDefault();
+                event.stopPropagation();
+            } else if(surenameInput.classList.contains("is-invalid")){
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            //// phone number validation
+            if (phoneInput.value.length === 0) {
+                errorPhone.innerHTML = "Mobil nömrə boş ola bilməz";
+                phoneInput.classList.add("is-invalid");
+                event.preventDefault();
+                event.stopPropagation();
+            } else if(phoneInput.classList.contains("is-invalid")){
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            //// phone number validation
+            if (emailInput.value.length === 0) {
+                errorEmail.innerHTML = "E-poçt boş ola bilməz";
+                emailInput.classList.add("is-invalid");
+                event.preventDefault();
+                event.stopPropagation();
+            } else if(emailInput.classList.contains("is-invalid")){
+                event.preventDefault();
+                event.stopPropagation();
+            }
+            }, false);
     </script>
 
     <!-- footer start -->

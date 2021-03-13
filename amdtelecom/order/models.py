@@ -20,11 +20,8 @@ class Order(models.Model):
     name = models.CharField('name', max_length=50, blank=True, null=True)
     surname = models.CharField('surname', max_length=50, blank=True, null=True)
     email = models.EmailField('email',max_length=50, blank=True, null=True)
-    tel_number = models.CharField('telefon', max_length=20, blank=True, null=True)
-    # yuxaridakinin icinden cixdi validators=[MinLengthValidator(7)], error_messages={'required': 'Mobil nomre 7 reqemli olmalidir'}
-
-    # tel_number = PhoneNumberField()
-    message = models.TextField("Comment", null=True, blank=True)
+    num_title = models.CharField('num title',max_length=10, choices=NUMBER_CHOICES, blank=True, null=True)
+    tel_number = models.CharField('telefon', max_length=10, validators=[MinLengthValidator(10)], error_messages={'required': 'Mobil nomre 10 reqemli olmalidir'}, blank=True, null=True)
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
     complete = models.BooleanField('Complete', default=False)
     transaction_id = models.CharField('Transaction id', max_length=100, null=True)

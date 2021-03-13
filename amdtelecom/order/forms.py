@@ -61,43 +61,53 @@ class CheckoutForm(forms.ModelForm):
         widgets = {
             
             'name': forms.TextInput(attrs={
-                'class': 'form-group form-control form-name',
+                'class': 'form-control form-name',
                 "type":"text",
-                'placeholder': 'Adınızı daxil edin *',
+                'placeholder': 'Adınızı daxil edin',
                 'minlength':"3",
                 'maxlegth':"20",
-                'id':"validationCustom01",
                 'required': True
             }),
             'surname': forms.TextInput(attrs={
-                'class': 'form-group form-control form-surname',
-                'placeholder': 'Soyadınızı daxil edin * ',
+                'class': 'form-control form-surname',
+                'placeholder': 'Soyadınızı daxil edin',
                 'minlength':"3",
                 'maxlegth':"20",
                 'required': True
             }),
             'email': forms.EmailInput(attrs={
-                'class': 'form-group form-control form-email',
-                'placeholder': 'E-poçt adresiniz *',
+                'class': 'form-control form-email',
+                'type': 'email',
+                'placeholder': 'E-poçt adresinizi daxil edin',
                 'minlength': "3",
                 'maxlegth': "20",
                 'required': True
             }),
-            # 'num_title':forms.NumberInput(attrs={
-            #     'class': 'form-select',
-            #     'required': 'true'
-            # }),
-            'tel_number': forms.TextInput(attrs={
-                'class': 'form-group form-control form-number',
-                'placeholder': '050 270 25 69 *',
-                'minlength': "13",
+            'tel_number': forms.NumberInput(attrs={
+                'class': 'form-control form-number',
+                'type': 'tel',
+                'placeholder': 'Nümunə 0502702569',
+                # 'minlength': "10",
                 # 'maxlegth': "10",
                 'required': True
             }),
             'message': forms.Textarea(attrs={
                 'class': "form-control",
-                'id': "exampleFormControlTextarea1",
+                'placeholder': '  Sifariş etdiyiniz məhsul haqqında qeydləriniz varsa yazın',
                 'rows': 6,
             })
         }
-        
+        # labels = {
+            # 'first_name': 'Ad',
+            # 'last_name': 'Soyad',
+            # 'phone_number': 'Əlaqə nomrəsi',
+            # 'email': 'Elektron poçt ünvanı',
+            # 'message': 'İsmarıc'
+        # }
+
+        # error_messages = {
+        #     'tel_number': {
+        #         'required': "Thssas.",
+        #         'invalid': "salam"
+        #     },
+        # }
