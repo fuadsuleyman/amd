@@ -19,7 +19,7 @@ admin.site.register(Product_colors)
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ("id", "title", "slug", "description", "is_main", "status")
+    list_display = ("id", "title", "slug", "description", "is_main", "status", 'id')
     list_display_links = ("title",)
     readonly_fields = ('slug',)
     list_filter = ("title", "status")
@@ -59,7 +59,7 @@ class PropertyNameAdmin(admin.ModelAdmin):
 class PropertyValueAdmin(admin.ModelAdmin):
     list_display = ("content", "file", "status")
 
-
+admin.site.register(Product_details)
 class ProductDetailNameAdmin(admin.TabularInline):
     model = Product_details
     extra = 0
@@ -67,7 +67,7 @@ class ProductDetailNameAdmin(admin.TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("title", "price", "is_new", 'get_image', 'id', ) #"get_image"
+    list_display = ("title", "price", "is_new", 'get_image', 'show_markas', ) #"get_image"
     list_display_links = ("title",)
     list_filter = ("price", "category",)
     search_fields = ('title', "category__title", "Marka")
@@ -81,19 +81,28 @@ class ProductAdmin(admin.ModelAdmin):
             'fields': ('category','marka', 'tags', 'same_product'),
         }),
         ('Informations', {
-            'fields': (('title', 'slug'), 'sku', ('color_title', 'color_code',), 'description', 'sale_count', ('is_new', 'is_featured', 'is_discount'), 'operator_code', 'status')
+            'fields': (('title', 'slug'), 'sku', 'internal_storage', 'ram', ('color_title', 'color_code',), 'description', 'sale_count', ('is_new', 'is_featured', 'is_discount'), 'operator_code', 'status')
+        }),
+        ('Publishe', {
+            'fields': ('is_published', 'published_expiration')
         }),
         ('Price Info', {
-            'fields': ('price', 'discount_type', 'discount_value'),
+            'fields': ('price', 'old_price', 'discount_type', 'discount_value'),
         }),
     )
+
+    def show_markas(self, obj):
+        return ' '.join([product.title for product in obj.marka.all()])
 
     def get_image(self, obj):
         return mark_safe(f'<img src={obj.images.get(is_main=True).imageURL} width="50" height="60"')
 
 
+    show_markas.short_description = "Marka"
+
     get_image.short_description = "Image"
-    
+
+
 
 
 admin.site.register(Tag)

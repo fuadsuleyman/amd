@@ -8790,7 +8790,7 @@ footer {
 .checkout-page .checkout-form select,
 .checkout-page .checkout-form textarea {
   width: 100%;
-  padding: 0 22px;
+  padding: 5px;
   height: 45px;
   border: 1px solid #dddddd; }
 
@@ -14411,7 +14411,7 @@ body.dark {
     width: 300px;
     border-radius: 0;
     border: 1px solid #eee;
-    top: 0;
+    top: 61px;
     height: 100vh;
     right: -300px;
     z-index: 99;
@@ -14544,7 +14544,9 @@ body.dark {
     top: -105px; }
   .layout3-menu .main-menu .menu-left .main-menu-right .toggle-nav {
     right: unset;
-    top: -1px; }
+    top: 1px; 
+    left: -5%;
+  }
   .rtl .mega-box .link-section .demo ul li a span img {
     left: -70px; }
   .rtl .sm li {

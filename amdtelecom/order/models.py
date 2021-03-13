@@ -2,13 +2,33 @@ from django.db import models
 from account.models import Customer
 from product.models import Product
 from django.core.validators import MinLengthValidator
+# from phonenumber_field.modelfields import PhoneNumberField
+
 # Create your models here.
 
 class Order(models.Model):
+
+    NUMBER_CHOICES = (
+        ('050', '050'),
+        ('051', '051'),
+        ('055', '055'),
+        ('070', '070'),
+        ('077', '077'),
+        ('099', '099'),
+    )
+
+    name = models.CharField('name', max_length=50, blank=True, null=True)
+    surname = models.CharField('surname', max_length=50, blank=True, null=True)
+    email = models.EmailField('email',max_length=50, blank=True, null=True)
+    tel_number = models.CharField('telefon', max_length=20, blank=True, null=True)
+    # yuxaridakinin icinden cixdi validators=[MinLengthValidator(7)], error_messages={'required': 'Mobil nomre 7 reqemli olmalidir'}
+
+    # tel_number = PhoneNumberField()
+    message = models.TextField("Comment", null=True, blank=True)
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
     complete = models.BooleanField('Complete', default=False)
     transaction_id = models.CharField('Transaction id', max_length=100, null=True)
-
+    message = models.TextField("Message", null=False, blank=True)
     # moderations
     status = models.BooleanField('Status', default=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -38,6 +58,8 @@ class OrderItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
     quantity = models.IntegerField('Quantity', default=0, null=True, blank=True)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE,null=True, blank=True)
+
     
     # moderations
     status = models.BooleanField('Status', default=True)
@@ -81,35 +103,38 @@ class ShippingAddress(models.Model):
         return self.address
 
 
-from django.db import models
-from django.utils.translation import gettext as _
 
 
-class Checkout(models.Model):
-    #information
-    NUMBER_CHOICES = (
-        ('050', '050'),
-        ('051', '051'),
-        ('055', '055'),
-        ('070', '070'),
-        ('077', '077'),
-        ('099', '099'),
-    )
 
-    name = models.CharField('name', max_length=50)
-    surname = models.CharField('surname', max_length=50)
-    email = models.EmailField('email',max_length=50)
-    num_title = models.CharField('num title',max_length=10, choices=NUMBER_CHOICES)
-    tel_number = models.CharField('telefon', max_length=7, validators=[MinLengthValidator(7)], error_messages={'required': 'Mobil nomre 7 reqemli olmalidir'})
+# class Checkout(models.Model):
+#     #information
+#     NUMBER_CHOICES = (
+#         ('050', '050'),
+#         ('051', '051'),
+#         ('055', '055'),
+#         ('070', '070'),
+#         ('077', '077'),
+#         ('099', '099'),
+#     )
+#     order = models.OneToOneField(Order, on_delete=models.CASCADE, blank=True, null=True)
+#     name = models.CharField('name', max_length=50)
+#     surname = models.CharField('surname', max_length=50)
+#     email = models.EmailField('email',max_length=50)
+#     num_title = models.CharField('num title',max_length=10, choices=NUMBER_CHOICES)
+#     tel_number = models.CharField('telefon', max_length=20)
+#     # yuxaridakinin icinden cixdi validators=[MinLengthValidator(7)], error_messages={'required': 'Mobil nomre 7 reqemli olmalidir'}
 
-    # moderations
-    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
-    updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
+#     # tel_number = PhoneNumberField()
+#     message = models.TextField("Comment", null=True, blank=True)
 
-    class Meta:
-        db_table = ('checkout')
-        verbose_name = ('checkout')
-        verbose_name_plural = ('checkout')
+#     # moderations
+#     created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+#     updated_at = models.DateTimeField(auto_now=True, blank=True, null=True)
+
+#     class Meta:
+#         db_table = ('checkout')
+#         verbose_name = ('checkout')
+#         verbose_name_plural = ('checkout')
         
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name

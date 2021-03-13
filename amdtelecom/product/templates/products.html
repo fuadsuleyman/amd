@@ -4,7 +4,6 @@
 {% block price_range_css %}
 <!-- price range -->
 <link rel="stylesheet" type="text/css" href="{% static 'css/price-range.css' %}"> 
-<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}"> 
 
 {% endblock %}
 
@@ -50,64 +49,112 @@
                     {% if operator_data == None %}
                     {% if marka %}
 
-                    <div class="collection-collapse-block open">
+                    <div class="collection-collapse-block open" id="marka-filter-body">
                         <h3 class="collapse-block-title">Marka</h3>
                         <div class="collection-collapse-block-content">
                             <div class="collection-brand-filter">
-                            {% for product in products %}
-                            {% ifchanged product.marka.all.0.title %}
-                            {% for marka in product.marka.all  %}
-                                <div class="custom-control custom-checkbox collection-filter-checkbox">
+
+                            {% for marka in markas  %}
+                                <div class="custom-control custom-checkbox collection-filter-checkbox marka-field">
                                     <input onclick="getData()" data-filter='marka' value="{{ marka.id }}" type="checkbox"  class="filter-item-checkbox custom-control-input" id="{{ marka.title }}">
                                     <label class="custom-control-label" for="{{ marka.title }}">{{ marka.title }}</label>
                                 </div>
                             {% endfor %}
-                            {% endifchanged %}
-                            {% endfor %}
+
                             </div>
                         </div>
                     </div>
 
                     {% endif %}
+                    {% endif %}
+
+                    <!-- operator filter start here -->
+                    {% if internal_storage %}
+                    <div class="collection-collapse-block open" id="operator-filter-body">
+                        <h3 class="collapse-block-title">Daxili yaddaş</h3>
+                        <div class="collection-collapse-block-content">
+                            <div class="color-selector collection-brand-filter">
+                                {% for storage in internal_storages %}
+
+                                <div class="custom-control custom-checkbox collection-filter-checkbox operator-field">
+                                    <input type="checkbox" onclick="getData()" data-filter="internal_storage" value="{{ storage }}" class="filter-item-checkbox custom-control-input" id="{{ storage }}">
+                                    <label class="custom-control-label" for="{{ storage }}"> {{ storage }} </label>
+                                </div>
+
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
                     {% endif %}
 
                     <!-- color filter start here -->
                     {% if color_title %}
-                    <div class="collection-collapse-block open">
+                    
+                    <div class="collection-collapse-block open" id="color-filter-body">
                         <h3 class="collapse-block-title">Rənglər</h3>
                         <div class="collection-collapse-block-content">
                             <div class="color-selector collection-brand-filter">
-                                {% for product in products %}
-                                {% if product.color_code %}
-                                <div class="custom-control custom-checkbox collection-filter-checkbox">
-                                    <input type="checkbox" onclick="getData()" data-filter="color_title" value="{{ product.color_title }}" class="filter-item-checkbox custom-control-input" id="{{ product.color_title }}" style="border: 1px solid {{ product.color_code }}">
-                                    <label class="custom-control-label" for="{{ product.color_title }}" style="color: {{ product.color_code }}"> {{ product.color_title }} </label>
+                                {% for color in colors %}
+                                <div class="custom-control custom-checkbox collection-filter-checkbox color-field">
+                                    <input type="checkbox" onclick="getData()" data-filter="color_title" value="{{ color }}" class="filter-item-checkbox custom-control-input" id="{{ color }}" style="border: 1px solid {{ color }}">
+                                    <label class="custom-control-label" for="{{ color }}" style="color: {{ color }}"> {{ color }} </label>
                                 </div>
-                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    {% endif %}
+
+                    <!-- operator filter start here -->
+                    {% if operator %}
+                    <div class="collection-collapse-block open" id="operator-filter-body">
+                        <h3 class="collapse-block-title">Operator</h3>
+                        <div class="collection-collapse-block-content">
+                            <div class="color-selector collection-brand-filter">
+                                {% for operator in operators_codes %}
+
+                                <div class="custom-control custom-checkbox collection-filter-checkbox operator-field">
+                                    <input type="checkbox" onclick="getData()" data-filter="operator_code" value="{{ operator }}" class="filter-item-checkbox custom-control-input" id="{{ operator }}">
+                                    <label class="custom-control-label" for="{{ operator }}"> {{ operator}} </label>
+                                </div>
+
                                 {% endfor %}
                             </div>
                         </div>
                     </div>
                     {% endif %}
 
-                    <!-- operator filter start here -->
-                    {% if operator %}
-                    <div class="collection-collapse-block open">
-                        <h3 class="collapse-block-title">Operator</h3>
-                        <div class="collection-collapse-block-content">
-                            <div class="color-selector collection-brand-filter">
-                                {% for product in products %}
-                                {% if product.operator_code %}
-                                <div class="custom-control custom-checkbox collection-filter-checkbox">
-                                    <input type="checkbox" onclick="getData()" data-filter="operator_code" value="{{ product.operator_code }}" class="filter-item-checkbox custom-control-input" id="{{ product.operator_code }}">
-                                    <label class="custom-control-label" for="{{ product.operator_code }}"> {{ product.operator_code }} </label>
-                                </div>
-                                {% endif %}
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
+                    <!-- search filter custom js  -->
+                    <script>
+                        
+                        let markaBody = document.getElementById('marka-filter-body')
+                        let markas = document.querySelectorAll('.marka-field')
+
+                        let colorBody = document.getElementById('color-filter-body')
+                        let colors = document.querySelectorAll('.color-field')
+
+                        let operatorBody = document.getElementById('operator-filter-body')
+                        let operators = document.querySelectorAll('.operator-field')
+
+                        if (markaBody) {
+                            if (markas.length <= 1) {
+                                markaBody.classList.add('d-none')
+                            }
+                        }
+                        if(colorBody){
+                            if (colors.length <= 1) {
+                                colorBody.classList.add('d-none')
+                            }
+                        }
+                        if(operatorBody){
+                            if (operators.length <= 1) {
+                                operatorBody.classList.add('d-none')
+                            }
+                        }
+
+                    </script>
+                    <!-- </search filter js>  -->
 
                     {% if operator_data == None %}
                     {% if condition %}
@@ -165,6 +212,22 @@
                     <div class="offer-slider slide-1">
 
                         <div>
+                            <!-- manat icon style  -->
+                            <style>
+                                .manat-icon {
+                                    margin-left: 5px;
+                                    display: inline-block;
+                                    height: 20px;
+                                    width: 15px;
+                                }
+                                
+                                .quantity {
+                                    display: flex;
+                                    justify-content: start;
+                                }
+                            </style>
+                            <!-- </manat-icon> -->
+
                             {% for product in new_products %}
                             {% if product.operator_code == None %}
                             <div class="media"> 
@@ -174,7 +237,17 @@
                                     <a href="{% url 'product:product_detail' product.slug %}">
                                         <h6>{{ product.title }}</h6>
                                     </a>
-                                    <h4>{{product.price}} manat</h4>
+                                    <h4 class="quantity">{{product.price}} 
+                                        <svg class="manat-icon" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
+                                            <defs>
+                                                <style>
+                                                    .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
+                                                </style>
+                                            </defs>
+                                            <title>manat</title>
+                                            <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
+                                        </svg>
+                                    </h4>
                                 </div>
                             </div>
                             {% endif %}
@@ -286,10 +359,9 @@
                                                 </div>
                                                 <div class="collection-grid-view">
                                                     <ul>
-                                                        <li><img src="{% static 'images/icon/2.png' %}" alt="" class="product-2-layout-view"></li>
+                                                        <!-- <li><img src="{% static 'images/icon/2.png' %}" alt="" class="product-2-layout-view"></li> -->
                                                         <li><img src="{% static 'images/icon/3.png' %}" alt="" class="product-3-layout-view"></li>
                                                         <li><img src="{% static 'images/icon/4.png' %}" alt="" class="product-4-layout-view"></li>
-                                                        <li><img src="{% static 'images/icon/6.png' %}" alt="" class="product-6-layout-view"></li>
                                                     </ul>
                                                 </div>
                                                 <div class="product-page-per-view">
@@ -317,7 +389,7 @@
                                     <div class="row margin-res prod-items">
                                         {% for product in products %}
                                             {% if product.operator_code == None %}
-                                            <div class="col-xl-4 col-sm-12 col-md-6 col-grid-box category-pro" for-filter="{{product.category.all.0.id}}">
+                                            <div class="col-xl-4 col-sm-12 col-md-6 col-grid-box category-pro" for-filter="{% if categories %} {{categories.id}}{% endif %}">
                                                 <div class="product-box">
                                                     <div class="img-wrapper">
                                                         <div class="front">
@@ -358,7 +430,17 @@
                                                             </a>
                                                             <p>{{ product.description }}
                                                             </p>
-                                                            <h4>{{ product.price }} manat</h4>
+                                                            <h4 class="quantity">{{ product.price }} 
+                                                                <svg class="manat-icon" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
+                                                                    <defs>
+                                                                        <style>
+                                                                            .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
+                                                                        </style>
+                                                                    </defs>
+                                                                    <title>manat</title>
+                                                                    <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
+                                                                </svg>
+                                                            </h4>
                                                             {% if product.color_title %}
                                                             <ul class="color-variant">
                                                                 <li class="bg-light0" style="background-color: {{ product.color_code }} !important;"></li>
@@ -405,7 +487,7 @@
                                                                 <div class="numberCard__container__footer-price">
                                                                     <span class="text-dark">
                                                                         {{ product.price }}
-                                                                        <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
+                                                                        <svg class="manat-icon" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
                                                                             <defs>
                                                                                 <style>
                                                                                     .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}

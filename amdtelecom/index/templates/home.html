@@ -111,8 +111,10 @@
                                     {% if product.operator_code == None %}
                                     <div class="product-box product-wrap">
                                         <div class="img-wrapper">
+                                            {% if product.is_new %}<div class="lable-block"><span class="lable3">new</span></div>{% endif %}
+                                            {% if product.is_discount %}<div class="lable-block"><span class="lable3" style="left:unset; right:7px">Endirim</span></div>{% endif %}
                                             <div class="front">
-                                                <a href="{% url 'product:product_detail' product.slug %}">
+                                                <a href="{% url 'product:product_detail' product.slug %}" style="height: 271px;">
                                                     {% for image in product.images.all %}
                                                     {% if image.is_main %}
                                                     <img
@@ -123,7 +125,7 @@
                                                     </a>
                                             </div>
                                             <div class="back">
-                                                <a href="{% url 'product:product_detail' product.slug %}">
+                                                <a href="{% url 'product:product_detail' product.slug %}" style="height: 271px;">
                                                     {% for image in product.images.all %}
                                                     {% if image.is_second_main %}
                                                     <img
@@ -133,7 +135,7 @@
                                                     {% endfor %}
                                                     </a>
                                             </div>
-                                            <div class="cart-detail">
+                                            <div class="cart-detail" style="top:45px">
                                                 <button data-toggle="modal" data-target="#addtocart"
                                                     title="Add to cart"><i class="ti-shopping-cart"></i></button>
                                                     <!-- <a href="javascript:void(0)" title="Add to Wishlist"><i
@@ -155,7 +157,30 @@
                                                     {% endif %} {% endcomment %}
                                                 </h6>
                                             </a>
-                                            <h4>{{product.price}} manat</h4>
+                                            <h4 class="">{{product.get_price}} 
+                                                <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
+                                                    <defs>
+                                                        <style>
+                                                            .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
+                                                        </style>
+                                                    </defs>
+                                                    <title>manat</title>
+                                                    <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
+                                                </svg>
+                                                {% if product.is_discount %} <del>{{ product.price }} </del>
+                                                <del>
+                                                    <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
+                                                        <defs>
+                                                            <style>
+                                                                .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
+                                                            </style>
+                                                        </defs>
+                                                        <title>manat</title>
+                                                        <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
+                                                    </svg>
+                                                    </del>
+                                                 
+                                                {% endif %}
                                         </div>
                                     </div>
                                     {% endif %}
@@ -168,6 +193,8 @@
                                     {% if product.operator_code == None %}
                                     <div class="product-box product-wrap">
                                         <div class="img-wrapper">
+                                        {% if product.is_new %}<div class="lable-block"><span class="lable3">new</span></div>{% endif %}
+                                        {% if product.old_price %}<div class="lable-block"><span class="lable3" style="left:unset; right:7px">Endirim</span></div>{% endif %}
                                             <div class="front">
                                                 <a href="{% url 'product:product_detail' product.slug %}">
                                                     {% for image in product.images.all %}
@@ -212,7 +239,17 @@
                                                     {% endif %}
                                                 </h6>
                                             </a>
-                                            <h4>{{product.price}} manat</h4>
+                                            <h4>{{product.price}} 
+                                                <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
+                                                    <defs>
+                                                        <style>
+                                                            .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
+                                                        </style>
+                                                    </defs>
+                                                    <title>manat</title>
+                                                    <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
+                                                </svg>
+                                            </h4>
                                         </div>
                                     </div>
                                     {% endif %}
@@ -225,6 +262,8 @@
                                     {% if product.operator_code == None %}
                                     <div class="product-box product-wrap">
                                         <div class="img-wrapper">
+                                            {% if product.is_new %}<div class="lable-block"><span class="lable3">new</span></div>{% endif %}
+                                            {% if product.old_price %}<div class="lable-block"><span class="lable3" style="left:unset; right:7px">Endirim</span></div>{% endif %}
                                             <div class="front">
                                                 <a href="{% url 'product:product_detail' product.slug %}">
                                                     {% for image in product.images.all %}
@@ -269,7 +308,17 @@
                                                     {% endif %}
                                                 </h6>
                                             </a>
-                                            <h4>{{product.price}} manat</h4>
+                                            <h4>{{product.price}} 
+                                                <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
+                                                    <defs>
+                                                        <style>
+                                                            .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
+                                                        </style>
+                                                    </defs>
+                                                    <title>manat</title>
+                                                    <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
+                                                </svg>
+                                            </h4>
                                         </div>
                                     </div>
                                     {% endif %}
