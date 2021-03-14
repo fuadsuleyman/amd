@@ -36,7 +36,6 @@ class ProductFilterListAPIView(ListAPIView):
     def get_queryset(self):
         result = True
         category = self.request.GET.get('category')
-        print(category, 'kaet')
         products = Product.objects.filter(category=category)
         # products = Product.objects.filter(is_published=True)
         
@@ -47,7 +46,6 @@ class ProductFilterListAPIView(ListAPIView):
         min_price = self.request.GET.get('price_min')
         max_price = self.request.GET.get('price_max')
         operators = self.request.GET.getlist('operator_code[]')
-        print(internal_storages, 'apilar')
         if operators:
             if min_price:
                 products = products.filter(operator_code__in=operators).filter(price__range=(min_price, max_price) or None)

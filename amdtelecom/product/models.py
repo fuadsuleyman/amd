@@ -209,6 +209,8 @@ class Product(models.Model):
             is_new = True
 
     def __str__(self):
+        if self.operator_code not in (None, ''):
+            return f'({self.operator_code}) {self.title}'
         return f'{self.title}'
 
 

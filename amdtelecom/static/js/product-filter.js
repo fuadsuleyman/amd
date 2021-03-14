@@ -125,22 +125,20 @@ function getData() { // filter product data return products
                         <a href="${domain}product/${product.slug}/">
                         <img
                             src="${getProImage(product.images[1])}"
-                            class="img-fluid blur-up lazyload bg-img" alt="${product.title}" style="height: 271px;">
+                            class="img-fluid blur-up lazyload bg-img" alt="${product.title}">
                         </a>
                     </div>
                     <div class="back">
                         <a href="${domain}product/${product.slug}/">
                             <img
                                 src="${getProImage(product.images[0])}"
-                                class="img-fluid blur-up lazyload bg-img" alt="${product.title}" style="height: 271px;">
+                                class="img-fluid blur-up lazyload bg-img" alt="${product.title}">
                             </a>
                     </div>
                     <div class="cart-info cart-wrap">
-                        <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
-                                class="ti-shopping-cart"></i></button> <a href="javascript:void(0)" title="Add to Wishlist"><i
-                                class="ti-heart" aria-hidden="true"></i></a> <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View"><i
-                                class="ti-search" aria-hidden="true"></i></a> <a href="compare.html" title="Compare"><i
-                                class="ti-reload" aria-hidden="true"></i></a>
+                        <button data-toggle="modal" data-target="#addtocart" title="Add to cart">
+                            <i class="ti-shopping-cart"></i>
+                        </button> 
                     </div>
                     `
 
@@ -158,7 +156,8 @@ function getData() { // filter product data return products
                     if(product.operator_code) {
 
                         products += `
-                            <div class="col-xl-4 col-6 col-grid-box category-pro" style="margin-top: 20px;">
+                            <div class="col-xl-3 col-sm-6 col-md-4 col-grid-box category-pro" style="margin-top: 20px;">
+                            
                             <div class="numberCard">
                                 <div class="numberCard__container">
 
@@ -213,16 +212,14 @@ function getData() { // filter product data return products
                     else {
                         if (product.color_code != null){ // productun rengi ucun
                             products += `
-                                    <div class="col-xl-3 col-6 col-grid-box">
+                                    <div class="col-xl-3 col-sm-6 col-md-4 col-grid-box category-pro">
                                     <div class="product-box">
                                         <div class="img-wrapper">
                                             ${ product.images.length > 1 ? mainSeconImage : secondImage }
                                             <div class="cart-info cart-wrap">
-                                                <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
-                                                        class="ti-shopping-cart"></i></button> <a href="javascript:void(0)" title="Add to Wishlist"><i
-                                                        class="ti-heart" aria-hidden="true"></i></a> <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View"><i
-                                                        class="ti-search" aria-hidden="true"></i></a> <a href="compare.html" title="Compare"><i
-                                                        class="ti-reload" aria-hidden="true"></i></a>
+                                                <button data-toggle="modal" data-target="#addtocart" title="Add to cart">
+                                                    <i class="ti-shopping-cart"></i>
+                                                </button> 
                                             </div>
                                         </div>
                                         <div class="product-detail">
@@ -245,7 +242,7 @@ function getData() { // filter product data return products
                         }
                         else {
                             products += `
-                                    <div class="col-xl-3 col-6 col-grid-box">
+                                    <div class="col-xl-3 col-sm-6 col-md-4 col-grid-box category-pro">
                                     <div class="product-box">
                                         <div class="img-wrapper">
                                         ${ product.images.length > 1 ? mainSeconImage : secondImage }

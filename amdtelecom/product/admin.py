@@ -68,7 +68,7 @@ class ProductDetailNameAdmin(admin.TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("title", "price", "is_new", 'get_image', 'show_markas', ) #"get_image"
+    list_display = ("title", "price", "is_new", 'get_image', 'show_markas', 'get_color',) #"get_image"
     list_display_links = ("title",)
     list_filter = ("price", "category",)
     search_fields = ('title', "category__title", "Marka")
@@ -95,34 +95,39 @@ class ProductAdmin(admin.ModelAdmin):
         }),
     )
 
-    def save_related(self, request, form, formsets, change):
-        super().save_related(request, form, formsets, change)
-        product = form.instance
-        count = 0
-        if not product.slug:
-            # product.slug = f'{slugify(product.title)}-{product.id}'
-            if product.ram and product.internal_storage:
-                slug = f'{product.marka.first().title} {product.title}-{product.ram}-{product.internal_storage}-{product.color_title}'
-                product.title = f'{product.marka.first().title} {product.title} {product.ram} {product.internal_storage} {product.color_title}'
-                product.slug = f'{slugify(slug)}'
+    # def save_related(self, request, form, formsets, change):
+    #     super().save_related(request, form, formsets, change)
+    #     product = form.instance
+    #     count = 0
+    #     if not product.slug:
+    #         # product.slug = f'{slugify(product.title)}-{product.id}'
+    #         product.title = f'{product.marka.first().title} {product.title} {product.ram} {product.internal_storage} {product.color_title}'
+    #         if product.ram and product.internal_storage:
+    #             slug = f'{product.marka.first().title} {product.title} {product.ram} {product.internal_storage} {product.color_title}'
+    #             product.slug = f'{slugify(slug)}'
                 
-            else:
-                product.title = f'{product.marka.first().title} {product.title} {product.color_title}'
-        else:
-            count += 1
-            product.title = f'{product.title}{count}'
-            product.slug = f'{slugify(product.slug)}{count}'
-            product.save()
+    #         else:
+    #             product.title = f'{product.marka.first().title} {product.title} {product.color_title}'
+    #     else:
+    #         count += 1
+    #         product.title = f'{product.title}{count}'
+    #         product.slug = f'{slugify(product.slug)}{count}'
+    #         product.save()
 
 
     def show_markas(self, obj):
         return ' '.join([product.title for product in obj.marka.all()])
+
+    def get_color(self, obj):
+        return mark_safe(f'<div style="width: 30px !important; height: 30px !important; border-radius: 50% !important; background-color: {obj.color_code} !important"></div>')
 
     def get_image(self, obj):
         return mark_safe(f'<img src={obj.images.get(is_main=True).imageURL} width="50" height="60"')
 
 
     show_markas.short_description = "Marka"
+
+    get_color.short_description = "Color"
 
     get_image.short_description = "Image"
 
