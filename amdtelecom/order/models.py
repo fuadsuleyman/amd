@@ -8,24 +8,14 @@ from django.core.validators import MinLengthValidator
 
 class Order(models.Model):
 
-    NUMBER_CHOICES = (
-        ('050', '050'),
-        ('051', '051'),
-        ('055', '055'),
-        ('070', '070'),
-        ('077', '077'),
-        ('099', '099'),
-    )
-
     name = models.CharField('name', max_length=50, blank=True, null=True)
     surname = models.CharField('surname', max_length=50, blank=True, null=True)
     email = models.EmailField('email',max_length=50, blank=True, null=True)
-    num_title = models.CharField('num title',max_length=10, choices=NUMBER_CHOICES, blank=True, null=True)
     tel_number = models.CharField('telefon', max_length=10, validators=[MinLengthValidator(10)], error_messages={'required': 'Mobil nomre 10 reqemli olmalidir'}, blank=True, null=True)
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
     complete = models.BooleanField('Complete', default=False)
     transaction_id = models.CharField('Transaction id', max_length=100, null=True)
-    message = models.TextField("Message", null=False, blank=True)
+    message = models.TextField("Comment", null=False, blank=True)
     # moderations
     status = models.BooleanField('Status', default=True)
     created_at = models.DateTimeField(auto_now_add=True)
