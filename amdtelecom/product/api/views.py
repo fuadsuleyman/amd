@@ -5,9 +5,9 @@ from rest_framework.generics import ListAPIView
 from rest_framework.decorators import api_view
 from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED
 from rest_framework.response import Response
-from rest_framework import filters
 
-
+# from rest_framework.pagination import 
+# from .pagination import CustomProductPaginator
 
 from ..models import (
     Product, 
@@ -29,16 +29,15 @@ def all_product(request):
     serializer = ProductSerializer(products, many=True, context = {'request' : request})
     return Response(data=serializer.data, status=HTTP_200_OK)
 
+
 class ProductFilterListAPIView(ListAPIView):
     serializer_class = ProductSerializer
-
+    # pagination_class = CustomProductPaginator
 
     def get_queryset(self):
-        result = True
         category = self.request.GET.get('category')
         products = Product.objects.filter(category=category)
-        # products = Product.objects.filter(is_published=True)
-        
+
         color_title = self.request.GET.getlist('color_title[]')
         internal_storages = self.request.GET.getlist('internal_storage[]')
         is_new = self.request.GET.getlist('is_new[]')
@@ -46,6 +45,7 @@ class ProductFilterListAPIView(ListAPIView):
         min_price = self.request.GET.get('price_min')
         max_price = self.request.GET.get('price_max')
         operators = self.request.GET.getlist('operator_code[]')
+
         if operators:
             if min_price:
                 products = products.filter(operator_code__in=operators).filter(price__range=(min_price, max_price) or None)
@@ -54,7 +54,7 @@ class ProductFilterListAPIView(ListAPIView):
         else:
             if min_price:
                 products = products.filter(price__range=(min_price, max_price) or None)
-                
+        
         if color_title:
             if min_price:
                 products = products.filter(color_title__in=color_title).filter(price__range=(min_price, max_price) or None)
@@ -106,18 +106,11 @@ class ProductMarkaListAPIView(ListAPIView):
 
 class SearchListAPIView(ListAPIView):
     serializer_class = SearchSerializer
-    # search_fields = ['title', 'category__title']
-    # filter_backends = (filters.SearchFilter,)
 
     def get_queryset(self):
         queryset = Product.objects.filter(is_published=True).filter(operator_code__isnull=False).order_by('-created_at')
         query = self.request.GET.get('q')
-        print(query)
         if query:
-            print(query, 'basliq')
-            # products = Product.objects.filter(Q(category__title__icontains=title) and Q(title__icontains=title) and Q(operator_code=None))
-            # category = queryset.filter(category__title__icontains=title).distinct()[:6]
-            # product = queryset.filter(title__icontains=title).distinct()[:6]
             product = Product.objects.filter(operator_code=None).filter( Q(title__icontains=query) | Q(category__title__icontains=query)).order_by('-created_at').distinct()[:5]
             print(product)
 

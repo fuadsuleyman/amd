@@ -4208,7 +4208,7 @@ header {
     text-transform: lowercase; }
 
 .theme-modal .modal-dialog .modal-content .modal-body {
-  background-image: linear-gradient(135deg, var(--theme-deafult) 5.77%, #ffffff 5.77%, #ffffff 25%, #111111 25%, #111111 30.77%, #ffffff 30.77%, #ffffff 50%, var(--theme-deafult) 50%, var(--theme-deafult) 55.77%, #ffffff 55.77%, #ffffff 75%, #111111 75%, #111111 80.77%, #ffffff 80.77%, #ffffff 100%);
+  /* background-image: linear-gradient(135deg, var(--theme-deafult) 5.77%, #ffffff 5.77%, #ffffff 25%, #111111 25%, #111111 30.77%, #ffffff 30.77%, #ffffff 50%, var(--theme-deafult) 50%, var(--theme-deafult) 55.77%, #ffffff 55.77%, #ffffff 75%, #111111 75%, #111111 80.77%, #ffffff 80.77%, #ffffff 100%); */
   background-size: 36.77px 36.77px;
   background-color: white; }
   .theme-modal .modal-dialog .modal-content .modal-body .modal-bg {
@@ -14562,8 +14562,15 @@ body.dark {
       right: 5px; } }
 
 @media (max-width: 991px) {
-  .top-header .header-contact {
-    display: none; } }
+  .header-contact-left > .header-contact {
+    display: none; 
+  }
+  .icon-nav.search {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+}
 
 @media (min-width: 578px) {
   .main-menu .menu-right .icon-nav .mobile-search i, .main-menu .menu-right .icon-nav .mobile-cart i, .main-menu .menu-right .icon-nav .mobile-setting i {
@@ -14574,8 +14581,8 @@ body.dark {
     display: inline-block; } }
 
 @media (max-width: 577px) {
-  .top-header {
-    height: 0; }
+  /* .top-header {
+    height: 0; } */
   .main-nav-center .toggle-nav {
     right: 15px;
     top: -85px; }
@@ -15926,7 +15933,9 @@ body.dark {
     .collection-filter .collection-sidebar-banner {
       padding: 0 30px; }
   .collection-filter-block {
-    border: none; }
+    border: none;
+    margin-top: 61px;
+  }
   .collection-mobile-back {
     display: block; }
   .collection .section-t-space {
@@ -16293,6 +16302,9 @@ body.dark {
     background-color: #2b2b2b; } }
 
 @media (max-width: 767px) {
+  .layout3-menu .main-menu .menu-left .main-menu-right .toggle-nav {
+    left: 0;
+}
   .container-fluid.custom-container {
     padding-left: 30px;
     padding-right: 30px; }

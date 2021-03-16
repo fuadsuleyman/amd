@@ -132,7 +132,6 @@ class ProductsListView(ListView):
 
         # for remove duplicate color title in colors_list
         colors = []
-        # [colors.append(i['color_title']) for i in colors_list if i['color_title'] not in colors]
         for i in colors_list:
             if i['color_title'] != None:
                 colors.append(i['color_title'])
@@ -145,13 +144,10 @@ class ProductsListView(ListView):
 
         # for append list only defaul not none ram field no duplicate
         internal_storages = []
-        # [internal_storages.append(i['internal_storage']) for i in internal_storages_list if i['internal_storage'] not in internal_storages]
-
         for i in internal_storages_list:
             if i['internal_storage'] != None:
                 internal_storages.append(i['internal_storage'])
         internal_storages = list(dict.fromkeys(internal_storages))
-
 
         # for filter template page for view or no
         marka = False
@@ -179,10 +175,9 @@ class ProductsListView(ListView):
             else:
                 operator_data = item.operator_code
 
-
         # for paginator customize
         page = self.request.GET.get('page')
-        paginator = Paginator(products, 3)
+        paginator = Paginator(products, 20)
         print(paginator, 'psginator')
 
         try:
@@ -191,7 +186,7 @@ class ProductsListView(ListView):
             products = paginator.page(1)
         except EmptyPage:
             products = paginator.page(paginator.num_pages)
-            
+
         context = {
             'products': products,
             'categories': category,
@@ -210,26 +205,13 @@ class ProductsListView(ListView):
         print(context)
         return context
 
-    def get_queryset(self):
-        queryset = super(ProductsListView, self).get_queryset()
+    # def get_queryset(self):
+    #     queryset = super(ProductsListView, self).get_queryset()
 
-        slug = self.kwargs['slug']
-        category = get_object_or_404(Category, slug=slug)
-        queryset = Product.objects.filter(category=category).filter(is_published=True)
-        # if self.request.GET.get('slug'):
-            # queryset_list = queryset_list.filter(category__slug=self.request.GET.get('slug'))
-            # queryset = 
-        return queryset
-
-
-# def product_filter(request, slug):
-#     print(slug, 'belede')
-#     category = Category.objects.get(slug=slug)
-#     print(category, 'belede')
-#     products = Product.objects.filter(category=category).first()
-#     print(products, 'elcn')
-#     context = {
-#         'products_list': products,
-#         'categories': category
-#     }
-#     return render(request, 'products.html', context)
+    #     slug = self.kwargs['slug']
+    #     category = get_object_or_404(Category, slug=slug)
+    #     queryset = Product.objects.filter(category=category).filter(is_published=True)
+    #     # if self.request.GET.get('slug'):
+    #         # queryset_list = queryset_list.filter(category__slug=self.request.GET.get('slug'))
+    #         # queryset = 
+    #     return queryset

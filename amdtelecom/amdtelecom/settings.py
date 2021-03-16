@@ -176,6 +176,11 @@ AUTH_PASSWORD_VALIDATORS = [
 #     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
 # }
 
+# REST_FRAMEWORK = {
+#     # 'DEFAULT_PAGINATION_CLASS': 'product.api.pagination.CustomProductPaginator',
+#     'PAGE_SIZE': 3
+# }
+
 INTERNAL_IPS = [
     # ...
     '127.0.0.1',
@@ -211,11 +216,11 @@ STATIC_URL = '/static/'
 if PROD:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATICFILES_DIRS = [
         BASE_DIR / "static",
     ]
     
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # STATICFILES_DIRS = [
 #     BASE_DIR / "static",

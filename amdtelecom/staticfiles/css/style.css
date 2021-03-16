@@ -54,7 +54,7 @@
     height: auto;
     margin-top: 10px;
     border-radius: 16px;
-    border: 1px solid black;
+    border: 1px solid rgb(179, 178, 178);
 }
 .body:first-child {
     border-top-left-radius: 16px;
@@ -73,7 +73,7 @@
 .mobile-search--body-results .body {
     display: flex;
     height: 75px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid rgb(179, 178, 178);
     background-color: white;
 }
 

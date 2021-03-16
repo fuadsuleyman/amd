@@ -96,6 +96,7 @@ function getSearchProMarka(title){
             url: `${urlDomain}api/v1.0/filter-api-product-markas/`,
             
         });
+        console.log(datas, 'assss');
         jsonDatas = datas.responseJSON
         for(let item of jsonDatas){
             if (item.title == title ) {
@@ -134,7 +135,6 @@ async function getSearchData(value){
             searchBody.html('')
 
             for (let product of datas){
-
                 slug = `${urlDomain}product/${product.slug}/`
                 console.log(product.operator_code);
                 productBody += `
