@@ -1098,9 +1098,12 @@
             e.preventDefault();
             $(".product-load-more .col-grid-box:hidden").slice(0, 4).slideDown();
             if ($(".product-load-more .col-grid-box:hidden").length === 0) {
-                $(".loadMore").text('no more products');
+                $(".loadMore").css('display', 'none')
             }
         });
+        if ($(".product-load-more .col-grid-box:hidden").length > 0) {
+            $(".loadMore").css('display', 'block')
+        }
     });
 
 
@@ -1154,7 +1157,7 @@
         $.notify({
             icon: 'fa fa-check',
             title: 'Success!',
-            message: 'Item Successfully added in wishlist'
+            message: 'Məhsul səbətə uğurla əlavə edildi'
         }, {
             element: 'body',
             position: null,
