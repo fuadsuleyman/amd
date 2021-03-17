@@ -1104,6 +1104,9 @@
         if ($(".product-load-more .col-grid-box:hidden").length > 0) {
             $(".loadMore").css('display', 'block')
         }
+        else {
+            $(".loadMore").css('display', 'none')
+        }
     });
 
 
