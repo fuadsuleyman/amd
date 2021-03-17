@@ -406,7 +406,7 @@
                                             </div>                                        
                                             
                                             <div class="product-description product-buttons">
-                                                <input data-target="#addtocart" type="submit" class="btn btn-solid" value="Add to Cart">
+                                                <input data-target="#addtocart" type="submit" class="btn btn-solid incre-cart" value="Add to Cart">
                                                 <a href="#" class="btn btn-solid">Sifariş et</a>
                                             </div>
                                         </form>
@@ -687,5 +687,25 @@
         </div>
     </section>
     <!-- related products -->
+    <script>
+
+    let cart_badge3 = document.querySelector('.cart-badge');
+
+    let addtocartbtn = document.querySelector('.incre-cart');
+
+    addtocartbtn.addEventListener('click', letsIncementCart)
+
+    function letsIncementCart(){
+        // alert("Hello! I am an alert box!");
+        console.log("Submite girdi product detailde")
+        let itemCountLocStorage = localStorage.getItem('cartItems')
+        itemCountLocStorage = parseInt(itemCountLocStorage)
+        localStorage.setItem('cartItems', itemCountLocStorage+1)
+        cart_badge3.innerText = localStorage.getItem('cartItems')
+    }
+    
+
+
+    </script>
 
     {% endblock content %}

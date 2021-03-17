@@ -92,8 +92,8 @@ class ProductDetailView(DetailView):
             device = self.request.COOKIES['device']
             customer, created = Customer.objects.get_or_create(device=device)
 
-        # order, created = Order.objects.get_or_create(customer=customer, complete=False)
-        orderItem, created = OrderItem.objects.get_or_create(customer=customer, product=product)
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        orderItem, created = OrderItem.objects.get_or_create(customer=customer, product=product, order=order)
         orderItem.quantity=request.POST['quantity']
         orderItem.save()
 

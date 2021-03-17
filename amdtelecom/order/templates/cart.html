@@ -2,7 +2,7 @@
 {% block content %}
 
 {% load static %}
-{% if items != None %}
+{% if order != None %}
 
 <!-- breadcrumb start -->
 <div class="breadcrumb-section">
@@ -45,7 +45,7 @@
                     </thead>
                     
                     <tbody>
-                        {% for item in items %}
+                        {% for item in order.orderitem_set.all %}
                         <tr>
                             <td>
                                 {% for id, img in imgs.items %}
@@ -134,7 +134,7 @@
                         <tr>
                             <td>total price :</td>
                             <td>
-                                <h2 class="d-flex"><span class="price-total-grand">{{total|floatformat:2}}</span>
+                                <h2 class="d-flex"><span class="price-total-grand">{{order.get_cart_total|floatformat:2}}</span>
                                     <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
                                         <defs>
                                             <style>
@@ -157,11 +157,26 @@
         </div>
     </div>
 </section>
+
 <script>
 
-    // let addCartCountToLocalStorage = (count) => {
-    //     localStorage.setItem('cartItems', count)
-    // }
+    let cart_badge2 = document.querySelector('.cart-badge')
+    console.log(`cart_badge2: ${cart_badge2}`)
+
+    function updateCart(){
+        console.log("girdi update carta")
+        let itemCountLocStorage = localStorage.getItem('cartItems')
+        itemCountLocStorage = parseInt(itemCountLocStorage)
+        console.log(`update cartdayam, localdaki deyer: ${itemCountLocStorage}`)
+        cart_badge2.innerHTML = itemCountLocStorage
+    }
+
+    updateCart()
+
+    
+    let addCartCountToLocalStorage2 = (count) => {
+        localStorage.setItem('cartItems', count)
+    }
 
     let getGrandTotal = (arr) => {
                 let sum = 0
@@ -179,8 +194,13 @@
     
     
     function confirm_delete(e){
-
-        console.log(e.target)
+        
+        let itemCountLocStorage = localStorage.getItem('cartItems')
+        itemCountLocStorage = parseInt(itemCountLocStorage)
+        cart_badge2.innerText = itemCountLocStorage -1
+        localStorage.setItem('cartItems', itemCountLocStorage-1)
+        
+        // console.log(e.target)
         let id = e.target.getAttribute('data-id')
         e.target.closest("tr").remove()
         // console.log(`id delete ${id}`)
@@ -197,23 +217,6 @@
             grandTotalPriceInt.push(parseInt(allTotalPrices[i].innerHTML)) 
         }
 
-        // console.log(`Totallrain cemi deletden sonra: ${grandTotalPriceInt}`)
-
-        // document.querySelector(".price-total-grand").innerHTML = getGrandTotal(grandTotalPriceInt).toFixed(2)
-
-        // addCartCountToLocalStorage(document.querySelectorAll(".product-title").length)
-
-        
-
-        // let allTotalPrices = document.querySelectorAll(".price-total")
-
-        // grandTotalPriceInt = []
-
-        // for (let i=0; i < allTotalPrices.length; i++){
-        //     grandTotalPriceInt.push(parseInt(allTotalPrices[i].innerHTML)) 
-        // }
-
-        // document.querySelector(".price-total-grand").innerHTML = getGrandTotal(grandTotalPriceInt).toFixed(2)
         document.querySelector(".price-total-grand").innerHTML = getGrandTotal(grandTotalPriceInt).toFixed(2)
 
         e.preventDefault()
@@ -225,8 +228,8 @@
         })
         .then(res => res.text()) // or res.json()
         .then(res => console.log(`deleted ${res}`))
-        .then(res => addCartCountToLocalStorage(document.querySelectorAll(".product-title").length))
-        // .then(res => window.location.reload())
+        // .then(res => addCartCountToLocalStorage(document.querySelectorAll(".product-title").length))
+
     }
 
     let changeQuantElem = document.querySelectorAll(".change-quantity")
@@ -236,56 +239,27 @@
     }
 
     function confirm_update(e){
+
+
         let id_patch = e.target.getAttribute('data-id-patch')
         const url_patch = `http://localhost:8000/api-order/orderItem-patch/${id_patch}/`;
         const url_del = `http://localhost:8000/api-order/orderItem-delete/${id_patch}/`;
 
         let clickedTr = e.target.closest("tr")
-        // console.log(e.target.closest("tr").childNodes[11].querySelector(".price-total").innerHTML)
-        // console.log(`price: ${parseInt(e.target.closest("tr").childNodes[5].querySelector("h2").innerHTML.split(" ")[1])}`)
         clickedPrice = parseInt(e.target.closest("tr").childNodes[5].querySelector("h2").innerHTML.split(" ")[1])
-        // console.log(clickedPrice)
-        // let pric = clickedTr[0].querySelector(".data-price")
-        // console.log(pric)
-
-        // let price2 = document.querySelectorAll('.data-price')
-        // console.log(`tr id: ${price2}`)
-
-        // for (let i=0; i < price2.length; i++){
-            // console.log(`target from loop: ${e.target}`)
-            // console.log(`from loop: ${price2[i].innerHTML}`)
-        //     console.log(`id from loop ${e.target.closest("td").getElementsByClassName('.data-price').innerHTML}`)
-        // }
-
-        // console.log(typeof(price2))
-        // console.log(`price2: ${price2}`)
-        // let priceSplited = price2.split(' ')
-        // priceInt = parseInt(priceSplited[1])
         let quantity = e.target.value
-        // console.log(priceInt)
-
-        // document.querySelector('.price-total').innerHTML = (clickedPrice * quantity).toFixed(2)
-
-        // e.target.closest("tr").childNodes[5].querySelector("h2").innerHTML = (clickedPrice * quantity).toFixed(2)
- 
         e.target.closest("tr").childNodes[11].querySelector(".price-total").innerHTML = (clickedPrice * quantity).toFixed(2)
 
         let allTotalPrices = document.querySelectorAll(".price-total")
-        // console.log(`allTotalPrices ${allTotalPrices[0].innerHTML}`)
-        // console.log(`allTotalPrices ${typeof(allTotalPrices[0].innerHTML)}`)
-
+        
         grandTotalPriceInt = []
 
         for (let i=0; i < allTotalPrices.length; i++){
             grandTotalPriceInt.push(parseInt(allTotalPrices[i].innerHTML)) 
         }
         
-        // console.log(grandTotalPriceInt)
-        // console.log(`gt: ${getGrandTotal(grandTotalPriceInt)}`)
-
         document.querySelector(".price-total-grand").innerHTML = getGrandTotal(grandTotalPriceInt).toFixed(2)
 
-        // console.log(`quantity: ${quantity}`)
         if (e.target.value != 0) {
             fetch(url_patch, {
             method: 'PATCH',
@@ -300,8 +274,13 @@
         .then(res => res.text()) // or res.json()
         .then(res => console.log(`updated ${res}`))
         } else if (e.target.value == 0) {
+
+            let itemCountLocStorage = localStorage.getItem('cartItems')
+            itemCountLocStorage = parseInt(itemCountLocStorage)
+            cart_badge2.innerText = itemCountLocStorage -1
+            localStorage.setItem('cartItems', itemCountLocStorage-1)
+
             e.target.closest("tr").remove()
-            // addCartCountToLocalStorage(document.querySelectorAll(".product-title").length)
             
             e.preventDefault()
             fetch(url_del, {
@@ -312,7 +291,6 @@
             })
             .then(res => res.text()) // or res.json()
             .then(res => console.log(`deleted ${res}`))
-            // .then(res => window.location.reload())
         }
         
     }
@@ -325,22 +303,17 @@
 
     var csrftoken = getCookie('csrftoken');
 
-    // cartItemCount = document.querySelectorAll(".product-title").length
-    // console.log(`cart item count: ${cartItemCount}`)
-
-    let addCartCountToLocalStorage = (count) => {
-        localStorage.setItem('cartItems', count)
-    }
-
-    addCartCountToLocalStorage(document.querySelectorAll(".product-title").length) 
+    // addCartCountToLocalStorage(document.querySelectorAll(".product-title").length) 
     console.log(document.querySelectorAll(".product-title").length)
 
     
 
 </script>
+ 
 <!--section end-->
 {% else %}
 	<h1 style="text-align:center;padding: 100px">No Items in cart</h1>
 {% endif %}
+
 
 {% endblock content %}

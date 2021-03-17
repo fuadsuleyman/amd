@@ -1320,7 +1320,7 @@ header {
     .top-header.top-header-dark2 .header-contact li {
       color: #7f786d; }
       .top-header.top-header-dark2 .header-contact li i {
-        color: #7f786d; }
+        color: white; }
     .top-header.top-header-dark2 .header-dropdown li {
       color: #7f786d; }
       .top-header.top-header-dark2 .header-dropdown li a {
@@ -8772,7 +8772,8 @@ footer {
       color: #222222;
       font-weight: 600; }
   .checkout-page .checkout-form .form-group label {
-    color: #777777; }
+    color: black !important; 
+  }
 
 .checkout-page .checkout-form select {
   cursor: pointer;

@@ -86,7 +86,7 @@ class CheckoutForm(forms.ModelForm):
             'tel_number': forms.NumberInput(attrs={
                 'class': 'form-control form-number',
                 'type': 'tel',
-                'placeholder': 'Nümunə 0502702569',
+                'placeholder': 'Nömrənizi daxil edin',
                 # 'minlength': "10",
                 # 'maxlegth': "10",
                 'required': True

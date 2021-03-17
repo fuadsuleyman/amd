@@ -9,4 +9,6 @@ urlpatterns = [
     path('orderItem-update/<str:pk>/', views.update_order_item, name="orderItem-update"),
     path('orderItem-patch/<str:pk>/', views.patch_order_item, name="orderItem-patch"),
     path('orderItem-delete/<str:pk>/', views.delete_order_item, name="orderItem-delete"),
+    path('orderItem-count/', views.get_order_items_count, name="orderItem-count"),
+    path('orderItem-listbypaginator/', views.ApiOrderItemsView.as_view(), name="orderItem-paginator"),
 ]

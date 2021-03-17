@@ -8,13 +8,11 @@ from account.models import Customer
 from django.template.loader import render_to_string
 
 
-
-
 # @receiver(post_save, sender=Order)
 def send_form(instance, **kwargs):
     subject= 'Checkout'
 
-
+    
     context = {
         'order': instance
     }

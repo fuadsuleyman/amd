@@ -1,14 +1,17 @@
 from django.http.response import Http404
 from django.shortcuts import render
+from account.models import Customer
 
 # Create your views here.
 
 # all_products, get_product, create_product, update_product, delete_product
 
-from order.models import *
+from order.models import Order, OrderItem
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.generics import ListAPIView
 from .serializers import OrderItemSerializer
 # from .serializers import ProductPriceUpdateSerializer
 
@@ -32,6 +35,19 @@ def all_order_items(request):
     serializer = OrderItemSerializer(orderItems, many=True)
     return Response(serializer.data)
 
+@api_view(['GET'])
+def get_order_items_count(request):
+    # orderItems = OrderItem.objects.all()
+    # serializer = OrderItemSerializer(orderItems, many=True)
+    # count = OrderItem.objects.count()
+    # device = request.COOKIES['device']
+    # customer, created = Customer.objects.get_or_create(device=device)
+    order = Order.objects.get(complete=False)
+    items_count = order.orderitem_set.all().count()
+
+    return Response(items_count)
+
+
 
 @api_view(['GET'])
 def get_order_item(request, pk):
@@ -41,6 +57,8 @@ def get_order_item(request, pk):
     except OrderItem.DoesNotExist:
         raise Http404
     return Response(serializer.data)
+
+
 
 
 @api_view(['POST'])
@@ -73,7 +91,6 @@ def update_order_item(request, pk):
             serializer.save()
     except OrderItem.DoesNotExist:
         raise Http404
-    
     return Response(serializer.data)
 
 
@@ -86,3 +103,8 @@ def delete_order_item(request, pk):
     except OrderItem.DoesNotExist:
         raise Http404
     return Response('Item successfully deleted!')
+
+class ApiOrderItemsView(ListAPIView):
+    queryset = OrderItem.objects.all()
+    serializer_class = OrderItemSerializer
+    pagination_class = PageNumberPagination
