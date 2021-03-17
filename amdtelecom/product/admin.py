@@ -95,25 +95,20 @@ class ProductAdmin(admin.ModelAdmin):
         }),
     )
 
-    # def save_related(self, request, form, formsets, change):
-    #     super().save_related(request, form, formsets, change)
-    #     product = form.instance
-    #     count = 0
-    #     if not product.slug:
-    #         # product.slug = f'{slugify(product.title)}-{product.id}'
-    #         product.title = f'{product.marka.first().title} {product.title} {product.ram} {product.internal_storage} {product.color_title}'
-    #         if product.ram and product.internal_storage:
-    #             slug = f'{product.marka.first().title} {product.title} {product.ram} {product.internal_storage} {product.color_title}'
-    #             product.slug = f'{slugify(slug)}'
-                
-    #         else:
-    #             product.title = f'{product.marka.first().title} {product.title} {product.color_title}'
-    #     else:
-    #         count += 1
-    #         product.title = f'{product.title}{count}'
-    #         product.slug = f'{slugify(product.slug)}{count}'
-    #         product.save()
+    def save_related(self, request, form, formsets, change):
+        super().save_related(request, form, formsets, change)
+        product = form.instance
 
+        marka = product.marka.first() if product.marka.first().title != None  else ''
+        ram = product.ram if product.ram != None  else ''
+        internal_storage = product.internal_storage if product.internal_storage != None  else ''
+        color_title = product.color_title if product.color_title != None  else ''
+
+        if  len(product.slug) == 0:
+            slug = f'{marka} {product.title} {ram} {internal_storage} {color_title}'
+            product.slug = f'{slugify(slug)}'
+            product.title = f'{marka} {product.title} {ram} {internal_storage} {color_title}'
+            product.save()
 
     def show_markas(self, obj):
         return ' '.join([product.title for product in obj.marka.all()])
