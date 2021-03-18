@@ -2038,54 +2038,7 @@
     </div>
     <!-- tap to top end -->
 
-    <script>
-
-        // this function set browser localstorage
-        let addCartCountToLocalStorage = (count) => {
-                localStorage.setItem('cartItems', count)
-            }
-
-
-        let cart_badge = document.querySelector('.cart-badge')
-        const url_count = `http://localhost:8000/api-order/orderItem-count/`;
-
-        // this function get cart count from database and set to browser local storage
-        function get_cart_count(){
-            fetch(url_count, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': csrftoken
-        },
-        })
-        .then(res => res.text())
-        .then(res => addCartCountToLocalStorage(res))
-        }
-
-        window.onload = function() {
-            get_cart_count();
-            console.log(`onload vaxti storage: ${typeof(localStorage.getItem('cartItems'))}`)
-            cart_badge.innerHTML = parseInt(localStorage.getItem('cartItems'))
-        };
-
-        window.addEventListener("storage", function () {
-            console.log("Isledi storage funqsiyasi!!!")
-            cart_badge.innerHTML = localStorage.getItem('cartItems')
-        // do your checks to detect
-        // changes in "e1", "e2" & "e3" here
-        }, false);
-
-        function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-        }
-
-        var csrftoken = getCookie('csrftoken');
-        
-    </script>
-
-
+    
     <!--jQuery-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -2207,6 +2160,66 @@
         }
         document.cookie = 'device=' + device + ";domain=;path=/"
     </script>
+
+<script>
+
+        window.onload = function() {
+            get_cart_count();
+            console.log(`onload vaxti cartda storage-i yenileyirem: ${localStorage.getItem('cartItems')}`)
+            
+            add_number_to_cart_badge();
+        };
+
+    let cart_badge = document.querySelector('.cart-badge')
+    const url_count = `http://localhost:8000/api-order/orderItem-count/`;
+    
+    // this function set browser localstorage
+    let addCartCountToLocalStorage = (count) => {
+            localStorage.setItem('cartItems', count)
+        }
+    
+    // this function get cart count from database and set to browser local storage
+    function get_cart_count(){
+        console.log("home.html-de get cart count")
+        fetch(url_count, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken
+    },
+    })
+    .then(res => res.text())
+    .then(res => addCartCountToLocalStorage(res))
+    }
+
+    // ths funqtion change badge number
+    function add_number_to_cart_badge(){
+        fetch(url_count, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken
+        },
+        })
+        .then(res => res.text())
+        .then(res => cart_badge.innerHTML = res)
+    }
+
+
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    
+
+
+    var csrftoken = getCookie('csrftoken');
+    
+    </script>
+
+
     {% block price_range_js %}
     {% endblock price_range_js %}
 

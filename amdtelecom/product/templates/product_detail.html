@@ -689,19 +689,34 @@
     <!-- related products -->
     <script>
 
-    let cart_badge3 = document.querySelector('.cart-badge');
-
     let addtocartbtn = document.querySelector('.incre-cart');
 
-    addtocartbtn.addEventListener('click', letsIncementCart)
+    addtocartbtn.addEventListener('click', letsIncementCart);
+
+    
+
+
+    // this function get cart count from database and set to browser local storage
+    // function get_cart_count(){
+    //     fetch(url_count, {
+    //     method: 'GET',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         'X-CSRFToken': csrftoken
+    // },
+    // })
+    // .then(res => res.text())
+    // .then(res => addCartCountToLocalStorage(res))
+    // }
+    
 
     function letsIncementCart(){
+        get_cart_count()
         // alert("Hello! I am an alert box!");
         console.log("Submite girdi product detailde")
         let itemCountLocStorage = localStorage.getItem('cartItems')
         itemCountLocStorage = parseInt(itemCountLocStorage)
         localStorage.setItem('cartItems', itemCountLocStorage+1)
-        cart_badge3.innerText = localStorage.getItem('cartItems')
     }
     
 
