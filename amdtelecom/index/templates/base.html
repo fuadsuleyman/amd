@@ -310,7 +310,7 @@
                     </ul> -->
                     <div class="">
 
-                        <div class="icon-nav">
+                        <div class="icon-nav search">
                             <ul>
                                 <li class="onhover-div mobile-search">
                                     <div class="mobile-search--body">
@@ -1127,80 +1127,8 @@
     <!-- footer end -->
 
 
-    <!--modal popup start-->
-    <div class="modal fade bd-example-modal-lg theme-modal" id="exampleModal" tabindex="-1" role="dialog"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body modal9">
-                    <div class="container-fluid p-0">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="modal-bg">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                            aria-hidden="true">&times;</span></button>
-                                    <div class="offer-content"><img src="{% static 'images/Offer-banner.png' %}"
-                                            class="img-fluid blur-up lazyload" alt="">
-                                        <h2>newsletter</h2>
-                                        <form
-                                            action="https://pixelstrap.us19.list-manage.com/subscribe/post?u=5a128856334b598b395f1fc9b&amp;id=082f74cbda"
-                                            class="auth-form needs-validation" method="post"
-                                            id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form"
-                                            target="_blank">
-                                            <div class="form-group mx-sm-3">
-                                                <input type="text" class="form-control" name="EMAIL" id="mce-EMAIL"
-                                                    placeholder="Enter your email" required="required">
-                                                <button type="submit" class="btn btn-solid"
-                                                    id="mc-submit">subscribe</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--modal popup end-->
 
 
-    <!-- Quick-view modal popup start-->
-    <div class="modal fade bd-example-modal-lg theme-modal" id="quick-view" tabindex="-1" role="dialog"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content quick-view-modal">
-                <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                    <div class="row">
-                        <div class="col-lg-6 col-xs-12">
-                            <div class="quick-view-img"><img src="{% static 'images/pro3/1.jpg' %}" alt=""
-                                    class="img-fluid blur-up lazyload"></div>
-                        </div>
-                        <div class="col-lg-6 rtl-text">
-                            <div class="product-right">
-                                <h2>Women Pink Shirt</h2>
-                                <h3>$32.96</h3>
-                                <ul class="color-variant">
-                                    <li class="bg-light0"></li>
-                                </ul>
-                                <div class="border-product">
-                                    <h6 class="product-title">product details</h6>
-                                    <p>Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium
-                                        doloremque laudantium</p>
-                                </div>
-                                <div class="product-buttons"><a href="#" class="btn btn-solid">add to cart</a> <a
-                                        href="#" class="btn btn-solid">view detail</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Quick-view modal popup end-->
 
 
     <!-- theme setting -->
@@ -2163,12 +2091,7 @@
 
 <script>
 
-        window.onload = function() {
-            get_cart_count();
-            console.log(`onload vaxti cartda storage-i yenileyirem: ${localStorage.getItem('cartItems')}`)
-            
-            add_number_to_cart_badge();
-        };
+      
 
     let cart_badge = document.querySelector('.cart-badge')
     const url_count = `http://localhost:8000/api-order/orderItem-count/`;
@@ -2216,6 +2139,13 @@
 
 
     var csrftoken = getCookie('csrftoken');
+
+    window.onload = function() {
+            get_cart_count();
+            console.log(`onload vaxti cartda storage-i yenileyirem: ${localStorage.getItem('cartItems')}`)
+            
+            add_number_to_cart_badge();
+        };
     
     </script>
 

@@ -27,13 +27,13 @@ services:
             - 6379:6379
         restart: always
 
+
     web:
         container_name: amd
         build: .
         restart: "always"
         ports:
             - "8000:8000"
-        
         volumes:
             - .:/code/
             # - ./static/:/code/static
@@ -48,7 +48,7 @@ services:
             dockerfile: celery.dockerfile
         volumes:
             - .:/code
-        command: celery -A amdtelecom worker --beat --scheduler django --loglevel=info
+        command: celery -A amdtelecom worker -l info   
         links:
             - redis
             - postgres

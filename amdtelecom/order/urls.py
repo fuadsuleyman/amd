@@ -8,9 +8,8 @@ app_name='order'
 
 urlpatterns = [
     path('deletefromcart/<int:id>/', views.deletefromcart, name='deletefromcart'),
-    path('cart/', views.cart, name="cart"),
-    # path('checkout/', CheckoutView.as_view(), name="checkout"),
-    path('checkout/', views.checkout, name="checkout"),
+    path('order/cart/', views.cart, name="cart"),
+    path('order/checkout/', views.checkout, name="checkout"),
     # path('checkout/', checkout, name="checkout"),
 
 ]

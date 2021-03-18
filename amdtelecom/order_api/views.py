@@ -38,12 +38,10 @@ def all_order_items(request):
 
 @api_view(['GET'])
 def get_order_items_count(request):
-    # orderItems = OrderItem.objects.all()
-    # serializer = OrderItemSerializer(orderItems, many=True)
-    # count = OrderItem.objects.count()
     device = request.COOKIES['device']
+    print('device', device)
     customer, created = Customer.objects.get_or_create(device=device)
-    order = Order.objects.get_or_create(customer=customer, complete=False)
+    print('customer', customer)
 
     try:
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
@@ -51,8 +49,8 @@ def get_order_items_count(request):
         order = None
 
     total_items = 0
-    if order:
-        # items_count = order.orderitem_set.all().count()
+    if order != None:
+        
         for item in order.orderitem_set.all():
             print(item.quantity)
             total_items += int(item.quantity) 

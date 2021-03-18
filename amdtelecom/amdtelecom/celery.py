@@ -18,34 +18,22 @@ app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 def debug_task(self):
     print('Request: {0!r}'.format(self.request))
 
-app.conf.beat_schedule = {
-    'check-published-date': {
-        'task': 'published_date',
-        'schedule': crontab(hour='23')
-    },
-}
+# app.conf.beat_schedule = {
+#     'check-new-product-daily': {
+#         'task': 'new_prod_published_date',
+#         'schedule': crontab(minute='2')
+#     },
+# }
 
+# app.conf.broker_transport_options = {
+#     'max_retries': 3,
+#     'interval_start': 0,
+#     'interval_step': 0.2,
+#     'interval_max': 0.2,
+# }
+
+
+# Procfile
 # celery -A amdtelecom worker -l info
 # celery -A amdtelecom worker --beat --scheduler django --loglevel=info
 
-
-
-# if settings.PROD:
-#     app.config.update(
-#         # CELERY CONF
-#         CELERY_BROKER_URL = 'redis://localhost:6379'
-#         CELERY_RESULT_BACKEND = 'redis://localhost:6379'
-#         CELERY_ACCEPT_CONTENT = ['application/json']
-#         CELERY_TASK_SERIALIZER = 'json'
-#         CELERY_RESULT_SERIALIZER = 'json'
-#         CELERY_TIMEZONE = 'Asia/Baku'
-#     )
-# else:
-#     app.config.update(
-#         CELERY_BROKER_URL = 'redis://localhost:6379'
-#         CELERY_RESULT_BACKEND = 'redis://localhost:6379'
-#         CELERY_ACCEPT_CONTENT = ['application/json']
-#         CELERY_TASK_SERIALIZER = 'json'
-#         CELERY_RESULT_SERIALIZER = 'json'
-#         CELERY_TIMEZONE = 'Asia/Baku'
-#     )
