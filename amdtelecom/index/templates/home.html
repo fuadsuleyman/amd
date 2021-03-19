@@ -33,7 +33,7 @@
         </div>
     </div>
     <!-- home banner end  --> {% endcomment %}
-
+<!-- salam -->
 {% comment %} 
     <!-- collection banner -->
     <section class="banner-padding banner-goggles ratio2_1">
@@ -140,7 +140,7 @@
                                                     title="Add to cart"><i class="ti-shopping-cart"></i></button>
                                                     <!-- <a href="javascript:void(0)" title="Add to Wishlist"><i
                                                         class="ti-heart" aria-hidden="true"></i></a> -->
-                                                    <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View"><i
+                                                    <a href="#" data-toggle="modal" data-target="#{{ product.id }}tab-1" title="Quick View"><i
                                                         class="ti-search" aria-hidden="true"></i></a>
                                                     <!-- <a href="compare.html" title="Compare"><i class="ti-reload"
                                                         aria-hidden="true"></i></a> -->
@@ -183,11 +183,342 @@
                                                 {% endif %}
                                         </div>
                                     </div>
+
+
+                                    <!-- Quick-view modal popup start-->
+                                    <div class="modal fade bd-example-modal-lg theme-modal" id="{{ product.id }}tab-1" tabindex="-1" role="dialog"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                                            <div class="modal-content quick-view-modal">
+                                                <div class="modal-body">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                                            aria-hidden="true">&times;</span></button>
+                                                    <div class="row">
+                                                        <div class="col-lg-6 col-xs-12">
+                                                            <div class="quick-view-img">
+                                                                {% for image in product.images.all %}
+                                                                {% if image.is_main %}
+                                                                <img
+                                                                    src="{{ image.image.url }}"
+                                                                    class="img-fluid blur-up lazyload bg-img" alt="{{ image.image }}">
+                                                                {% endif %}
+                                                                {% endfor %}</div>
+                                                        </div>
+                                                        <div class="col-lg-6 rtl-text">
+                                                            <div class="product-right">
+                                                                <h2>{{product.title}}</h2>
+                                                                <h3>{{product.price}}
+                                                                    <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
+                                                                        <defs>
+                                                                            <style>
+                                                                                .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
+                                                                            </style>
+                                                                        </defs>
+                                                                        <title>manat</title>
+                                                                        <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
+                                                                    </svg>
+                                                                </h3>
+                                                                <ul class="color-variant">
+                                                                    <li style="background-color:{{ product.color_code }}; border: 5px solid {{ product.color_code }}; position: relative !important; ">
+                                                                        <a href="{% url 'product:product_detail' product.slug %}" title="{{ product.color_title | lower }}" style="position: absolute; width: 100%; height: 100%;"></a>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="border-product">
+                                                                    <h6 class="product-title">product details</h6>
+                                                                    <p>{{product.description}}</p>
+                                                                </div>
+                                                                <div class="product-buttons">
+                                                                    <a href="#" class="btn btn-solid">add to cart</a> 
+                                                                    <a href="{% url 'product:product_detail' product.slug %}" class="btn btn-solid">Ətraflı</a></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Quick-view modal popup end -->
+
+
                                     {% endif %}
                                     {% endfor %}
                                 </div>
                             </div>
-                            <div id="tab-2" class="tab-content">
+                            <div id="tab-2" class="tab-content active default">
+                                <div class="row no-slider">
+                                    {% for product in products %}
+                                    {% if product.operator_code == None %}
+                                    <div class="product-box product-wrap">
+                                        <div class="img-wrapper">
+                                            {% if product.is_new %}<div class="lable-block"><span class="lable3">new</span></div>{% endif %}
+                                            {% if product.old_price %}<div class="lable-block"><span class="lable3" style="left:unset; right:7px">Endirim</span></div>{% endif %}
+                                            <div class="front">
+                                                <a href="{% url 'product:product_detail' product.slug %}" style="height: 271px;">
+                                                    {% for image in product.images.all %}
+                                                    {% if image.is_main %}
+                                                    <img
+                                                        src="{{ image.image.url }}"
+                                                        class="img-fluid blur-up lazyload bg-img" alt="">
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                    </a>
+                                            </div>
+                                            <div class="back">
+                                                <a href="{% url 'product:product_detail' product.slug %}" style="height: 271px;">
+                                                    {% for image in product.images.all %}
+                                                    {% if image.is_second_main %}
+                                                    <img
+                                                        src="{{ image.image.url }}"
+                                                        class="img-fluid blur-up lazyload bg-img" alt="{{ image.image }}">
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                    </a>
+                                            </div>
+                                            <div class="cart-detail" style="top:45px">
+                                                <button data-toggle="modal" data-target="#addtocart"
+                                                    title="Add to cart"><i class="ti-shopping-cart"></i></button>
+                                                    <!-- <a href="javascript:void(0)" title="Add to Wishlist"><i
+                                                        class="ti-heart" aria-hidden="true"></i></a> -->
+                                                    <a href="#" data-toggle="modal" data-target="#{{ product.id }}tab-2" title="Quick View"><i
+                                                        class="ti-search" aria-hidden="true"></i></a>
+                                                    <!-- <a href="compare.html" title="Compare"><i class="ti-reload"
+                                                        aria-hidden="true"></i></a> -->
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <!-- <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+                                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+                                                    class="fa fa-star"></i></div> -->
+                                            <a href="{% url 'product:product_detail' product.slug %}">
+                                                <h6>{{ product.marka.all.0 | upper }} {{ product.title | upper }}
+                                                    {% comment %} {% if product.internal_storage %}
+                                                    <span>{{product.internal_storage}}</span>
+                                                    {% endif %} {% endcomment %}
+                                                </h6>
+                                            </a>
+                                            <h4 class="">{{product.price}} 
+                                                <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
+                                                    <defs>
+                                                        <style>
+                                                            .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
+                                                        </style>
+                                                    </defs>
+                                                    <title>manat</title>
+                                                    <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
+                                                </svg>
+                                                {% if product.old_price %} <del>{{ product.old_price }} 
+                                                    <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
+                                                        <defs>
+                                                            <style>
+                                                                .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
+                                                            </style>
+                                                        </defs>
+                                                        <title>manat</title>
+                                                        <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
+                                                    </svg>
+                                                </del> 
+                                                {% endif %}
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Quick-view modal popup start-->
+                                    <div class="modal fade bd-example-modal-lg theme-modal" id="{{ product.id }}tab-2" tabindex="-1" role="dialog"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                                            <div class="modal-content quick-view-modal">
+                                                <div class="modal-body">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                                            aria-hidden="true">&times;</span></button>
+                                                    <div class="row">
+                                                        <div class="col-lg-6 col-xs-12">
+                                                            <div class="quick-view-img">
+                                                                {% for image in product.images.all %}
+                                                                {% if image.is_main %}
+                                                                <img
+                                                                    src="{{ image.image.url }}"
+                                                                    class="img-fluid blur-up lazyload bg-img" alt="{{ image.image }}">
+                                                                {% endif %}
+                                                                {% endfor %}</div>
+                                                        </div>
+                                                        <div class="col-lg-6 rtl-text">
+                                                            <div class="product-right">
+                                                                <h2>{{product.title}}</h2>
+                                                                <h3>{{product.price}}
+                                                                    <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
+                                                                        <defs>
+                                                                            <style>
+                                                                                .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
+                                                                            </style>
+                                                                        </defs>
+                                                                        <title>manat</title>
+                                                                        <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
+                                                                    </svg>
+                                                                </h3>
+                                                                <ul class="color-variant">
+                                                                    <li style="background-color:{{ product.color_code }}; border: 5px solid {{ product.color_code }}; position: relative !important; ">
+                                                                        <a href="{% url 'product:product_detail' product.slug %}" title="{{ product.color_title | lower }}" style="position: absolute; width: 100%; height: 100%;"></a>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="border-product">
+                                                                    <h6 class="product-title">product details</h6>
+                                                                    <p>{{product.description}}</p>
+                                                                </div>
+                                                                <div class="product-buttons">
+                                                                    <a href="#" class="btn btn-solid">add to cart</a> 
+                                                                    <a href="{% url 'product:product_detail' product.slug %}" class="btn btn-solid">Ətraflı</a></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Quick-view modal popup end -->
+
+
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            <div id="tab-3" class="tab-content active default">
+                                <div class="row no-slider">
+                                    {% for product in products %}
+                                    {% if product.operator_code == None %}
+                                    <div class="product-box product-wrap">
+                                        <div class="img-wrapper">
+                                            {% if product.is_new %}<div class="lable-block"><span class="lable3">new</span></div>{% endif %}
+                                            {% if product.old_price %}<div class="lable-block"><span class="lable3" style="left:unset; right:7px">Endirim</span></div>{% endif %}
+                                            <div class="front">
+                                                <a href="{% url 'product:product_detail' product.slug %}" style="height: 271px;">
+                                                    {% for image in product.images.all %}
+                                                    {% if image.is_main %}
+                                                    <img
+                                                        src="{{ image.image.url }}"
+                                                        class="img-fluid blur-up lazyload bg-img" alt="">
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                    </a>
+                                            </div>
+                                            <div class="back">
+                                                <a href="{% url 'product:product_detail' product.slug %}" style="height: 271px;">
+                                                    {% for image in product.images.all %}
+                                                    {% if image.is_second_main %}
+                                                    <img
+                                                        src="{{ image.image.url }}"
+                                                        class="img-fluid blur-up lazyload bg-img" alt="{{ image.image }}">
+                                                    {% endif %}
+                                                    {% endfor %}
+                                                    </a>
+                                            </div>
+                                            <div class="cart-detail" style="top:45px">
+                                                <button data-toggle="modal" data-target="#addtocart"
+                                                    title="Add to cart"><i class="ti-shopping-cart"></i></button>
+                                                    <!-- <a href="javascript:void(0)" title="Add to Wishlist"><i
+                                                        class="ti-heart" aria-hidden="true"></i></a> -->
+                                                    <a href="#" data-toggle="modal" data-target="#{{ product.id }}tab-3" title="Quick View"><i
+                                                        class="ti-search" aria-hidden="true"></i></a>
+                                                    <!-- <a href="compare.html" title="Compare"><i class="ti-reload"
+                                                        aria-hidden="true"></i></a> -->
+                                            </div>
+                                        </div>
+                                        <div class="product-info">
+                                            <!-- <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+                                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+                                                    class="fa fa-star"></i></div> -->
+                                            <a href="{% url 'product:product_detail' product.slug %}">
+                                                <h6>{{ product.marka.all.0 | upper }} {{ product.title | upper }}
+                                                    {% comment %} {% if product.internal_storage %}
+                                                    <span>{{product.internal_storage}}</span>
+                                                    {% endif %} {% endcomment %}
+                                                </h6>
+                                            </a>
+                                            <h4 class="">{{product.price}} 
+                                                <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
+                                                    <defs>
+                                                        <style>
+                                                            .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
+                                                        </style>
+                                                    </defs>
+                                                    <title>manat</title>
+                                                    <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
+                                                </svg>
+                                                {% if product.old_price %} <del>{{ product.old_price }} 
+                                                    <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
+                                                        <defs>
+                                                            <style>
+                                                                .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
+                                                            </style>
+                                                        </defs>
+                                                        <title>manat</title>
+                                                        <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
+                                                    </svg>
+                                                </del> 
+                                                {% endif %}
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Quick-view modal popup start-->
+                                    <div class="modal fade bd-example-modal-lg theme-modal" id="{{ product.id }}tab-3" tabindex="-1" role="dialog"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                                            <div class="modal-content quick-view-modal">
+                                                <div class="modal-body">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                                            aria-hidden="true">&times;</span></button>
+                                                    <div class="row">
+                                                        <div class="col-lg-6 col-xs-12">
+                                                            <div class="quick-view-img">
+                                                                {% for image in product.images.all %}
+                                                                {% if image.is_main %}
+                                                                <img
+                                                                    src="{{ image.image.url }}"
+                                                                    class="img-fluid blur-up lazyload bg-img" alt="{{ image.image }}">
+                                                                {% endif %}
+                                                                {% endfor %}</div>
+                                                        </div>
+                                                        <div class="col-lg-6 rtl-text">
+                                                            <div class="product-right">
+                                                                <h2>{{product.title}}</h2>
+                                                                <h3>{{product.price}}
+                                                                    <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
+                                                                        <defs>
+                                                                            <style>
+                                                                                .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
+                                                                            </style>
+                                                                        </defs>
+                                                                        <title>manat</title>
+                                                                        <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
+                                                                    </svg>
+                                                                </h3>
+                                                                <ul class="color-variant">
+                                                                    <li style="background-color:{{ product.color_code }}; border: 5px solid {{ product.color_code }}; position: relative !important; ">
+                                                                        <a href="{% url 'product:product_detail' product.slug %}" title="{{ product.color_title | lower }}" style="position: absolute; width: 100%; height: 100%;"></a>
+                                                                    </li>
+                                                                </ul>
+                                                                <div class="border-product">
+                                                                    <h6 class="product-title">product details</h6>
+                                                                    <p>{{product.description}}</p>
+                                                                </div>
+                                                                <div class="product-buttons">
+                                                                    <a href="#" class="btn btn-solid">add to cart</a> 
+                                                                    <a href="{% url 'product:product_detail' product.slug %}" class="btn btn-solid">Ətraflı</a></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Quick-view modal popup end -->
+
+
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% comment %} <div id="tab-2" class="tab-content">
                                 <div class="no-slider row">
                                     {% for product in products %}
                                     {% if product.operator_code == None %}
@@ -222,7 +553,7 @@
                                                     title="Add to cart"><i class="ti-shopping-cart"></i></button>
                                                     <!-- <a href="javascript:void(0)" title="Add to Wishlist"><i
                                                         class="ti-heart" aria-hidden="true"></i></a> -->
-                                                    <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View"><i
+                                                    <a href="#" data-toggle="modal" data-target="#{{ product.id }}" title="Quick View"><i
                                                         class="ti-search" aria-hidden="true"></i></a>
                                                     <!-- <a href="compare.html" title="Compare"><i class="ti-reload"
                                                         aria-hidden="true"></i></a> -->
@@ -291,7 +622,7 @@
                                                     title="Add to cart"><i class="ti-shopping-cart"></i></button>
                                                     <!-- <a href="javascript:void(0)" title="Add to Wishlist"><i
                                                         class="ti-heart" aria-hidden="true"></i></a> -->
-                                                    <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View"><i
+                                                    <a href="#" data-toggle="modal" data-target="#{{ product.id }}" title="Quick View"><i
                                                         class="ti-search" aria-hidden="true"></i></a>
                                                     <!-- <a href="compare.html" title="Compare"><i class="ti-reload"
                                                         aria-hidden="true"></i></a> -->
@@ -324,7 +655,7 @@
                                     {% endif %}
                                     {% endfor %}
                                 </div>
-                            </div>
+                            </div> {% endcomment %}
                         </div>
                     </div>
                 </div>
@@ -332,5 +663,6 @@
         </div>
     </section>
     <!-- slider tab end -->
+
 
 {% endblock content %}

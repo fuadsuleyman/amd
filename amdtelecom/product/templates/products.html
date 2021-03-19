@@ -15,14 +15,14 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="page-title">
-                <h2>Kolleksiya</h2>
+                <h2>{% if categories %} {{ categories.title }} {% endif %}</h2>
             </div>
         </div>
         <div class="col-sm-6">
             <nav aria-label="breadcrumb" class="theme-breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{% url 'index:home' %}">Əsas səhifə</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Kolleksiya</li>
+                    <li class="breadcrumb-item active" aria-current="page">{% if categories %} {{ categories.title }} {% endif %}</li>
                 </ol>
             </nav>
         </div>
@@ -275,7 +275,7 @@
                             </div> {% endcomment %}
 
                         </div>
-
+                        {% comment %} 
                         <div>
                             <div class="media">
                                 <a href=""><img class="img-fluid blur-up lazyload" src="{% static 'images/pro/1.jpg' %}" alt=""></a>
@@ -310,7 +310,7 @@
                                 </div>
                             </div>
 
-                        </div>
+                        </div> {% endcomment %}
                     </div>
                 </div>
                 <!-- side-bar single product slider end -->
@@ -345,7 +345,7 @@
                                                         aria-hidden="true"></i> Filter</span></div>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    {% comment %} <div class="row">
                                         <div class="col-12">
                                             <div class="product-filter-content">
                                                 <div class="search-count">
@@ -383,13 +383,13 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> {% endcomment %}
                                 </div>
                                 <div class="product-wrapper-grid product-load-more">
                                     <div class="row margin-res prod-items">
                                         {% for product in products %}
                                             {% if product.operator_code == None %}
-                                            <div class="col-xl-4 col-sm-12 col-md-6 col-grid-box category-pro" for-filter="{% if categories %} {{categories.id}}{% endif %}">
+                                            <div class="col-xl-3 col-sm-6 col-md-4 col-grid-box category-pro" for-filter="{% if categories %} {{categories.id}}{% endif %}">
                                                 <div class="product-box">
                                                     <div class="img-wrapper">
                                                         <div class="front">
@@ -453,7 +453,7 @@
                                                 </div>
                                             </div>
                                             {% else %}
-                                                <div class="col-xl-4  col-sm-12 col-md-6 col-grid-box category-pro" for-filter="{{product.category.all.0.id}}" style="margin-top: 20px;">
+                                                <div class="col-xl-4 col-sm-6 col-md-4 col-grid-box category-pro" for-filter="{{product.category.all.0.id}}" style="margin-top: 20px;">
                                                     <div class="numberCard">
                                                         <div class="numberCard__container">
 
@@ -508,8 +508,9 @@
 
                                     </div>
                                 </div>
-                                <div class="load-more-sec"><a href="javascript:void(0)" class="loadMore">load
-                                        more</a></div>
+                                <div class="load-more-sec">
+                                    <a href="javascript:void(0)" class="loadMore">Daha çox</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -530,4 +531,5 @@
 <script src="{% static 'js/price-range.js' %}"></script>
 <!-- product filter js -->
 <script src="{% static  'js/product-filter.js' %}"></script>
+
 {% endblock price_range_js %}

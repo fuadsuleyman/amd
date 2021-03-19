@@ -1,5 +1,5 @@
 const domain = `http://localhost:8000/`
-
+// var responseDatas = []
 // keep this page category id
 const categoryProduct = $('.category-pro')[0]
 let theCategory = categoryProduct.getAttribute('for-filter')
@@ -23,31 +23,7 @@ $(document).on('input', '#range', function() { // price range when changed keep 
 
 });
 
-function getProImage(id){ // filter product images returned product image
-    let image	
-    $.ajax({
-        url: `${domain}api/v1.0/filter-api-product-images/`,
-        async: false,
-        global: false,
-        dataType: 'json',
-        
-        success:function(res){
-            console.log(res);
-            for(let item of res){
-                if (item.id == id ) {
-                    image = item.image
-                }
-            }
 
-        },
-        error: function(res){
-            console.log(res, 'error');
-        }
-
-    })
-    return image
-
-}
 
 function getProMarka(id){
     let image
@@ -75,6 +51,32 @@ function getProMarka(id){
     return image
 }
 
+function getProImage(id){ // filter product images returned product image
+    let image	
+    $.ajax({
+        url: `${domain}api/v1.0/filter-api-product-images/`,
+        async: false,
+        global: false,
+        dataType: 'json',
+        
+        success:function(res){
+            for(let item of res){
+                if (item.id == id ) {
+                    image = item.image
+                }
+            }
+
+        },
+        error: function(res){
+            console.log(res, 'error');
+        }
+
+    })
+    return image
+
+}
+
+
 function getData() { // filter product data return products
     // $(".ajaxLoader").hide();
 
@@ -98,7 +100,7 @@ function getData() { // filter product data return products
                 return el.value;
             })
 
-            console.log(_filterObj, 'gelen datalar');
+            // console.log(_filterObj, 'gelen datalar');
 
         });
     }
@@ -115,32 +117,31 @@ function getData() { // filter product data return products
         success:function(response){
             console.log(response, 'product data');
             let DOM = $('.prod-items')
+            DOM.html('')
             let products = ''
-            if (response.length > 0){  
+            if (response.products.length > 0){  
 
-                for(let product of response){
+                for(let product of response.products){
                     // console.log(product, 'datalar');
                     mainSeconImage = `
                     <div class="front">
                         <a href="${domain}product/${product.slug}/">
                         <img
                             src="${getProImage(product.images[1])}"
-                            class="img-fluid blur-up lazyload bg-img" alt="${product.title}" style="height: 271px;">
+                            class="img-fluid blur-up lazyload bg-img" alt="${product.title}">
                         </a>
                     </div>
                     <div class="back">
                         <a href="${domain}product/${product.slug}/">
                             <img
                                 src="${getProImage(product.images[0])}"
-                                class="img-fluid blur-up lazyload bg-img" alt="${product.title}" style="height: 271px;">
+                                class="img-fluid blur-up lazyload bg-img" alt="${product.title}">
                             </a>
                     </div>
                     <div class="cart-info cart-wrap">
-                        <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
-                                class="ti-shopping-cart"></i></button> <a href="javascript:void(0)" title="Add to Wishlist"><i
-                                class="ti-heart" aria-hidden="true"></i></a> <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View"><i
-                                class="ti-search" aria-hidden="true"></i></a> <a href="compare.html" title="Compare"><i
-                                class="ti-reload" aria-hidden="true"></i></a>
+                        <button data-toggle="modal" data-target="#addtocart" title="Add to cart">
+                            <i class="ti-shopping-cart"></i>
+                        </button> 
                     </div>
                     `
 
@@ -158,7 +159,8 @@ function getData() { // filter product data return products
                     if(product.operator_code) {
 
                         products += `
-                            <div class="col-xl-4 col-6 col-grid-box category-pro" style="margin-top: 20px;">
+                            <div class="col-xl-3 col-sm-6 col-md-4 col-grid-box category-pro" style="margin-top: 20px;">
+                            
                             <div class="numberCard">
                                 <div class="numberCard__container">
 
@@ -213,16 +215,14 @@ function getData() { // filter product data return products
                     else {
                         if (product.color_code != null){ // productun rengi ucun
                             products += `
-                                    <div class="col-xl-3 col-6 col-grid-box">
+                                    <div class="col-xl-3 col-sm-6 col-md-4 col-grid-box category-pro">
                                     <div class="product-box">
                                         <div class="img-wrapper">
                                             ${ product.images.length > 1 ? mainSeconImage : secondImage }
                                             <div class="cart-info cart-wrap">
-                                                <button data-toggle="modal" data-target="#addtocart" title="Add to cart"><i
-                                                        class="ti-shopping-cart"></i></button> <a href="javascript:void(0)" title="Add to Wishlist"><i
-                                                        class="ti-heart" aria-hidden="true"></i></a> <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View"><i
-                                                        class="ti-search" aria-hidden="true"></i></a> <a href="compare.html" title="Compare"><i
-                                                        class="ti-reload" aria-hidden="true"></i></a>
+                                                <button data-toggle="modal" data-target="#addtocart" title="Add to cart">
+                                                    <i class="ti-shopping-cart"></i>
+                                                </button> 
                                             </div>
                                         </div>
                                         <div class="product-detail">
@@ -245,7 +245,7 @@ function getData() { // filter product data return products
                         }
                         else {
                             products += `
-                                    <div class="col-xl-3 col-6 col-grid-box">
+                                    <div class="col-xl-3 col-sm-6 col-md-4 col-grid-box category-pro">
                                     <div class="product-box">
                                         <div class="img-wrapper">
                                         ${ product.images.length > 1 ? mainSeconImage : secondImage }
@@ -265,12 +265,12 @@ function getData() { // filter product data return products
                             `
                         } // ${a == 1 && retun}
                     }
+                    
                     DOM.html(products)
                     mainSeconImage = ''
                     secondImage = ''
-                    
-
-                }  
+                } 
+                renderPagination(response)
             }
             else {
                 DOM.html('')
@@ -287,4 +287,69 @@ function getData() { // filter product data return products
 
 
 }
+
+function renderPagination(responseDatas) {
+    let paginatioBody = document.querySelector('.pagination')
+
+    paginatioBody.innerHTML = ''
+    let previous = document.createElement('li')
+    let pages_counts_links = document.createElement('li')
+    let next = document.createElement('li')
+    console.log(responseDatas, 'daalar');
+    if (responseDatas.length > 0){
+        if (responseDatas.previous != null) {
+            // previous = document.createElement('li')
+            previous.classList.add('page-item')
+            previous.innerHTML += `
+            <a class="page-link previous" href="${responseDatas.previous}" aria-label="Previous">
+                <span aria-hidden="true">
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                </span>
+                <span class="sr-only">Previous</span>
+            </a>
+            `
+            // paginatioBody.append(previous)
+        }
+        for( let i = 0; i < responseDatas.count; i++) {
+            // pages_counts_links = 
+            pages_counts_links.classList.add('page-item')
+            if (i == response.count) {
+                pages_counts_links.classList.add('active')
+                pages_counts_links.innerHTML += `<a class="page-link">${i}</a>`
+            }
+        }
+        for (let j = 0; responseDatas.list_pages_url.page_links.length; j++){
+            if ( j != 0 || j != responseDatas.list_pages_url.page_links.length - 1){
+                pages_counts_links.innerHTML += `<a class="page-link" href="${responseDatas.list_pages_url.page_links.length[0]}">${j + 1}</a>` 
+            }
+        }
+
+        if (responseDatas.next != null) {
+            // next = document.createElement('li')
+            next.classList.add('page-item')
+            next.innerHTML += `
+            <a class="page-link next" href="${responseDatas.next}" aria-label="Previous">
+                <span aria-hidden="true">
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                </span>
+                <span class="sr-only">Next</span>
+            </a>
+            `
+            // paginatioBody.append(previous)
+        }
+        console.log(previous, 'previous');
+        console.log(pages_counts_links, 'pages_counts_links');
+        console.log(next, 'next');
+        paginatioBody.append(previous)
+        renderPagination.innerHTML += previous
+        renderPagination.innerHTML += pages_counts_links
+        renderPagination.innerHTML += next
+        // paginatioBody.append(pages_counts_links)
+        // paginatioBody.append(next)
+    }
+}
+// function renderPagination() {
+//     let paginationBody = documen.querySelector('.pagination')
+    
+// }
 

@@ -43,7 +43,7 @@
                             <th scope="col">total</th>
                         </tr>
                     </thead>
-                    
+
                     <tbody>
                         {% for item in order.orderitem_set.all %}
                         <tr>
@@ -84,7 +84,7 @@
                                 </div>
                             </td>
                             <td>
-                                <h2 class="d-flex"> {{item.product.price}} 
+                                <h2 class="d-flex"> {{item.product.price}}
                                     <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
                                         <defs>
                                             <style>
@@ -104,7 +104,7 @@
                                             min="0"
                                             type="number"
                                             name="quantity"
-                                            data-id-patch={{item.id}} 
+                                            data-id-patch={{item.id}}
                                             class="form-control input-number change-quantity"
                                             value="{{item.quantity}}" on>
                                     </div>
@@ -127,7 +127,7 @@
                         </tr>
                         {% endfor %}
                     </tbody>
-                    
+
                 </table>
                 <table class="table cart-table table-responsive-md">
                     <tfoot>
@@ -160,23 +160,29 @@
 
 <script>
 
-    let cart_badge2 = document.querySelector('.cart-badge')
-    console.log(`cart_badge2: ${cart_badge2}`)
+    // function get_cart_count(){
+    //     fetch(url_count, {
+    //     method: 'GET',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         'X-CSRFToken': csrftoken
+    // },
+    // })
+    // .then(res => res.text())
+    // .then(res => addCartCountToLocalStorage(res))
+    // }
 
-    function updateCart(){
-        console.log("girdi update carta")
-        let itemCountLocStorage = localStorage.getItem('cartItems')
-        itemCountLocStorage = parseInt(itemCountLocStorage)
-        console.log(`update cartdayam, localdaki deyer: ${itemCountLocStorage}`)
-        cart_badge2.innerHTML = itemCountLocStorage
-    }
 
-    updateCart()
+    // function updateCart(){
+    //     console.log("girdi update carta")
+    //     let itemCountLocStorage = localStorage.getItem('cartItems')
+    //     itemCountLocStorage = parseInt(itemCountLocStorage)
+    //     console.log(`update cartdayam, localdaki deyer: ${itemCountLocStorage}`)
+    //     cart_badge.innerHTML = itemCountLocStorage
+    // }
 
-    
-    let addCartCountToLocalStorage2 = (count) => {
-        localStorage.setItem('cartItems', count)
-    }
+    // updateCart()
+
 
     let getGrandTotal = (arr) => {
                 let sum = 0
@@ -185,21 +191,23 @@
                 }
                 return sum
             }
-    
+
     let delElem = document.querySelectorAll('.del')
     console.log(delElem)
     for (let i = 0; i < delElem.length; i++){
         delElem[i].addEventListener("click", confirm_delete, false)
     }
-    
-    
+
+
     function confirm_delete(e){
-        
-        let itemCountLocStorage = localStorage.getItem('cartItems')
-        itemCountLocStorage = parseInt(itemCountLocStorage)
-        cart_badge2.innerText = itemCountLocStorage -1
-        localStorage.setItem('cartItems', itemCountLocStorage-1)
-        
+
+
+
+        // let itemCountLocStorage = localStorage.getItem('cartItems')
+        // itemCountLocStorage = parseInt(itemCountLocStorage)
+        // cart_badge.innerText = itemCountLocStorage -1
+        // localStorage.setItem('cartItems', itemCountLocStorage-1)
+
         // console.log(e.target)
         let id = e.target.getAttribute('data-id')
         e.target.closest("tr").remove()
@@ -212,9 +220,9 @@
         // console.log("Welcome to delete")
 
         grandTotalPriceInt = []
-        
+
         for (let i=0; i < allTotalPrices.length; i++){
-            grandTotalPriceInt.push(parseInt(allTotalPrices[i].innerHTML)) 
+            grandTotalPriceInt.push(parseInt(allTotalPrices[i].innerHTML))
         }
 
         document.querySelector(".price-total-grand").innerHTML = getGrandTotal(grandTotalPriceInt).toFixed(2)
@@ -223,12 +231,28 @@
         fetch(url, {
             method: 'DELETE',
             headers: {
-                'X-CSRFToken': csrftoken 
+                'X-CSRFToken': csrftoken
             },
         })
         .then(res => res.text()) // or res.json()
         .then(res => console.log(`deleted ${res}`))
         // .then(res => addCartCountToLocalStorage(document.querySelectorAll(".product-title").length))
+
+        let inputValues = document.querySelectorAll('.change-quantity')
+
+        let totalQuantity = 0;
+        if(inputValues.length > 0){
+            for(let i = 0; i < inputValues.length; i++){
+                totalQuantity += parseInt(inputValues[i].value)
+            }
+            console.log(`delete zamani totalQuantity: ${totalQuantity}`)
+            cart_badge.innerText = totalQuantity
+            localStorage.setItem('cartItems', totalQuantity)
+
+        }else if(inputValues.length === 0){
+            cart_badge.innerText = 0
+            localStorage.setItem('cartItems', 0)
+        }
 
     }
 
@@ -248,16 +272,39 @@
         let clickedTr = e.target.closest("tr")
         clickedPrice = parseInt(e.target.closest("tr").childNodes[5].querySelector("h2").innerHTML.split(" ")[1])
         let quantity = e.target.value
+        console.log(`quantity update: ${quantity}`)
+
+        let inputValues = document.querySelectorAll('.change-quantity')
+
+        let totalQuantity = 0;
+        if(inputValues.length !== 1 && inputValues.length !==0){
+            for(let i = 0; i < inputValues.length; i++){
+                if(inputValues.length !== 1){
+                    totalQuantity += parseInt(inputValues[i].value)
+                }
+            }
+            cart_badge.innerText = totalQuantity
+            localStorage.setItem('cartItems', totalQuantity)
+        }else if(inputValues.length === 1 && parseInt(quantity) !== 0){
+                    totalQuantity = parseInt(quantity)
+                    cart_badge.innerText = totalQuantity
+                    localStorage.setItem('cartItems', totalQuantity)
+        }else if(inputValues.length === 0){
+            cart_badge.innerText = 0
+            localStorage.setItem('cartItems', 0)
+        }
+        
+        
         e.target.closest("tr").childNodes[11].querySelector(".price-total").innerHTML = (clickedPrice * quantity).toFixed(2)
 
         let allTotalPrices = document.querySelectorAll(".price-total")
-        
+
         grandTotalPriceInt = []
 
         for (let i=0; i < allTotalPrices.length; i++){
-            grandTotalPriceInt.push(parseInt(allTotalPrices[i].innerHTML)) 
+            grandTotalPriceInt.push(parseInt(allTotalPrices[i].innerHTML))
         }
-        
+
         document.querySelector(".price-total-grand").innerHTML = getGrandTotal(grandTotalPriceInt).toFixed(2)
 
         if (e.target.value != 0) {
@@ -272,27 +319,35 @@
                 })
         })
         .then(res => res.text()) // or res.json()
-        .then(res => console.log(`updated ${res}`))
+        // .then(res => console.log(`updated ${res}`))
         } else if (e.target.value == 0) {
 
-            let itemCountLocStorage = localStorage.getItem('cartItems')
-            itemCountLocStorage = parseInt(itemCountLocStorage)
-            cart_badge2.innerText = itemCountLocStorage -1
-            localStorage.setItem('cartItems', itemCountLocStorage-1)
+            if (e.target.value == 0 && inputValues.length > 1){
+                let itemCountLocStorage = localStorage.getItem('cartItems')
+                itemCountLocStorage = parseInt(itemCountLocStorage)
+                cart_badge.innerText = itemCountLocStorage
+                localStorage.setItem('cartItems', itemCountLocStorage)
+            }else if(e.target.value == 0 && inputValues.length === 1){
+                let itemCountLocStorage = localStorage.getItem('cartItems')
+                itemCountLocStorage = parseInt(itemCountLocStorage)
+                cart_badge.innerText = 0
+                localStorage.setItem('cartItems', 0)
+            }
+            
 
             e.target.closest("tr").remove()
-            
+
             e.preventDefault()
             fetch(url_del, {
             method: 'DELETE',
             headers: {
-                'X-CSRFToken': csrftoken 
+                'X-CSRFToken': csrftoken
             },
             })
             .then(res => res.text()) // or res.json()
             .then(res => console.log(`deleted ${res}`))
         }
-        
+
     }
 
     function getCookie(name) {
@@ -303,13 +358,14 @@
 
     var csrftoken = getCookie('csrftoken');
 
-    // addCartCountToLocalStorage(document.querySelectorAll(".product-title").length) 
+    // addCartCountToLocalStorage(document.querySelectorAll(".product-title").length)
     console.log(document.querySelectorAll(".product-title").length)
 
-    
+
+
 
 </script>
- 
+
 <!--section end-->
 {% else %}
 	<h1 style="text-align:center;padding: 100px">No Items in cart</h1>

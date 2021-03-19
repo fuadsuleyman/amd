@@ -12,7 +12,7 @@ from .models import (
     Product_images,
     Tag,
     Product_details_property_name,
-    Product_details_property_value,
+    # Product_details_property_value,
 )
 
 admin.site.register(Product_colors)
@@ -30,7 +30,8 @@ class CategoryAdmin(admin.ModelAdmin):
     def save_related(self, request, form, formsets, change):
         super().save_related(request, form, formsets, change)
         category = form.instance
-        category.slug = slugify(f'{category.parent.all().last()} {category.title}')
+        if not category.slug:
+            category.slug = slugify(f'{category.parent.all().last()} {category.title}')
         category.save()
 
 
@@ -55,9 +56,9 @@ class PropertyNameAdmin(admin.ModelAdmin):
     list_display = ("title", "status")
 
 
-@admin.register(Product_details_property_value)
-class PropertyValueAdmin(admin.ModelAdmin):
-    list_display = ("content", "file", "status")
+# @admin.register(Product_details_property_value)
+# class PropertyValueAdmin(admin.ModelAdmin):
+#     list_display = ("content", "file", "status")
 
 admin.site.register(Product_details)
 class ProductDetailNameAdmin(admin.TabularInline):
@@ -67,7 +68,7 @@ class ProductDetailNameAdmin(admin.TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("title", "price", "is_new", 'get_image', 'show_markas', ) #"get_image"
+    list_display = ("title", "price", "is_new", 'get_image', 'show_markas', 'get_color',) #"get_image"
     list_display_links = ("title",)
     list_filter = ("price", "category",)
     search_fields = ('title', "category__title", "Marka")
@@ -81,24 +82,47 @@ class ProductAdmin(admin.ModelAdmin):
             'fields': ('category','marka', 'tags', 'same_product'),
         }),
         ('Informations', {
-            'fields': (('title', 'slug'), 'sku', 'internal_storage', 'ram', ('color_title', 'color_code',), 'description', 'sale_count', ('is_new', 'is_featured', 'is_discount'), 'operator_code', 'status')
+            'fields': (('title', 'slug'), 'sku', 'internal_storage', 'ram', ('color_title', 'color_code',), 'operator_code', 'description', 'sale_count', ('is_featured',), 'status')
         }),
         ('Publishe', {
-            'fields': ('is_published', 'published_expiration')
+            'fields': ('is_published',)
+        }),
+        ('Kampaniya', {
+            'fields': ('is_new', 'is_new_expired', 'is_discount', 'discount_type', 'discount_value')
         }),
         ('Price Info', {
-            'fields': ('price', 'old_price', 'discount_type', 'discount_value'),
+            'fields': ('price', 'old_price'),
         }),
     )
 
+    def save_related(self, request, form, formsets, change):
+        super().save_related(request, form, formsets, change)
+        product = form.instance
+
+        marka = product.marka.first() if product.marka.first().title != None  else ''
+        ram = product.ram if product.ram != None  else ''
+        internal_storage = product.internal_storage if product.internal_storage != None  else ''
+        color_title = product.color_title if product.color_title != None  else ''
+
+        if  len(product.slug) == 0:
+            slug = f'{marka} {product.title} {ram} {internal_storage} {color_title}'
+            product.slug = f'{slugify(slug)}'
+            product.title = f'{marka} {product.title} {ram} {internal_storage} {color_title}'
+            product.save()
+
     def show_markas(self, obj):
         return ' '.join([product.title for product in obj.marka.all()])
+
+    def get_color(self, obj):
+        return mark_safe(f'<div style="width: 30px !important; height: 30px !important; border-radius: 50% !important; background-color: {obj.color_code} !important"></div>')
 
     def get_image(self, obj):
         return mark_safe(f'<img src={obj.images.get(is_main=True).imageURL} width="50" height="60"')
 
 
     show_markas.short_description = "Marka"
+
+    get_color.short_description = "Color"
 
     get_image.short_description = "Image"
 

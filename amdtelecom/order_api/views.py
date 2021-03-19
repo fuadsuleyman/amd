@@ -1,4 +1,5 @@
 from django.http.response import Http404
+from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from account.models import Customer
 
@@ -37,15 +38,26 @@ def all_order_items(request):
 
 @api_view(['GET'])
 def get_order_items_count(request):
-    # orderItems = OrderItem.objects.all()
-    # serializer = OrderItemSerializer(orderItems, many=True)
-    # count = OrderItem.objects.count()
-    # device = request.COOKIES['device']
-    # customer, created = Customer.objects.get_or_create(device=device)
-    order = Order.objects.get(complete=False)
-    items_count = order.orderitem_set.all().count()
+    device = request.COOKIES['device']
+    print('device', device)
+    customer, created = Customer.objects.get_or_create(device=device)
+    print('customer', customer)
 
-    return Response(items_count)
+    try:
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+    except Order.DoesNotExist:
+        order = None
+
+    total_items = 0
+    if order != None:
+        
+        for item in order.orderitem_set.all():
+            print(item.quantity)
+            total_items += int(item.quantity) 
+    else:
+        total_items = 0
+
+    return Response(total_items)
 
 
 

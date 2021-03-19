@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     #'debug_toolbar',
     'colorfield',
     'rest_framework',
-    'django_celery_beat',
+    # 'django_celery_beat',
 
 ]
 
@@ -80,7 +80,8 @@ ROOT_URLCONF = 'amdtelecom.urls'
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
-    "http://127.0.0.1:8000"
+    "http://127.0.0.1:8000",
+    "http://localhost"
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -140,15 +141,15 @@ else:
     }
 
 if PROD:
-    CELERY_BROKER_URL = 'redis://redis:6379/0'
-    CELERY_RESULT_BACKEND = 'redis://redis:6379/1'
+    CELERY_BROKER_URL = 'redis://redis:6379'
+    CELERY_RESULT_BACKEND = 'redis://redis:6379'
     CELERY_ACCEPT_CONTENT = ['application/json']
     CELERY_TASK_SERIALIZER = 'json'
     CELERY_RESULT_SERIALIZER = 'json'
     CELERY_TIMEZONE = 'Asia/Baku'
 else:
-    CELERY_BROKER_URL = 'redis://localhost:6379/0'
-    CELERY_RESULT_BACKEND = 'redis://localhost:6379/1'
+    CELERY_BROKER_URL = 'redis://localhost:6379'
+    CELERY_RESULT_BACKEND = 'redis://localhost:6379'
     CELERY_ACCEPT_CONTENT = ['application/json']
     CELERY_TASK_SERIALIZER = 'json'
     CELERY_RESULT_SERIALIZER = 'json'
@@ -180,6 +181,11 @@ AUTH_PASSWORD_VALIDATORS = [
 #     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
 # }
 
+# REST_FRAMEWORK = {
+#     # 'DEFAULT_PAGINATION_CLASS': 'product.api.pagination.CustomProductPaginator',
+#     'PAGE_SIZE': 3
+# }
+
 INTERNAL_IPS = [
     # ...
     '127.0.0.1',
@@ -205,7 +211,7 @@ USE_L10N = True
 USE_TZ = True
 
 
-SITE_ADDRESS = 'http://localhost:8000'
+# SITE_ADDRESS = 'http://localhost:8000'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
@@ -215,12 +221,20 @@ STATIC_URL = '/static/'
 if PROD:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATICFILES_DIRS = [
         BASE_DIR / "static",
     ]
+    
+
+# STATICFILES_DIRS = [
+#     BASE_DIR / "static",
+# ]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
+
+SITE_URL = 'http://localhost:80'
 
 # Image django resized
 # DJANGORESIZED_DEFAULT_SIZE = [1920, 1080]
@@ -274,5 +288,34 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'husubayli@gmail.com'
 EMAIL_HOST_PASSWORD = 'xdjnasiuddxikfax'
+
+# if settings.PROD:
+#     app.conf.update(
+#         BROKER_URL='redis://:{password}@redis:6379/0'.format(password=os.environ.get("REDIS_PASSWORD")),
+#         CELERYBEAT_SCHEDULER='django_celery_beat.schedulers:DatabaseScheduler',
+#         CELERY_RESULT_BACKEND='redis://:{password}@redis:6379/1'.format(password=os.environ.get("REDIS_PASSWORD")),
+#         CELERY_DISABLE_RATE_LIMITS=True,
+#         CELERY_ACCEPT_CONTENT=['json', ],
+#         CELERY_TASK_SERIALIZER='json',
+#         CELERY_RESULT_SERIALIZER='json',
+#     )
+# else:
+#     app.conf.update(
+#         BROKER_URL='redis://localhost:6379/0',
+#         CELERYBEAT_SCHEDULER='django_celery_beat.schedulers:DatabaseScheduler',
+#         CELERY_RESULT_BACKEND='redis://localhost:6379/1',
+#         CELERY_DISABLE_RATE_LIMITS=True,
+#         CELERY_ACCEPT_CONTENT=['json', ],
+#         CELERY_TASK_SERIALIZER='json',
+#         CELERY_RESULT_SERIALIZER='json',
+
+
+# # CELERY CONF
+# CELERY_BROKER_URL = 'redis://localhost:6379'
+# CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+# CELERY_ACCEPT_CONTENT = ['application/json']
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_RESULT_SERIALIZER = 'json'
+# CELERY_TIMEZONE = 'Asia/Baku'
 
 
