@@ -8,5 +8,5 @@ app_name = 'contact'
 
 
 urlpatterns = [
-    path("", ContactCreateView.as_view(), name="contact")
+    path('us/', ContactCreateView.as_view(), name="contact")
 ]

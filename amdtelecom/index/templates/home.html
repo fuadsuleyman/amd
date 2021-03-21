@@ -100,9 +100,9 @@
                 <div class="col">
                     <div class="theme-tab">
                         <ul class="tabs tab-title2">
-                            <li class="current"><a href="tab-1">new arrival</a></li>
-                            <li class=""><a href="tab-2">top sell</a></li>
-                            <li class=""><a href="tab-3">featured</a></li>
+                            <li class="current"><a href="tab-1">yeni məhsullar</a></li>
+                            <li class=""><a href="tab-2">ən çox satılanlar</a></li>
+                            <li class=""><a href="tab-3">Endirimli məhsullar</a></li>
                         </ul>
                         <div class="tab-content-cls no-color-varient">
                             <div id="tab-1" class="tab-content active default">
@@ -112,7 +112,7 @@
                                     <div class="product-box product-wrap">
                                         <div class="img-wrapper">
                                             {% if product.is_new %}<div class="lable-block"><span class="lable3">new</span></div>{% endif %}
-                                            {% if product.is_discount %}<div class="lable-block"><span class="lable3" style="left:unset; right:7px">Endirim</span></div>{% endif %}
+                                            {% if product.old_price %}<div class="lable-block"><span class="lable3" style="left:unset; right:7px">Endirim</span></div>{% endif %}
                                             <div class="front">
                                                 <a href="{% url 'product:product_detail' product.slug %}" style="height: 271px;">
                                                     {% for image in product.images.all %}
@@ -140,7 +140,7 @@
                                                     title="Add to cart"><i class="ti-shopping-cart"></i></button>
                                                     <!-- <a href="javascript:void(0)" title="Add to Wishlist"><i
                                                         class="ti-heart" aria-hidden="true"></i></a> -->
-                                                    <a href="#" data-toggle="modal" data-target="#{{ product.id }}tab-1" title="Quick View"><i
+                                                    <a href="#" data-toggle="modal" data-target="#{{ product.id }}tab-2" title="Quick View"><i
                                                         class="ti-search" aria-hidden="true"></i></a>
                                                     <!-- <a href="compare.html" title="Compare"><i class="ti-reload"
                                                         aria-hidden="true"></i></a> -->
@@ -157,7 +157,7 @@
                                                     {% endif %} {% endcomment %}
                                                 </h6>
                                             </a>
-                                            <h4 class="">{{product.get_price}} 
+                                            <h4 class="">{{product.price}} 
                                                 <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
                                                     <defs>
                                                         <style>
@@ -167,8 +167,7 @@
                                                     <title>manat</title>
                                                     <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
                                                 </svg>
-                                                {% if product.is_discount %} <del>{{ product.price }} </del>
-                                                <del>
+                                                {% if product.old_price %} <del>{{ product.old_price }} 
                                                     <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
                                                         <defs>
                                                             <style>
@@ -178,8 +177,7 @@
                                                         <title>manat</title>
                                                         <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
                                                     </svg>
-                                                    </del>
-                                                 
+                                                </del> 
                                                 {% endif %}
                                         </div>
                                     </div>
