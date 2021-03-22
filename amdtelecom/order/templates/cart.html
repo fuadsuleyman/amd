@@ -201,23 +201,13 @@
 
     function confirm_delete(e){
 
-
-
-        // let itemCountLocStorage = localStorage.getItem('cartItems')
-        // itemCountLocStorage = parseInt(itemCountLocStorage)
-        // cart_badge.innerText = itemCountLocStorage -1
-        // localStorage.setItem('cartItems', itemCountLocStorage-1)
-
-        // console.log(e.target)
+        // remove clicked row
         let id = e.target.getAttribute('data-id')
         e.target.closest("tr").remove()
-        // console.log(`id delete ${id}`)
 
         const url = `http://localhost:8000/api-order/orderItem-delete/${id}/`;
 
         let allTotalPrices = document.querySelectorAll(".price-total")
-
-        // console.log("Welcome to delete")
 
         grandTotalPriceInt = []
 
@@ -225,6 +215,7 @@
             grandTotalPriceInt.push(parseInt(allTotalPrices[i].innerHTML))
         }
 
+        
         document.querySelector(".price-total-grand").innerHTML = getGrandTotal(grandTotalPriceInt).toFixed(2)
 
         e.preventDefault()
@@ -236,7 +227,6 @@
         })
         .then(res => res.text()) // or res.json()
         .then(res => console.log(`deleted ${res}`))
-        // .then(res => addCartCountToLocalStorage(document.querySelectorAll(".product-title").length))
 
         let inputValues = document.querySelectorAll('.change-quantity')
 

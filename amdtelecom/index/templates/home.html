@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+{% load custom_tags %}
 
 {% if messages %}
     {% for message in messages %}
@@ -9,88 +10,15 @@
                 </div>
     {% endfor %}
     {% endif %}
-    {% comment %} <!-- home banner start -->
+    <style>
+        .do-green{
+            color:green !important;
+        }
+        .do-gray{
+            color:#6f6f6f !important;
+        }
+    </style>
     
-
-
-{% comment %} <!-- home banner start -->
-    <div class="container banner-slider">
-        <div class="row">
-            <div class="col-md-7"><img src="{% static 'images/electronics/1.jpg' %}"
-                    class="img-fluid blur-up lazyload height-banner" alt=""></div>
-            <div class="col-md-5">
-                <div class="row home-banner">
-                    <div class="col-12">
-                        <a href="#"><img src="{% static 'images/electronics/2.jpg' %}" class="img-fluid blur-up lazyload"
-                                alt=""></a>
-                    </div>
-                    <div class="col-12">
-                        <a href="#"><img src="{% static 'images/electronics/4.jpg' %}" class="img-fluid blur-up lazyload"
-                                alt=""></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- home banner end  --> {% endcomment %}
-<!-- salam -->
-{% comment %} 
-    <!-- collection banner -->
-    <section class="banner-padding banner-goggles ratio2_1">
-        <div class="container">
-            <div class="row partition3">
-                <div class="col-md-4">
-                    <a href="#">
-                        <div class="collection-banner p-right text-right">
-                            <div class="img-part">
-                                <img src="{% static 'images/electronics/5.jpg' %}" class="img-fluid blur-up lazyload bg-img"
-                                    alt="">
-                            </div>
-                            <div class="contain-banner banner-3">
-                                <div>
-                                    <h4>10% off</h4>
-                                    <h2>speaker</h2>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-4">
-                    <a href="#">
-                        <div class="collection-banner p-right text-right">
-                            <div class="img-part">
-                                <img src="{% static 'images/electronics/6.jpg' %}" class="img-fluid blur-up lazyload bg-img"
-                                    alt="">
-                            </div>
-                            <div class="contain-banner banner-3">
-                                <div>
-                                    <h4>10% off</h4>
-                                    <h2>earplug</h2>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-4">
-                    <a href="#">
-                        <div class="collection-banner p-right text-right">
-                            <div class="img-part">
-                                <img src="{% static 'images/electronics/7.jpg' %}" class="img-fluid blur-up lazyload bg-img"
-                                    alt="">
-                            </div>
-                            <div class="contain-banner banner-3">
-                                <div>
-                                    <h4>50% off</h4>
-                                    <h2>best deal</h2>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- collection banner end --> {% endcomment %}
 
 
     <!-- slider tab  -->
@@ -136,8 +64,26 @@
                                                     </a>
                                             </div>
                                             <div class="cart-detail" style="top:45px">
-                                                <button data-target="#addtocart"
-                                                    title="Add to cart"><i class="ti-shopping-cart"></i></button>
+                                                <button data-target="#addtocart" class='my-carts-button'
+                                                    title="Add to cart">
+                                                    {% get_order_item_id product.id as oritid %}
+                                                    {% if oritid != None %}
+                                                        <i data-id-cart= {{ product.id }}
+                                                            data-id-order= {{ order.id }}
+                                                            data-id-customer= {{ customer.id }}
+                                                            data-id-orderitem= {{ oritid }}
+                                                            class="ti-shopping-cart my-cart-icon do-green">
+                                                        </i>
+                                                    {% else %}
+                                                        <i data-id-cart= {{ product.id }}
+                                                            data-id-order= {{ order.id }}
+                                                            data-id-customer= {{ customer.id }}
+                                                            data-id-orderitem= {{ oritid }}
+                                                            class="ti-shopping-cart my-cart-icon do-gray">
+                                                        </i>
+                                                    {% endif %}
+                                                </button>
+                                                    
                                                     <!-- <a href="javascript:void(0)" title="Add to Wishlist"><i
                                                         class="ti-heart" aria-hidden="true"></i></a> -->
                                                     <a href="#" data-toggle="modal" data-target="#{{ product.id }}tab-1" title="Quick View"><i
@@ -187,280 +133,6 @@
 
                                     <!-- Quick-view modal popup start-->
                                     <div class="modal fade bd-example-modal-lg theme-modal" id="{{ product.id }}tab-1" tabindex="-1" role="dialog"
-                                        aria-hidden="true">
-                                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                                            <div class="modal-content quick-view-modal">
-                                                <div class="modal-body">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                                            aria-hidden="true">&times;</span></button>
-                                                    <div class="row">
-                                                        <div class="col-lg-6 col-xs-12">
-                                                            <div class="quick-view-img">
-                                                                {% for image in product.images.all %}
-                                                                {% if image.is_main %}
-                                                                <img
-                                                                    src="{{ image.image.url }}"
-                                                                    class="img-fluid blur-up lazyload bg-img" alt="{{ image.image }}">
-                                                                {% endif %}
-                                                                {% endfor %}</div>
-                                                        </div>
-                                                        <div class="col-lg-6 rtl-text">
-                                                            <div class="product-right">
-                                                                <h2>{{product.title}}</h2>
-                                                                <h3>{{product.price}}
-                                                                    <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
-                                                                        <defs>
-                                                                            <style>
-                                                                                .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
-                                                                            </style>
-                                                                        </defs>
-                                                                        <title>manat</title>
-                                                                        <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
-                                                                    </svg>
-                                                                </h3>
-                                                                <ul class="color-variant">
-                                                                    <li style="background-color:{{ product.color_code }}; border: 5px solid {{ product.color_code }}; position: relative !important; ">
-                                                                        <a href="{% url 'product:product_detail' product.slug %}" title="{{ product.color_title | lower }}" style="position: absolute; width: 100%; height: 100%;"></a>
-                                                                    </li>
-                                                                </ul>
-                                                                <div class="border-product">
-                                                                    <h6 class="product-title">product details</h6>
-                                                                    <p>{{product.description}}</p>
-                                                                </div>
-                                                                <div class="product-buttons">
-                                                                    <a href="#" class="btn btn-solid">add to cart</a> 
-                                                                    <a href="{% url 'product:product_detail' product.slug %}" class="btn btn-solid">Ətraflı</a></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Quick-view modal popup end -->
-
-
-                                    {% endif %}
-                                    {% endfor %}
-                                </div>
-                            </div>
-                            <div id="tab-2" class="tab-content active default">
-                                <div class="row no-slider">
-                                    {% for product in products %}
-                                    {% if product.operator_code == None %}
-                                    <div class="product-box product-wrap">
-                                        <div class="img-wrapper">
-                                            {% if product.is_new %}<div class="lable-block"><span class="lable3">new</span></div>{% endif %}
-                                            {% if product.old_price %}<div class="lable-block"><span class="lable3" style="left:unset; right:7px">Endirim</span></div>{% endif %}
-                                            <div class="front">
-                                                <a href="{% url 'product:product_detail' product.slug %}" style="height: 271px;">
-                                                    {% for image in product.images.all %}
-                                                    {% if image.is_main %}
-                                                    <img
-                                                        src="{{ image.image.url }}"
-                                                        class="img-fluid blur-up lazyload bg-img" alt="">
-                                                    {% endif %}
-                                                    {% endfor %}
-                                                    </a>
-                                            </div>
-                                            <div class="back">
-                                                <a href="{% url 'product:product_detail' product.slug %}" style="height: 271px;">
-                                                    {% for image in product.images.all %}
-                                                    {% if image.is_second_main %}
-                                                    <img
-                                                        src="{{ image.image.url }}"
-                                                        class="img-fluid blur-up lazyload bg-img" alt="{{ image.image }}">
-                                                    {% endif %}
-                                                    {% endfor %}
-                                                    </a>
-                                            </div>
-                                            <div class="cart-detail" style="top:45px">
-                                                <button data-toggle="modal" data-target="#addtocart"
-                                                    title="Add to cart"><i class="ti-shopping-cart"></i></button>
-                                                    <!-- <a href="javascript:void(0)" title="Add to Wishlist"><i
-                                                        class="ti-heart" aria-hidden="true"></i></a> -->
-                                                    <a href="#" data-toggle="modal" data-target="#{{ product.id }}tab-2" title="Quick View"><i
-                                                        class="ti-search" aria-hidden="true"></i></a>
-                                                    <!-- <a href="compare.html" title="Compare"><i class="ti-reload"
-                                                        aria-hidden="true"></i></a> -->
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <!-- <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i></div> -->
-                                            <a href="{% url 'product:product_detail' product.slug %}">
-                                                <h6>{{ product.marka.all.0 | upper }} {{ product.title | upper }}
-                                                    {% comment %} {% if product.internal_storage %}
-                                                    <span>{{product.internal_storage}}</span>
-                                                    {% endif %} {% endcomment %}
-                                                </h6>
-                                            </a>
-                                            <h4 class="">{{product.price}} 
-                                                <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
-                                                    <defs>
-                                                        <style>
-                                                            .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
-                                                        </style>
-                                                    </defs>
-                                                    <title>manat</title>
-                                                    <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
-                                                </svg>
-                                                {% if product.old_price %} <del>{{ product.old_price }} 
-                                                    <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
-                                                        <defs>
-                                                            <style>
-                                                                .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
-                                                            </style>
-                                                        </defs>
-                                                        <title>manat</title>
-                                                        <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
-                                                    </svg>
-                                                </del> 
-                                                {% endif %}
-                                        </div>
-                                    </div>
-
-
-                                    <!-- Quick-view modal popup start-->
-                                    <div class="modal fade bd-example-modal-lg theme-modal" id="{{ product.id }}tab-2" tabindex="-1" role="dialog"
-                                        aria-hidden="true">
-                                        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-                                            <div class="modal-content quick-view-modal">
-                                                <div class="modal-body">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                                            aria-hidden="true">&times;</span></button>
-                                                    <div class="row">
-                                                        <div class="col-lg-6 col-xs-12">
-                                                            <div class="quick-view-img">
-                                                                {% for image in product.images.all %}
-                                                                {% if image.is_main %}
-                                                                <img
-                                                                    src="{{ image.image.url }}"
-                                                                    class="img-fluid blur-up lazyload bg-img" alt="{{ image.image }}">
-                                                                {% endif %}
-                                                                {% endfor %}</div>
-                                                        </div>
-                                                        <div class="col-lg-6 rtl-text">
-                                                            <div class="product-right">
-                                                                <h2>{{product.title}}</h2>
-                                                                <h3>{{product.price}}
-                                                                    <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
-                                                                        <defs>
-                                                                            <style>
-                                                                                .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
-                                                                            </style>
-                                                                        </defs>
-                                                                        <title>manat</title>
-                                                                        <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
-                                                                    </svg>
-                                                                </h3>
-                                                                <ul class="color-variant">
-                                                                    <li style="background-color:{{ product.color_code }}; border: 5px solid {{ product.color_code }}; position: relative !important; ">
-                                                                        <a href="{% url 'product:product_detail' product.slug %}" title="{{ product.color_title | lower }}" style="position: absolute; width: 100%; height: 100%;"></a>
-                                                                    </li>
-                                                                </ul>
-                                                                <div class="border-product">
-                                                                    <h6 class="product-title">product details</h6>
-                                                                    <p>{{product.description}}</p>
-                                                                </div>
-                                                                <div class="product-buttons">
-                                                                    <a href="#" class="btn btn-solid">add to cart</a> 
-                                                                    <a href="{% url 'product:product_detail' product.slug %}" class="btn btn-solid">Ətraflı</a></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Quick-view modal popup end -->
-
-
-                                    {% endif %}
-                                    {% endfor %}
-                                </div>
-                            </div>
-                            <div id="tab-3" class="tab-content active default">
-                                <div class="row no-slider">
-                                    {% for product in products %}
-                                    {% if product.operator_code == None %}
-                                    <div class="product-box product-wrap">
-                                        <div class="img-wrapper">
-                                            {% if product.is_new %}<div class="lable-block"><span class="lable3">new</span></div>{% endif %}
-                                            {% if product.old_price %}<div class="lable-block"><span class="lable3" style="left:unset; right:7px">Endirim</span></div>{% endif %}
-                                            <div class="front">
-                                                <a href="{% url 'product:product_detail' product.slug %}" style="height: 271px;">
-                                                    {% for image in product.images.all %}
-                                                    {% if image.is_main %}
-                                                    <img
-                                                        src="{{ image.image.url }}"
-                                                        class="img-fluid blur-up lazyload bg-img" alt="">
-                                                    {% endif %}
-                                                    {% endfor %}
-                                                    </a>
-                                            </div>
-                                            <div class="back">
-                                                <a href="{% url 'product:product_detail' product.slug %}" style="height: 271px;">
-                                                    {% for image in product.images.all %}
-                                                    {% if image.is_second_main %}
-                                                    <img
-                                                        src="{{ image.image.url }}"
-                                                        class="img-fluid blur-up lazyload bg-img" alt="{{ image.image }}">
-                                                    {% endif %}
-                                                    {% endfor %}
-                                                    </a>
-                                            </div>
-                                            <div class="cart-detail" style="top:45px">
-                                                <button data-toggle="modal" data-target="#addtocart"
-                                                    title="Add to cart"><i class="ti-shopping-cart"></i></button>
-                                                    <!-- <a href="javascript:void(0)" title="Add to Wishlist"><i
-                                                        class="ti-heart" aria-hidden="true"></i></a> -->
-                                                    <a href="#" data-toggle="modal" data-target="#{{ product.id }}tab-3" title="Quick View"><i
-                                                        class="ti-search" aria-hidden="true"></i></a>
-                                                    <!-- <a href="compare.html" title="Compare"><i class="ti-reload"
-                                                        aria-hidden="true"></i></a> -->
-                                            </div>
-                                        </div>
-                                        <div class="product-info">
-                                            <!-- <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                                    class="fa fa-star"></i></div> -->
-                                            <a href="{% url 'product:product_detail' product.slug %}">
-                                                <h6>{{ product.marka.all.0 | upper }} {{ product.title | upper }}
-                                                    {% comment %} {% if product.internal_storage %}
-                                                    <span>{{product.internal_storage}}</span>
-                                                    {% endif %} {% endcomment %}
-                                                </h6>
-                                            </a>
-                                            <h4 class="">{{product.price}} 
-                                                <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
-                                                    <defs>
-                                                        <style>
-                                                            .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
-                                                        </style>
-                                                    </defs>
-                                                    <title>manat</title>
-                                                    <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
-                                                </svg>
-                                                {% if product.old_price %} <del>{{ product.old_price }} 
-                                                    <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
-                                                        <defs>
-                                                            <style>
-                                                                .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
-                                                            </style>
-                                                        </defs>
-                                                        <title>manat</title>
-                                                        <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
-                                                    </svg>
-                                                </del> 
-                                                {% endif %}
-                                        </div>
-                                    </div>
-
-
-                                    <!-- Quick-view modal popup start-->
-                                    <div class="modal fade bd-example-modal-lg theme-modal" id="{{ product.id }}tab-3" tabindex="-1" role="dialog"
                                         aria-hidden="true">
                                         <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                                             <div class="modal-content quick-view-modal">
@@ -663,6 +335,131 @@
         </div>
     </section>
     <!-- slider tab end -->
+
+    <script>
+
+        let cartIcon = document.querySelectorAll('.my-cart-icon');
+        
+        for (let i = 0; i < cartIcon.length; i++){
+            cartIcon[i].addEventListener('click', changeColor, false)
+        }
+
+        
+        function changeColor(e){
+            let product_id = e.target.getAttribute('data-id-cart')
+            let customer_id = e.target.getAttribute('data-id-customer')
+            let order_id = e.target.getAttribute('data-id-order')
+            let orderitem_id = e.target.getAttribute('data-id-orderitem')
+            console.log(`NEHAYET orderItem: ${orderitem_id}`)    
+            // console.log(`basilan orderItem customtag-dan: ${orderItem_id}`)
+            console.log(`basilan product id: ${product_id}`)    
+            console.log(`basilan order id: ${order_id}`)
+            // console.log(`basilanin orderItemi id-si: ${orderitem_id}`)
+
+            console.log(`basilan customer id: ${customer_id}`)    
+            console.log('cart reng deyisenine girdin')
+
+            // if(orderitem_id != None){
+            //     console.log('girdi shertle gray silib green elave edene none deyilse')
+            //     e.target.classList.remove("do-gray");
+            //     e.target.classList.add('do-green')
+            // }else {
+            //     console.log('girdi shertle gray silib green elave edene none-dursa')
+            //     e.target.classList.remove("do-green");
+            //     e.target.classList.add('do-gray')
+            // }
+
+            function set_orderItem_id(id){
+                orderitem_id = id
+                console.log(`set eledim orderItem id-ni ${orderitem_id}`)
+            }
+
+            // sebet iconunun rengini deyisirem
+            if (e.target.classList.contains('do-green')){
+                e.target.classList.remove("do-green");
+                e.target.classList.add('do-gray');
+                
+                url_get_id = `http://localhost:8000/api-order/orderItem-id/${product_id}/`
+
+                fetch(url_get_id, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+                },
+                })
+                .then(res => res.text())
+                .then(res => set_orderItem_id(res))
+                .then(res => console.log(`res from get_id ${res}`))
+                
+
+                // decrice cart count in navbar
+                currentCountCartBadge = cart_badge.innerHTML
+                console.log(`product kartda karti basanda yuxarida sebet count: ${currentCountCartBadge}`) 
+                cart_badge.innerText = parseInt(currentCountCartBadge) - 1
+                console.log(`url-e qoymazdan qabaq ordetitem_id: ${orderitem_id}`)
+
+                setTimeout(function() { deleteOrderItem(); }, 1000);
+
+                function deleteOrderItem(){
+                    console.log(`url-e qoymazdan qabaq daxili functa ordetitem_id: ${orderitem_id}`)
+
+                    url_del = `http://localhost:8000/api-order/orderItem-delete/${orderitem_id}/`;
+
+                    fetch(url_del, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRFToken': csrftoken
+                        },
+                    })
+                    .then(res => res.text()) // or res.json()
+                    .then(res => console.log(`deleted ${res}`))
+
+                }
+                
+
+
+                // orderItem-create/
+            } else if (e.target.classList.contains('do-gray')){
+                console.log('girdi create olan yere')
+                e.target.classList.remove("do-gray");
+                e.target.classList.add('do-green');
+                
+                // incrice cart count in navbar
+                currentCountCartBadge = cart_badge.innerHTML
+                console.log(`product kartda karti basanda yuxarida sebet count: ${currentCountCartBadge}`) 
+                cart_badge.innerText = parseInt(currentCountCartBadge) + 1
+
+                let url_post = 'http://localhost:8000/api-order/orderItem-create/'
+
+                fetch(url_post, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify({
+                    quantity: 1,
+                    product: product_id,
+                    order: order_id,
+                    customer: customer_id
+                    })
+                })
+                .then(res => res.text())
+
+        }
+    }
+
+        // function getCookie(name) {
+        // const value = `; ${document.cookie}`;
+        // const parts = value.split(`; ${name}=`);
+        // if (parts.length === 2) return parts.pop().split(';').shift();
+        // }
+
+        // let csrftoken = getCookie('csrftoken');
+
+        
+    </script>
 
 
 {% endblock content %}

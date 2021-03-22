@@ -2,6 +2,8 @@ from django.http.response import Http404
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from account.models import Customer
+from django.core import serializers as seril
+from django.http import JsonResponse
 
 # Create your views here.
 
@@ -14,6 +16,7 @@ from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.generics import ListAPIView
 from .serializers import OrderItemSerializer
+from order_api import serializers
 # from .serializers import ProductPriceUpdateSerializer
 
 
@@ -39,6 +42,7 @@ def all_order_items(request):
 @api_view(['GET'])
 def get_order_items_count(request):
     device = request.COOKIES['device']
+    print('COUNT API isheleyir')
     print('device', device)
     customer, created = Customer.objects.get_or_create(device=device)
     print('customer', customer)
@@ -53,12 +57,38 @@ def get_order_items_count(request):
         
         for item in order.orderitem_set.all():
             print(item.quantity)
-            total_items += int(item.quantity) 
+            total_items += int(item.quantity)
+        print('Count Api saylar:', total_items)
     else:
         total_items = 0
 
     return Response(total_items)
 
+@api_view(['GET'])
+def get_order_items_id(request, pk):
+    device = request.COOKIES['device']
+    print('ITEM_id API isheleyir')
+    print('device api item_id', device)
+    customer, created = Customer.objects.get_or_create(device=device)
+    print('customer api item_id', customer)
+
+    try:
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+    except Order.DoesNotExist:
+        order = None
+
+    if order != None:
+        
+        # orderItems_id = order.orderitem_set.all().filter(product_id=pk).first()
+        orderItems_id = order.orderitem_set.all().get(product_id=pk).id
+        print('orderItems_id api item_id', orderItems_id)
+        # orderItems_idserialized = seril.serialize('json', orderItems_id)
+        # print('ordetItems_id from api seril', orderItems_idserialized)
+        return Response(orderItems_id)
+
+    #     return JsonResponse(orderItems_id, safe=False)
+    # else:
+    #     return JsonResponse(None)
 
 
 @api_view(['GET'])
@@ -76,8 +106,9 @@ def get_order_item(request, pk):
 @api_view(['POST'])
 def create_order_item(request):
     serializer = OrderItemSerializer(data=request.data)
-
+    print('serializer:', serializer)
     if serializer.is_valid():
+        # instance, created = serializer.get_or_create()
         serializer.save()
     return Response(serializer.data)
 

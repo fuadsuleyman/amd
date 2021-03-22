@@ -199,6 +199,8 @@ class Product(models.Model):
         else:
             return self.price - self.discount_value
     
+
+    
     def get_is_discount(self):
         if self.get_price() < self.price:
             is_discount = True
