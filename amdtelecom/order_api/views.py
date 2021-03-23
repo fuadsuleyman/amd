@@ -37,11 +37,34 @@ def all_order_items(request):
     return Response(serializer.data)
 
 @api_view(['GET'])
+def get_order_items_id(request, pk):
+    device = request.COOKIES['device']
+    print('ITEM_id API isheleyir')
+    print('device api item_id', device)
+    customer, created = Customer.objects.get_or_create(device=device)
+    print('customer api item_id', customer)
+
+    try:
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+    except Order.DoesNotExist:
+        order = None
+
+    if order != None:
+
+        # orderItems_id = order.orderitem_set.all().filter(product_id=pk).first()
+        orderItems_id = order.orderitem_set.all().get(product_id=pk).id
+        print('orderItems_id api item_id', orderItems_id)
+        return Response(orderItems_id)
+
+
+
+@api_view(['GET'])
 def get_order_items_count(request):
     device = request.COOKIES['device']
-    print('device', device)
+    print('COUNT API isheleyir')
+    # print('device', device)
     customer, created = Customer.objects.get_or_create(device=device)
-    print('customer', customer)
+    # print('customer', customer)
 
     try:
         order, created = Order.objects.get_or_create(customer=customer, complete=False)

@@ -1,3 +1,5 @@
+from order.models import Order
+from account.models import Customer
 from product.models import Product
 from product.models import Product_details, Category
 from django.views.generic import TemplateView
@@ -6,27 +8,29 @@ from django.shortcuts import render
 
 # Create your views here.
 
+def home_page(request):
+    device = request.COOKIES['device']
+    customer, created = Customer.objects.get_or_create(device=device)
+    order, created = Order.objects.get_or_create(customer=customer, complete=False)
+    products = Product.objects.all()
+    category = Category.objects.all()
+    details = Product_details.objects.all()
+    context = {'products':products, 'details': details,'category':category, 'customer': customer, 'order': order}
+    return render(request, 'home.html', context)
 
-# def home_page(request):
-#     products = Product.objects.all()
-#     category = Category.objects.all()
-#     details = Product_details.objects.all()
-#     context = {'products':products, 'details': details,'category':category }
-#     return render(request, 'home.html', context)
 
+# class HomePageTemplateView(TemplateView):
+#     template_name = 'home.html'
 
-class HomePageTemplateView(TemplateView):
-    template_name = 'home.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        products = Product.objects.all()
-        category = Category.objects.all()
-        details = Product_details.objects.all()
-        context["products"] = products
-        context["details"] = details
-        context["category"] = category
-        return context
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         products = Product.objects.all()
+#         category = Category.objects.all()
+#         details = Product_details.objects.all()
+#         context["products"] = products
+#         context["details"] = details
+#         context["category"] = category
+#         return context
     
 
 def autocomplete(request):
