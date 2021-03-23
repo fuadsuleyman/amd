@@ -35,7 +35,7 @@ services:
         ports:
             - "8000:8000"
         volumes:
-            - .:/code/
+            - .:/code/ 
             # - ./static/:/code/static
             # - ./media/:/code/media
         depends_on:
