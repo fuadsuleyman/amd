@@ -204,7 +204,7 @@
         // delete clicked row
         let id = e.target.getAttribute('data-id')
         e.target.closest("tr").remove()
-        const url = `http://localhost:8000/api-order/orderItem-delete/${id}/`;
+        const url = `http://localhost/api-order/orderItem-delete/${id}/`;
         let allTotalPrices = document.querySelectorAll(".price-total")
 
         grandTotalPriceInt = []
@@ -253,8 +253,8 @@
 
 
         let id_patch = e.target.getAttribute('data-id-patch')
-        const url_patch = `http://localhost:8000/api-order/orderItem-patch/${id_patch}/`;
-        const url_del = `http://localhost:8000/api-order/orderItem-delete/${id_patch}/`;
+        const url_patch = `http://localhost/api-order/orderItem-patch/${id_patch}/`;
+        const url_del = `http://localhost/api-order/orderItem-delete/${id_patch}/`;
 
         let clickedTr = e.target.closest("tr")
         clickedPrice = parseInt(e.target.closest("tr").childNodes[5].querySelector("h2").innerHTML.split(" ")[1])
