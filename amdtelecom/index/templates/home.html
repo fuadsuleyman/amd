@@ -766,7 +766,7 @@
                 e.target.classList.remove("do-green");
                 e.target.classList.add('do-gray');
 
-                url_get_id = `http://localhost/api-order/orderItem-id/${product_id}/`
+                url_get_id = `${url}/api-order/orderItem-id/${product_id}/`
 
                 fetch(url_get_id, {
                 method: 'GET',
@@ -791,7 +791,7 @@
                 function deleteOrderItem(){
                     console.log(`url-e qoymazdan qabaq daxili functa ordetitem_id: ${orderitem_id}`)
 
-                    url_del = `http://localhost/api-order/orderItem-delete/${orderitem_id}/`;
+                    url_del = `${url}/api-order/orderItem-delete/${orderitem_id}/`;
 
                     fetch(url_del, {
                         method: 'DELETE',
@@ -817,7 +817,7 @@
                 console.log(`product kartda karti basanda yuxarida sebet count: ${currentCountCartBadge}`) 
                 cart_badge.innerText = parseInt(currentCountCartBadge) + 1
 
-                let url_post = 'http://localhost/api-order/orderItem-create/'
+                let url_post = `${url}/api-order/orderItem-create/`
 
                 fetch(url_post, {
                 method: 'POST',

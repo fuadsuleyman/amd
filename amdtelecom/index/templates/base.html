@@ -984,6 +984,7 @@
                         </form>
                         <script>
                             let url = 'http://{{ request.META.HTTP_HOST }}'
+                            console.log(`Elvin url ${url} qurtardi`)
 
                             document.querySelector('#mc-embedded-subscribe-form').addEventListener('submit', async(e) => {
                                 e.preventDefault()
@@ -2091,10 +2092,9 @@
 
 <script>
 
-      
-
     let cart_badge = document.querySelector('.cart-badge')
-    const url_count = `http://localhost/api-order/orderItem-count/`;
+    const url_count = `${url}/api-order/orderItem-count/`;
+    // console.log(`menim mix url: ${url_count}`)
     
     // this function set browser localstorage
     let addCartCountToLocalStorage = (count) => {
