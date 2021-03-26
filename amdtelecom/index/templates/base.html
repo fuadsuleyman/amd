@@ -2093,9 +2093,10 @@
     </script>
 
 <script>
-
+    const domain_api_base = document.getElementById('YOUR_ENV_VARIABLE').value
     let cart_badge = document.querySelector('.cart-badge')
-    const url_count = `http://localhost:8000/api-order/orderItem-count/`;
+
+    const url_count = `${domain_api_base}api-order/orderItem-count/`;
     
     // this function set browser localstorage
     let addCartCountToLocalStorage = (count) => {
