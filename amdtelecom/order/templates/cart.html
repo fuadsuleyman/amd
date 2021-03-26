@@ -10,14 +10,14 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="page-title">
-                    <h2>cart</h2>
+                    <h2>Səbət</h2>
                 </div>
             </div>
             <div class="col-sm-6">
                 <nav aria-label="breadcrumb" class="theme-breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="{% url 'index:home' %}">Home</a></li>
-                        <li class="breadcrumb-item active">cart</li>
+                        <li class="breadcrumb-item"><a href="{% url 'index:home' %}">Ana səhifə</a></li>
+                        <li class="breadcrumb-item active">səbət</li>
                     </ol>
                 </nav>
             </div>
@@ -35,12 +35,12 @@
                 <table class="table cart-table table-responsive-xs">
                     <thead>
                         <tr class="table-head">
-                            <th scope="col">image</th>
-                            <th scope="col">product name</th>
-                            <th scope="col">price</th>
-                            <th scope="col">quantity</th>
-                            <th scope="col">action</th>
-                            <th scope="col">total</th>
+                            <th scope="col">Şəkil</th>
+                            <th scope="col">Məhsulun adı</th>
+                            <th scope="col">Qiyməti</th>
+                            <th scope="col">Sayı</th>
+                            <th scope="col">Sil</th>
+                            <th scope="col">Cəmi</th>
                         </tr>
                     </thead>
 
@@ -132,7 +132,7 @@
                 <table class="table cart-table table-responsive-md">
                     <tfoot>
                         <tr>
-                            <td>total price :</td>
+                            <td>Ümumi qiymət:</td>
                             <td>
                                 <h2 class="d-flex"><span class="price-total-grand">{{order.get_cart_total|floatformat:2}}</span>
                                     <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
@@ -152,8 +152,8 @@
             </div>
         </div>
         <div class="row cart-buttons">
-            <div class="col-6"><a href="{% url 'index:home' %}" class="btn btn-solid">continue shopping</a></div>
-            <div class="col-6"><a href="{% url 'order:checkout' %}" class="btn btn-solid">check out</a></div>
+            <div class="col-6"><a href="{% url 'index:home' %}" class="btn btn-solid">Alış-verişə davam et</a></div>
+            <div class="col-6"><a href="{% url 'order:checkout' %}" class="btn btn-solid">Sifarişi tamamla</a></div>
         </div>
     </div>
 </section>
@@ -182,7 +182,7 @@
     // }
 
     // updateCart()
-    let domain_api = document.getElementById('YOUR_ENV_VARIABLE').value
+
 
     let getGrandTotal = (arr) => {
                 let sum = 0
@@ -213,10 +213,7 @@
         e.target.closest("tr").remove()
         // console.log(`id delete ${id}`)
 
-        console.log(domain_api, 'ada')
-
-        const url = `${domain_api}api-order/orderItem-delete/${id}/`;
-        console.log(url, 'datar')
+        const url = `http://localhost:8000/api-order/orderItem-delete/${id}/`;
 
         let allTotalPrices = document.querySelectorAll(".price-total")
 
@@ -269,8 +266,8 @@
 
 
         let id_patch = e.target.getAttribute('data-id-patch')
-        const url_patch = `${domain_api}api-order/orderItem-patch/${id_patch}/`;
-        const url_del = `${domain_api}api-order/orderItem-delete/${id_patch}/`;
+        const url_patch = `http://localhost:8000/api-order/orderItem-patch/${id_patch}/`;
+        const url_del = `http://localhost:8000/api-order/orderItem-delete/${id_patch}/`;
 
         let clickedTr = e.target.closest("tr")
         clickedPrice = parseInt(e.target.closest("tr").childNodes[5].querySelector("h2").innerHTML.split(" ")[1])
