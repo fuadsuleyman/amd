@@ -143,7 +143,7 @@ function getData() { // filter product data return products
                         <a href="${domain}product/${product.slug}/">
                         <img
                             src="${getProImage(product.images[0])}"
-                            class="img-fluid blur-up lazyload bg-img" alt="${product.title}" style="height: 271px;">
+                            class="img-fluid blur-up lazyload bg-img" alt="${product.title}">
                         </a>
                     </div>
                     `
