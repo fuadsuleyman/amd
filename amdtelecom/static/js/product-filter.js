@@ -136,11 +136,6 @@ function getData() { // filter product data return products
                                 class="img-fluid blur-up lazyload bg-img" alt="${product.title}">
                             </a>
                     </div>
-                    <div class="cart-info cart-wrap" style="top:45px">
-                        <button data-toggle="modal" data-target="#addtocart" title="Add to cart">
-                            <i class="ti-shopping-cart"></i>
-                        </button> 
-                    </div>
                     `
 
                     secondImage = `
