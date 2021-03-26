@@ -393,23 +393,23 @@
                                                 <div class="product-box">
                                                     <div class="img-wrapper">
                                                         <div class="front">
-                                                            <a href="{% url 'product:product_detail' product.slug %}">
+                                                            <a href="{% url 'product:product_detail' product.slug %}" style="height: 297px; width: 232px;">
                                                                 {% for image in product.images.all %}
                                                                 {% if image.is_main %}
                                                                 <img
                                                                     src="{{ image.image.url }}"
-                                                                    class="img-fluid blur-up lazyload bg-img" alt="">
+                                                                    class="img-fluid blur-up lazyload bg-img w-100 h-100" alt="" style="object-fit: cover;">
                                                                 {% endif %}
                                                                 {% endfor %}
                                                                 </a>
                                                         </div>
                                                         <div class="back">
-                                                            <a href="{% url 'product:product_detail' product.slug %}">
+                                                            <a href="{% url 'product:product_detail' product.slug %}" style="height: 297px; width: 232px;">
                                                                 {% for image in product.images.all %}
                                                                 {% if image.is_second_main %}
                                                                 <img
                                                                     src="{{ image.image.url }}"
-                                                                    class="img-fluid blur-up lazyload bg-img" alt="{{ image.image }}">
+                                                                    class="img-fluid blur-up lazyload bg-img w-100 h-100" alt="{{ image.image }}" style="object-fit: cover;">
                                                                 {% endif %}
                                                                 {% endfor %}
                                                                 </a>

@@ -123,27 +123,27 @@ function getData() { // filter product data return products
                     // console.log(product, 'datalar');
                     mainSeconImage = `
                     <div class="front">
-                        <a href="${domain}product/${product.slug}/">
+                        <a href="${domain}product/${product.slug}/" style="height: 297px; width: 232px;">
                         <img
-                            src="${getProImage(product.images[1])}"
-                            class="img-fluid blur-up lazyload bg-img" alt="${product.title}">
+                            src="${getProImage(product.images[0])}"
+                            class="img-fluid blur-up lazyload bg-img w-100 h-100" alt="${product.title}" style="object-fit: cover;">
                         </a>
                     </div>
                     <div class="back">
-                        <a href="${domain}product/${product.slug}/">
+                        <a href="${domain}product/${product.slug}/" style="height: 297px; width: 232px;">
                             <img
-                                src="${getProImage(product.images[0])}"
-                                class="img-fluid blur-up lazyload bg-img" alt="${product.title}">
+                                src="${getProImage(product.images[1])}"
+                                class="img-fluid blur-up lazyload bg-img w-100 h-100" alt="${product.title}" style="object-fit: cover;">
                             </a>
                     </div>
                     `
 
                     secondImage = `
                     <div class="front">
-                        <a href="${domain}product/${product.slug}/">
+                        <a href="${domain}product/${product.slug}/" style="height: 297px; width: 232px;">
                         <img
-                            src="${getProImage(product.images[0])}"
-                            class="img-fluid blur-up lazyload bg-img" alt="${product.title}">
+                            src="${getProImage(product.images[1])}"
+                            class="img-fluid blur-up lazyload bg-img w-100 h-100" alt="${product.title}" style="object-fit: cover;">
                         </a>
                     </div>
                     `
