@@ -182,7 +182,7 @@
     // }
 
     // updateCart()
-
+    let domain_api = document.getElementById('YOUR_ENV_VARIABLE').value
 
     let getGrandTotal = (arr) => {
                 let sum = 0
@@ -212,9 +212,11 @@
         let id = e.target.getAttribute('data-id')
         e.target.closest("tr").remove()
         // console.log(`id delete ${id}`)
-        const domain_api = document.getElementById('YOUR_ENV_VARIABLE').value
+
+        console.log(domain_api, 'ada')
 
         const url = `${domain_api}api-order/orderItem-delete/${id}/`;
+        console.log(url, 'datar')
 
         let allTotalPrices = document.querySelectorAll(".price-total")
 
