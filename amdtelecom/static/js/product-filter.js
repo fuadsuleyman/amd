@@ -1,4 +1,5 @@
-const domain = `http://localhost:8000/`
+const domain = document.getElementById('YOUR_ENV_VARIABLE').value
+
 
 // keep this page category id
 const categoryProduct = $('.category-pro')[0]

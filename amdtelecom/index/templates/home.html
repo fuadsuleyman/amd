@@ -107,7 +107,7 @@
                         <div class="tab-content-cls no-color-varient">
                             <div id="tab-1" class="tab-content active default">
                                 <div class="row no-slider">
-                                    {% for product in products %}
+                                    {% for product in new_arrivals %}
                                     {% if product.operator_code == None %}
                                     <div class="product-box product-wrap">
                                         <div class="img-wrapper">
@@ -222,7 +222,7 @@
                                                                     </li>
                                                                 </ul>
                                                                 <div class="border-product">
-                                                                    <h6 class="product-title">product details</h6>
+                                                                    <h6 class="product-title">Məhsul haqqında</h6>
                                                                     <p>{{product.description}}</p>
                                                                 </div>
                                                                 <div class="product-buttons">
@@ -243,9 +243,9 @@
                                     {% endfor %}
                                 </div>
                             </div>
-                            <div id="tab-2" class="tab-content active default">
+                            <div id="tab-2" class="tab-content">
                                 <div class="row no-slider">
-                                    {% for product in products %}
+                                    {% for product in most_sold %}
                                     {% if product.operator_code == None %}
                                     <div class="product-box product-wrap">
                                         <div class="img-wrapper">
@@ -360,7 +360,7 @@
                                                                     </li>
                                                                 </ul>
                                                                 <div class="border-product">
-                                                                    <h6 class="product-title">product details</h6>
+                                                                    <h6 class="product-title">Məhsul haqqında </h6>
                                                                     <p>{{product.description}}</p>
                                                                 </div>
                                                                 <div class="product-buttons">
@@ -381,9 +381,9 @@
                                     {% endfor %}
                                 </div>
                             </div>
-                            <div id="tab-3" class="tab-content active default">
+                            <div id="tab-3" class="tab-content">
                                 <div class="row no-slider">
-                                    {% for product in products %}
+                                    {% for product in discounted_products %}
                                     {% if product.operator_code == None %}
                                     <div class="product-box product-wrap">
                                         <div class="img-wrapper">
@@ -498,7 +498,7 @@
                                                                     </li>
                                                                 </ul>
                                                                 <div class="border-product">
-                                                                    <h6 class="product-title">product details</h6>
+                                                                    <h6 class="product-title">Məhsul haqqında</h6>
                                                                     <p>{{product.description}}</p>
                                                                 </div>
                                                                 <div class="product-buttons">

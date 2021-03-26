@@ -27,6 +27,7 @@ SECRET_KEY = '#p_$i#w56)lc@6a0)nz6&#%)3d8+yy62+-xy9zxa#6on-e!a5&'
 DEBUG = False if os.environ.get('DEBUG') else True
 PROD = not DEBUG
 
+
 ALLOWED_HOSTS = ['*']
 
 
@@ -225,7 +226,14 @@ else:
     STATICFILES_DIRS = [
         BASE_DIR / "static",
     ]
-    
+
+if PROD:
+    API_URL = 'http://localhost/'
+else:
+    # url = os.environ.get('POSTGRES_DB')
+    # url =url.split(',')
+    # print(url, 'datalar')
+    API_URL = 'http://localhost:8000/'
 
 # STATICFILES_DIRS = [
 #     BASE_DIR / "static",

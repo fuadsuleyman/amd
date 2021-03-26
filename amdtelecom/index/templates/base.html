@@ -498,12 +498,14 @@
                                 <nav id="main-nav">
                                     <div class="toggle-nav"><i class="fa fa-bars sidebar-bar"></i></div>
                                     <ul id="main-menu" class="sm pixelstrap sm-horizontal light-font-menu">
+                                    {% get_navbar as protocol %}
+                                    <input id="YOUR_ENV_VARIABLE" value="{{ protocol.api_url }}" type="hidden" />
                                         <li>
                                             <div class="mobile-back text-right">Back<i class="fa fa-angle-right pl-2"
                                                     aria-hidden="true"></i></div>
                                         </li>
-                                        {% get_navbar as category_list%}
-                                        {% for category in category_list %}
+                                        {% get_navbar as category%}
+                                        {% for category in category.category_list %}
                                         <li>
                                             
                                             {% if category.is_main %}
@@ -984,6 +986,7 @@
                         </form>
                         <script>
                             let url = 'http://{{ request.META.HTTP_HOST }}'
+                            console.log(url, 'url')
 
                             document.querySelector('#mc-embedded-subscribe-form').addEventListener('submit', async(e) => {
                                 e.preventDefault()
@@ -2090,8 +2093,6 @@
     </script>
 
 <script>
-
-      
 
     let cart_badge = document.querySelector('.cart-badge')
     const url_count = `http://localhost:8000/api-order/orderItem-count/`;

@@ -23,6 +23,15 @@ class HomePageTemplateView(TemplateView):
         products = Product.objects.all()
         category = Category.objects.all()
         details = Product_details.objects.all()
+
+        # for home page return filter products
+        new_arrivals = products.filter(is_published=True).filter(is_new=True).order_by('-created_at')[:12]
+        most_sold = products.filter(is_published=True).order_by('-sale_count')[:12]
+        discounted_products = products.filter(is_published=True).filter(is_discount=True).order_by('-created_at')[:12]
+
+        context['new_arrivals'] = new_arrivals
+        context['most_sold'] = most_sold
+        context['discounted_products'] = discounted_products
         context["products"] = products
         context["details"] = details
         context["category"] = category
