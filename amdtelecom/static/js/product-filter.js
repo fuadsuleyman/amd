@@ -122,28 +122,28 @@ function getData() { // filter product data return products
                 for(let product of response){
                     // console.log(product, 'datalar');
                     mainSeconImage = `
-                    <div class="front">
-                        <a href="${domain}product/${product.slug}/" style="height: 297px; width: 232px;">
+                    <div class="front h-100">
+                        <a href="${domain}product/${product.slug}/">
                         <img
                             src="${getProImage(product.images[0])}"
-                            class="img-fluid blur-up lazyload bg-img w-100 h-100" alt="${product.title}" style="object-fit: cover;">
+                            class="img-fluid blur-up lazyload bg-img" alt="${product.title}">
                         </a>
                     </div>
-                    <div class="back">
-                        <a href="${domain}product/${product.slug}/" style="height: 297px; width: 232px;">
+                    <div class="back h-100">
+                        <a href="${domain}product/${product.slug}/">
                             <img
                                 src="${getProImage(product.images[1])}"
-                                class="img-fluid blur-up lazyload bg-img w-100 h-100" alt="${product.title}" style="object-fit: cover;">
+                                class="img-fluid blur-up lazyload bg-img" alt="${product.title}">
                             </a>
                     </div>
                     `
 
                     secondImage = `
-                    <div class="front">
-                        <a href="${domain}product/${product.slug}/" style="height: 297px; width: 232px;">
+                    <div class="front h-100">
+                        <a href="${domain}product/${product.slug}/">
                         <img
                             src="${getProImage(product.images[1])}"
-                            class="img-fluid blur-up lazyload bg-img w-100 h-100" alt="${product.title}" style="object-fit: cover;">
+                            class="img-fluid blur-up lazyload bg-img" alt="${product.title}">
                         </a>
                     </div>
                     `
@@ -210,7 +210,7 @@ function getData() { // filter product data return products
                             products += `
                                     <div class="col-xl-3 col-sm-6 col-md-4 col-grid-box category-pro">
                                     <div class="product-box">
-                                        <div class="img-wrapper">
+                                        <div class="img-wrapper" style="height: 297px !important; width: 232px !important;">
                                             ${ product.images.length > 1 ? mainSeconImage : secondImage }
                                             <div class="cart-info cart-wrap" style="top:45px">
                                                 <button data-toggle="modal" data-target="#addtocart" title="Add to cart">
@@ -240,7 +240,7 @@ function getData() { // filter product data return products
                             products += `
                                     <div class="col-xl-3 col-sm-6 col-md-4 col-grid-box category-pro">
                                     <div class="product-box">
-                                        <div class="img-wrapper">
+                                        <div class="img-wrapper" style="height: 297px !important; width: 232px !important;>
                                         ${ product.images.length > 1 ? mainSeconImage : secondImage }
                                         </div>
                                         <div class="product-detail">
