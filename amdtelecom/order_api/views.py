@@ -98,6 +98,7 @@ def get_order_item(request, pk):
 
 @api_view(['POST'])
 def create_order_item(request):
+    print('Salam')
     serializer = OrderItemSerializer(data=request.data)
     # order_item_count = 0
 
