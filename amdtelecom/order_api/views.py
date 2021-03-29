@@ -39,6 +39,7 @@ def all_order_items(request):
 @api_view(['GET'])
 def get_order_items_count(request):
     device = request.COOKIES['device']
+    print('COUNT API isheleyir')
     print('device', device)
     customer, created = Customer.objects.get_or_create(device=device)
     print('customer', customer)
@@ -50,14 +51,36 @@ def get_order_items_count(request):
 
     total_items = 0
     if order != None:
-        
+
         for item in order.orderitem_set.all():
             print(item.quantity)
-            total_items += int(item.quantity) 
+            total_items += int(item.quantity)
     else:
         total_items = 0
 
     return Response(total_items)
+
+@api_view(['GET'])
+def get_order_items_id(request, pk):
+    device = request.COOKIES['device']
+    print('ITEM_id API isheleyir')
+    print('device api item_id', device)
+    customer, created = Customer.objects.get_or_create(device=device)
+    print('customer api item_id', customer)
+
+    try:
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+    except Order.DoesNotExist:
+        order = None
+
+    if order != None:
+
+        # orderItems_id = order.orderitem_set.all().filter(product_id=pk).first()
+        orderItems_id = order.orderitem_set.all().get(product_id=pk).id
+        print('orderItems_id api item_id', orderItems_id)
+        # orderItems_idserialized = seril.serialize('json', orderItems_id)
+        # print('ordetItems_id from api seril', orderItems_idserialized)
+        return Response(orderItems_id)
 
 
 
@@ -76,9 +99,20 @@ def get_order_item(request, pk):
 @api_view(['POST'])
 def create_order_item(request):
     serializer = OrderItemSerializer(data=request.data)
+    # order_item_count = 0
+
+    # order_item_count
+
+    # num_results = User.objects.filter(email = cleaned_info['username']).count()
+
+    
 
     if serializer.is_valid():
-        serializer.save()
+        print('data from create', request.data['product'])
+        order1 = OrderItem.objects.filter(product_id = request.data['product']).count()
+        print('SAY: ', order1)
+        if order1 == 0:
+            serializer.save()
     return Response(serializer.data)
 
 @api_view(['PATCH'])
@@ -91,7 +125,7 @@ def patch_order_item(request, pk):
             # orderItem.get_total()
     except OrderItem.DoesNotExist:
         raise Http404
-    
+
     return Response(serializer.data)
 
 @api_view(['PUT'])
