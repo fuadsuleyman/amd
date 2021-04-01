@@ -58,7 +58,6 @@ class Marka(models.Model):
         return self.title 
 
     def save(self, *args, **kwargs):  
-        from .tasks import change_is_new
         title = Marka.objects.filter(title=self.title).first()
         super(Marka, self).save(*args, **kwargs)
         if len(self.slug) == 0: 
