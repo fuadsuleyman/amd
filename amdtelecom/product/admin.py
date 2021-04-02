@@ -99,19 +99,18 @@ class ProductAdmin(admin.ModelAdmin):
         super().save_related(request, form, formsets, change)
         product = form.instance
 
-        marka = product.marka.first() if product.marka.first().title != None  else ''
+        marka = product.marka.first() if product.marka.first() != None  else ''
         ram = product.ram if product.ram != None  else ''
         internal_storage = product.internal_storage if product.internal_storage != None  else ''
         color_title = product.color_title if product.color_title != None  else ''
 
-        if product.title:
-            product.title=''
-            product.save()
-        product.title = f'{marka} {product.title} {ram} {internal_storage} {color_title}'
-        product.save()
-        product.slug = f'{slugify(product.title)}'
-        product.save()
+        
 
+        # if product.slug:
+        #     product.title=
+
+        
+        
 
     def show_markas(self, obj):
         return ' '.join([product.title for product in obj.marka.all()])

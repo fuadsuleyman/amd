@@ -298,7 +298,22 @@
                                 <div class="col-lg-6 rtl-text"> 
                                     <div class="product-right">
                                         
-                                        <h2 class="marka-title">{{ product.marka.all.first }} {{ product.title }}  {% comment %} {% if product.color_title %}{{ product.color_title }} {% endif %} {% endcomment %}
+                                        <h2 class="marka-title">
+                            {% if product.marka.all.first %}
+                            {{ product.marka.all.first|upper }} 
+                            {% endif %}
+                            {% if product.title %}
+                            {{product.title|upper}}
+                            {% endif %} 
+                            {% if product.ram %}
+                            {{product.ram|upper}}
+                            {% endif %} / 
+                            {% if product.internal_storage %}
+                            {{product.internal_storage|upper}}
+                            {% endif %} 
+                            {% if product.color_title %}
+                            {{product.color_title|upper}} 
+                            {% endif %} {% comment %} {% if product.color_title %}{{ product.color_title }} {% endif %} {% endcomment %}
                     
                                             <!-- {% for detail in details %}  -->
                                             <!-- <span>ram / yaddas </span> -->

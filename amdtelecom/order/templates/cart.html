@@ -54,7 +54,24 @@
                                     {% endif %}
                                 {% endfor %}
                             </td>
-                            <td><a class="product-title" href="{% url 'product:product_detail' item.product.slug %}">{{item.product.title}}</a>
+                            <td><a class="product-title" href="{% url 'product:product_detail' item.product.slug %}">
+                            {% if item.product.marka.all.first %}
+                            {{ item.product.marka.all.first|upper }} 
+                            {% endif %}
+                            {% if item.product.title %}
+                            {{item.product.title|upper}}
+                            {% endif %} 
+                            {% if item.product.ram %}
+                            {{item.product.ram|upper}}
+                            {% endif %} / 
+                            {% if item.product.internal_storage %}
+                            {{item.product.internal_storage|upper}}
+                            {% endif %} 
+                            {% if item.product.color_title %}
+                            {{item.product.color_title|upper}} 
+                            {% endif %}
+                             
+                            </a>
                                 <div class="mobile-cart-content row">
                                     <div class="col-xs-3">
                                         <div class="qty-box">

@@ -228,7 +228,7 @@ else:
     ]
 
 if PROD:
-    API_URL = 'http://localhost/'
+    API_URL = 'http://143.110.233.120/'
 else:
     # url = os.environ.get('POSTGRES_DB')
     # url =url.split(',')

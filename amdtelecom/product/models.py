@@ -58,7 +58,7 @@ class Marka(models.Model):
         return self.title 
 
     def save(self, *args, **kwargs):  
-        from .tasks import change_is_new
+        
         title = Marka.objects.filter(title=self.title).first()
         super(Marka, self).save(*args, **kwargs)
         if len(self.slug) == 0: 
@@ -184,8 +184,16 @@ class Product(models.Model):
 
     def save(self, *args, **kwargs):        
         from .tasks import changed_is_new
-
         super(Product, self).save(*args, **kwargs)
+        ram = self.ram if self.ram != None  else ''
+        internal_storage = self.internal_storage if self.internal_storage != None  else ''
+        color_title = self.color_title if self.color_title != None  else ''
+        if self.slug:
+            self.slug=''
+
+        slug = f' {self.title} {ram} {internal_storage} {color_title}'
+        self.slug = f'{slugify(slug)}'
+        
         if self.is_new:
             changed_is_new.apply_async(args=[self.id], eta=self.is_new_expired)
         super(Product, self).save(*args, **kwargs)
@@ -211,7 +219,7 @@ class Product(models.Model):
     def __str__(self):
         if self.operator_code not in (None, ''):
             return f'({self.operator_code}) {self.title}'
-        return f'{self.title}'
+        return f'{self.marka} {self.title} {self.internal_storage}'
 
 
 class Product_details(models.Model):
