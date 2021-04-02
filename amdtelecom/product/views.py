@@ -52,9 +52,9 @@ class ProductDetailView(DetailView):
         # product = get_object_or_404(Product, id=self.kwargs['pk'])
         product = Product.objects.get(slug=self.object.slug)
         the_category = Category.objects.filter(categories = product).values_list('title', flat=True).last()
-        related_products = Product.objects.filter(category__title=the_category).order_by('-created_at')
+        related_products = Product.objects.filter(category__title=the_category).exclude(id=product.id)
 
-        photos = Product_images.objects.filter(product=product)
+        photos = Product_images.objects.filter(product=product).order('-is_main')
         details = Product_details.objects.filter(product=product)
         context['product'] = product
         context['photos'] = photos
