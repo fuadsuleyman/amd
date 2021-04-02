@@ -104,11 +104,14 @@ class ProductAdmin(admin.ModelAdmin):
         internal_storage = product.internal_storage if product.internal_storage != None  else ''
         color_title = product.color_title if product.color_title != None  else ''
 
-        if  len(product.slug) == 0:
-            slug = f'{marka} {product.title} {ram} {internal_storage} {color_title}'
-            product.slug = f'{slugify(slug)}'
-            product.title = f'{marka} {product.title} {ram} {internal_storage} {color_title}'
+        if product.title:
+            product.title=''
             product.save()
+        product.title = f'{marka} {product.title} {ram} {internal_storage} {color_title}'
+        product.save()
+        product.slug = f'{slugify(product.title)}'
+        product.save()
+
 
     def show_markas(self, obj):
         return ' '.join([product.title for product in obj.marka.all()])
