@@ -179,7 +179,22 @@
                                                     class="fa fa-star"></i> <i class="fa fa-star"></i> <i
                                                     class="fa fa-star"></i></div> -->
                                             <a href="{% url 'product:product_detail' product.slug %}">
-                                                <h6>{{ product.marka.all.0 | upper }} {{ product.title | upper }}
+                                                <h6>
+                                                {% if product.marka.all.first %}
+                                                {{ product.marka.all.first|upper }} 
+                                                {% endif %}
+                                                {% if product.title %}
+                                                {{product.title|upper}}
+                                                {% endif %} 
+                                                {% if product.ram %}
+                                                {{product.ram|upper}}
+                                                {% endif %} / 
+                                                {% if product.internal_storage %}
+                                                {{product.internal_storage|upper}}
+                                                {% endif %} 
+                                                {% if product.color_title %}
+                                                {{product.color_title|upper}} 
+                                                {% endif %} 
                                                     {% comment %} {% if product.internal_storage %}
                                                     <span>{{product.internal_storage}}</span>
                                                     {% endif %} {% endcomment %}
@@ -232,7 +247,21 @@
                                                         </div>
                                                         <div class="col-lg-6 rtl-text">
                                                             <div class="product-right">
-                                                                <h2>{{product.title}}</h2>
+                                                                <h2>{% if product.marka.all.first %}
+                            {{ product.marka.all.first|upper }} 
+                            {% endif %}
+                            {% if product.title %}
+                            {{product.title|upper}}
+                            {% endif %} 
+                            {% if product.ram %}
+                            {{product.ram|upper}}
+                            {% endif %} / 
+                            {% if product.internal_storage %}
+                            {{product.internal_storage|upper}}
+                            {% endif %} 
+                            {% if product.color_title %}
+                            {{product.color_title|upper}} 
+                            {% endif %} </h2>
                                                                 <h3>{{product.price}}
                                                                     <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
                                                                         <defs>
@@ -354,7 +383,22 @@
                                                     class="fa fa-star"></i> <i class="fa fa-star"></i> <i
                                                     class="fa fa-star"></i></div> -->
                                             <a href="{% url 'product:product_detail' product.slug %}">
-                                                <h6>{{ product.marka.all.0 | upper }} {{ product.title | upper }}
+                                                <h6>
+                                                {% if product.marka.all.first %}
+                                                {{ product.marka.all.first|upper }} 
+                                                {% endif %}
+                                                {% if product.title %}
+                                                {{product.title|upper}}
+                                                {% endif %} 
+                                                {% if product.ram %}
+                                                {{product.ram|upper}}
+                                                {% endif %} / 
+                                                {% if product.internal_storage %}
+                                                {{product.internal_storage|upper}}
+                                                {% endif %} 
+                                                {% if product.color_title %}
+                                                {{product.color_title|upper}} 
+                                                {% endif %} 
                                                     {% comment %} {% if product.internal_storage %}
                                                     <span>{{product.internal_storage}}</span>
                                                     {% endif %} {% endcomment %}
@@ -407,7 +451,26 @@
                                                         </div>
                                                         <div class="col-lg-6 rtl-text">
                                                             <div class="product-right">
-                                                                <h2>{{product.title}}</h2>
+                                                                <h2>
+                                                {% if product.marka.all.first %}
+                                                {{ product.marka.all.first|upper }} 
+                                                {% endif %}
+                                                {% if product.title %}
+                                                {{product.title|upper}}
+                                                {% endif %} 
+                                                {% if product.ram %}
+                                                {{product.ram|upper}}
+                                                {% endif %} / 
+                                                {% if product.internal_storage %}
+                                                {{product.internal_storage|upper}}
+                                                {% endif %} 
+                                                {% if product.color_title %}
+                                                {{product.color_title|upper}} 
+                                                {% endif %} 
+                                                    {% comment %} {% if product.internal_storage %}
+                                                    <span>{{product.internal_storage}}</span>
+                                                    {% endif %} {% endcomment %}
+                                                </h2>
                                                                 <h3>{{product.price}}
                                                                     <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
                                                                         <defs>
@@ -526,7 +589,22 @@
                                                     class="fa fa-star"></i> <i class="fa fa-star"></i> <i
                                                     class="fa fa-star"></i></div> -->
                                             <a href="{% url 'product:product_detail' product.slug %}">
-                                                <h6>{{ product.marka.all.0 | upper }} {{ product.title | upper }}
+                                                <h6>
+                                                {% if product.marka.all.first %}
+                                                {{ product.marka.all.first|upper }} 
+                                                {% endif %}
+                                                {% if product.title %}
+                                                {{product.title|upper}}
+                                                {% endif %} 
+                                                {% if product.ram %}
+                                                {{product.ram|upper}}
+                                                {% endif %} / 
+                                                {% if product.internal_storage %}
+                                                {{product.internal_storage|upper}}
+                                                {% endif %} 
+                                                {% if product.color_title %}
+                                                {{product.color_title|upper}} 
+                                                {% endif %} 
                                                     {% comment %} {% if product.internal_storage %}
                                                     <span>{{product.internal_storage}}</span>
                                                     {% endif %} {% endcomment %}
@@ -579,7 +657,26 @@
                                                         </div>
                                                         <div class="col-lg-6 rtl-text">
                                                             <div class="product-right">
-                                                                <h2>{{product.title}}</h2>
+                                                                <h2>
+                                                {% if product.marka.all.first %}
+                                                {{ product.marka.all.first|upper }} 
+                                                {% endif %}
+                                                {% if product.title %}
+                                                {{product.title|upper}}
+                                                {% endif %} 
+                                                {% if product.ram %}
+                                                {{product.ram|upper}}
+                                                {% endif %} / 
+                                                {% if product.internal_storage %}
+                                                {{product.internal_storage|upper}}
+                                                {% endif %} 
+                                                {% if product.color_title %}
+                                                {{product.color_title|upper}} 
+                                                {% endif %} 
+                                                    {% comment %} {% if product.internal_storage %}
+                                                    <span>{{product.internal_storage}}</span>
+                                                    {% endif %} {% endcomment %}
+                                                </h2>
                                                                 <h3>{{product.price}}
                                                                     <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
                                                                         <defs>
