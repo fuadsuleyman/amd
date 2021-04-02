@@ -54,7 +54,7 @@ class ProductDetailView(DetailView):
         the_category = Category.objects.filter(categories = product).values_list('title', flat=True).last()
         related_products = Product.objects.filter(category__title=the_category).exclude(id=product.id)
 
-        photos = Product_images.objects.filter(product=product).order('-is_main')
+        photos = Product_images.objects.filter(product=product).order_by('-is_main')
         details = Product_details.objects.filter(product=product)
         context['product'] = product
         context['photos'] = photos
