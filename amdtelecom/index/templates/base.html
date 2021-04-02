@@ -13,8 +13,8 @@
     <meta name="author" content="multikart">
 
     <!--Plugin CSS file with desired skin-->
-    <link rel="icon" href="{% static 'images/favicon/1.png' %}" type="image/x-icon">
-    <link rel="shortcut icon" href="{% static 'images/favicon/1.png' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'images/favicon/favicon.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'images/favicon/favicon.png' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     {% if title %}
@@ -842,7 +842,7 @@
                         </div>
                         <div class="absolute-logo">
                             <div class="brand-logo">
-                                <a href="{% url 'index:home' %}"><img alt="AMD Telecom" src="{% static 'images/icon/logo/amd_telecom.png' %}"style=" height: 100px; width: 150px;"></a>
+                                <a href="{% url 'index:home' %}"><img alt="AMD Telecom" src="{% static 'images/icon/logo/logo.png' %}"style=" height: 100px; width: 150px;"></a>
                             </div>
                         </div>
                         <!-- <div class="">
@@ -2085,11 +2085,11 @@
         });
     }
     // const csrftoken = getCookie('csrftoken');
-        let device = getCookie('device')
-        if (device == null || device == undefined){
-            device = uuidv4()
-        }
-        document.cookie = 'device=' + device + ";domain=;path=/"
+        // let device = getCookie('device')
+        // if (device == null || device == undefined){
+        //     device = uuidv4()
+        // }
+        // document.cookie = 'device=' + device + ";domain=;path=/"
     </script>
 
 <script>
