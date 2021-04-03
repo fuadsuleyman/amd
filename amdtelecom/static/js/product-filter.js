@@ -66,6 +66,7 @@ function getProMarka(id, condition){
                 if (item.id == id ) {
                     image = item.image
                     title = item.title
+                    title = title.toUpperCase()
                 }
             }
 
@@ -79,7 +80,7 @@ function getProMarka(id, condition){
         return image
     }
     else {
-        return title.toUpperCase()
+        return title
     }
 }
 
@@ -248,7 +249,7 @@ function getData() { // filter product data return products
                                         <div class="product-detail">
                                             <div>
                                                 <a href="product-page(no-sidebar).html">
-                                                    <h6>${getProMarka(product.marka[-1], images='title')} ${product.title.toUpperCase()}</h6>
+                                                    <h6>${getProMarka(product.marka[0], images='title')} ${product.title.toUpperCase()}</h6>
                                                 </a>
                                                 <p>${product.description}
                                                 </p>
