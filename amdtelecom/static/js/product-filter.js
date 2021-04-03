@@ -24,31 +24,79 @@ $(document).on('input', '#range', function() { // price range when changed keep 
 
 });
 
-function getProImage(id){ // filter product images returned product image
-    let image	
-    $.ajax({
-        url: `${domain}api/v1.0/filter-api-product-images/`,
-        async: false,
-        global: false,
-        dataType: 'json',
-        
-        success:function(res){
-            console.log(res);
-            for(let item of res){
-                if (item.id == id ) {
-                    image = item.image
-                }
-            }
+// async function getProImage(url, data_id){
+//     let response = await fetch(url);
 
-        },
-        error: function(res){
-            console.log(res, 'error');
-        }
+//     if (response.ok) { // if HTTP-status is 200-299
+//       // get the response body (the method explained below)
+//         let res = await response.json();
+//         for(let item of res){
+//             if (item.id == data_id ) {
+//                 image = item.image
+//                 console.log(image, 'sekil');
+//                 return image
+//             }
+//         }
 
-    })
-    return image
+//     } else {
+//         alert("HTTP-Error: " + response.status);
+//     }
+// }
 
+function getProImage(id) {
+    
+    return new Promise(function(resolve, reject) {
+        var xhr = new XMLHttpRequest();
+        xhr.onload = function() {
+        resolve(this.responseText);
+        };
+        xhr.onerror = reject;
+        xhr.open('GET', `${domain}api/v1.0/filter-api-product-images/`);
+        xhr.send();
+    });
 }
+
+getProImage(id)
+    .then(function(res) {
+        let image
+        for(let item of res){
+            if (item.id == id ) {
+                image = item.image
+                console.log(image, 'sekiller');
+                
+            }
+        }
+        return image
+    })
+    .catch(function() {
+        // An error occurred
+    });
+
+// function getProImage(id){ // filter product images returned product image
+//     let image	
+//     $.ajax({
+//         url: `${domain}api/v1.0/filter-api-product-images/`,
+//         async: false,
+//         global: false,
+//         dataType: 'json',
+        
+//         success:function(res){
+//             console.log(res);
+//             for(let item of res){
+//                 if (item.id == id ) {
+//                     image = item.image
+//                 }
+//             }
+
+//         },
+//         error: function(res){
+//             console.log(res, 'error');
+//         }
+
+//     })
+//     return image
+
+// }
 
 function getProMarka(id, condition){
     let image
@@ -118,6 +166,7 @@ function getData() { // filter product data return products
 
     $.ajax({
         url: `${domain}api/v1.0/filter-api-product/`,
+        async: true,
         type : 'GET',
         data: _filterObj,
         dataType:'json',
@@ -133,14 +182,14 @@ function getData() { // filter product data return products
                     <div class="front">
                         <a href="${domain}product/${product.slug}/">
                         <img
-                            src="${getProImage(product.images[0])}"
+                            src="${getProImage(`${domain}api/v1.0/filter-api-product-images/`, product.images[0])}"
                             class="img-fluid blur-up lazyload bg-img" alt="${product.title.toUpperCase()}">
                         </a>
                     </div>
                     <div class="back">
                         <a href="${domain}product/${product.slug}/">
                             <img
-                                src="${getProImage(product.images[1])}"
+                                src="${getProImage(`${domain}api/v1.0/filter-api-product-images/`, product.images[1])}"
                                 class="img-fluid blur-up lazyload bg-img" alt="${product.title.toUpperCase()}">
                             </a>
                     </div>
@@ -150,7 +199,7 @@ function getData() { // filter product data return products
                     <div class="front">
                         <a href="${domain}product/${product.slug}/">
                         <img
-                            src="${getProImage(product.images[1])}"
+                            src="${getProImage(`${domain}api/v1.0/filter-api-product-images/`, product.images[1])}"
                             class="img-fluid blur-up lazyload bg-img" alt="${product.title.toUpperCase()}">
                         </a>
                     </div>
@@ -267,26 +316,27 @@ function getData() { // filter product data return products
                     
 
                 }  
-                $(function() {
-                    $(".product-load-more .col-grid-box").slice(0, 12).show();
-                    $(".loadMore").on('click', function(e) {
-                        e.preventDefault();
-                        $(".product-load-more .col-grid-box:hidden").slice(0, 4).slideDown();
-                        if ($(".product-load-more .col-grid-box:hidden").length === 0) {
-                            console.log(`$(".loadMore").css('display', 'none')`);
-                            $(".loadMore").css('display', 'none')
-                        }
 
-                    });
-                    if ($(".product-load-more .col-grid-box:hidden").length > 0) {
-                        console.log(`$(".loadMore").css('display', 'block')`);
-                        $(".loadMore").css('display', 'block')
-                    }
-                });
             }
-            else {
-                DOM.html('')
-            }  
+            $(function() {
+                $(".product-load-more .col-grid-box").slice(0, 12).show();
+                $(".loadMore").on('click', function(e) {
+                    e.preventDefault();
+                    $(".product-load-more .col-grid-box:hidden").slice(0, 4).slideDown();
+                    if ($(".product-load-more .col-grid-box:hidden").length === 0) {
+                        console.log(`$(".loadMore").css('display', 'none')`);
+                        $(".loadMore").css('display', 'none')
+                    }
+
+                });
+                if ($(".product-load-more .col-grid-box:hidden").length > 0) {
+                    console.log(`$(".loadMore").css('display', 'block')`);
+                    $(".loadMore").css('display', 'block')
+                }
+            });
+            // else {
+            //     DOM.html('')
+            // }  
 
             _filterObj = {}
         },
