@@ -35,7 +35,8 @@ class ProductSerializer(serializers.ModelSerializer):
     # images = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     # products_images = ProductImageSerializer(source='images', many=True)
     products_images = serializers.SerializerMethodField()
-    marka = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    product_marka = serializers.SerializerMethodField()
+    # marka = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Product
@@ -44,3 +45,7 @@ class ProductSerializer(serializers.ModelSerializer):
     def get_products_images(self, instance):
         products_images = instance.images.all().order_by('-is_main')
         return ProductImageSerializer(products_images, many=True).data
+
+    def get_product_marka(self, instance):
+        product_marka = instance.marka
+        return ProductMarkaSerializer(product_marka, many=True).data

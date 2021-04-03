@@ -24,65 +24,65 @@ $(document).on('input', '#range', function() { // price range when changed keep 
 
 });
 
-function getProImage(id){ // filter product images returned product image
-    let image	
-    $.ajax({
-        url: `${domain}api/v1.0/filter-api-product-images/`,
-        async: false,
-        global: false,
-        dataType: 'json',
+// function getProImage(id){ // filter product images returned product image
+//     let image	
+//     $.ajax({
+//         url: `${domain}api/v1.0/filter-api-product-images/`,
+//         async: false,
+//         global: false,
+//         dataType: 'json',
         
-        success:function(res){
-            console.log(res);
-            for(let item of res){
-                if (item.id == id ) {
-                    image = item.image
-                }
-            }
+//         success:function(res){
+//             console.log(res);
+//             for(let item of res){
+//                 if (item.id == id ) {
+//                     image = item.image
+//                 }
+//             }
 
-        },
-        error: function(res){
-            console.log(res, 'error');
-        }
+//         },
+//         error: function(res){
+//             console.log(res, 'error');
+//         }
 
-    })
-    return image
+//     })
+//     return image
 
-}
+// }
 
-function getProMarka(id, condition){
-    let image
-    let title
-    console.log(id, 'meselen');
-    $.ajax({
-        url: `${domain}api/v1.0/filter-api-product-markas/`,
-        async: false,
-        global: false,
-        dataType: 'json',
+// function getProMarka(id, condition){
+//     let image
+//     let title
+//     console.log(id, 'meselen');
+//     $.ajax({
+//         url: `${domain}api/v1.0/filter-api-product-markas/`,
+//         async: false,
+//         global: false,
+//         dataType: 'json',
         
-        success:function(res){
-            console.log(res, 'markalar');
-            for(let item of res){
-                if (item.id == id ) {
-                    image = item.image
-                    title = item.title
-                    title = title.toUpperCase()
-                }
-            }
+//         success:function(res){
+//             console.log(res, 'markalar');
+//             for(let item of res){
+//                 if (item.id == id ) {
+//                     image = item.image
+//                     title = item.title
+//                     title = title.toUpperCase()
+//                 }
+//             }
 
-        },
-        error: function(res){
-            console.log(res, 'error');
-        }
+//         },
+//         error: function(res){
+//             console.log(res, 'error');
+//         }
 
-    })
-    if (condition == 'images'){
-        return image
-    }
-    else {
-        return title
-    }
-}
+//     })
+//     if (condition == 'images'){
+//         return image
+//     }
+//     else {
+//         return title
+//     }
+// }
 
 function getData() { // filter product data return products
     // $(".ajaxLoader").hide();
@@ -133,14 +133,14 @@ function getData() { // filter product data return products
                     <div class="front">
                         <a href="${domain}product/${product.slug}/">
                         <img
-                            src="${product.products_images[0].image ? product.products_images[0].image : '' }"
+                            src="${product.products_images.length > 0 ? product.products_images[0].image : '' }"
                             class="img-fluid blur-up lazyload bg-img" alt="${product.title.toUpperCase()}">
                         </a>
                     </div>
                     <div class="back">
                         <a href="${domain}product/${product.slug}/">
                             <img
-                                src="${product.products_images[1].image ? product.products_images[1].image : '' }"
+                                src="${product.products_images.length > 0 ? product.products_images[1].image : '' }"
                                 class="img-fluid blur-up lazyload bg-img" alt="${product.title.toUpperCase()}">
                             </a>
                     </div>
@@ -150,7 +150,7 @@ function getData() { // filter product data return products
                     <div class="front">
                         <a href="${domain}product/${product.slug}/">
                         <img
-                            src="$${product.products_images[0].image ? product.products_images[0].image : '' }"
+                            src="$${product.products_images.length > 0 ? product.products_images[1].image : '' }"
                             class="img-fluid blur-up lazyload bg-img" alt="${product.title.toUpperCase()}">
                         </a>
                     </div>
@@ -179,7 +179,7 @@ function getData() { // filter product data return products
 
                                     <div class="numberCard__container__body">
                                         <div class="numberCard__container__body-img">
-                                            <img src="${getProMarka(product.marka[0], images='images')}" alt="" style="height: 72px; width: 72px;">
+                                            <img src="${product.product_marka[0].image}" alt="" style="height: 72px; width: 72px;">
                                         </div>
                                         <div class="numberCard__container__body-number">
                                             <p class="m-0 text-dark">(<!-- -->${product.operator_code}<!-- -->) <!-- -->${product.title.toUpperCase()}</p>
@@ -214,7 +214,7 @@ function getData() { // filter product data return products
                                     <div class="col-xl-3 col-sm-6 col-md-4 col-grid-box category-pro">
                                     <div class="product-box">
                                         <div class="img-wrapper">
-                                            ${ product.products_images.length > 1 ? mainSeconImage : secondImage }
+                                            ${ product.products_images.length > 0 ? mainSeconImage : secondImage }
                                             <div class="cart-info cart-wrap" style="top:45px">
                                                 <button data-toggle="modal" data-target="#addtocart" title="Add to cart">
                                                     <i class="ti-shopping-cart"></i>
@@ -224,7 +224,7 @@ function getData() { // filter product data return products
                                         <div class="product-detail">
                                             <div>
                                                 <a href="product-page(no-sidebar).html">
-                                                    <h6>${getProMarka(product.marka[0], images='title')} ${product.title.toUpperCase()}  ${product.color_title.toUpperCase()}</h6>
+                                                    <h6>${product.product_marka[0].title} ${product.title.toUpperCase()}  ${product.color_title.toUpperCase()}</h6>
                                                 </a>
                                                 <p>${product.description}
                                                 </p>
@@ -244,12 +244,12 @@ function getData() { // filter product data return products
                                     <div class="col-xl-3 col-sm-6 col-md-4 col-grid-box category-pro">
                                     <div class="product-box">
                                         <div class="img-wrapper">
-                                        ${ product.products_images.length > 1 ? mainSeconImage : secondImage }
+                                        ${ product.products_images.length > 0 ? mainSeconImage : secondImage }
                                         </div>
                                         <div class="product-detail">
                                             <div>
                                                 <a href="product-page(no-sidebar).html">
-                                                    <h6>${getProMarka(product.marka[0], images='title')} ${product.title.toUpperCase()}</h6>
+                                                    <h6>${product.product_marka[0].title} ${product.title.toUpperCase()}</h6>
                                                 </a>
                                                 <p>${product.description}
                                                 </p>
