@@ -51,8 +51,9 @@ class ProductDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         # product = get_object_or_404(Product, id=self.kwargs['pk'])
         product = Product.objects.get(slug=self.object.slug)
-        the_category = Category.objects.filter(categories = product).values_list('title', flat=True).last()
-        related_products = Product.objects.filter(category__title=the_category).exclude(id=product.id)
+        the_category = Category.objects.filter(categories=product).values_list('id', flat=True).last()
+        print(the_category, 'kataloq')
+        related_products = Product.objects.filter(category__id=the_category).exclude(id=product.id)
 
         photos = Product_images.objects.filter(product=product).order_by('-is_main')
         details = Product_details.objects.filter(product=product)
