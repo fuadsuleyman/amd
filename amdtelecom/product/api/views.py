@@ -1,3 +1,5 @@
+import json
+import itertools   
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 
@@ -90,7 +92,7 @@ class ProductFilterListAPIView(ListAPIView):
                 print(products, 'markasi')
         else:
             if min_price:
-                products = products.filter(price__range=(min_price, max_price) or None)
+                products = products.filter(price__range=(min_price, max_price) or None)        
 
         return products
 

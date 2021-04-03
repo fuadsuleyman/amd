@@ -16,7 +16,7 @@ services:
         image: postgres:9.6.6
         restart: always
         volumes:
-            - ./pgdb/:/var/lib/postgresql/
+            - ./pgdb/:/var/lib/postgresql/data
         ports:
             - "5432:5432"
         env_file: ./.env
@@ -40,7 +40,7 @@ services:
             # - ./media/:/code/media
         depends_on:
             - "postgres"
-        env_file: .env
+        env_file: ./.env
 
     celery:
         build:

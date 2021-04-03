@@ -133,14 +133,14 @@ function getData() { // filter product data return products
                     <div class="front">
                         <a href="${domain}product/${product.slug}/">
                         <img
-                            src="${getProImage(product.images[0])}"
+                            src="${product.products_images[0].image ? product.products_images[0].image : '' }"
                             class="img-fluid blur-up lazyload bg-img" alt="${product.title.toUpperCase()}">
                         </a>
                     </div>
                     <div class="back">
                         <a href="${domain}product/${product.slug}/">
                             <img
-                                src="${getProImage(product.images[1])}"
+                                src="${product.products_images[1].image ? product.products_images[1].image : '' }"
                                 class="img-fluid blur-up lazyload bg-img" alt="${product.title.toUpperCase()}">
                             </a>
                     </div>
@@ -150,7 +150,7 @@ function getData() { // filter product data return products
                     <div class="front">
                         <a href="${domain}product/${product.slug}/">
                         <img
-                            src="${getProImage(product.images[1])}"
+                            src="$${product.products_images[0].image ? product.products_images[0].image : '' }"
                             class="img-fluid blur-up lazyload bg-img" alt="${product.title.toUpperCase()}">
                         </a>
                     </div>
@@ -214,7 +214,7 @@ function getData() { // filter product data return products
                                     <div class="col-xl-3 col-sm-6 col-md-4 col-grid-box category-pro">
                                     <div class="product-box">
                                         <div class="img-wrapper">
-                                            ${ product.images.length > 1 ? mainSeconImage : secondImage }
+                                            ${ product.products_images.length > 1 ? mainSeconImage : secondImage }
                                             <div class="cart-info cart-wrap" style="top:45px">
                                                 <button data-toggle="modal" data-target="#addtocart" title="Add to cart">
                                                     <i class="ti-shopping-cart"></i>
@@ -244,7 +244,7 @@ function getData() { // filter product data return products
                                     <div class="col-xl-3 col-sm-6 col-md-4 col-grid-box category-pro">
                                     <div class="product-box">
                                         <div class="img-wrapper">
-                                        ${ product.images.length > 1 ? mainSeconImage : secondImage }
+                                        ${ product.products_images.length > 1 ? mainSeconImage : secondImage }
                                         </div>
                                         <div class="product-detail">
                                             <div>
