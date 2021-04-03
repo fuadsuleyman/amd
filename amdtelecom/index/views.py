@@ -40,6 +40,7 @@ from django.shortcuts import render, redirect
 #         return context
     
 def home_page(request):
+    print("sasas")
     device = request.COOKIES['device']
     customer, created = Customer.objects.get_or_create(device=device)
     order, created = Order.objects.get_or_create(customer=customer, complete=False)
