@@ -235,7 +235,21 @@
                                 <div class="media-body align-self-center">
                                     {% comment %} <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div> {% endcomment %}
                                     <a href="{% url 'product:product_detail' product.slug %}">
-                                        <h6>{{ product.title }}</h6>
+                                        <h6>{% if product.marka.all.first %}
+                            {{ product.marka.all.first|upper }} 
+                            {% endif %}
+                            {% if product.title %}
+                            {{product.title|upper}}
+                            {% endif %} 
+                            {% if product.ram %}
+                            {{product.ram|upper}} / 
+                            {% endif %} 
+                            {% if product.internal_storage %}
+                            {{product.internal_storage|upper}}
+                            {% endif %} 
+                            {% if product.color_title %}
+                            {{product.color_title|upper}} 
+                            {% endif %}</h6>
                                     </a>
                                     <h4 class="quantity">{{product.price}} 
                                         <svg class="manat-icon" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">

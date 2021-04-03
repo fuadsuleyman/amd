@@ -49,7 +49,7 @@
                         <tr>
                             <td>
                                 {% for id, img in imgs.items %}
-                                    {% if id == item.id %}
+                                    {% if id == item.id and if img %}
                                         <a href="#"><img src="{{ img }}" alt=""></a>
                                     {% endif %}
                                 {% endfor %}
