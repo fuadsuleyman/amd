@@ -50,8 +50,9 @@ function getProImage(id){ // filter product images returned product image
 
 }
 
-function getProMarka(id){
+function getProMarka(id, condition){
     let image
+    let title
     console.log(id, 'meselen');
     $.ajax({
         url: `${domain}api/v1.0/filter-api-product-markas/`,
@@ -64,6 +65,7 @@ function getProMarka(id){
             for(let item of res){
                 if (item.id == id ) {
                     image = item.image
+                    title = item.title
                 }
             }
 
@@ -73,7 +75,12 @@ function getProMarka(id){
         }
 
     })
-    return image
+    if (condition == 'images'){
+        return image
+    }
+    else {
+        return title.toUpperCase()
+    }
 }
 
 function getData() { // filter product data return products
@@ -126,14 +133,14 @@ function getData() { // filter product data return products
                         <a href="${domain}product/${product.slug}/">
                         <img
                             src="${getProImage(product.images[0])}"
-                            class="img-fluid blur-up lazyload bg-img" alt="${product.title}">
+                            class="img-fluid blur-up lazyload bg-img" alt="${product.title.toUpperCase()}">
                         </a>
                     </div>
                     <div class="back">
                         <a href="${domain}product/${product.slug}/">
                             <img
                                 src="${getProImage(product.images[1])}"
-                                class="img-fluid blur-up lazyload bg-img" alt="${product.title}">
+                                class="img-fluid blur-up lazyload bg-img" alt="${product.title.toUpperCase()}">
                             </a>
                     </div>
                     `
@@ -143,7 +150,7 @@ function getData() { // filter product data return products
                         <a href="${domain}product/${product.slug}/">
                         <img
                             src="${getProImage(product.images[1])}"
-                            class="img-fluid blur-up lazyload bg-img" alt="${product.title}">
+                            class="img-fluid blur-up lazyload bg-img" alt="${product.title.toUpperCase()}">
                         </a>
                     </div>
                     `
@@ -165,21 +172,16 @@ function getData() { // filter product data return products
                                                     <path d="M15.55 13c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.37-.66-.11-1.48-.87-1.48H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7l1.1-2h7.45zM6.16 6h12.15l-2.76 5H8.53L6.16 6zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"></path>
                                                 </svg>
                                             </li>
-                                            <li>
-                                                <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                                                    <path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"></path>
-                                                </svg>
-                                            </li>
                                         </ul>
 
                                     </div>
 
                                     <div class="numberCard__container__body">
                                         <div class="numberCard__container__body-img">
-                                            <img src="${getProMarka(product.marka[0])}" alt="" style="height: 72px; width: 72px;">
+                                            <img src="${getProMarka(product.marka[0], images='images')}" alt="" style="height: 72px; width: 72px;">
                                         </div>
                                         <div class="numberCard__container__body-number">
-                                            <p class="m-0 text-dark">(<!-- -->${product.operator_code}<!-- -->) <!-- -->${product.title}</p>
+                                            <p class="m-0 text-dark">(<!-- -->${product.operator_code}<!-- -->) <!-- -->${product.title.toUpperCase()}</p>
                                         </div>
                                     </div>
 
@@ -221,7 +223,7 @@ function getData() { // filter product data return products
                                         <div class="product-detail">
                                             <div>
                                                 <a href="product-page(no-sidebar).html">
-                                                    <h6>${product.title}</h6>
+                                                    <h6>${getProMarka(product.marka[0], images='title')} ${product.title.toUpperCase()}  ${product.color_title.toUpperCase()}</h6>
                                                 </a>
                                                 <p>${product.description}
                                                 </p>
@@ -246,7 +248,7 @@ function getData() { // filter product data return products
                                         <div class="product-detail">
                                             <div>
                                                 <a href="product-page(no-sidebar).html">
-                                                    <h6>${product.title}</h6>
+                                                    <h6>${getProMarka(product.marka[-1], images='title')} ${product.title.toUpperCase()}</h6>
                                                 </a>
                                                 <p>${product.description}
                                                 </p>
