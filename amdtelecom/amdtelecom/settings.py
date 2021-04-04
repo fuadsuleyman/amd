@@ -294,8 +294,8 @@ EMAIL_USE_TLS = True
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'husubayli@gmail.com'
-EMAIL_HOST_PASSWORD = 'xdjnasiuddxikfax'
+EMAIL_HOST_USER = 'amdtelecommagazasi@gmail.com'
+EMAIL_HOST_PASSWORD = 'qsbukltuaqcnaore'
 
 # if settings.PROD:
 #     app.conf.update(
