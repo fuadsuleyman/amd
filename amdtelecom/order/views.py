@@ -59,7 +59,8 @@ def deletefromcart(request, id):
 
 def cart(request):
     show_order_items = None
-    device = request.COOKIES['device']
+    # device = request.COOKIES['device']
+    device = request.COOKIES.get('device')
     customer, created = Customer.objects.get_or_create(device=device)
     print('customer', customer)
     order, created = Order.objects.get_or_create(customer=customer, complete=False)
@@ -85,7 +86,8 @@ def cart(request):
     return render(request, 'cart.html', context)
 
 def checkout(request):
-    device = request.COOKIES['device']
+    device = request.COOKIES.get('device')
+    # device = request.COOKIES['device']
     customer, created = Customer.objects.get_or_create(device=device)
     order, created = Order.objects.get_or_create(customer=customer, complete=False)
 

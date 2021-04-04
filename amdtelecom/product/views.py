@@ -71,7 +71,8 @@ class ProductDetailView(DetailView):
         try:
             customer = self.request.user.customer	
         except:
-            device = self.request.COOKIES['device']
+            # device = self.request.COOKIES['device']
+            device = self.request.COOKIES.get('device')
             customer, created = Customer.objects.get_or_create(device=device)
 
         order, created = Order.objects.get_or_create(customer=customer, complete=False)
