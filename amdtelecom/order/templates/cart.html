@@ -49,9 +49,9 @@
                         <tr>
                             <td>
                                 {% for id, img in imgs.items %}
-                                    {% if id == item.id and if img %}
+                                    {% comment %} {% if id == item.id and if img %} {% endcomment %}
                                         <a href="#"><img src="{{ img }}" alt=""></a>
-                                    {% endif %}
+                                    {% comment %} {% endif %} {% endcomment %}
                                 {% endfor %}
                             </td>
                             <td><a class="product-title" href="{% url 'product:product_detail' item.product.slug %}">

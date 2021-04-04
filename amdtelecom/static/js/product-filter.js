@@ -118,6 +118,7 @@ function getData() { // filter product data return products
 
     $.ajax({
         url: `${domain}api/v1.0/filter-api-product/`,
+        async: true,
         type : 'GET',
         data: _filterObj,
         dataType:'json',
@@ -267,26 +268,27 @@ function getData() { // filter product data return products
                     
 
                 }  
-                $(function() {
-                    $(".product-load-more .col-grid-box").slice(0, 12).show();
-                    $(".loadMore").on('click', function(e) {
-                        e.preventDefault();
-                        $(".product-load-more .col-grid-box:hidden").slice(0, 4).slideDown();
-                        if ($(".product-load-more .col-grid-box:hidden").length === 0) {
-                            console.log(`$(".loadMore").css('display', 'none')`);
-                            $(".loadMore").css('display', 'none')
-                        }
 
-                    });
-                    if ($(".product-load-more .col-grid-box:hidden").length > 0) {
-                        console.log(`$(".loadMore").css('display', 'block')`);
-                        $(".loadMore").css('display', 'block')
-                    }
-                });
             }
-            else {
-                DOM.html('')
-            }  
+            $(function() {
+                $(".product-load-more .col-grid-box").slice(0, 12).show();
+                $(".loadMore").on('click', function(e) {
+                    e.preventDefault();
+                    $(".product-load-more .col-grid-box:hidden").slice(0, 4).slideDown();
+                    if ($(".product-load-more .col-grid-box:hidden").length === 0) {
+                        console.log(`$(".loadMore").css('display', 'none')`);
+                        $(".loadMore").css('display', 'none')
+                    }
+
+                });
+                if ($(".product-load-more .col-grid-box:hidden").length > 0) {
+                    console.log(`$(".loadMore").css('display', 'block')`);
+                    $(".loadMore").css('display', 'block')
+                }
+            });
+            // else {
+            //     DOM.html('')
+            // }  
 
             _filterObj = {}
         },
