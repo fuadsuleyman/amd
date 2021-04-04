@@ -30,6 +30,6 @@ def send_form(instance, **kwargs):
         subject=subject,
         message='',
         from_email=settings.EMAIL_HOST_USER, 
-        recipient_list=['koki.suleymanov@mail.ru', 'fuadpayme@gmail.com'],
+        recipient_list=['amdtelecommagazasi@gmail'],
         html_message=html,
         )
