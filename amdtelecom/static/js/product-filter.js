@@ -161,7 +161,7 @@ function getData() { // filter product data return products
                     if(product.operator_code) {
 
                         products += `
-                            <div class="col-xl-3 col-sm-6 col-md-4 col-grid-box category-pro" style="margin-top: 20px;">
+                            <div class="col-xl-4 col-sm-6 col-md-4 col-grid-box category-pro" style="margin-top: 20px;">
                             
                             <div class="numberCard">
                                 <div class="numberCard__container">
@@ -243,6 +243,11 @@ function getData() { // filter product data return products
                                     <div class="product-box">
                                         <div class="img-wrapper">
                                         ${ product.products_images.length > 1 ? mainSeconImage : secondImage }
+                                        <div class="cart-info cart-wrap" style="top:45px">
+                                            <button data-toggle="modal" data-target="#addtocart" title="Add to cart">
+                                                <i class="ti-shopping-cart"></i>
+                                            </button> 
+                                        </div>
                                         </div>
                                         <div class="product-detail">
                                             <div>
