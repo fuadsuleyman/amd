@@ -225,7 +225,7 @@ function getData() { // filter product data return products
                                         <div class="product-detail">
                                             <div>
                                                 <a href="product-page(no-sidebar).html">
-                                                    <h6>${product.product_marka[0].title} ${product.title.toUpperCase()}  ${product.color_title.toUpperCase()}</h6>
+                                                    <h6>${product.product_marka[0].title.toUpperCase() } ${product.title.toUpperCase()}  ${product.color_title.toUpperCase()}</h6>
                                                 </a>
                                                 <p>${product.description}
                                                 </p>
@@ -250,7 +250,7 @@ function getData() { // filter product data return products
                                         <div class="product-detail">
                                             <div>
                                                 <a href="product-page(no-sidebar).html">
-                                                    <h6>${product.product_marka[0].title} ${product.title.toUpperCase()}</h6>
+                                                    <h6>${product.product_marka[0].title.toUpperCase() } ${product.title.toUpperCase()}</h6>
                                                 </a>
                                                 <p>${product.description}
                                                 </p>

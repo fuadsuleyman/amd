@@ -2043,6 +2043,232 @@
     <script src="{% static 'js/search-filter.js' %}"></script>
 
     <script>
+
+        // const domain_api_base = document.getElementById('YOUR_ENV_VARIABLE').value
+        // console.log(`domain_api_base: ${domain_api_base}`)
+
+        let addtocartbtn = document.querySelectorAll('.incre-cart');
+
+        for (let i = 0; i < addtocartbtn.length; i++){
+            addtocartbtn[i].addEventListener('click', letsIncDecrementCart, false)
+        }
+
+        function letsIncDecrementCart(e){
+
+            function set_orderItem_id(id){
+                orderitem_id = id
+                console.log(`set eledim orderItem id-ni ${orderitem_id}`)
+            }
+
+            let product_id = e.target.getAttribute('data-id-cart')
+            let customer_id = e.target.getAttribute('data-id-customer')
+            let order_id = e.target.getAttribute('data-id-order')
+            let orderitem_id = e.target.getAttribute('data-id-orderitem')
+            get_cart_count()
+
+            if (e.target.value === 'Səbətə əlavə et'){
+                // e.target.classList.remove("not-basket");
+                // e.target.classList.add('in-basket');
+                // e.preventDefault()
+                e.target.value = "Səbətdən sil";
+                
+                // console.log("Submite girdi product detailde")
+                let itemCountLocStorage = localStorage.getItem('cartItems')
+                itemCountLocStorage = parseInt(itemCountLocStorage)
+                localStorage.setItem('cartItems', itemCountLocStorage+1)
+                let currentCountCartBadge = cart_badge.innerHTML
+                // console.log(`product kartda karti basanda yuxarida sebet count: ${currentCountCartBadge}`) 
+                cart_badge.innerText = parseInt(currentCountCartBadge) + 1
+
+                console.log(`modal create-den qabaq product_id: ${product_id}`)
+                console.log(`modal create-den qabaq order_id: ${order_id}`)
+                console.log(`modal create-den qabaq customer_id: ${customer_id}`)
+                console.log(`modal create-den qabaq orderItem_id: ${orderitem_id}`)
+                let url_post = `${domain_api_base}api-order/orderItem-create/`
+
+                fetch(url_post, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify({
+                    quantity: 1,
+                    product: product_id,
+                    order: order_id,
+                    customer: customer_id
+                    })
+                })
+                .then(res => res.text())
+                .then(console.log('create-in sonundayam modaldan'))
+                // .then(document.location.href = 'http://localhost:8000/order/cart/')
+                .then(setTimeout(function() { document.location.href = `${domain_api_base}order/cart/` }, 200))
+
+                // setTimeout(function() { deleteOrderItem(); }, 1000);
+
+            } else if(e.target.value === 'Səbətdən sil'){
+                // e.target.classList.remove("in-basket");
+                // e.target.classList.add('not-basket');
+                // e.target.value = "Səbəbdən sil";
+                // e.preventDefault()
+                e.target.value = "Səbətə əlavə et";
+                let itemCountLocStorage = localStorage.getItem('cartItems')
+                itemCountLocStorage = parseInt(itemCountLocStorage)
+                localStorage.setItem('cartItems', itemCountLocStorage+1)
+                let currentCountCartBadge = cart_badge.innerHTML
+                // console.log(`product kartda karti basanda yuxarida sebet count: ${currentCountCartBadge}`) 
+                cart_badge.innerText = parseInt(currentCountCartBadge) - 1
+
+                // faktiki orderItem id-ni db-den gotururuk
+                url_get_id = `${domain_api_base}api-order/orderItem-id/${product_id}/`
+                fetch(url_get_id, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+                },
+                })
+                .then(res => res.text())
+                .then(res => set_orderItem_id(res))
+                .then(res => console.log(`res from get_id ${res}`))
+
+                setTimeout(function() { deleteOrderItem(); }, 1000);
+
+                function deleteOrderItem(){
+                    console.log(`url-e qoymazdan qabaq daxili functa ordetitem_id: ${orderitem_id}`)
+
+                    url_del = `${domain_api_base}api-order/orderItem-delete/${orderitem_id}/`;
+
+                    fetch(url_del, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRFToken': csrftoken
+                        },
+                    })
+                    .then(res => res.text()) // or res.json()
+                    .then(res => console.log(`deleted ${res}`))
+            }
+        }
+    }
+
+        let cartIcon = document.querySelectorAll('.my-cart-icon');
+
+        for (let i = 0; i < cartIcon.length; i++){
+            cartIcon[i].addEventListener('click', changeColor, false)
+        }
+
+        
+
+        function changeColor(e){
+
+            function set_orderItem_id(id){
+                orderitem_id = id
+                console.log(`set eledim orderItem id-ni ${orderitem_id}`)
+            }
+
+            let product_id = e.target.getAttribute('data-id-cart')
+            let customer_id = e.target.getAttribute('data-id-customer')
+            let order_id = e.target.getAttribute('data-id-order')
+            let orderitem_id = e.target.getAttribute('data-id-orderitem')
+            console.log(`NEHAYET orderItem: ${orderitem_id}`)    
+            // console.log(`basilan orderItem customtag-dan: ${orderItem_id}`)
+            console.log(`basilan product id: ${product_id}`)    
+            console.log(`basilan order id: ${order_id}`)
+            // console.log(`basilanin orderItemi id-si: ${orderitem_id}`)
+
+            console.log(`basilan customer id: ${customer_id}`)    
+            console.log('cart reng deyisenine girdin')
+
+            // sebet iconunun rengini deyisirem
+            if (e.target.classList.contains('do-green')){
+                e.target.classList.remove("do-green");
+                e.target.classList.add('do-gray');
+
+                url_get_id = `${domain_api_base}api-order/orderItem-id/${product_id}/`
+
+                fetch(url_get_id, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+                },
+                })
+                .then(res => res.text())
+                .then(res => set_orderItem_id(res))
+                .then(res => console.log(`res from get_id ${res}`))
+
+
+                // decrice cart count in navbar
+                currentCountCartBadge = cart_badge.innerHTML
+                console.log(`product kartda karti basanda yuxarida sebet count: ${currentCountCartBadge}`) 
+                cart_badge.innerText = parseInt(currentCountCartBadge) - 1
+                console.log(`url-e qoymazdan qabaq ordetitem_id: ${orderitem_id}`)
+
+                setTimeout(function() { deleteOrderItem(); }, 1000);
+
+                function deleteOrderItem(){
+                    console.log(`url-e qoymazdan qabaq daxili functa ordetitem_id: ${orderitem_id}`)
+
+                    url_del = `${domain_api_base}api-order/orderItem-delete/${orderitem_id}/`;
+
+                    fetch(url_del, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRFToken': csrftoken
+                        },
+                    })
+                    .then(res => res.text()) // or res.json()
+                    .then(res => console.log(`deleted ${res}`))
+
+                }
+
+
+            } else if (e.target.classList.contains('do-gray')){
+                console.log('girdi create olan yere')
+                e.target.classList.remove("do-gray");
+                e.target.classList.add('do-green');
+                console.log(`modaldaki inputun value-si: ${e.target.closest(".no-slider")}`)
+                // console.log(`en yaxin input-un valuesi: ${e.target.closest("input")}`)
+                // e.target.closest("input").value= 'Səbətdən sil'
+
+                // incrice cart count in navbar
+                let currentCountCartBadge = cart_badge.innerHTML
+                console.log(`product kartda karti basanda yuxarida sebet count: ${currentCountCartBadge}`) 
+                cart_badge.innerText = parseInt(currentCountCartBadge) + 1
+
+                let url_post = `${domain_api_base}api-order/orderItem-create/`
+
+                fetch(url_post, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify({
+                    quantity: 1,
+                    product: product_id,
+                    order: order_id,
+                    customer: customer_id
+                    })
+                })
+                .then(res => res.text())
+
+        }
+    }
+
+        // function getCookie(name) {
+        // const value = `; ${document.cookie}`;
+        // const parts = value.split(`; ${name}=`);
+        // if (parts.length === 2) return parts.pop().split(';').shift();
+        // }
+
+        // let csrftoken = getCookie('csrftoken');
+
+
+    </script>
+
+
+    <script>
         // sehife acilan kimi cixan modal
         // $(window).on('load', function () {
         //     setTimeout(function () {

@@ -141,7 +141,7 @@ async function getSearchData(value){
                 productBody += `
                 <a href="${slug}" class="body">
                     <div class="data-img">
-                        <img src="${product.operator_code != null ? getSearchProMarka(product.marka[0]) : getSearchProImage(product.images[0]) }" alt="">
+                        <img src="${ product.operator_code != null ? getSearchProMarka(product.marka[0]) : getSearchProImage(product.images[0]) }" alt="">
                     </div>
                     <div class="data-title">
                         ${product.marka[0]} ${ product.title }
