@@ -2382,7 +2382,7 @@ $(function() {
         $inputTo = $(".js-input-to"),
         instance,
         min = 0,
-        max = 3000,
+        max = 5000,
         from = 0,
         to = 0;
 
@@ -2391,7 +2391,7 @@ $(function() {
         min: min,
         max: max,
         from: 0,
-        to: 3000,
+        to: 5000,
         prefix: '₼',
         onStart: updateInputs,
         onChange: updateInputs,

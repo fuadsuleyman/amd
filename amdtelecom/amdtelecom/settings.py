@@ -36,7 +36,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'jet.dashboard',
     'jet',
-
+    'flags',
     'contact.apps.ContactConfig',
     'product.apps.ProductConfig',
     'account.apps.AccountConfig',
@@ -75,6 +75,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'amdtelecom.middleware.set_cookie.MyCookieProcessingMiddleware',
 ]
 
 ROOT_URLCONF = 'amdtelecom.urls'
@@ -287,6 +288,11 @@ JET_THEMES = [
         'title': 'Light Gray'
     }
 ]
+
+
+SESSION_COOKIE_DOMAIN='amdtelecom.com'
+SESSION_COOKIE_SECURE=True
+SESSION_COOKIE_NAME='device'
 
 
 # Email Settings
