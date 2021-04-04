@@ -23,4 +23,4 @@ def create_contact(sender, instance, **kwargs):
         Elektron poçt ünvanı: {email}
         Mesaj: {message}
     '''
-    send_mail(subject, data, settings.EMAIL_HOST_USER, ['amdtelecommagazasi@gmail.com'])
+    send_mail(subject, data, settings.EMAIL_HOST_USER, settings.EMAIL_HOST_USER)
