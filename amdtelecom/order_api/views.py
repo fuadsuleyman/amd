@@ -38,7 +38,8 @@ def all_order_items(request):
 
 @api_view(['GET'])
 def get_order_items_count(request):
-    device = request.COOKIES['device']
+    # device = request.COOKIES['device']
+    device = request.COOKIES.get('device')
     print('COUNT API isheleyir')
     print('device', device)
     customer, created = Customer.objects.get_or_create(device=device)
@@ -62,7 +63,8 @@ def get_order_items_count(request):
 
 @api_view(['GET'])
 def get_order_items_id(request, pk):
-    device = request.COOKIES['device']
+    device = request.COOKIES.get('device')
+    # device = request.COOKIES['device']
     print('ITEM_id API isheleyir')
     print('device api item_id', device)
     customer, created = Customer.objects.get_or_create(device=device)
