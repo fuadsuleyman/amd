@@ -230,9 +230,6 @@ function getData() { // filter product data return products
                                                 <p>${product.description}
                                                 </p>
                                                 <h4>${product.price} AZN</h4>
-                                                <ul class="color-variant">
-                                                    <li class="bg-light0" style="background-color: ${product.color_code} !important;"></li>
-                                                </ul>
                                             </div>
                                         </div>
                                     </div>
