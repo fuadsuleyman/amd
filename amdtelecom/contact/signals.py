@@ -7,21 +7,20 @@ from django.core.mail import send_mail
 from .models import Contact
 
 
-# @receiver(pre_save, sender=Contact)
-# def create_contact(sender, instance, **kwargs):
-#     first_name = instance.first_name
-#     last_name = instance.last_name
-#     phone_number = instance.phone_number
-#     email = instance.email
-#     message = instance.message
+@receiver(pre_save, sender=Contact)
+def create_contact(sender, instance, **kwargs):
+    first_name = instance.first_name
+    last_name = instance.last_name
+    phone_number = instance.phone_number
+    email = instance.email
+    message = instance.message
 
-#     subject = 'Contact'
-#     data = f''' 
-#         Ad: {first_name}
-#         Soyad: {last_name}
-#         Elaqe nömrəsi: {phone_number}
-#         Elektron poçt ünvanı: {email}
-#         Mesaj: {message}
-#     '''
-#     print(data, 'malas')
-#     send_mail(subject, data, settings.EMAIL_HOST_USER, ['husubeyli@gmail.com'])
+    subject = 'Contact'
+    data = f''' 
+        Ad: {first_name}
+        Soyad: {last_name}
+        Elaqe nömrəsi: {phone_number}
+        Elektron poçt ünvanı: {email}
+        Mesaj: {message}
+    '''
+    send_mail(subject, data, settings.EMAIL_HOST_USER, ['amdtelecommagazasi@gmail.com'])
