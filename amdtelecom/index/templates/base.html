@@ -5,19 +5,9 @@
 <html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description" content="multikart">
-    <meta name="keywords" content="multikart">
-    <meta name="author" content="multikart">
-
-    <!--Plugin CSS file with desired skin-->
-    <link rel="icon" href="{% static 'images/favicon/favicon.png' %}" type="image/x-icon">
-    <link rel="shortcut icon" href="{% static 'images/favicon/favicon.png' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
     <script type="text/javascript">
+
+        console.log('girdi ilk js-e')
 
 		function getCookie(name) {
 		    var cookieValue = null;
@@ -44,8 +34,6 @@
 		}
 
 
-
-
 		let device = getCookie('device')
 
 		if (device == null || device == undefined){
@@ -56,7 +44,19 @@
         console.log(`set eledim cookie-ni: ${device}`)
 
 	</script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="multikart">
+    <meta name="keywords" content="multikart">
+    <meta name="author" content="multikart">
 
+    <!--Plugin CSS file with desired skin-->
+    <link rel="icon" href="{% static 'images/favicon/favicon.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'images/favicon/favicon.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    
     {% if title %}
         <title>AMD - {{ title }}</title>
     {% else %}
@@ -95,6 +95,8 @@
 </head>
 
 <body>
+    
+
 
     <!-- loader start -->
     <!-- <div class="loader_skeleton">

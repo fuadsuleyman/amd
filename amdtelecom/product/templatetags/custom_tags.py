@@ -11,7 +11,7 @@ from product.models import Category
 def get_order_item_id(context, product_id):
     request = context['request']
 
-    device = request.COOKIES['device']
+    device = request.COOKIES.get('device')
     customer, created = Customer.objects.get_or_create(device=device)
 
     try:

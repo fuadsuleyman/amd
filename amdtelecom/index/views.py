@@ -6,6 +6,8 @@ from django.views.generic import TemplateView
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
+import time
+
 # Create your views here.
 
 
@@ -40,8 +42,12 @@ from django.shortcuts import render, redirect
 #         return context
     
 def home_page(request):
-    print("sasas")
-    device = request.COOKIES['device']
+
+    
+    print("sasas", request.COOKIES.get('device'))
+
+    # device = request.COOKIES['device']
+    device = request.COOKIES.get('device')
     customer, created = Customer.objects.get_or_create(device=device)
     order, created = Order.objects.get_or_create(customer=customer, complete=False)
     products = Product.objects.all()
