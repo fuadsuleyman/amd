@@ -93,10 +93,6 @@ class ProductFilterListAPIView(ListAPIView):
         else:
             if min_price:
                 products = products.filter(price__range=(min_price, max_price) or None)        
-
-        # try:
-        #     products_images = Product_images.objects.filter()
-
         return products
 
 

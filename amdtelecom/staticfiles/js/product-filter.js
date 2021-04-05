@@ -1,6 +1,6 @@
-// const domain = `http://localhost:8000/`
 const domain = document.getElementById('YOUR_ENV_VARIABLE').value
-// var responseDatas = []
+
+
 // keep this page category id
 const categoryProduct = $('.category-pro')[0]
 let theCategory = categoryProduct.getAttribute('for-filter')
@@ -24,59 +24,65 @@ $(document).on('input', '#range', function() { // price range when changed keep 
 
 });
 
-
-
-function getProMarka(id){
-    let image
-    console.log(id, 'meselen');
-    $.ajax({
-        url: `${domain}api/v1.0/filter-api-product-markas/`,
-        async: false,
-        global: false,
-        dataType: 'json',
+// function getProImage(id){ // filter product images returned product image
+//     let image	
+//     $.ajax({
+//         url: `${domain}api/v1.0/filter-api-product-images/`,
+//         async: false,
+//         global: false,
+//         dataType: 'json',
         
-        success:function(res){
-            console.log(res, 'markalar');
-            for(let item of res){
-                if (item.id == id ) {
-                    image = item.image
-                }
-            }
+//         success:function(res){
+//             console.log(res);
+//             for(let item of res){
+//                 if (item.id == id ) {
+//                     image = item.image
+//                 }
+//             }
 
-        },
-        error: function(res){
-            console.log(res, 'error');
-        }
+//         },
+//         error: function(res){
+//             console.log(res, 'error');
+//         }
 
-    })
-    return image
-}
+//     })
+//     return image
 
-function getProImage(id){ // filter product images returned product image
-    let image	
-    $.ajax({
-        url: `${domain}api/v1.0/filter-api-product-images/`,
-        async: false,
-        global: false,
-        dataType: 'json',
+// }
+
+// function getProMarka(id, condition){
+//     let image
+//     let title
+//     console.log(id, 'meselen');
+//     $.ajax({
+//         url: `${domain}api/v1.0/filter-api-product-markas/`,
+//         async: false,
+//         global: false,
+//         dataType: 'json',
         
-        success:function(res){
-            for(let item of res){
-                if (item.id == id ) {
-                    image = item.image
-                }
-            }
+//         success:function(res){
+//             console.log(res, 'markalar');
+//             for(let item of res){
+//                 if (item.id == id ) {
+//                     image = item.image
+//                     title = item.title
+//                     title = title.toUpperCase()
+//                 }
+//             }
 
-        },
-        error: function(res){
-            console.log(res, 'error');
-        }
+//         },
+//         error: function(res){
+//             console.log(res, 'error');
+//         }
 
-    })
-    return image
-
-}
-
+//     })
+//     if (condition == 'images'){
+//         return image
+//     }
+//     else {
+//         return title
+//     }
+// }
 
 function getData() { // filter product data return products
     // $(".ajaxLoader").hide();
@@ -101,7 +107,7 @@ function getData() { // filter product data return products
                 return el.value;
             })
 
-            // console.log(_filterObj, 'gelen datalar');
+            console.log(_filterObj, 'gelen datalar');
 
         });
     }
@@ -112,37 +118,32 @@ function getData() { // filter product data return products
 
     $.ajax({
         url: `${domain}api/v1.0/filter-api-product/`,
+        async: true,
         type : 'GET',
         data: _filterObj,
         dataType:'json',
         success:function(response){
             console.log(response, 'product data');
             let DOM = $('.prod-items')
-            DOM.html('')
             let products = ''
-            if (response.products.length > 0){  
+            if (response.length > 0){  
 
-                for(let product of response.products){
+                for(let product of response){
                     // console.log(product, 'datalar');
                     mainSeconImage = `
                     <div class="front">
                         <a href="${domain}product/${product.slug}/">
                         <img
-                            src="${getProImage(product.images[1])}"
-                            class="img-fluid blur-up lazyload bg-img" alt="${product.title}">
+                            src="${ product.products_images.length > 1 ? product.products_images[0].image : '' }"
+                            class="img-fluid blur-up lazyload bg-img" alt="${product.title.toUpperCase()}">
                         </a>
                     </div>
                     <div class="back">
                         <a href="${domain}product/${product.slug}/">
                             <img
-                                src="${getProImage(product.images[0])}"
-                                class="img-fluid blur-up lazyload bg-img" alt="${product.title}">
+                                src="${ product.products_images.length > 1 ? product.products_images[1].image : '' }"
+                                class="img-fluid blur-up lazyload bg-img" alt="${product.title.toUpperCase()}">
                             </a>
-                    </div>
-                    <div class="cart-info cart-wrap">
-                        <button data-toggle="modal" data-target="#addtocart" title="Add to cart">
-                            <i class="ti-shopping-cart"></i>
-                        </button> 
                     </div>
                     `
 
@@ -150,8 +151,8 @@ function getData() { // filter product data return products
                     <div class="front">
                         <a href="${domain}product/${product.slug}/">
                         <img
-                            src="${getProImage(product.images[0])}"
-                            class="img-fluid blur-up lazyload bg-img" alt="${product.title}" style="height: 271px;">
+                            src="$${ product.products_images.length > 1 ? product.products_images[1].image : '' }"
+                            class="img-fluid blur-up lazyload bg-img" alt="${product.title.toUpperCase()}">
                         </a>
                     </div>
                     `
@@ -160,7 +161,7 @@ function getData() { // filter product data return products
                     if(product.operator_code) {
 
                         products += `
-                            <div class="col-xl-3 col-sm-6 col-md-4 col-grid-box category-pro" style="margin-top: 20px;">
+                            <div class="col-xl-4 col-sm-6 col-md-4 col-grid-box category-pro" style="margin-top: 20px;">
                             
                             <div class="numberCard">
                                 <div class="numberCard__container">
@@ -173,21 +174,16 @@ function getData() { // filter product data return products
                                                     <path d="M15.55 13c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.37-.66-.11-1.48-.87-1.48H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7l1.1-2h7.45zM6.16 6h12.15l-2.76 5H8.53L6.16 6zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"></path>
                                                 </svg>
                                             </li>
-                                            <li>
-                                                <svg class="MuiSvgIcon-root" focusable="false" viewBox="0 0 24 24" aria-hidden="true">
-                                                    <path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3zm-4.4 15.55l-.1.1-.1-.1C7.14 14.24 4 11.39 4 8.5 4 6.5 5.5 5 7.5 5c1.54 0 3.04.99 3.57 2.36h1.87C13.46 5.99 14.96 5 16.5 5c2 0 3.5 1.5 3.5 3.5 0 2.89-3.14 5.74-7.9 10.05z"></path>
-                                                </svg>
-                                            </li>
                                         </ul>
 
                                     </div>
 
                                     <div class="numberCard__container__body">
                                         <div class="numberCard__container__body-img">
-                                            <img src="${getProMarka(product.marka[0])}" alt="" style="height: 72px; width: 72px;">
+                                            <img src="${product.product_marka[0].image}" alt="" style="height: 72px; width: 72px;">
                                         </div>
                                         <div class="numberCard__container__body-number">
-                                            <p class="m-0 text-dark">(<!-- -->${product.operator_code}<!-- -->) <!-- -->${product.title}</p>
+                                            <p class="m-0 text-dark">(<!-- -->${product.operator_code}<!-- -->) <!-- -->${product.title.toUpperCase()}</p>
                                         </div>
                                     </div>
 
@@ -219,8 +215,8 @@ function getData() { // filter product data return products
                                     <div class="col-xl-3 col-sm-6 col-md-4 col-grid-box category-pro">
                                     <div class="product-box">
                                         <div class="img-wrapper">
-                                            ${ product.images.length > 1 ? mainSeconImage : secondImage }
-                                            <div class="cart-info cart-wrap">
+                                            ${ product.products_images.length > 1 ? mainSeconImage : secondImage }
+                                            <div class="cart-info cart-wrap" style="top:45px">
                                                 <button data-toggle="modal" data-target="#addtocart" title="Add to cart">
                                                     <i class="ti-shopping-cart"></i>
                                                 </button> 
@@ -229,14 +225,11 @@ function getData() { // filter product data return products
                                         <div class="product-detail">
                                             <div>
                                                 <a href="product-page(no-sidebar).html">
-                                                    <h6>${product.title}</h6>
+                                                    <h6>${product.product_marka[0].title.toUpperCase() } ${product.title.toUpperCase()}  ${product.color_title.toUpperCase()}</h6>
                                                 </a>
                                                 <p>${product.description}
                                                 </p>
                                                 <h4>${product.price} AZN</h4>
-                                                <ul class="color-variant">
-                                                    <li class="bg-light0" style="background-color: ${product.color_code} !important;"></li>
-                                                </ul>
                                             </div>
                                         </div>
                                     </div>
@@ -249,12 +242,17 @@ function getData() { // filter product data return products
                                     <div class="col-xl-3 col-sm-6 col-md-4 col-grid-box category-pro">
                                     <div class="product-box">
                                         <div class="img-wrapper">
-                                        ${ product.images.length > 1 ? mainSeconImage : secondImage }
+                                        ${ product.products_images.length > 1 ? mainSeconImage : secondImage }
+                                        <div class="cart-info cart-wrap" style="top:45px">
+                                            <button data-toggle="modal" data-target="#addtocart" title="Add to cart">
+                                                <i class="ti-shopping-cart"></i>
+                                            </button> 
+                                        </div>
                                         </div>
                                         <div class="product-detail">
                                             <div>
                                                 <a href="product-page(no-sidebar).html">
-                                                    <h6>${product.title}</h6>
+                                                    <h6>${product.product_marka[0].title.toUpperCase() } ${product.title.toUpperCase()}</h6>
                                                 </a>
                                                 <p>${product.description}
                                                 </p>
@@ -266,16 +264,33 @@ function getData() { // filter product data return products
                             `
                         } // ${a == 1 && retun}
                     }
-                    
                     DOM.html(products)
                     mainSeconImage = ''
                     secondImage = ''
-                } 
-                renderPagination(response)
+                    
+
+                }  
+
             }
-            else {
-                DOM.html('')
-            }  
+            $(function() {
+                $(".product-load-more .col-grid-box").slice(0, 12).show();
+                $(".loadMore").on('click', function(e) {
+                    e.preventDefault();
+                    $(".product-load-more .col-grid-box:hidden").slice(0, 4).slideDown();
+                    if ($(".product-load-more .col-grid-box:hidden").length === 0) {
+                        console.log(`$(".loadMore").css('display', 'none')`);
+                        $(".loadMore").css('display', 'none')
+                    }
+
+                });
+                if ($(".product-load-more .col-grid-box:hidden").length > 0) {
+                    console.log(`$(".loadMore").css('display', 'block')`);
+                    $(".loadMore").css('display', 'block')
+                }
+            });
+            // else {
+            //     DOM.html('')
+            // }  
 
             _filterObj = {}
         },
@@ -288,69 +303,4 @@ function getData() { // filter product data return products
 
 
 }
-
-function renderPagination(responseDatas) {
-    let paginatioBody = document.querySelector('.pagination')
-
-    paginatioBody.innerHTML = ''
-    let previous = document.createElement('li')
-    let pages_counts_links = document.createElement('li')
-    let next = document.createElement('li')
-    console.log(responseDatas, 'daalar');
-    if (responseDatas.length > 0){
-        if (responseDatas.previous != null) {
-            // previous = document.createElement('li')
-            previous.classList.add('page-item')
-            previous.innerHTML += `
-            <a class="page-link previous" href="${responseDatas.previous}" aria-label="Previous">
-                <span aria-hidden="true">
-                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
-                </span>
-                <span class="sr-only">Previous</span>
-            </a>
-            `
-            // paginatioBody.append(previous)
-        }
-        for( let i = 0; i < responseDatas.count; i++) {
-            // pages_counts_links = 
-            pages_counts_links.classList.add('page-item')
-            if (i == response.count) {
-                pages_counts_links.classList.add('active')
-                pages_counts_links.innerHTML += `<a class="page-link">${i}</a>`
-            }
-        }
-        for (let j = 0; responseDatas.list_pages_url.page_links.length; j++){
-            if ( j != 0 || j != responseDatas.list_pages_url.page_links.length - 1){
-                pages_counts_links.innerHTML += `<a class="page-link" href="${responseDatas.list_pages_url.page_links.length[0]}">${j + 1}</a>` 
-            }
-        }
-
-        if (responseDatas.next != null) {
-            // next = document.createElement('li')
-            next.classList.add('page-item')
-            next.innerHTML += `
-            <a class="page-link next" href="${responseDatas.next}" aria-label="Previous">
-                <span aria-hidden="true">
-                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
-                </span>
-                <span class="sr-only">Next</span>
-            </a>
-            `
-            // paginatioBody.append(previous)
-        }
-        console.log(previous, 'previous');
-        console.log(pages_counts_links, 'pages_counts_links');
-        console.log(next, 'next');
-        paginatioBody.append(previous)
-        renderPagination.innerHTML += previous
-        renderPagination.innerHTML += pages_counts_links
-        renderPagination.innerHTML += next
-        // paginatioBody.append(pages_counts_links)
-        // paginatioBody.append(next)
-    }
-}
-// function renderPagination() {
-//     let paginationBody = documen.querySelector('.pagination')
-    
-// }
 

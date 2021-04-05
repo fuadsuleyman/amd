@@ -32,8 +32,8 @@ $(document).on('input', '#search-filter-value', function() {
         getSearchData(value)
     }
     else{
-        searchBody.css('display', 'none')
         searchBody.html('')
+        searchBody.css('display', 'none')
     }
     
 });
@@ -70,9 +70,9 @@ function getSearchProImage(id){ // filter product images returned product image
         jsonDatas = datas.responseJSON
         for(let item of jsonDatas){
             if (item.id == id ) {
-                console.log('salam', item)
+                // console.log('salam', item)
                 image = item.image
-                console.log(image, 'sekil');
+                // console.log(image, 'sekil');
             }
         }
         return image
@@ -118,19 +118,16 @@ function getSearchProMarka(title){
 async function getSearchData(value){
 
     try {
-        
-        
         searchBody.html('')
         const title = value;
-        
         let slug = ''
-
         const datas = await $.ajax({
             dataType: 'json',
             async: true,
             global: false,
             url: `${urlDomain}api/v1.0/search/?q=${title}`,
         });
+        console.log(datas, 'datalar');
         if (datas.length > 0){
             let productBody = ''
             searchBody.html('')
@@ -138,10 +135,11 @@ async function getSearchData(value){
             for (let product of datas){
                 slug = `${urlDomain}product/${product.slug}/`
                 console.log(product.operator_code);
+                console.log(product, 'product data');
                 productBody += `
                 <a href="${slug}" class="body">
                     <div class="data-img">
-                        <img src="${product.operator_code != null ? getSearchProMarka(product.marka[0]) : getSearchProImage(product.images[0]) }" alt="">
+                        <img src="${ product.operator_code != null ? getSearchProMarka(product.marka[0]) : getSearchProImage(product.images[0]) }" alt="">
                     </div>
                     <div class="data-title">
                         ${product.marka[0]} ${ product.title }
