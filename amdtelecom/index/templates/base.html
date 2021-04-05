@@ -2044,7 +2044,7 @@
 
     <script>
 
-        // const domain_api_base = document.getElementById('YOUR_ENV_VARIABLE').value
+        const domain_api_base_basket = document.getElementById('YOUR_ENV_VARIABLE').value
         // console.log(`domain_api_base: ${domain_api_base}`)
 
         let addtocartbtn = document.querySelectorAll('.incre-cart');
@@ -2084,7 +2084,7 @@
                 console.log(`modal create-den qabaq order_id: ${order_id}`)
                 console.log(`modal create-den qabaq customer_id: ${customer_id}`)
                 console.log(`modal create-den qabaq orderItem_id: ${orderitem_id}`)
-                let url_post = `${domain_api_base}api-order/orderItem-create/`
+                let url_post = `${domain_api_base_basket}api-order/orderItem-create/`
 
                 fetch(url_post, {
                 method: 'POST',
@@ -2102,7 +2102,7 @@
                 .then(res => res.text())
                 .then(console.log('create-in sonundayam modaldan'))
                 // .then(document.location.href = 'http://localhost:8000/order/cart/')
-                .then(setTimeout(function() { document.location.href = `${domain_api_base}order/cart/` }, 200))
+                .then(setTimeout(function() { document.location.href = `${domain_api_base_basket}order/cart/` }, 200))
 
                 // setTimeout(function() { deleteOrderItem(); }, 1000);
 
@@ -2120,7 +2120,7 @@
                 cart_badge.innerText = parseInt(currentCountCartBadge) - 1
 
                 // faktiki orderItem id-ni db-den gotururuk
-                url_get_id = `${domain_api_base}api-order/orderItem-id/${product_id}/`
+                url_get_id = `${domain_api_base_basket}api-order/orderItem-id/${product_id}/`
                 fetch(url_get_id, {
                 method: 'GET',
                 headers: {
@@ -2137,7 +2137,7 @@
                 function deleteOrderItem(){
                     console.log(`url-e qoymazdan qabaq daxili functa ordetitem_id: ${orderitem_id}`)
 
-                    url_del = `${domain_api_base}api-order/orderItem-delete/${orderitem_id}/`;
+                    url_del = `${domain_api_base_basket}api-order/orderItem-delete/${orderitem_id}/`;
 
                     fetch(url_del, {
                         method: 'DELETE',
@@ -2184,7 +2184,7 @@
                 e.target.classList.remove("do-green");
                 e.target.classList.add('do-gray');
 
-                url_get_id = `${domain_api_base}api-order/orderItem-id/${product_id}/`
+                url_get_id = `${domain_api_base_basket}api-order/orderItem-id/${product_id}/`
 
                 fetch(url_get_id, {
                 method: 'GET',
@@ -2209,7 +2209,7 @@
                 function deleteOrderItem(){
                     console.log(`url-e qoymazdan qabaq daxili functa ordetitem_id: ${orderitem_id}`)
 
-                    url_del = `${domain_api_base}api-order/orderItem-delete/${orderitem_id}/`;
+                    url_del = `${domain_api_base_basket}api-order/orderItem-delete/${orderitem_id}/`;
 
                     fetch(url_del, {
                         method: 'DELETE',
@@ -2236,7 +2236,7 @@
                 console.log(`product kartda karti basanda yuxarida sebet count: ${currentCountCartBadge}`) 
                 cart_badge.innerText = parseInt(currentCountCartBadge) + 1
 
-                let url_post = `${domain_api_base}api-order/orderItem-create/`
+                let url_post = `${domain_api_base_basket}api-order/orderItem-create/`
 
                 fetch(url_post, {
                 method: 'POST',
