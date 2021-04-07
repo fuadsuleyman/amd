@@ -6,18 +6,6 @@ from django.views.generic import TemplateView
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
-import time
-
-# Create your views here.
-
-
-# def home_page(request):
-#     products = Product.objects.all()
-#     category = Category.objects.all()
-#     details = Product_details.objects.all()
-#     context = {'products':products, 'details': details,'category':category }
-#     return render(request, 'home.html', context)
-
 
 # class HomePageTemplateView(TemplateView):
 #     template_name = 'home.html'
@@ -42,11 +30,6 @@ import time
 #         return context
     
 def home_page(request):
-
-    
-    print("sasas", request.COOKIES.get('device'))
-
-    # device = request.COOKIES['device']
     device = request.COOKIES.get('device')
     customer, created = Customer.objects.get_or_create(device=device)
     order, created = Order.objects.get_or_create(customer=customer, complete=False)
@@ -58,12 +41,22 @@ def home_page(request):
     most_sold = products.filter(is_published=True).order_by('-sale_count')[:12]
     discounted_products = products.filter(is_published=True).filter(is_discount=True).order_by('-created_at')[:12]
 
-    context = {'products':products, 'details': details,'category':category, 'customer': customer, 'order': order, 'new_arrivals': new_arrivals, 'discounted_products': discounted_products, 'most_sold': most_sold}
+    context = {
+        'products': products, 
+        'details': details,
+        'category': category, 
+        'customer': customer, 
+        'order': order, 
+        'new_arrivals': new_arrivals, 
+        'discounted_products': discounted_products, 
+        'most_sold': most_sold
+    }
     
     return render(request, 'home.html', context)
 
+
 def autocomplete(request):
-    print(request.Get.get("term"))
+    print(request.GET.get("term"))
     if 'term' in request.GET:
         qs = Product.objects.filter(title__icontains=request.GET.get('term'))
         titles = list()

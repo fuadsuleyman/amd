@@ -96,8 +96,8 @@
                             <div class="color-selector collection-brand-filter">
                                 {% for color in colors %}
                                 <div class="custom-control custom-checkbox collection-filter-checkbox color-field">
-                                    <input type="checkbox" onclick="getData()" data-filter="color_title" value="{{ color }}" class="filter-item-checkbox custom-control-input" id="{{ color }}" style="border: 1px solid {{ color }}">
-                                    <label class="custom-control-label" for="{{ color }}" style="color: {{ color }}"> {{ color }} </label>
+                                    <input type="checkbox" onclick="getData()" data-filter="color_title" value="{{ color }}" class="filter-item-checkbox custom-control-input" id="{{ color }}">
+                                    <label class="custom-control-label" for="{{ color }}"> {{ color }} </label>
                                 </div>
                                 {% endfor %}
                             </div>

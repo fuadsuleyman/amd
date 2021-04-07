@@ -329,8 +329,8 @@
 
                                         <ul class="color-variant" style="border-block-color: black;">
                                             <!-- onclick="changeColor(event,{{product.id}}) -->
-                                            <li style="background-color:{{ product.color_code }}; border: 5px solid {{ product.color_code }}; position: relative !important; ">
-                                                <a href="{% url 'product:product_detail' product.slug %}" title="{{ product.color_title | lower }}" style="position: absolute; width: 100%; height: 100%;"></a>
+                                            <li style="background-color:{{ product.color_code }}; border: 5px solid {{ product.color_code }}; position: relative !important; border: 1px solid black;">
+                                                <a href="{% url 'product:product_detail' product.slug %}" title="{{ product.color_title | lower }}" style="position: absolute; width: 100%; height: 100%; "></a>
                                             </li>
                                             {% if product.same_product.all %}
                                                 {% for productt in product.same_product.all %}
@@ -646,11 +646,6 @@
                                     <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
                                 </svg>
                             </h4>
-                            {% if product.color_title %}
-                            <ul class="color-variant">
-                                <li title="{{ product.color_title | lower }}" class="bg-light0" style="background-color: {{ product.color_code }} !important;"></li>
-                            </ul>
-                            {% endif %}
                         </div>
                     </div>
                 </div>
