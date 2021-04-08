@@ -12,6 +12,7 @@ services:
             - ./nginx/conf.d/client_max_body_size.conf:/etc/nginx/conf.d/client_max_body_size.conf:ro
             - ./static/:/amd/static
             - ./media/:/amd/media
+            - ./nginx/proxy.conf/:/etc/nginx/proxy.conf
     postgres:
         image: postgres:9.6.6
         restart: always

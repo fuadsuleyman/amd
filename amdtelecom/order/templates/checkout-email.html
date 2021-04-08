@@ -6,7 +6,21 @@
     <p>İsmarıc: {{ order.message }}</p>
     {% for item in order.orderitem_set.all %}
     <div style="display: flex;">
-     <p>Sifaris: {{item.product.title}} </p>
+     <p>Sifaris: {% if item.product.marka.all.first %}
+                {{ item.product.marka.all.first|upper }} 
+                {% endif %}
+                {% if item.product.title %}
+                {{item.product.title|upper}}
+                {% endif %} 
+                {% if item.product.ram %}
+                {{item.product.ram|upper}} /
+                {% endif %}  
+                {% if item.product.internal_storage %}
+                {{item.product.internal_storage|upper}}
+                {% endif %} 
+                {% if item.product.color_title %}
+                {{item.product.color_title|upper}} 
+                {% endif %} </p>
      <p style="margin-left: 2em;">Miqdar: {{item.quantity}}</p>
     </div>
     {% endfor %}

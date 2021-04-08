@@ -164,16 +164,6 @@ class Product(models.Model):
         verbose_name_plural = 'Məhsullar'
         ordering = ('-created_at', 'title')
 
-    # @property
-    # def is_published_expired(self):
-    #     from django.utils import timezone
-    #     if self.is_new_expired > timezone.datetime.today():
-    #         print("Publishe Active")
-    #         return True
-    #     else:
-    #         print("Publishe Deactive")
-    #         return False
-
     @property
     def imageURL(self):
         try:
@@ -185,18 +175,22 @@ class Product(models.Model):
     def save(self, *args, **kwargs):        
         from .tasks import changed_is_new
         super(Product, self).save(*args, **kwargs)
+
+        self.color_title = self.color_title.lower()
         ram = self.ram if self.ram != None  else ''
         internal_storage = self.internal_storage if self.internal_storage != None  else ''
         color_title = self.color_title if self.color_title != None  else ''
+        
         if self.slug:
             self.slug=''
 
         slug = f' {self.title} {ram} {internal_storage} {color_title}'
         self.slug = f'{slugify(slug)}'
         
-        if self.is_new:
+        if self.is_new: 
             changed_is_new.apply_async(args=[self.id], eta=self.is_new_expired)
-        super(Product, self).save(*args, **kwargs)
+
+        return super(Product, self).save(*args, **kwargs)
 
 
     def get_price(self):
