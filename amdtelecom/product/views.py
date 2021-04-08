@@ -3,6 +3,8 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView, DetailView
 from django.db.models import Q
+from order.models import Order
+from account.models import Customer
 from collections import OrderedDict
 # Create your views here.
 from django.http import HttpResponse
@@ -54,9 +56,14 @@ class ProductDetailView(DetailView):
         the_category = Category.objects.filter(categories=product).values_list('id', flat=True).last()
         print(the_category, 'kataloq')
         related_products = Product.objects.filter(category__id=the_category).exclude(id=product.id)
+        print('Product-un markasi:', product.marka.all().first().image)
+
+        
+
 
         photos = Product_images.objects.filter(product=product).order_by('-is_main')
         details = Product_details.objects.filter(product=product)
+        
         context['product'] = product
         context['photos'] = photos
         context['details'] = details
@@ -69,7 +76,8 @@ class ProductDetailView(DetailView):
         product = Product.objects.get(slug=slug)
         #Get user account information
         try:
-            customer = self.request.user.customer	
+            customer = self.request.user.customer
+
         except:
             # device = self.request.COOKIES['device']
             device = self.request.COOKIES.get('device')
@@ -123,6 +131,10 @@ class ProductsListView(ListView):
         context = super().get_context_data(**kwargs)
         category = get_object_or_404(Category, slug=self.kwargs['slug'])
         products = Product.objects.filter(category=category).filter(is_published=True).filter()
+
+        device = self.request.COOKIES.get('device')
+        customer, created = Customer.objects.get_or_create(device=device)
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
 
         # for filter 
         markas = Marka.objects.filter(marka__id__in=products.all()).filter(marka__isnull=False).distinct()
@@ -190,6 +202,8 @@ class ProductsListView(ListView):
             products = paginator.page(paginator.num_pages)
 
         context = {
+            'customer': customer,
+            'order': order,
             'products': products,
             'categories': category,
             'marka': marka,

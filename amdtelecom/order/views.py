@@ -82,6 +82,7 @@ def cart(request):
     else:
         order = None
     print("order: bu", show_order_items)
+    # print("Carta girende imgs: ", imgs[item.id].first())
     context = { 'show_order_items': show_order_items, 'order':order, 'imgs': imgs}
     return render(request, 'cart.html', context)
 

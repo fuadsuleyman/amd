@@ -216,11 +216,7 @@ function getData() { // filter product data return products
                                     <div class="product-box">
                                         <div class="img-wrapper">
                                             ${ product.products_images.length > 1 ? mainSeconImage : secondImage }
-                                            <div class="cart-info cart-wrap" style="top:45px">
-                                                <button data-toggle="modal" data-target="#addtocart" title="Add to cart">
-                                                    <i class="ti-shopping-cart"></i>
-                                                </button> 
-                                            </div>
+                                            
                                         </div>
                                         <div class="product-detail">
                                             <div>
@@ -243,11 +239,7 @@ function getData() { // filter product data return products
                                     <div class="product-box">
                                         <div class="img-wrapper">
                                         ${ product.products_images.length > 1 ? mainSeconImage : secondImage }
-                                        <div class="cart-info cart-wrap" style="top:45px">
-                                            <button data-toggle="modal" data-target="#addtocart" title="Add to cart">
-                                                <i class="ti-shopping-cart"></i>
-                                            </button> 
-                                        </div>
+                                        
                                         </div>
                                         <div class="product-detail">
                                             <div>

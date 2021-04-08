@@ -68,9 +68,9 @@ class ProductDetailNameAdmin(admin.TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("title", "price", "is_new", 'get_image', 'show_markas', 'get_color',) #"get_image"
+    list_display = ("title", "price", 'show_markas', 'internal_storage', 'ram', "is_new", 'get_color', 'get_image') #"get_image"
     list_display_links = ("title",)
-    list_filter = ("price", "category",)
+    list_filter = ("price", "category", 'is_new', 'internal_storage', 'ram', 'color_title')
     search_fields = ('title', "category__title", "Marka")
     readonly_fields = ('slug',)
     inlines = [ImageInline, ProductDetailNameAdmin]
@@ -114,6 +114,9 @@ class ProductAdmin(admin.ModelAdmin):
 
     def show_markas(self, obj):
         return ' '.join([product.title for product in obj.marka.all()])
+    
+    def show_category(self, obj):
+        return ' '.join([product.title for product in obj.category.all()])
 
     def get_color(self, obj):
         return mark_safe(f'<div style="width: 30px !important; height: 30px !important; border-radius: 50% !important; background-color: {obj.color_code} !important"></div>')
@@ -123,6 +126,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 
     show_markas.short_description = "Marka"
+    show_category.short_description = "Category"
 
     get_color.short_description = "Color"
 

@@ -44,6 +44,7 @@
         console.log(`set eledim cookie-ni: ${device}`)
 
 	</script>
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -52,15 +53,15 @@
     <meta name="author" content="multikart">
 
     <!--Plugin CSS file with desired skin-->
-    <link rel="icon" href="{% static 'images/favicon/favicon.png' %}" type="image/x-icon">
-    <link rel="shortcut icon" href="{% static 'images/favicon/favicon.png' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'images/favicon/faviii.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'images/favicon/faviii.png' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     
     {% if title %}
         <title>AMD - {{ title }}</title>
     {% else %}
-        <title>AMD</title>
+        <title>AMD - Telecom</title>
     {% endif %}
     
     <!--Google font-->
@@ -75,6 +76,15 @@
     
     <!-- Animate icon -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
+
+    <style>
+        .do-green{
+            color:green !important;
+        }
+        .do-gray{
+            color:#6f6f6f !important;
+        }
+    </style>
 
     {% block price_range_css %}
 
@@ -884,7 +894,7 @@
                         </div>
                         <div class="absolute-logo">
                             <div class="brand-logo">
-                                <a href="{% url 'index:home' %}"><img alt="AMD Telecom" src="{% static 'images/icon/logo/logo.png' %}"style=" height: 100px; width: 150px;"></a>
+                                <a href="{% url 'index:home' %}"><img alt="AMD Telecom" src="{% static 'images/icon/logo/logooo.png' %}"style=" height: 100px; width: 150px;"></a>
                             </div>
                         </div>
                         <!-- <div class="">
@@ -2042,12 +2052,159 @@
     <!-- Search filter js -->
     <script src="{% static 'js/search-filter.js' %}"></script>
 
+    
     <script>
+        // sehife acilan kimi cixan modal
+        // $(window).on('load', function () {
+        //     setTimeout(function () {
+        //         $('#exampleModal').modal('show');
+        //     }, 2500);
+        // });
 
-        // const domain_api_base = document.getElementById('YOUR_ENV_VARIABLE').value
-        // console.log(`domain_api_base: ${domain_api_base}`)
+        function openSearch() {
+            document.getElementById("search-overlay").style.display = "block";
+        }
 
-        let addtocartbtn = document.querySelectorAll('.incre-cart');
+        function closeSearch() {
+            document.getElementById("search-overlay").style.display = "none";
+        }
+    </script>
+    <style>
+        .none {
+            display: none !important;
+        }
+        .category-title-link span{
+            display: none !important;
+        }
+    </style>
+    <script type="text/javascript">
+    //    function getCookie(name){
+    //        // Split cookie string and get all individial name=value in an array
+    //        var cookieArr = document.cookie.split(";");
+
+    //        // Loop through the array
+    //        for(var i = 0; i < cookieArr.length; i++){
+    //            var cookiePair = cookieArr[i].split("=");
+
+    //            /*Removing whitespace at the begining of the cookie
+    //            name compare it with the given string*/
+    //            if(name == cookiePair[0].trim()){
+    //                // Decode the cookie value and return
+    //                return decodeURIComponent(cookiePair[1]);
+    //            }
+    //        }
+    //        // Return null if nor found
+    //        return null
+    //    } 
+    //    var cart = JSON.parse(getCookie('cart'))
+    //    if(cart == undefined){
+    //        cart = {}
+    //        console.log('Cart was created!');
+    //        document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+    //    }
+    //    console.log('Cart:', cart);
+
+    var thirdCategoryList = $('.thirdCategoryList')
+    for (let index = 0; index < thirdCategoryList.length; index++) {
+        if ( $(thirdCategoryList[index]).children().length == 0 ) {
+            $(thirdCategoryList[index]).parent().find('a').addClass('category-title-link')
+            $(thirdCategoryList[index]).addClass('none')
+
+        }
+        
+    }
+    
+
+    // function getCookie(name) {
+    //     let cookieValue = null;
+    //     if (document.cookie && document.cookie !== '') {
+    //         const cookies = document.cookie.split(';');
+    //         for (let i = 0; i < cookies.length; i++) {
+    //             const cookie = cookies[i].trim();
+    //             // Does this cookie string begin with the name we want?
+    //             if (cookie.substring(0, name.length + 1) === (name + '=')) {
+    //                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+    //                 break;
+    //             }
+    //         }
+    //     }
+    //     return cookieValue;
+    // }
+
+    // function uuidv4(){
+    //     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c){
+    //         let r = Math.random() *16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    //         return v.toString(16);
+    //     });
+    // }
+    // const csrftoken = getCookie('csrftoken');
+    // let device = getCookie('device')
+    // if (device == null || device == undefined){
+    //     console.log(`device yaradan yerdeki if-de: ${device}`)
+    //     device = uuidv4()
+    // }
+    // document.cookie = 'device=' + device + ";domain=;path=/"
+    </script>
+
+<script>
+    const domain_api_base = document.getElementById('YOUR_ENV_VARIABLE').value
+    let cart_badge = document.querySelector('.cart-badge')
+
+    const url_count = `${domain_api_base}api-order/orderItem-count/`;
+    
+    // this function set browser localstorage
+    let addCartCountToLocalStorage = (count) => {
+            localStorage.setItem('cartItems', count)
+        }
+    
+    // this function get cart count from database and set to browser local storage
+    function get_cart_count(){
+        console.log("home.html-de get cart count")
+        fetch(url_count, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken
+    },
+    })
+    .then(res => res.text())
+    .then(res => addCartCountToLocalStorage(res))
+    }
+
+    // ths funqtion change badge number
+    function add_number_to_cart_badge(){
+        fetch(url_count, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken
+        },
+        })
+        .then(res => res.text())
+        .then(res => cart_badge.innerHTML = res)
+    }
+
+
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    
+
+
+    var csrftoken = getCookie('csrftoken');
+
+    window.onload = function() {
+            get_cart_count();
+            console.log(`onload vaxti cartda storage-i yenileyirem: ${localStorage.getItem('cartItems')}`)
+            
+            add_number_to_cart_badge();
+        };
+
+    //asagidakilar home.html-den gelir
+    let addtocartbtn = document.querySelectorAll('.incre-cart');
 
         for (let i = 0; i < addtocartbtn.length; i++){
             addtocartbtn[i].addEventListener('click', letsIncDecrementCart, false)
@@ -2255,168 +2412,6 @@
 
         }
     }
-
-        // function getCookie(name) {
-        // const value = `; ${document.cookie}`;
-        // const parts = value.split(`; ${name}=`);
-        // if (parts.length === 2) return parts.pop().split(';').shift();
-        // }
-
-        // let csrftoken = getCookie('csrftoken');
-
-
-    </script>
-
-
-    <script>
-        // sehife acilan kimi cixan modal
-        // $(window).on('load', function () {
-        //     setTimeout(function () {
-        //         $('#exampleModal').modal('show');
-        //     }, 2500);
-        // });
-
-        function openSearch() {
-            document.getElementById("search-overlay").style.display = "block";
-        }
-
-        function closeSearch() {
-            document.getElementById("search-overlay").style.display = "none";
-        }
-    </script>
-    <style>
-        .none {
-            display: none !important;
-        }
-        .category-title-link span{
-            display: none !important;
-        }
-    </style>
-    <script type="text/javascript">
-    //    function getCookie(name){
-    //        // Split cookie string and get all individial name=value in an array
-    //        var cookieArr = document.cookie.split(";");
-
-    //        // Loop through the array
-    //        for(var i = 0; i < cookieArr.length; i++){
-    //            var cookiePair = cookieArr[i].split("=");
-
-    //            /*Removing whitespace at the begining of the cookie
-    //            name compare it with the given string*/
-    //            if(name == cookiePair[0].trim()){
-    //                // Decode the cookie value and return
-    //                return decodeURIComponent(cookiePair[1]);
-    //            }
-    //        }
-    //        // Return null if nor found
-    //        return null
-    //    } 
-    //    var cart = JSON.parse(getCookie('cart'))
-    //    if(cart == undefined){
-    //        cart = {}
-    //        console.log('Cart was created!');
-    //        document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
-    //    }
-    //    console.log('Cart:', cart);
-
-    var thirdCategoryList = $('.thirdCategoryList')
-    for (let index = 0; index < thirdCategoryList.length; index++) {
-        if ( $(thirdCategoryList[index]).children().length == 0 ) {
-            $(thirdCategoryList[index]).parent().find('a').addClass('category-title-link')
-            $(thirdCategoryList[index]).addClass('none')
-
-        }
-        
-    }
-    
-
-    // function getCookie(name) {
-    //     let cookieValue = null;
-    //     if (document.cookie && document.cookie !== '') {
-    //         const cookies = document.cookie.split(';');
-    //         for (let i = 0; i < cookies.length; i++) {
-    //             const cookie = cookies[i].trim();
-    //             // Does this cookie string begin with the name we want?
-    //             if (cookie.substring(0, name.length + 1) === (name + '=')) {
-    //                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-    //                 break;
-    //             }
-    //         }
-    //     }
-    //     return cookieValue;
-    // }
-
-    // function uuidv4(){
-    //     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c){
-    //         let r = Math.random() *16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-    //         return v.toString(16);
-    //     });
-    // }
-    // const csrftoken = getCookie('csrftoken');
-    // let device = getCookie('device')
-    // if (device == null || device == undefined){
-    //     console.log(`device yaradan yerdeki if-de: ${device}`)
-    //     device = uuidv4()
-    // }
-    // document.cookie = 'device=' + device + ";domain=;path=/"
-    </script>
-
-<script>
-    const domain_api_base = document.getElementById('YOUR_ENV_VARIABLE').value
-    let cart_badge = document.querySelector('.cart-badge')
-
-    const url_count = `${domain_api_base}api-order/orderItem-count/`;
-    
-    // this function set browser localstorage
-    let addCartCountToLocalStorage = (count) => {
-            localStorage.setItem('cartItems', count)
-        }
-    
-    // this function get cart count from database and set to browser local storage
-    function get_cart_count(){
-        console.log("home.html-de get cart count")
-        fetch(url_count, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken
-    },
-    })
-    .then(res => res.text())
-    .then(res => addCartCountToLocalStorage(res))
-    }
-
-    // ths funqtion change badge number
-    function add_number_to_cart_badge(){
-        fetch(url_count, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrftoken
-        },
-        })
-        .then(res => res.text())
-        .then(res => cart_badge.innerHTML = res)
-    }
-
-
-    function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(';').shift();
-    }
-
-    
-
-
-    var csrftoken = getCookie('csrftoken');
-
-    window.onload = function() {
-            get_cart_count();
-            console.log(`onload vaxti cartda storage-i yenileyirem: ${localStorage.getItem('cartItems')}`)
-            
-            add_number_to_cart_badge();
-        };
     
     </script>
 

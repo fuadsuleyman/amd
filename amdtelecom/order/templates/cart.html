@@ -49,28 +49,27 @@
                         <tr>
                             <td>
                                 {% for id, img in imgs.items %}
-                                    {% comment %} {% if id == item.id and if img %} {% endcomment %}
+                                    {% if id == item.id %}
                                         <a href="#"><img src="{{ img }}" alt=""></a>
-                                    {% comment %} {% endif %} {% endcomment %}
+                                    {% endif %}
                                 {% endfor %}
                             </td>
                             <td><a class="product-title" href="{% url 'product:product_detail' item.product.slug %}">
-                            {% if item.product.marka.all.first %}
-                            {{ item.product.marka.all.first|upper }} 
-                            {% endif %}
-                            {% if item.product.title %}
-                            {{item.product.title|upper}}
-                            {% endif %} 
-                            {% if item.product.ram %}
-                            {{item.product.ram|upper}} /
-                            {% endif %}  
-                            {% if item.product.internal_storage %}
-                            {{item.product.internal_storage|upper}}
-                            {% endif %} 
-                            {% if item.product.color_title %}
-                            {{item.product.color_title|upper}} 
-                            {% endif %}
-                             
+                                {% if item.product.marka.all.first %}
+                                {{ item.product.marka.all.first|upper }} 
+                                {% endif %}
+                                {% if item.product.title %}
+                                {{item.product.title|upper}}
+                                {% endif %} 
+                                {% if item.product.ram %}
+                                {{item.product.ram|upper}} /
+                                {% endif %}  
+                                {% if item.product.internal_storage %}
+                                {{item.product.internal_storage|upper}}
+                                {% endif %} 
+                                {% if item.product.color_title %}
+                                {{item.product.color_title|upper}} 
+                                {% endif %}
                             </a>
                                 <div class="mobile-cart-content row">
                                     <div class="col-xs-3">
@@ -326,7 +325,7 @@
             body: JSON.stringify({
                 quantity: e.target.value
                 })
-        })
+        }, { mode: 'no-cors'})
         .then(res => res.text()) // or res.json()
         // .then(res => console.log(`updated ${res}`))
         } else if (e.target.value == 0) {
