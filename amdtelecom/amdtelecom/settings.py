@@ -82,7 +82,7 @@ ROOT_URLCONF = 'amdtelecom.urls'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
     "http://127.0.0.1:8000",
-    "http://localhost"
+    "http://localhost",
     "http://143.110.156.62/"
 ]
 
