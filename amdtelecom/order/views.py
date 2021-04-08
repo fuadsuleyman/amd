@@ -105,7 +105,7 @@ def checkout(request):
             order.complete = True
             form.save()
             send_form(instance=order)
-            success(request, 'Sifarisiniz qeyde alinmisdir tez bir zamanda sizinle elaqe saxlanilicaq.')
+            success(request, 'Sifarisiniz qeydə alınmışdır gün ərzində sizinlə əlaqə saxlanılılacaq.')
             return redirect('index:home')
     return render(request, 'checkout.html', context)
     
