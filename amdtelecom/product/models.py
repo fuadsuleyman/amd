@@ -177,6 +177,7 @@ class Product(models.Model):
         super(Product, self).save(*args, **kwargs)
 
         self.color_title = self.color_title.lower()
+
         ram = self.ram if self.ram != None  else ''
         internal_storage = self.internal_storage if self.internal_storage != None  else ''
         color_title = self.color_title if self.color_title != None  else ''
