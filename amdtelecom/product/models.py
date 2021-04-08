@@ -176,7 +176,8 @@ class Product(models.Model):
         from .tasks import changed_is_new
         super(Product, self).save(*args, **kwargs)
 
-        self.color_title = self.color_title.lower()
+        // self.color_title = self.color_title.lower()
+
         ram = self.ram if self.ram != None  else ''
         internal_storage = self.internal_storage if self.internal_storage != None  else ''
         color_title = self.color_title if self.color_title != None  else ''
