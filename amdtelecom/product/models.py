@@ -214,7 +214,7 @@ class Product(models.Model):
     def __str__(self):
         if self.operator_code not in (None, ''):
             return f'({self.operator_code}) {self.title}'
-        return f'{self.marka} {self.title} {self.internal_storage}'
+        return f'{self.title}'
 
 
 class Product_details(models.Model):
