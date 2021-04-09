@@ -50,49 +50,51 @@ class ProductFilterListAPIView(ListAPIView):
 
         if operators:
             if min_price:
-                products = products.filter(operator_code__in=operators).filter(price__range=(min_price, max_price) or None)  
+                products = products.filter(operator_code__in=operators).filter(price__range=(min_price, max_price))  
             else:
-                products = products.filter(operator_code__in=operators or None).distinct()
-        else:
-            if min_price:
-                products = products.filter(price__range=(min_price, max_price) or None)
+                products = products.filter(operator_code__in=operators).distinct()
+        # else:
+        #     if min_price:
+        #         products = products.filter(price__range=(min_price, max_price))
         
         if color_title:
             if min_price:
-                products = products.filter(color_title__in=color_title).filter(price__range=(min_price, max_price) or None)
+                products = products.filter(color_title__in=color_title).filter(price__range=(min_price, max_price))
             else:
-                products = products.filter(color_title__in=color_title or None).distinct()
-        else:
-            if min_price:
-                products = products.filter(price__range=(min_price, max_price) or None)
+                products = products.filter(color_title__in=color_title).distinct()
+        # else:
+        #     if min_price:
+        #         products = products.filter(price__range=(min_price, max_price))
 
         if internal_storages:
             if min_price:
-                products = products.filter(internal_storage__in=internal_storages).filter(price__range=(min_price, max_price) or None)
+                products = products.filter(internal_storage__in=internal_storages).filter(price__range=(min_price, max_price))
             else:
-                products = products.filter(internal_storage__in=internal_storages or None).distinct()
-        else:
-            if min_price:
-                products = products.filter(price__range=(min_price, max_price) or None)
+                products = products.filter(internal_storage__in=internal_storages).distinct()
+        # else:
+        #     if min_price:
+        #         products = products.filter(price__range=(min_price, max_price))
 
         if is_new:
             if min_price:
-                products = products.filter(is_new=is_new[0]).filter(price__range=(min_price, max_price) or None)
+                products = products.filter(is_new=is_new[0]).filter(price__range=(min_price, max_price))
             else:
-                products = products.filter(is_new=is_new[0] or None)
-        else:
-            if min_price:
-                products = products.filter(price__range=(min_price, max_price) or None)
+                products = products.filter(is_new=is_new[0])
+        # else:
+        #     if min_price:
+        #         products = products.filter(price__range=(min_price, max_price))
 
         if marka:
             if min_price:
-                products = products.filter(marka__id__in=marka).filter(price__range=(min_price, max_price) or None)
+                products = products.filter(marka__id__in=marka).filter(price__range=(min_price, max_price))
             else:
-                products = products.filter(marka__id__in=marka or None).distinct()
+                products = products.filter(marka__id__in=marka).distinct()
                 print(products, 'markasi')
-        else:
-            if min_price:
-                products = products.filter(price__range=(min_price, max_price) or None)        
+        # else:
+        #     if min_price:
+        #         products = products.filter(price__range=(min_price, max_price))        
+        if min_price:
+            products = products.filter(price__range=(min_price, max_price))  
         return products
 
 
