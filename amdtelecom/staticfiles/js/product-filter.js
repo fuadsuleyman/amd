@@ -126,7 +126,8 @@ function getData() { // filter product data return products
             console.log(response, 'product data');
             let DOM = $('.prod-items')
             let products = ''
-            if (response.length > 0){  
+            if (response.length){  
+                console.log('zero');
 
                 for(let product of response){
                     // console.log(product, 'datalar');
@@ -264,6 +265,9 @@ function getData() { // filter product data return products
                 }  
 
             }
+            else {
+                DOM.html('')
+            } 
             $(function() {
                 $(".product-load-more .col-grid-box").slice(0, 12).show();
                 $(".loadMore").on('click', function(e) {
@@ -280,9 +284,7 @@ function getData() { // filter product data return products
                     $(".loadMore").css('display', 'block')
                 }
             });
-            // else {
-            //     DOM.html('')
-            // }  
+ 
 
             _filterObj = {}
         },

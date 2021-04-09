@@ -553,7 +553,7 @@
                                     {% get_navbar as protocol %}
                                     <input id="YOUR_ENV_VARIABLE" value="{{ protocol.api_url }}" type="hidden" />
                                         <li>
-                                            <div class="mobile-back text-right">Back<i class="fa fa-angle-right pl-2"
+                                            <div class="mobile-back text-right">Geri<i class="fa fa-angle-right pl-2"
                                                     aria-hidden="true"></i></div>
                                         </li>
                                         {% get_navbar as category%}
@@ -2340,6 +2340,8 @@
             if (e.target.classList.contains('do-green')){
                 e.target.classList.remove("do-green");
                 e.target.classList.add('do-gray');
+                let localStorNum = parseInt(localStorage.getItem('cartItems'))
+                localStorage.setItem('cartItems', localStorNum-1)
 
                 url_get_id = `${domain_api_base}api-order/orderItem-id/${product_id}/`
 
@@ -2385,6 +2387,8 @@
                 e.target.classList.remove("do-gray");
                 e.target.classList.add('do-green');
                 console.log(`modaldaki inputun value-si: ${e.target.closest(".no-slider")}`)
+                let localStorNum = parseInt(localStorage.getItem('cartItems'))
+                localStorage.setItem('cartItems', localStorNum+1)
                 // console.log(`en yaxin input-un valuesi: ${e.target.closest("input")}`)
                 // e.target.closest("input").value= 'Səbətdən sil'
 
