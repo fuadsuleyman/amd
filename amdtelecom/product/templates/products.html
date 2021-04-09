@@ -231,7 +231,14 @@
                             {% for product in new_products %}
                             {% if product.operator_code == None %}
                             <div class="media"> 
-                                <a href="{% url 'product:product_detail' product.slug %}"><img class="img-fluid blur-up lazyload" src="{{ product.images.all.0.image.url }}" alt=""></a>
+                            {% for image in product.images.all %}
+                                {% if image.is_main %}
+                                <a href="{% url 'product:product_detail' product.slug %}">
+                                
+                                <img class="img-fluid blur-up lazyload" src="{{ image.image.url  }}" alt="">
+                            {% endif %}
+                            {% endfor %}
+                                </a>
                                 <div class="media-body align-self-center">
                                     {% comment %} <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div> {% endcomment %}
                                     <a href="{% url 'product:product_detail' product.slug %}">
