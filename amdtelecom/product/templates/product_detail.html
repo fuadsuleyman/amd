@@ -694,6 +694,12 @@
     <!-- related products -->
     <script>
 
+    let cart_badge = document.querySelector('.cart-badge')
+    console.log(`detail page-de localstorag-i cap edirem: ${localStorage.getItem('cartItems')}`)
+    console.log(`detail cart badge-ni cap edirem: ${cart_badge.innerHTML}`)
+    // cart_badge.innerHTML = parseInt(localStorage.getItem('cartItems'))+1;
+    cart_badge.innerHTML = localStorage.getItem('cartItems');
+
     let addtocartbtn = document.querySelector('.incre-cart');
 
     addtocartbtn.addEventListener('click', letsIncementCart);
