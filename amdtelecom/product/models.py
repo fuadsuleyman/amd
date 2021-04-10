@@ -214,8 +214,19 @@ class Product(models.Model):
     def __str__(self):
         if self.operator_code not in (None, ''):
             return f'({self.operator_code}) {self.title}'
-        return f'{self.title}'
+        if self.title and self.internal_storage and self.ram and self.color_title:
+            return f' {self.title} {self.ram} {self.internal_storage} {self.color_title}'
+        
+        if self.title and self.internal_storage and self.color_title:
+            return f' {self.title} {self.internal_storage} {self.color_title}'
+        
+        if self.title and self.ram and self.color_title:
+            return f' {self.title} {self.ram} {self.color_title}'
 
+        if self.title and self.color_title :
+            return f'{self.title} {self.color_title}'
+
+        return f'{self.title}'
 
 class Product_details(models.Model):
 
