@@ -42,6 +42,7 @@ class ProductSerializer(serializers.ModelSerializer):
     products = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     products_images = serializers.SerializerMethodField()
     product_marka = serializers.SerializerMethodField()
+    priced = serializers.SerializerMethodField()
 
     class Meta:
         model = Product
@@ -54,3 +55,11 @@ class ProductSerializer(serializers.ModelSerializer):
     def get_product_marka(self, instance):
         product_marka = instance.marka
         return ProductMarkaSerializer(product_marka, many=True).data
+
+    def get_priced(self, instance):
+        if instance.discount_type == 1:
+            return instance.price
+        elif instance.discount_type == 2:
+            return instance.price - (instance.price * instance.discount_value / 100)
+        else:
+            return instance.price - instance.discount_value
