@@ -344,6 +344,11 @@
         </div>
     </div> -->
     <!-- loader end -->
+    <style>
+        .elaqe a {
+            color: white !important;
+        }
+    </style>
 
     <div class="top-header top-header-dark2">
         <div class="container">
@@ -351,9 +356,10 @@
                 <div class="col-lg-6 header-contact-left brand">
                     <div class="header-contact">
                         <ul>
-                            <li>Welcome to Our store AMD Telecom</li>
+                            <h4 class= "elaqe" style="color: white !important; text-transform: none;"><a href="{% url 'contact:contact' %}"> Bizimlə əlaqə</a></h4>
                             
                         </ul>
+
                     </div>
                 </div>
                 <div class="col-lg-6 text-right header-contact" style="padding: 0;">
@@ -1080,15 +1086,14 @@
                             <h4>about</h4>
                         </div>
                         <div class="footer-contant">
-                            <div class="footer-logo"><img src="{% static 'images/icon/logo/amd_telecom.png' %}" style="width: 179px; max-height: 90px;" alt=""></div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
+                            <div class="footer-logo"><a href="{% url 'index:home' %}"><img alt="AMD Telecom" src="{% static 'images/icon/logo/logooo.png' %}"style=" height: 100px; width: 150px;"></a></div>
+                            <p>AMD Telecom mağazaları keyfiyyətli, etibarlı və müasir məhsul, o cümlədən xidmətlərlə xidmətinizdədir.</p>
                             <div class="footer-social">
                                 <ul>
-                                    <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                    <li><a href="https://www.facebook.com/AMD-Telecom-816875371764530"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
                                     <!-- <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li> -->
                                     <!-- <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li> -->
-                                    <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                    <li><a href="https://www.instagram.com/amd_telekom/"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
                                     <!-- <li><a href="#"><i class="fa fa-rss" aria-hidden="true"></i></a></li> -->
                                 </ul>
                             </div>
@@ -1110,7 +1115,7 @@
                             </div>
                         </div>
                     </div> -->
-                    <div class="col">
+                    {% comment %} <div class="col">
                         <div class="sub-title">
                             <div class="footer-title">
                                 <h4>why we choose</h4>
@@ -1125,32 +1130,41 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                    </div> {% endcomment %}
                     <div class="col">
                         <div class="sub-title">
                             <div class="footer-title">
-                                <h4>store information</h4>
+                                <h4>Mağaza məlumatları</h4>
                             </div>
                             <div class="footer-contant">
                                 <ul class="contact-list">
-                                    <li><i class="fa fa-map-marker"></i>Multikart Demo Store, Demo store India 345-659
+                                    <li><i class="fa fa-map-marker"></i>Binə qəsəbəsi, Fuad Aynulov küçəsi, Bakı 1045
                                     </li>
-                                    <li><i class="fa fa-phone"></i>Call Us: 123-456-7898</li>
-                                    <li><i class="fa fa-envelope-o"></i>Email Us: Support@Fiot.com</li>
-                                    <li><i class="fa fa-fax"></i>Fax: 123456</li>
+                                    <li><i class="fa fa-phone" ></i>+99412-556-16-16 </li>
+                                    <li class="boyuk"><i class="fa fa-envelope-o boyuk"></i>amdtelecommagazasi@gmail.com </li>
+                                    
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+<style>
+    .boyuk {
+        text-transform: lowercase !important;
+        
+        
+    }
+</style>
+
         </section>
         <div class="sub-footer">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-6 col-md-6 col-sm-12">
                         <div class="footer-end">
-                            <p><i class="fa fa-copyright" aria-hidden="true"></i> 2020 powered by
+                            <p><i class="fa fa-copyright" aria-hidden="true"></i> 2021 powered by
                                 NFE Groups</p>
                         </div>
                     </div>

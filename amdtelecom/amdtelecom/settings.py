@@ -24,10 +24,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '#p_$i#w56)lc@6a0)nz6&#%)3d8+yy62+-xy9zxa#6on-e!a5&'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = False if os.environ.get('DEBUG') else True
-#PROD = not DEBUG
-DEBUG = True
-PROD = True
+DEBUG = False if os.environ.get('DEBUG') else True
+PROD = not DEBUG
+# DEBUG = True
+# PROD = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -149,7 +149,7 @@ else:
             'NAME': 'amd_db_new',
             'USER' : 'amd_user',
             'PASSWORD' : 'password4474',
-            'HOST' : '127.0.0.1',
+            'HOST' : 'localhost',
             'PORT' : '5432',
         }
     }
