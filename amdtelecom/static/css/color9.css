@@ -17344,7 +17344,8 @@ body.dark {
   .layout3-menu .main-menu .menu-left {
     width: calc(100vw - 32px); }
     .layout3-menu .main-menu .menu-left .main-menu-right .toggle-nav {
-      right: 15px; }
+      /* right: 15px;  */
+    }
       .layout3-menu .main-menu .menu-left .main-menu-right .toggle-nav .sidebar-name {
         display: none; }
   .layout3-menu .main-menu > div:nth-child(2) {

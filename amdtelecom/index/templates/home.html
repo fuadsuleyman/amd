@@ -112,6 +112,7 @@
                                 <div class="row no-slider">
                                     {% for product in new_arrivals %}
                                     {% if product.operator_code == None %}
+                                    
                                     <div class="product-box product-wrap">
                                         <div class="img-wrapper">
                                             {% if product.is_new %}<div class="lable-block"><span class="lable3">Yeni</span></div>{% endif %}
@@ -235,7 +236,6 @@
 
                                         </div>
                                     </div>
-
 
                                     <!-- Quick-view modal popup start-->
                                     <div class="modal fade bd-example-modal-lg theme-modal" id="{{ product.id }}tab-1" tabindex="-1" role="dialog"
