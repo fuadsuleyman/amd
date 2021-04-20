@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 from .common import slugify
-
+from django.forms import SelectMultiple
 # Register your models here.
 from .models import (
     Product, 
@@ -76,7 +76,7 @@ class ProductAdmin(admin.ModelAdmin):
     inlines = [ImageInline, ProductDetailNameAdmin]
     save_on_top = True
     save_as = True #create new product easy way
-
+    
     fieldsets = (
         ('Relations', {
             'fields': ('category','marka', 'tags', 'same_product'),
@@ -87,12 +87,12 @@ class ProductAdmin(admin.ModelAdmin):
         ('Publishe', {
             'fields': ('is_published',)
         }),
-        ('Kampaniya', {
-            'fields': ('is_new', 'is_new_expired', 'is_discount', 'discount_type', 'discount_value')
+        ('Price & Kampaniya', {
+            'fields': ('price', 'is_new', 'is_new_expired', 'is_discount', 'discount_type', 'discount_value')
         }),
-        ('Price Info', {
-            'fields': ('price', 'old_price'),
-        }),
+        # ('Price Info', {
+        #     'fields': ('price', 'old_price'),
+        # }),
     )
 
     def save_related(self, request, form, formsets, change):
@@ -131,6 +131,18 @@ class ProductAdmin(admin.ModelAdmin):
     get_color.short_description = "Color"
 
     get_image.short_description = "Image"
+
+    def get_form(self, request, obj=None, **kwargs):
+        form = super(ProductAdmin, self).get_form(request, obj, **kwargs)
+        form.base_fields['category'].widget.attrs['style'] = 'height: 155px;'
+        form.base_fields['marka'].widget.attrs['style'] = 'height: 155px;'
+        form.base_fields['same_product'].widget.attrs['style'] = 'height: 155px;'
+
+
+
+        return form
+
+
 
 
 

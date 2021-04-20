@@ -198,6 +198,7 @@ class Product(models.Model):
         if self.discount_type == 1:
             return self.price
         elif self.discount_type == 2:
+            
             return self.price - (self.price * self.discount_value / 100)
         else:
             return self.price - self.discount_value
