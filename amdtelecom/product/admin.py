@@ -87,12 +87,12 @@ class ProductAdmin(admin.ModelAdmin):
         ('Publishe', {
             'fields': ('is_published',)
         }),
-        ('Kampaniya', {
-            'fields': ('is_new', 'is_new_expired', 'is_discount', 'discount_type', 'discount_value')
+        ('Price & Kampaniya', {
+            'fields': ('price', 'is_new', 'is_new_expired', 'is_discount', 'discount_type', 'discount_value')
         }),
-        ('Price Info', {
-            'fields': ('price', 'old_price'),
-        }),
+        # ('Price Info', {
+        #     'fields': ('price', 'old_price'),
+        # }),
     )
 
     def save_related(self, request, form, formsets, change):
