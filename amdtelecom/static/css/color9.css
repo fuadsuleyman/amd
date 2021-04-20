@@ -14601,6 +14601,7 @@ body.dark {
     right: 15px;
     top: -85px; }
   .mobile-fix-option {
+    display: none;
     position: fixed;
     bottom: 0;
     left: 0;
