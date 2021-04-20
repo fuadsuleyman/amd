@@ -1253,7 +1253,7 @@ header {
 .top-header {
   background-color: #f8f8f8; }
   .top-header .header-contact {
-    padding: 15px 0; }
+    padding: 21px 0 19px 10px; }
     .top-header .header-contact li {
       color: #999999;
       font-size: 14px;
@@ -14577,13 +14577,13 @@ body.dark {
 
 @media (max-width: 991px) {
   .header-contact-left > .header-contact {
-    display: none; 
+    /* display: none;  */
   }
-  .icon-nav.search {
+  /* .icon-nav.search {
       display: flex;
       justify-content: center;
       align-items: center;
-  }
+  } */
 }
 
 @media (min-width: 578px) {
@@ -18252,9 +18252,7 @@ body.dark {
   .row.no-slider {
     justify-content: center;
   }
-  .mobile-search--body {
-    width: 200px !important; 
-  }
+
   .no-slider {
     margin-left: -10px !important;
     margin-right: -10px !important; }
