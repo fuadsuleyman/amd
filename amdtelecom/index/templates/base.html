@@ -345,8 +345,11 @@
     </div> -->
     <!-- loader end -->
     <style>
+        .elaqe :hover {
+            color: white;
+        }
         .elaqe a {
-            color: white !important;
+            color:#7f786d;
         }
     </style>
 
@@ -356,7 +359,7 @@
                 <div class="col-lg-6 header-contact-left brand">
                     <div class="header-contact">
                         <ul>
-                            <h4 class= "elaqe" style="color: white !important; text-transform: none;"><a href="{% url 'contact:contact' %}"> Bizimlə əlaqə</a></h4>
+                            <li class= "elaqe" ><a href="{% url 'contact:contact' %}" class= "elaqe" > Bizimlə əlaqə</a></li>
                             
                         </ul>
 
@@ -1025,8 +1028,8 @@
                         <div class="col-lg-6">
                             <div class="subscribe">
                                 <div>
-                                    <h4>KNOW IT ALL FIRST!</h4>
-                                    <p>Never Miss Anything From Multikart By Signing Up To Our Newsletter.</p>
+                                    <!-- <h4>KNOW IT ALL FIRST!</h4> -->
+                                    <p>Yeniliklərdən xəbərdar olmaq üçün sayta abonə olun.</p>
                                 </div>
                             </div>
                         </div>
@@ -1138,10 +1141,12 @@
                             </div>
                             <div class="footer-contant">
                                 <ul class="contact-list">
-                                    <li><i class="fa fa-map-marker"></i>Binə qəsəbəsi, Fuad Aynulov küçəsi, Bakı 1045
+                                    <li><i class="fa fa-map-marker"></i> Xəzər rayonu, Binə qəsəbəsi, Mərkəz.
                                     </li>
-                                    <li><i class="fa fa-phone" ></i>+99412-556-16-16 </li>
-                                    <li class="boyuk"><i class="fa fa-envelope-o boyuk"></i>amdtelecommagazasi@gmail.com </li>
+                                    <li class="boyuk"><i class="fa fa-phone" ></i>Bizə zəng et: 012 556 16 16 </li>
+                                    <li ><i class="fa fa-whatsapp" ></i>Whatsapp: 077 582 32 32 </li>
+                                    
+                                    <li class="boyuk"><i class="fa fa-envelope-o"></i> Email: info@amdtelecom.az </li>
                                     
                                 </ul>
                             </div>
@@ -1152,7 +1157,7 @@
 
 <style>
     .boyuk {
-        text-transform: lowercase !important;
+        text-transform:initial !important;
         
         
     }
