@@ -3,6 +3,7 @@ let searchBody = $('#search-filter-body')
 searchBody.css('display', 'none')
 let searchValue = document.querySelector('#search-filter-value')
 
+
 searchValue.addEventListener('keyup', (e) => {
     let value = this.value.trim()
     console.log(value, 'qara');
@@ -44,7 +45,7 @@ async function getSearchData(value){
             url: `${urlDomain}api/v1.0/search/?q=${title}`,
         });
         console.log(datas, 'datalar');
-        if (datas.length > 0){
+        if (datas.length > 0 || searchValue.length != 0 ){
             let productBody = ''
             searchBody.html('')
 
@@ -55,7 +56,7 @@ async function getSearchData(value){
                 productBody += `
                 <a href="${slug}" class="body">
                     <div class="data-img">
-                        <img src="${ product.operator_code != null ? product.product_marka[0].image : product.products_images[0].image }" alt="">
+                        <img class="image-attr" src="${ product.operator_code != null ? product.product_marka[0].image : product.products_images[0].image }" alt="">
                     </div>
                     <div class="data-title">
                         ${product.marka[0]} ${ product.title }
