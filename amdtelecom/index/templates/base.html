@@ -348,27 +348,27 @@
     </div> -->
     <!-- loader end -->
     <style>
+        .elaqe :hover {
+            color: white;
+        }
         .elaqe a {
-            color: white !important;
+            color:#7f786d;
         }
     </style>
 
     <div class="top-header top-header-dark2">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-6 header-contact-left brand">
+            <div class="row header-contents">
+                <div id="header-left-section" class="header-contact-left brand">
                     <div class="header-contact">
                         <ul>
-                            <h4 class= "elaqe" style="color: white !important; text-transform: none;"><a href="{% url 'contact:contact' %}"> Bizimlə əlaqə</a></h4>
+                            <li class= "elaqe" ><a href="{% url 'contact:contact' %}" class= "elaqe" > Bizimlə əlaqə</a></li>
                             
                         </ul>
 
                     </div>
                 </div>
-                <div class="col-lg-6 text-right header-contact" style="padding: 0;">
-                    <!-- <ul>
-                        <li><i class="fa fa-phone" aria-hidden="true"></i>Call Us: 050 270 25 69</li>
-                    </ul> -->
+                <div id='header-right-section' class="text-right header-contact" style="padding: 0;">
                     <div class="">
 
                         <div class="icon-nav search">
@@ -376,16 +376,8 @@
                                 <li class="onhover-div mobile-search">
                                     <div class="mobile-search--body">
                                         <input id="search-filter-value" class="mobile-search--body--input" type="text" name="" id="">
-                                        <i class="ti-search"></i>
+                                        <i id='search-btn-icon' class="ti-search search-icon-btn d-sm-block d-md-block d-lg-none"></i>
                                         <div id="search-filter-body" class="mobile-search--body-results">
-                                            <!-- <a href="#" class="body">
-                                                <div class="data-img">
-                                                    <img src="../../static/images/cat2.png" alt="">
-                                                </div>
-                                                <div class="data-title">
-                                                    Apple iPhone XS
-                                                </div>
-                                            </a> -->
                                         </div>
                                     </div>
                                 </li>
@@ -1028,8 +1020,8 @@
                         <div class="col-lg-6">
                             <div class="subscribe">
                                 <div>
-                                    <h4>KNOW IT ALL FIRST!</h4>
-                                    <p>Never Miss Anything From Multikart By Signing Up To Our Newsletter.</p>
+                                    <!-- <h4>KNOW IT ALL FIRST!</h4> -->
+                                    <p>Yeniliklərdən xəbərdar olmaq üçün sayta abonə olun.</p>
                                 </div>
                             </div>
                         </div>
@@ -1047,7 +1039,6 @@
                         </form>
                         <script>
                             let url = 'http://{{ request.META.HTTP_HOST }}'
-                            console.log(url, 'url')
 
                             document.querySelector('#mc-embedded-subscribe-form').addEventListener('submit', async(e) => {
                                 e.preventDefault()
@@ -1141,10 +1132,12 @@
                             </div>
                             <div class="footer-contant">
                                 <ul class="contact-list">
-                                    <li><i class="fa fa-map-marker"></i>Binə qəsəbəsi, Fuad Aynulov küçəsi, Bakı 1045
+                                    <li><i class="fa fa-map-marker"></i> Xəzər rayonu, Binə qəsəbəsi, Mərkəz.
                                     </li>
-                                    <li><i class="fa fa-phone" ></i>+99412-556-16-16 </li>
-                                    <li class="boyuk"><i class="fa fa-envelope-o boyuk"></i>amdtelecommagazasi@gmail.com </li>
+                                    <li class="boyuk"><i class="fa fa-phone" ></i>Bizə zəng et: 012 556 16 16 </li>
+                                    <li ><i class="fa fa-whatsapp" ></i>Whatsapp: 077 582 32 32 </li>
+                                    
+                                    <li class="boyuk"><i class="fa fa-envelope-o"></i> Email: info@amdtelecom.az </li>
                                     
                                 </ul>
                             </div>
@@ -1155,7 +1148,7 @@
 
 <style>
     .boyuk {
-        text-transform: lowercase !important;
+        text-transform:initial !important;
         
         
     }
@@ -2068,6 +2061,7 @@
 
     <!-- Search filter js -->
     <script src="{% static 'js/search-filter.js' %}"></script>
+    <script src="{% static 'js/home.js' %}"></script>
 
     
     <script>
