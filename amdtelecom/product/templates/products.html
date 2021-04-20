@@ -11,23 +11,23 @@
 
 <!-- breadcrumb start -->
 <div class="breadcrumb-section">
-<div class="container">
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="page-title">
-                <h2>{% if categories %} {{ categories.title }} {% endif %}</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="page-title">
+                    <h2>{% if categories %} {{ categories.title }} {% endif %}</h2>
+                </div>
             </div>
-        </div>
-        <div class="col-sm-6">
-            <nav aria-label="breadcrumb" class="theme-breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{% url 'index:home' %}">Əsas səhifə</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{% if categories %} {{ categories.title }} {% endif %}</li>
-                </ol>
-            </nav>
+            {% comment %} <div class="col-sm-6">
+                <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'index:home' %}">Əsas səhifə</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{% if categories %} {{ categories.title }} {% endif %}</li>
+                    </ol>
+                </nav>
+            </div> {% endcomment %}
         </div>
     </div>
-</div>
 </div>
 <!-- breadcrumb end -->
 
