@@ -52,7 +52,7 @@
     outline: none;
 }
 .search-icon-btn {
-    color: black !important;
+    color: #fff !important;
     font-size: 1.1em !important;
     font-weight: bold !important;
     top: 34% !important;
@@ -243,11 +243,11 @@
         display: block !important;
     } */
 }
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
     .search-icon-btn {
         color: #000 !important;
     }
-}
+} */
 @media (min-witdh: 576px) {
     .search-icon-btn {
         color: #000 !important;

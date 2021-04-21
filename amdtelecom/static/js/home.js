@@ -17,6 +17,7 @@ console.log('home.js -->');
         /* Do shit */
         console.log(e.target.innerWidth);
         if (e.target.innerWidth > 991) {
+            inputVal.css('background-color', '#fff')
             // responseJqArea.css('display', 'block')
             if (inputVal.val().length != 0) {
                 responseJqArea.css('display', 'block')
@@ -27,13 +28,15 @@ console.log('home.js -->');
         }
         else {
             responseJqArea.css('display', 'none')
+            inputVal.css('background-color', '#2d2a25')
+            // inputVal.css('border', '0')
+            // inputVal.css('background-color', '')
             inputVal.val('')
         }
     });
 
     document.querySelector("body").addEventListener("click", function(e){
         
-        console.log(e.target.getAttribute("class"));
         if (e.target.getAttribute("class") == 'data-title' || e.target.getAttribute("class") == 'image-attr' || e.target.getAttribute('class') == 'mobile-search--body--input'){
             responseJqArea.css('display', 'block')
         }
@@ -43,14 +46,17 @@ console.log('home.js -->');
     })
 
 function changeDisplay(widthSearch) { // for resize search body
+    
+    inputVal.toggleClass('bg-white')
+    inputJqWidth.toggleClass('w-200')
+
     if (widthSearch == 36) {
-        inputJqWidth.addClass('w-200')
         responseArea.classList.remove('d-none')
         responseArea.classList.remove('d-block')
 
     }
     else {
-        inputJqWidth.removeClass('w-200')
+        // searchInput.classList.remove('w-200')
         responseArea.classList.add('d-none')
         responseArea.classList.remove('d-block')
         inputVal.val('')
