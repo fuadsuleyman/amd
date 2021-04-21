@@ -52,7 +52,7 @@
     outline: none;
 }
 .search-icon-btn {
-    color: #fff !important;
+    /* color: #fff !important; */
     font-size: 1.1em !important;
     font-weight: bold !important;
     top: 34% !important;
@@ -238,6 +238,7 @@
 @media (max-width: 991px) {
     .mobile-search--body {
         width: 36px !important;
+
     }
     /* #search-filter-body {
         display: block !important;

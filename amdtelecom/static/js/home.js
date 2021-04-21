@@ -12,6 +12,15 @@ console.log('home.js -->');
     let widthStyle = witdInput.width
     let width = parseInt(widthStyle.split('p')[0])
 
+    if (width == 36) {
+        inputVal.css('background-color', 'rgb(45, 42, 37)')
+        inputVal.css('border-color', 'white')
+    }
+    else {
+        inputVal.css('background-color', 'white')
+
+    }
+
 
     $(window).resize(function(e) { // 991px den yuxari oldugu zaman input hissesi acilir
         /* Do shit */
@@ -54,11 +63,22 @@ function changeDisplay(widthSearch) { // for resize search body
         responseArea.classList.remove('d-none')
         responseArea.classList.remove('d-block')
 
+        searchBtnIcon.classList.add('ti-close')
+        searchBtnIcon.classList.remove('ti-search')
+        searchBtnIcon.classList.remove('text-white')
+        searchBtnIcon.classList.add('text-dark')
+
     }
     else {
         // searchInput.classList.remove('w-200')
         responseArea.classList.add('d-none')
         responseArea.classList.remove('d-block')
+
+        searchBtnIcon.classList.remove('ti-close')
+        searchBtnIcon.classList.add('ti-search')
+        searchBtnIcon.classList.remove('text-dark')
+        searchBtnIcon.classList.add('text-white')
+
         inputVal.val('')
     }
 }
