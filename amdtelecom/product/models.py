@@ -134,6 +134,8 @@ class Product(models.Model):
     sku = models.CharField('SKU', max_length=50, db_index=True)
     description = models.TextField('Ətraflı', null=True, blank=True)
     sale_count = models.IntegerField('Satış sayı', default=0)
+    facebook = models.URLField(max_length=300, blank=True, null=True)
+    instagram = models.URLField(max_length=300, blank=True, null=True)
     is_published = models.BooleanField("Paylaş", default=True)
     is_new = models.BooleanField('Yeni', default=True)
     is_new_expired = models.DateTimeField('Bitmə vaxtı', default=one_month_from_today, blank=True, null=True)

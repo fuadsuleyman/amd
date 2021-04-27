@@ -89,7 +89,7 @@ class ProductAdmin(admin.ModelAdmin):
             'fields': ('category','marka', 'tags', 'same_product'),
         }),
         ('Informations', {
-            'fields': (('title', 'slug'), 'sku', 'internal_storage', 'ram', ('color_title', 'color_code',), 'operator_code', 'description', 'sale_count', ('is_featured',), 'status')
+            'fields': (('title', 'slug'), 'sku', 'internal_storage', 'ram', ('color_title', 'color_code',), 'operator_code', 'description', 'facebook', 'instagram', 'sale_count', ('is_featured',), 'status')
         }),
         ('Publishe', {
             'fields': ('is_published',)
