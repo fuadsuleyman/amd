@@ -30,7 +30,9 @@ class CategoryAdmin(admin.ModelAdmin):
     def save_related(self, request, form, formsets, change):
         super().save_related(request, form, formsets, change)
         category = form.instance
-        if not category.slug:
+        if not category.parent.all().last():
+            category.slug = slugify(f'{category.title}')
+        else:
             category.slug = slugify(f'{category.parent.all().last()} {category.title}')
         category.save()
 
