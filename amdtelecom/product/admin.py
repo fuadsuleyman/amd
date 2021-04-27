@@ -34,6 +34,11 @@ class CategoryAdmin(admin.ModelAdmin):
             category.slug = slugify(f'{category.parent.all().last()} {category.title}')
         category.save()
 
+    def get_form(self, request, obj=None, **kwargs):
+        form = super(CategoryAdmin, self).get_form(request, obj, **kwargs)
+        form.base_fields['parent'].widget.attrs['style'] = 'height: 160px;'
+        return form
+
 
 @admin.register(Marka)
 class MarkaAdmin(admin.ModelAdmin):
