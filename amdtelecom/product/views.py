@@ -1,4 +1,5 @@
 from datetime import datetime
+from django.conf import settings
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.generic import ListView, DetailView
@@ -20,6 +21,7 @@ from order.models import (
     Order,
 )
 from account.models import Customer
+
 
 
 
@@ -63,11 +65,14 @@ class ProductDetailView(DetailView):
 
         photos = Product_images.objects.filter(product=product).order_by('-is_main')
         details = Product_details.objects.filter(product=product)
+        site_url = settings.API_URL
+        
         
         context['product'] = product
         context['photos'] = photos
         context['details'] = details
         context['related_products'] = related_products
+        context['site'] = site_url
         print(details, 'sekilci')
         return context
 
