@@ -58,16 +58,9 @@ class ProductDetailView(DetailView):
         the_category = Category.objects.filter(categories=product).values_list('id', flat=True).last()
         print(the_category, 'kataloq')
         related_products = Product.objects.filter(category__id=the_category).exclude(id=product.id)
-        
-
-        
-
-
         photos = Product_images.objects.filter(product=product).order_by('-is_main')
         details = Product_details.objects.filter(product=product)
         site_url = settings.API_URL
-        
-        
         context['product'] = product
         context['photos'] = photos
         context['details'] = details
