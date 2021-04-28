@@ -6363,9 +6363,16 @@ footer.footer-5 {
 /*=====================
     21.footer CSS start
 ==========================*/
+
+@media (min-width: 1200px) {
+  .fa-whatsapp{
+    display: none;
+  }
+}
+
 footer {
   position: relative; }
-  footer .footer-theme .footer-mobile-title {
+  footer .footer-theme .footer-mobile-title .fa-whatsapp {
     display: none; }
   footer .darken-layout p {
     color: #938d8c; }
