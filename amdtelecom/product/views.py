@@ -58,7 +58,7 @@ class ProductDetailView(DetailView):
         the_category = Category.objects.filter(categories=product).values_list('id', flat=True).last()
         print(the_category, 'kataloq')
         related_products = Product.objects.filter(category__id=the_category).exclude(id=product.id)
-        print('Product-un markasi:', product.marka.all().first().image)
+        
 
         
 
