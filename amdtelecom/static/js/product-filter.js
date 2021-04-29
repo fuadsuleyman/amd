@@ -131,7 +131,11 @@ function getData() { // filter product data return products
 
                 for(let product of response){
                     // console.log(product, 'datalar');
-                    mainSeconImage = `
+                    var is_discount_logo= `<div class="lable-block"><span class="lable3" style="left:unset; right:7px">Endirim</span></div>`
+                    var is_new_logo = `<div class="lable-block"><span class="lable3">Yeni</span></div>`
+                    var mainSeconImage = `
+                    ${ product.is_discount ? is_discount_logo : ''}
+                    ${ product.is_new ? is_new_logo : ''}
                     <div class="front">
                         <a href="${domain}product/${product.slug}/">
                         <img
@@ -148,7 +152,7 @@ function getData() { // filter product data return products
                     </div>
                     `
 
-                    secondImage = `
+                    var secondImage = `
                     <div class="front">
                         <a href="${domain}product/${product.slug}/">
                         <img
@@ -156,6 +160,47 @@ function getData() { // filter product data return products
                             class="img-fluid blur-up lazyload bg-img" alt="${product.title.toUpperCase()}">
                         </a>
                     </div>
+                    `
+
+                    var price_no_disc = `
+                    <h4 class="">${product.priced} 
+                        <svg style='width: 1em; height: 1em;' data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
+                            <defs>
+                                <style>
+                                    .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
+                                </style>
+                            </defs>
+                            <title>manat</title>
+                            <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
+                        </svg>
+                    </h4>
+                    `
+                    var price_discounted = `
+                    <h4 class="d-flex">${product.priced} 
+                        <svg style='width: 1em; height: 1em;' data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
+                            <defs>
+                                <style>
+                                    .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
+                                </style>
+                            </defs>
+                            <title>manat</title>
+                            <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
+                        </svg>
+                    
+                    <del class="ml-2">
+                        <h4 class=""></h4>${product.price} 
+                        <svg style='width: 1em; height: 1em;' data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
+                            <defs>
+                                <style>
+                                    .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
+                                </style>
+                            </defs>
+                            <title>manat</title>
+                            <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
+                        </svg>
+                        </h4>
+                    </del> 
+                    </h4>
                     `
 
                     // nomrelerin filteri ucun
@@ -226,7 +271,7 @@ function getData() { // filter product data return products
                                                 </a>
                                                 <p>${product.description}
                                                 </p>
-                                                <h4>${product.price} AZN</h4>
+                                                ${ product.is_discount ? price_discounted : price_no_disc }
                                             </div>
                                         </div>
                                     </div>
@@ -249,7 +294,7 @@ function getData() { // filter product data return products
                                                 </a>
                                                 <p>${product.description}
                                                 </p>
-                                                <h4>${product.price} AZN</h4>
+                                                ${ product.is_discount ? price_discounted : price_no_disc }
                                             </div>
                                         </div>
                                     </div>
@@ -260,6 +305,10 @@ function getData() { // filter product data return products
                     DOM.html(products)
                     mainSeconImage = ''
                     secondImage = ''
+                    price_no_disc= ''
+                    price_discounted = ''
+                    is_discount_logo = ''
+                    is_new_logo = ''
                     
 
                 }  

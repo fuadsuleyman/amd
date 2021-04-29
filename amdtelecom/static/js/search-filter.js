@@ -5,7 +5,7 @@ let searchValue = document.querySelector('#search-filter-value')
 
 
 searchValue.addEventListener('keyup', (e) => {
-    let value = this.value.trim()
+    let value = this.value
     console.log(value, 'qara');
     if(value.length > 0) {
         if(e.keyCode == 13) {

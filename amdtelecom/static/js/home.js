@@ -18,7 +18,6 @@ console.log('home.js -->');
     }
     else {
         inputVal.css('background-color', 'white')
-
     }
 
 

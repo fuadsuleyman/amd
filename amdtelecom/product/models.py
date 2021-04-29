@@ -175,9 +175,6 @@ class Product(models.Model):
     def save(self, *args, **kwargs):        
         from .tasks import changed_is_new
         super(Product, self).save(*args, **kwargs)
-
-        
-
         ram = self.ram if self.ram != None  else ''
         internal_storage = self.internal_storage if self.internal_storage != None  else ''
         color_title = self.color_title if self.color_title != None  else ''
@@ -193,7 +190,7 @@ class Product(models.Model):
 
         return super(Product, self).save(*args, **kwargs)
 
-
+    @property
     def get_price(self):
         if self.discount_type == 1:
             return self.price

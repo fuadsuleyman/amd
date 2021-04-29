@@ -57,9 +57,5 @@ class ProductSerializer(serializers.ModelSerializer):
         return ProductMarkaSerializer(product_marka, many=True).data
 
     def get_priced(self, instance):
-        if instance.discount_type == 1:
-            return instance.price
-        elif instance.discount_type == 2:
-            return instance.price - (instance.price * instance.discount_value / 100)
-        else:
-            return instance.price - instance.discount_value
+        price = instance.get_price
+        return price
