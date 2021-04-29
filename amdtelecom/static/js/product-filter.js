@@ -24,66 +24,6 @@ $(document).on('input', '#range', function() { // price range when changed keep 
 
 });
 
-// function getProImage(id){ // filter product images returned product image
-//     let image	
-//     $.ajax({
-//         url: `${domain}api/v1.0/filter-api-product-images/`,
-//         async: false,
-//         global: false,
-//         dataType: 'json',
-        
-//         success:function(res){
-//             console.log(res);
-//             for(let item of res){
-//                 if (item.id == id ) {
-//                     image = item.image
-//                 }
-//             }
-
-//         },
-//         error: function(res){
-//             console.log(res, 'error');
-//         }
-
-//     })
-//     return image
-
-// }
-
-// function getProMarka(id, condition){
-//     let image
-//     let title
-//     console.log(id, 'meselen');
-//     $.ajax({
-//         url: `${domain}api/v1.0/filter-api-product-markas/`,
-//         async: false,
-//         global: false,
-//         dataType: 'json',
-        
-//         success:function(res){
-//             console.log(res, 'markalar');
-//             for(let item of res){
-//                 if (item.id == id ) {
-//                     image = item.image
-//                     title = item.title
-//                     title = title.toUpperCase()
-//                 }
-//             }
-
-//         },
-//         error: function(res){
-//             console.log(res, 'error');
-//         }
-
-//     })
-//     if (condition == 'images'){
-//         return image
-//     }
-//     else {
-//         return title
-//     }
-// }
-
 function getData() { // filter product data return products
     // $(".ajaxLoader").hide();
 
@@ -133,9 +73,12 @@ function getData() { // filter product data return products
                     // console.log(product, 'datalar');
                     var is_discount_logo= `<div class="lable-block"><span class="lable3" style="left:unset; right:7px">Endirim</span></div>`
                     var is_new_logo = `<div class="lable-block"><span class="lable3">Yeni</span></div>`
+
                     var mainSeconImage = `
+
                     ${ product.is_discount ? is_discount_logo : ''}
                     ${ product.is_new ? is_new_logo : ''}
+                    
                     <div class="front">
                         <a href="${domain}product/${product.slug}/">
                         <img
