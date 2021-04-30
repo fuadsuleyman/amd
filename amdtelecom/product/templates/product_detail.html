@@ -9,14 +9,14 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="page-title">
-                        <h2>product</h2>
+                        <h2>MƏhsul</h2>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <nav aria-label="breadcrumb" class="theme-breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{% url 'index:home' %}">Əsas səhifə</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">product</li>
+                            <li class="breadcrumb-item active" aria-current="page">MƏhsul</li>
                         </ol>
                     </nav>
                 </div>
@@ -263,16 +263,11 @@
                             <div class="row">
                                 <div class="col-lg-6 slick-container">
                                     <div class="product-slick">
-                                            {% for image in product.images.all %}
-                                                <div>
-                                                    <img src="{{ image.image.url }}" alt="{{ image.image }}" class="img-fluid blur-up lazyload image_zoom_cls-0">
-                                                </div>
-                                            {% endfor %}
-                                            {% for photo in photos %}
-                                                <div>
-                                                    <img src="{{ photo.image.url }}" alt="{{ photo.image }}" class="img-fluid blur-up lazyload image_zoom_cls-1">
-                                                </div>
-                                            {% endfor %}
+                                        {% for photo in photos %}
+                                            <div>
+                                                <img src="{{ photo.image.url }}" alt="{{ photo.image }}" class="img-fluid blur-up lazyload image_zoom_cls-1">
+                                            </div>
+                                        {% endfor %}
                                     </div>
 
                                     <div class="row">
@@ -298,14 +293,29 @@
                                 <div class="col-lg-6 rtl-text"> 
                                     <div class="product-right">
                                         
-                                        <h2 class="marka-title">{{ product.marka.all.first }} {{ product.title }}  {% comment %} {% if product.color_title %}{{ product.color_title }} {% endif %} {% endcomment %}
+                                        <h2 class="marka-title">
+                            {% if product.marka.all.first %}
+                            {{ product.marka.all.first|upper }} 
+                            {% endif %}
+                            {% if product.title %}
+                            {{product.title|upper}}
+                            {% endif %} 
+                            {% if product.ram %}
+                            {{product.ram|upper}} /
+                            {% endif %} 
+                            {% if product.internal_storage %}
+                            {{product.internal_storage|upper}}
+                            {% endif %} 
+                            {% if product.color_title %}
+                            {{product.color_title|upper}} 
+                            {% endif %} {% comment %} {% if product.color_title %}{{ product.color_title }} {% endif %} {% endcomment %}
                     
                                             <!-- {% for detail in details %}  -->
                                             <!-- <span>ram / yaddas </span> -->
                                             <!-- {% endfor %} -->
                                         </h2>
                                         <!-- <h4><del>old price</del></h4> -->
-                                        <h3 class="d-flex">{{ product.price }}
+                                        <h3 class="d-flex">{{ product.get_price }}
                                             <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
                                                 <defs>
                                                     <style>
@@ -319,8 +329,8 @@
 
                                         <ul class="color-variant" style="border-block-color: black;">
                                             <!-- onclick="changeColor(event,{{product.id}}) -->
-                                            <li style="background-color:{{ product.color_code }}; border: 5px solid {{ product.color_code }}; position: relative !important; ">
-                                                <a href="{% url 'product:product_detail' product.slug %}" title="{{ product.color_title | lower }}" style="position: absolute; width: 100%; height: 100%;"></a>
+                                            <li style="background-color:{{ product.color_code }}; border: 5px solid {{ product.color_code }}; position: relative !important; border: 1px solid black;">
+                                                <a href="{% url 'product:product_detail' product.slug %}" title="{{ product.color_title | lower }}" style="position: absolute; width: 100%; height: 100%; "></a>
                                             </li>
                                             {% if product.same_product.all %}
                                                 {% for productt in product.same_product.all %}
@@ -387,7 +397,7 @@
                                         <form method="POST" action="{% url 'product:product_detail' product.slug %}">
                                             {% csrf_token %}
                                             <div class="border-product">
-                                                <h6 class="product-title">quantity</h6>
+                                                <h6 class="product-title">Say</h6>
                                                 <div class="qty-box customquantity">
                                                     <div class="input-group" style="display: flex; justify-content: start;">
                                                         <span class="input-group-prepend">
@@ -406,8 +416,8 @@
                                             </div>                                        
                                             
                                             <div class="product-description product-buttons">
-                                                <input data-target="#addtocart" type="submit" class="btn btn-solid" value="Add to Cart">
-                                                <a href="" class="btn btn-solid">Sifariş et</a>
+                                                <input data-target="#addtocart" type="submit" class="btn btn-solid incre-cart" value="SƏbƏtƏ ƏlavƏ et">
+                                                <a href="#" class="btn btn-solid">Sifariş et</a>
                                             </div>
                                         </form>
                                     
@@ -424,10 +434,11 @@
                                             <h6 class="product-title">Paylaş</h6>
                                             <div class="product-icon">
                                                 <ul class="product-social">
-                                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                          
+                                                    <li><a href="https://www.facebook.com/sharer/sharer.php?u={{site}}product/{{product.slug}}/"><i class="fa fa-facebook"></i></a></li>
                                                     <!-- <li><a href="#"><i class="fa fa-google-plus"></i></a></li> -->
                                                     <!-- <li><a href="#"><i class="fa fa-twitter"></i></a></li> -->
-                                                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                                    <li><a href="whatsapp://send?text={{site}}product/{{product.slug}}/" data-action="share/whatsapp/share" target="_blank"><i class="fa fa-whatsapp"></i></a></li>
                                                     <!-- <li><a href="#"><i class="fa fa-rss"></i></a></li> -->
                                                 </ul>
                                                 <!-- <form class="d-inline-block">
@@ -573,7 +584,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 product-related">
-                    <h2>related products</h2>
+                    <h2>oxşar məhsullar</h2>
                 </div>
             </div>
             <div class="row search-product">
@@ -636,11 +647,6 @@
                                     <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
                                 </svg>
                             </h4>
-                            {% if product.color_title %}
-                            <ul class="color-variant">
-                                <li title="{{ product.color_title | lower }}" class="bg-light0" style="background-color: {{ product.color_code }} !important;"></li>
-                            </ul>
-                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -687,5 +693,33 @@
         </div>
     </section>
     <!-- related products -->
+    <script>
+
+    let cart_badge = document.querySelector('.cart-badge')
+    console.log(`detail page-de localstorag-i cap edirem: ${localStorage.getItem('cartItems')}`)
+    console.log(`detail cart badge-ni cap edirem: ${cart_badge.innerHTML}`)
+    // cart_badge.innerHTML = parseInt(localStorage.getItem('cartItems'))+1;
+    cart_badge.innerHTML = localStorage.getItem('cartItems');
+
+    let addtocartbtn = document.querySelector('.incre-cart');
+
+    addtocartbtn.addEventListener('click', letsIncementCart);
+
+    
+
+    function letsIncementCart(){
+        get_cart_count()
+        // alert("Hello! I am an alert box!");
+        console.log("Submite girdi product detailde")
+        let itemCountLocStorage = localStorage.getItem('cartItems')
+        itemCountLocStorage = parseInt(itemCountLocStorage)
+        localStorage.setItem('cartItems', itemCountLocStorage+1)
+    }
+
+    
+    
+
+
+    </script>
 
     {% endblock content %}

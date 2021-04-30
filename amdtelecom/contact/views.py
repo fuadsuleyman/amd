@@ -16,7 +16,8 @@ class ContactCreateView(CreateView):
     model = Contact
     form_class = ContactForm
     template_name = "contact.html"
+    success_url = reverse_lazy('index:home')
 
     def form_valid(self, form):
-        success(self.request, 'Mesajiniz qeyde alinmisdir tez bir zamanda sizinle elaqe saxlanilicaq.')
-        return redirect('index:home')
+        success(self.request, 'Mesajınız qeydə alınmışdır tez bir zamanda sizinlə əlaqə saxlanılılacaq.')
+        return super().form_valid(form)

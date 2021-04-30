@@ -61,7 +61,7 @@
                                                         aria-hidden="true"></i> Filter</span></div>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    {% comment %} <div class="row">
                                         <div class="col-12">
                                             <div class="product-filter-content">
                                                 <div class="search-count">
@@ -101,7 +101,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> {% endcomment %}
                                 <div class="row" style="padding: 20px;">
                                     <h3 id="search-result-value">AXTARIŞIN NƏTİCƏLƏRİ:</h3>
                                 </div>
@@ -150,17 +150,44 @@
                                                             </a>
                                                             <p>{{ product.description }}
                                                             </p>
-                                                            <h4>{{ product.price }} 
-                                                                <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
-                                                                    <defs>
-                                                                        <style>
-                                                                            .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
-                                                                        </style>
-                                                                    </defs>
-                                                                    <title>manat</title>
-                                                                    <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
-                                                                </svg>
-                                                            </h4>
+                                                   {% if product.is_discount %}
+                                                <h4 class="">{{product.get_price}} 
+                                                    <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
+                                                        <defs>
+                                                            <style>
+                                                                .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
+                                                            </style>
+                                                        </defs>
+                                                        <title>manat</title>
+                                                        <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
+                                                    </svg>
+                                                </h4>
+                                                <del>
+                                                    <h4 class=""></h4>{{ product.price }} 
+                                                    <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
+                                                        <defs>
+                                                            <style>
+                                                                .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
+                                                            </style>
+                                                        </defs>
+                                                        <title>manat</title>
+                                                        <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
+                                                    </svg>
+                                                    </h4>
+                                                </del> 
+                                                {% else %}
+                                                <h4 class="">{{product.price}} 
+                                                    <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
+                                                        <defs>
+                                                            <style>
+                                                                .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
+                                                            </style>
+                                                        </defs>
+                                                        <title>manat</title>
+                                                        <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
+                                                    </svg>
+                                                </h4>
+                                                {% endif %}
                                                             {% if product.color_title %}
                                                             <ul class="color-variant">
                                                                 <li class="bg-light0" style="background-color: {{ product.color_code }} !important;"></li>
@@ -256,4 +283,5 @@
 
 <!-- search filter js -->
 <script src="{% static 'js/search-filter.js' %}"></script>
+
 {% endblock price_range_js %}

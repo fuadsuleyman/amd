@@ -5,6 +5,46 @@
 <html lang="en">
 
 <head>
+    <script type="text/javascript">
+
+        console.log('girdi ilk js-e')
+
+		function getCookie(name) {
+		    var cookieValue = null;
+		    if (document.cookie && document.cookie !== '') {
+		        var cookies = document.cookie.split(';');
+		        for (var i = 0; i < cookies.length; i++) {
+		            var cookie = cookies[i].trim();
+		            // Does this cookie string begin with the name we want?
+		            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+		                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                break;
+		            }
+		        }
+		    }
+		    return cookieValue;
+		}
+
+
+		function uuidv4() {
+		  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+		    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+		    return v.toString(16);
+		  });
+		}
+
+
+		let device = getCookie('device')
+
+		if (device == null || device == undefined){
+			device = uuidv4()
+		}
+
+		document.cookie ='device=' + device + ";domain=;path=/"
+        console.log(`set eledim cookie-ni: ${device}`)
+
+	</script>
+
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -13,14 +53,15 @@
     <meta name="author" content="multikart">
 
     <!--Plugin CSS file with desired skin-->
-    <link rel="icon" href="{% static 'images/favicon/1.png' %}" type="image/x-icon">
-    <link rel="shortcut icon" href="{% static 'images/favicon/1.png' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'images/favicon/faviii.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'images/favicon/faviii.png' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
+    
     {% if title %}
         <title>AMD - {{ title }}</title>
     {% else %}
-        <title>AMD</title>
+        <title>AMD - Telecom</title>
     {% endif %}
     
     <!--Google font-->
@@ -35,6 +76,18 @@
     
     <!-- Animate icon -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/animate.css' %}">
+
+    <style>
+        .do-green{
+            color:green !important;
+        }
+        .do-gray{
+            color:#6f6f6f !important;
+        }
+        header {
+            font-family: Tahoma, sans-serif !important;
+        }
+    </style>
 
     {% block price_range_css %}
 
@@ -55,6 +108,8 @@
 </head>
 
 <body>
+    
+
 
     <!-- loader start -->
     <!-- <div class="loader_skeleton">
@@ -292,39 +347,37 @@
         </div>
     </div> -->
     <!-- loader end -->
+    <style>
+        .elaqe :hover {
+            color: white;
+        }
+        .elaqe a {
+            color:#7f786d;
+        }
+    </style>
 
     <div class="top-header top-header-dark2">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-6 header-contact-left brand">
+            <div class="row header-contents">
+                <div id="header-left-section" class="header-contact-left brand">
                     <div class="header-contact">
                         <ul>
-                            <li>Welcome to Our store AMD Telecom</li>
+                            <li class= "elaqe" ><a href="{% url 'contact:contact' %}" class= "elaqe" > Bizimlə əlaqə</a></li>
                             
                         </ul>
+
                     </div>
                 </div>
-                <div class="col-lg-6 text-right header-contact" style="padding: 0;">
-                    <!-- <ul>
-                        <li><i class="fa fa-phone" aria-hidden="true"></i>Call Us: 050 270 25 69</li>
-                    </ul> -->
+                <div id='header-right-section' class="text-right header-contact" style="padding: 0;">
                     <div class="">
 
-                        <div class="icon-nav">
+                        <div class="icon-nav search">
                             <ul>
                                 <li class="onhover-div mobile-search">
                                     <div class="mobile-search--body">
                                         <input id="search-filter-value" class="mobile-search--body--input" type="text" name="" id="">
-                                        <i class="ti-search"></i>
+                                        <i id='search-btn-icon' class="ti-search text-white search-icon-btn d-sm-block d-md-block d-lg-none"></i>
                                         <div id="search-filter-body" class="mobile-search--body-results">
-                                            <!-- <a href="#" class="body">
-                                                <div class="data-img">
-                                                    <img src="../../static/images/cat2.png" alt="">
-                                                </div>
-                                                <div class="data-title">
-                                                    Apple iPhone XS
-                                                </div>
-                                            </a> -->
                                         </div>
                                     </div>
                                 </li>
@@ -332,6 +385,7 @@
                                     <div>
                                         <a href="{% url 'order:cart' %}">
                                             <i class="ti-shopping-cart"></i>
+                                            <span class='badge badge-warning cart-badge' id='lblCartCount'></span>    
                                         </a>
                                     </div>
 
@@ -347,7 +401,7 @@
     </div>
 
     <!-- header start -->
-    <header style="margin-top: 61px;">
+    <header style="margin-top: 61px;" style>
         <div class="mobile-fix-option"></div>
 
 
@@ -497,12 +551,14 @@
                                 <nav id="main-nav">
                                     <div class="toggle-nav"><i class="fa fa-bars sidebar-bar"></i></div>
                                     <ul id="main-menu" class="sm pixelstrap sm-horizontal light-font-menu">
+                                    {% get_navbar as protocol %}
+                                    <input id="YOUR_ENV_VARIABLE" value="{{ protocol.api_url }}" type="hidden" />
                                         <li>
-                                            <div class="mobile-back text-right">Back<i class="fa fa-angle-right pl-2"
+                                            <div class="mobile-back text-right">Geri<i class="fa fa-angle-right pl-2"
                                                     aria-hidden="true"></i></div>
                                         </li>
-                                        {% get_navbar as category_list%}
-                                        {% for category in category_list %}
+                                        {% get_navbar as category%}
+                                        {% for category in category.category_list %}
                                         <li>
                                             
                                             {% if category.is_main %}
@@ -839,7 +895,7 @@
                         </div>
                         <div class="absolute-logo">
                             <div class="brand-logo">
-                                <a href="{% url 'index:home' %}"><img alt="AMD Telecom" src="{% static 'images/icon/logo/amd_telecom.png' %}"style=" height: 100px; width: 150px;"></a>
+                                <a href="{% url 'index:home' %}"><img alt="AMD Telecom" src="{% static 'images/icon/logo/logo_125_pixel.png' %}"></a>
                             </div>
                         </div>
                         <!-- <div class="">
@@ -964,8 +1020,8 @@
                         <div class="col-lg-6">
                             <div class="subscribe">
                                 <div>
-                                    <h4>KNOW IT ALL FIRST!</h4>
-                                    <p>Never Miss Anything From Multikart By Signing Up To Our Newsletter.</p>
+                                    <!-- <h4>KNOW IT ALL FIRST!</h4> -->
+                                    <p>Yeniliklərdən xəbərdar olmaq üçün sayta abonə olun.</p>
                                 </div>
                             </div>
                         </div>
@@ -1019,20 +1075,19 @@
         <section class="section-b-space light-layout">
             <div class="container">
                 <div class="row footer-theme partition-f">
-                    <div class="col-lg-4 col-md-6">
+                    <div class="col-lg-8 col-md-6">
                         <div class="footer-title footer-mobile-title">
-                            <h4>about</h4>
+                            <h4>Haqqımızda</h4>
                         </div>
                         <div class="footer-contant">
-                            <div class="footer-logo"><img src="{% static 'images/icon/logo/amd_telecom.png' %}" style="width: 179px; max-height: 90px;" alt=""></div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                ut labore et dolore magna aliqua. Ut enim ad minim veniam,</p>
+                            <div class="footer-logo"><a href="{% url 'index:home' %}"><img alt="AMD Telecom" src="{% static 'images/icon/logo/logo_125_pixel.png' %}"style="height: 100px; width: 150px;"></a></div>
+                            <p>AMD Telecom mağazaları keyfiyyətli, etibarlı və müasir məhsul, o cümlədən xidmətlərlə xidmətinizdədir.</p>
                             <div class="footer-social">
                                 <ul>
-                                    <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                    <li><a href="https://www.facebook.com/AMD-Telecom-816875371764530"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
                                     <!-- <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li> -->
                                     <!-- <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li> -->
-                                    <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                                    <li><a href="https://www.instagram.com/amd_telecom/?igshid=1ez5hxnfqfgdm"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
                                     <!-- <li><a href="#"><i class="fa fa-rss" aria-hidden="true"></i></a></li> -->
                                 </ul>
                             </div>
@@ -1054,7 +1109,7 @@
                             </div>
                         </div>
                     </div> -->
-                    <div class="col">
+                    {% comment %} <div class="col">
                         <div class="sub-title">
                             <div class="footer-title">
                                 <h4>why we choose</h4>
@@ -1069,32 +1124,40 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                    </div> {% endcomment %}
                     <div class="col">
                         <div class="sub-title">
                             <div class="footer-title">
-                                <h4>store information</h4>
+                                <h4>Mağaza məlumatları</h4>
                             </div>
                             <div class="footer-contant">
                                 <ul class="contact-list">
-                                    <li><i class="fa fa-map-marker"></i>Multikart Demo Store, Demo store India 345-659
-                                    </li>
-                                    <li><i class="fa fa-phone"></i>Call Us: 123-456-7898</li>
-                                    <li><i class="fa fa-envelope-o"></i>Email Us: Support@Fiot.com</li>
-                                    <li><i class="fa fa-fax"></i>Fax: 123456</li>
+                                    <li><i class="fa fa-map-marker"></i> Xəzər rayonu, Binə qəsəbəsi, Mərkəz.</li>
+                                    <li class="boyuk"><i class="fa fa-phone" ></i>Bizə zəng et: 012 556 16 16 </li>
+                                    <li ><i class="fa fa-whatsapp" ></i>Whatsapp: 077 582 32 32 </li>
+                                    <li class="boyuk"><i class="fa fa-envelope-o"></i> Email: info@amdtelecom.az </li>              
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+<style>
+    .boyuk {
+        text-transform:initial !important;
+        
+        
+    }
+</style>
+
         </section>
         <div class="sub-footer">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-6 col-md-6 col-sm-12">
                         <div class="footer-end">
-                            <p><i class="fa fa-copyright" aria-hidden="true"></i> 2020 powered by
+                            <p><i class="fa fa-copyright" aria-hidden="true"></i> 2021 powered by
                                 NFE Groups</p>
                         </div>
                     </div>
@@ -1126,80 +1189,8 @@
     <!-- footer end -->
 
 
-    <!--modal popup start-->
-    <div class="modal fade bd-example-modal-lg theme-modal" id="exampleModal" tabindex="-1" role="dialog"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-body modal9">
-                    <div class="container-fluid p-0">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="modal-bg">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                            aria-hidden="true">&times;</span></button>
-                                    <div class="offer-content"><img src="{% static 'images/Offer-banner.png' %}"
-                                            class="img-fluid blur-up lazyload" alt="">
-                                        <h2>newsletter</h2>
-                                        <form
-                                            action="https://pixelstrap.us19.list-manage.com/subscribe/post?u=5a128856334b598b395f1fc9b&amp;id=082f74cbda"
-                                            class="auth-form needs-validation" method="post"
-                                            id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form"
-                                            target="_blank">
-                                            <div class="form-group mx-sm-3">
-                                                <input type="text" class="form-control" name="EMAIL" id="mce-EMAIL"
-                                                    placeholder="Enter your email" required="required">
-                                                <button type="submit" class="btn btn-solid"
-                                                    id="mc-submit">subscribe</button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--modal popup end-->
 
 
-    <!-- Quick-view modal popup start-->
-    <div class="modal fade bd-example-modal-lg theme-modal" id="quick-view" tabindex="-1" role="dialog"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content quick-view-modal">
-                <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                    <div class="row">
-                        <div class="col-lg-6 col-xs-12">
-                            <div class="quick-view-img"><img src="{% static 'images/pro3/1.jpg' %}" alt=""
-                                    class="img-fluid blur-up lazyload"></div>
-                        </div>
-                        <div class="col-lg-6 rtl-text">
-                            <div class="product-right">
-                                <h2>Women Pink Shirt</h2>
-                                <h3>$32.96</h3>
-                                <ul class="color-variant">
-                                    <li class="bg-light0"></li>
-                                </ul>
-                                <div class="border-product">
-                                    <h6 class="product-title">product details</h6>
-                                    <p>Sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium
-                                        doloremque laudantium</p>
-                                </div>
-                                <div class="product-buttons"><a href="#" class="btn btn-solid">add to cart</a> <a
-                                        href="#" class="btn btn-solid">view detail</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Quick-view modal popup end-->
 
 
     <!-- theme setting -->
@@ -2037,7 +2028,7 @@
     </div>
     <!-- tap to top end -->
 
-
+    
     <!--jQuery-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -2067,7 +2058,9 @@
 
     <!-- Search filter js -->
     <script src="{% static 'js/search-filter.js' %}"></script>
+    <script src="{% static 'js/home.js' %}"></script>
 
+    
     <script>
         // sehife acilan kimi cixan modal
         // $(window).on('load', function () {
@@ -2130,35 +2123,311 @@
     }
     
 
-    function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
+    // function getCookie(name) {
+    //     let cookieValue = null;
+    //     if (document.cookie && document.cookie !== '') {
+    //         const cookies = document.cookie.split(';');
+    //         for (let i = 0; i < cookies.length; i++) {
+    //             const cookie = cookies[i].trim();
+    //             // Does this cookie string begin with the name we want?
+    //             if (cookie.substring(0, name.length + 1) === (name + '=')) {
+    //                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+    //                 break;
+    //             }
+    //         }
+    //     }
+    //     return cookieValue;
+    // }
+
+    // function uuidv4(){
+    //     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c){
+    //         let r = Math.random() *16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    //         return v.toString(16);
+    //     });
+    // }
+    // const csrftoken = getCookie('csrftoken');
+    // let device = getCookie('device')
+    // if (device == null || device == undefined){
+    //     console.log(`device yaradan yerdeki if-de: ${device}`)
+    //     device = uuidv4()
+    // }
+    // document.cookie = 'device=' + device + ";domain=;path=/"
+    </script>
+
+<script>
+    const domain_api_base = document.getElementById('YOUR_ENV_VARIABLE').value
+    let cart_badge = document.querySelector('.cart-badge')
+
+    const url_count = `${domain_api_base}api-order/orderItem-count/`;
+    
+    // this function set browser localstorage
+    let addCartCountToLocalStorage = (count) => {
+            localStorage.setItem('cartItems', count)
         }
-        return cookieValue;
+    
+    // this function get cart count from database and set to browser local storage
+    function get_cart_count(){
+        console.log("home.html-de get cart count")
+        fetch(url_count, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken
+    },
+    })
+    .then(res => res.text())
+    .then(res => addCartCountToLocalStorage(res))
     }
 
-    function uuidv4(){
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c){
-            let r = Math.random() *16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
+    // ths funqtion change badge number
+    function add_number_to_cart_badge(){
+        fetch(url_count, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken
+        },
+        })
+        .then(res => res.text())
+        .then(res => cart_badge.innerHTML = res)
     }
-    // const csrftoken = getCookie('csrftoken');
-        let device = getCookie('device')
-        if (device == null || device == undefined){
-            device = uuidv4()
+
+
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    
+
+
+    var csrftoken = getCookie('csrftoken');
+
+    window.onload = function() {
+            get_cart_count();
+            console.log(`onload vaxti cartda storage-i yenileyirem: ${localStorage.getItem('cartItems')}`)
+            
+            add_number_to_cart_badge();
+        };
+
+    //asagidakilar home.html-den gelir
+    let addtocartbtn = document.querySelectorAll('.incre-cart');
+
+        for (let i = 0; i < addtocartbtn.length; i++){
+            addtocartbtn[i].addEventListener('click', letsIncDecrementCart, false)
         }
-        document.cookie = 'device=' + device + ";domain=;path=/"
+
+        function letsIncDecrementCart(e){
+
+            function set_orderItem_id(id){
+                orderitem_id = id
+                console.log(`set eledim orderItem id-ni ${orderitem_id}`)
+            }
+
+            let product_id = e.target.getAttribute('data-id-cart')
+            let customer_id = e.target.getAttribute('data-id-customer')
+            let order_id = e.target.getAttribute('data-id-order')
+            let orderitem_id = e.target.getAttribute('data-id-orderitem')
+            get_cart_count()
+
+            if (e.target.value === 'Səbətə əlavə et'){
+                // e.target.classList.remove("not-basket");
+                // e.target.classList.add('in-basket');
+                // e.preventDefault()
+                e.target.value = "Səbətdən sil";
+                
+                // console.log("Submite girdi product detailde")
+                let itemCountLocStorage = localStorage.getItem('cartItems')
+                itemCountLocStorage = parseInt(itemCountLocStorage)
+                localStorage.setItem('cartItems', itemCountLocStorage+1)
+                let currentCountCartBadge = cart_badge.innerHTML
+                // console.log(`product kartda karti basanda yuxarida sebet count: ${currentCountCartBadge}`) 
+                cart_badge.innerText = parseInt(currentCountCartBadge) + 1
+
+                console.log(`modal create-den qabaq product_id: ${product_id}`)
+                console.log(`modal create-den qabaq order_id: ${order_id}`)
+                console.log(`modal create-den qabaq customer_id: ${customer_id}`)
+                console.log(`modal create-den qabaq orderItem_id: ${orderitem_id}`)
+                let url_post = `${domain_api_base}api-order/orderItem-create/`
+
+                fetch(url_post, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify({
+                    quantity: 1,
+                    product: product_id,
+                    order: order_id,
+                    customer: customer_id
+                    })
+                })
+                .then(res => res.text())
+                .then(console.log('create-in sonundayam modaldan'))
+                // .then(document.location.href = 'http://localhost:8000/order/cart/')
+                .then(setTimeout(function() { document.location.href = `${domain_api_base}order/cart/` }, 200))
+
+                // setTimeout(function() { deleteOrderItem(); }, 1000);
+
+            } else if(e.target.value === 'Səbətdən sil'){
+                // e.target.classList.remove("in-basket");
+                // e.target.classList.add('not-basket');
+                // e.target.value = "Səbəbdən sil";
+                // e.preventDefault()
+                e.target.value = "Səbətə əlavə et";
+                let itemCountLocStorage = localStorage.getItem('cartItems')
+                itemCountLocStorage = parseInt(itemCountLocStorage)
+                localStorage.setItem('cartItems', itemCountLocStorage+1)
+                let currentCountCartBadge = cart_badge.innerHTML
+                // console.log(`product kartda karti basanda yuxarida sebet count: ${currentCountCartBadge}`) 
+                cart_badge.innerText = parseInt(currentCountCartBadge) - 1
+
+                // faktiki orderItem id-ni db-den gotururuk
+                url_get_id = `${domain_api_base}api-order/orderItem-id/${product_id}/`
+                fetch(url_get_id, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+                },
+                })
+                .then(res => res.text())
+                .then(res => set_orderItem_id(res))
+                .then(res => console.log(`res from get_id ${res}`))
+
+                setTimeout(function() { deleteOrderItem(); }, 1000);
+
+                function deleteOrderItem(){
+                    console.log(`url-e qoymazdan qabaq daxili functa ordetitem_id: ${orderitem_id}`)
+
+                    url_del = `${domain_api_base}api-order/orderItem-delete/${orderitem_id}/`;
+
+                    fetch(url_del, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRFToken': csrftoken
+                        },
+                    })
+                    .then(res => res.text()) // or res.json()
+                    .then(res => console.log(`deleted ${res}`))
+            }
+        }
+    }
+
+        let cartIcon = document.querySelectorAll('.my-cart-icon');
+
+        for (let i = 0; i < cartIcon.length; i++){
+            cartIcon[i].addEventListener('click', changeColor, false)
+        }
+
+        
+
+        function changeColor(e){
+
+            function set_orderItem_id(id){
+                orderitem_id = id
+                console.log(`set eledim orderItem id-ni ${orderitem_id}`)
+            }
+
+            let product_id = e.target.getAttribute('data-id-cart')
+            let customer_id = e.target.getAttribute('data-id-customer')
+            let order_id = e.target.getAttribute('data-id-order')
+            let orderitem_id = e.target.getAttribute('data-id-orderitem')
+            console.log(`NEHAYET orderItem: ${orderitem_id}`)    
+            // console.log(`basilan orderItem customtag-dan: ${orderItem_id}`)
+            console.log(`basilan product id: ${product_id}`)    
+            console.log(`basilan order id: ${order_id}`)
+            // console.log(`basilanin orderItemi id-si: ${orderitem_id}`)
+
+            console.log(`basilan customer id: ${customer_id}`)    
+            console.log('cart reng deyisenine girdin')
+
+            // sebet iconunun rengini deyisirem
+            if (e.target.classList.contains('do-green')){
+                e.target.classList.remove("do-green");
+                e.target.classList.add('do-gray');
+                let localStorNum = parseInt(localStorage.getItem('cartItems'))
+                localStorage.setItem('cartItems', localStorNum-1)
+
+                url_get_id = `${domain_api_base}api-order/orderItem-id/${product_id}/`
+
+                fetch(url_get_id, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+                },
+                })
+                .then(res => res.text())
+                .then(res => set_orderItem_id(res))
+                .then(res => console.log(`res from get_id ${res}`))
+
+
+                // decrice cart count in navbar
+                currentCountCartBadge = cart_badge.innerHTML
+                console.log(`product kartda karti basanda yuxarida sebet count: ${currentCountCartBadge}`) 
+                cart_badge.innerText = parseInt(currentCountCartBadge) - 1
+                console.log(`url-e qoymazdan qabaq ordetitem_id: ${orderitem_id}`)
+
+                setTimeout(function() { deleteOrderItem(); }, 1000);
+
+                function deleteOrderItem(){
+                    console.log(`url-e qoymazdan qabaq daxili functa ordetitem_id: ${orderitem_id}`)
+
+                    url_del = `${domain_api_base}api-order/orderItem-delete/${orderitem_id}/`;
+
+                    fetch(url_del, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRFToken': csrftoken
+                        },
+                    })
+                    .then(res => res.text()) // or res.json()
+                    .then(res => console.log(`deleted ${res}`))
+
+                }
+
+
+            } else if (e.target.classList.contains('do-gray')){
+                console.log('girdi create olan yere')
+                e.target.classList.remove("do-gray");
+                e.target.classList.add('do-green');
+                console.log(`modaldaki inputun value-si: ${e.target.closest(".no-slider")}`)
+                let localStorNum = parseInt(localStorage.getItem('cartItems'))
+                localStorage.setItem('cartItems', localStorNum+1)
+                // console.log(`en yaxin input-un valuesi: ${e.target.closest("input")}`)
+                // e.target.closest("input").value= 'Səbətdən sil'
+
+                // incrice cart count in navbar
+                let currentCountCartBadge = cart_badge.innerHTML
+                console.log(`product kartda karti basanda yuxarida sebet count: ${currentCountCartBadge}`) 
+                cart_badge.innerText = parseInt(currentCountCartBadge) + 1
+
+                let url_post = `${domain_api_base}api-order/orderItem-create/`
+
+                fetch(url_post, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify({
+                    quantity: 1,
+                    product: product_id,
+                    order: order_id,
+                    customer: customer_id
+                    })
+                })
+                .then(res => res.text())
+
+        }
+    }
+    
     </script>
+
+
     {% block price_range_js %}
     {% endblock price_range_js %}
 

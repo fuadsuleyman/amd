@@ -1,18 +1,28 @@
 
 
 /* header search section */
-
-.header-contact-left.brand{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+.top-header {
+    height: 61px !important;
 }
+.header-contents {
+    position: relative;
+}
+#header-left-section {
+    position: absolute;
+    left: 0;
+}
+#header-right-section {
+    padding: 0;
+    position: absolute !important;
+    right: 0 !important;
+}
+
 .icon-nav  > ul {
     display: flex;
     justify-content: flex-end;
 }
 .icon-nav  li {
-    padding: 20px 0;
+    padding: 10px 0;
 }
 .icon-nav  .onhover-div.mobile-cart  {
     display: flex;
@@ -41,6 +51,12 @@
     border-radius: 25px;
     outline: none;
 }
+.search-icon-btn {
+    /* color: #fff !important; */
+    font-size: 1.1em !important;
+    font-weight: bold !important;
+    top: 34% !important;
+}
 .mobile-search--body > i {
     position: absolute;
     right: 0;
@@ -54,7 +70,7 @@
     height: auto;
     margin-top: 10px;
     border-radius: 16px;
-    border: 1px solid black;
+    border: 1px solid rgb(179, 178, 178);
 }
 .body:first-child {
     border-top-left-radius: 16px;
@@ -73,7 +89,7 @@
 .mobile-search--body-results .body {
     display: flex;
     height: 75px;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid rgb(179, 178, 178);
     background-color: white;
 }
 
@@ -189,3 +205,61 @@
     color: #606060;
 }
 
+/* basket icon number */
+
+.badge {
+    padding-left: 9px;
+    padding-right: 9px;
+    -webkit-border-radius: 9px;
+    -moz-border-radius: 9px;
+    border-radius: 9px;
+}
+
+.label-warning[href],
+.badge-warning[href] {
+    background-color: #fff;
+}
+#lblCartCount {
+    font-size: 12px;
+    /* background: #ff0000; */
+    color: #fff;
+    padding: 0 5px;
+    vertical-align: top;
+    margin-left: -16px; 
+}
+/* 
+@media (max-width: 1200px) {
+    .mobile-search--body {
+        width: 36px !important;
+    }
+} */
+
+/* RESPONSIBLE */
+@media (max-width: 991px) {
+    .mobile-search--body {
+        width: 36px !important;
+
+    }
+    /* #search-filter-body {
+        display: block !important;
+    } */
+}
+/* @media (min-width: 768px) {
+    .search-icon-btn {
+        color: #000 !important;
+    }
+} */
+@media (min-witdh: 576px) {
+    .search-icon-btn {
+        color: #000 !important;
+    }
+}
+
+
+/* OWN CLASS */
+.w-200 {
+    width: 200px !important;
+}
+.w-36 {
+    width: 36px !important;
+}

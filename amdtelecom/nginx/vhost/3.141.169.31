@@ -1,7 +1,0 @@
-location /static/ {
-    alias /amd/static/;
-}
-
-location /media/ {
-    alias /amd/media/;
-}
