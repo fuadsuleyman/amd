@@ -92,11 +92,14 @@ def create_order_item(request):
     serializer = OrderItemSerializer(data=request.data)
 
     if serializer.is_valid():
+        # print('Button-u basanda product', request.data['product'])
 
         order1 = OrderItem.objects.filter(product_id = request.data['product']).count()
 
-        if order1 == 0:
-            serializer.save()
+        # print('Button-u basanda count:', order1)
+
+        # if order1 == 0:
+        serializer.save()
     return Response(serializer.data)
 
 @api_view(['PATCH'])

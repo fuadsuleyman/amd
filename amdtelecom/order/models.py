@@ -55,7 +55,7 @@ class OrderItem(models.Model):
     
     @property
     def get_total(self):
-        total = self.product.get_price() * self.quantity
+        total = self.product.get_price * self.quantity
         return total
 
     class Meta:
