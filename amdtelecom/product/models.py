@@ -204,6 +204,10 @@ class Product(models.Model):
         if self.get_price() < self.price:
             is_discount = True
     
+    @property
+    def get_discount(self):
+        return self.price - self.get_price
+    
     def get_is_new(self):
         delta = datetime.now().date() - self.created_at
         if delta.days <= 30:

@@ -37,7 +37,7 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'jet.dashboard',
     'jet',
-
+    'mathfilters',
     'contact.apps.ContactConfig',
     'product.apps.ProductConfig',
     'account.apps.AccountConfig',

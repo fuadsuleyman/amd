@@ -30,7 +30,13 @@ class Order(models.Model):
     def get_cart_total(self):
         orderitems = self.orderitem_set.all()
         total = sum([item.get_total for item in orderitems])
-        return total 
+        return total
+    
+    @property
+    def get_discount_total(self):
+        orderitems = self.orderitem_set.all()
+        total = sum([item.get_disco for item in orderitems])
+        return total
         
     @property
     def get_cart_items(self):
@@ -57,6 +63,10 @@ class OrderItem(models.Model):
     def get_total(self):
         total = self.product.get_price * self.quantity
         return total
+    
+    @property
+    def get_disco(self):
+        return self.product.get_discount * self.quantity
 
     class Meta:
         db_table = 'order_item'

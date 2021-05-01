@@ -65,7 +65,10 @@
     {% endif %}
     
     <!--Google font-->
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet"> -->
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,600&display=swap" rel="stylesheet">
 
     <!-- Icons -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/fontawesome.css' %}">
@@ -84,9 +87,9 @@
         .do-gray{
             color:#6f6f6f !important;
         }
-        header {
+        /* header {
             font-family: Tahoma, sans-serif !important;
-        }
+        } */
     </style>
 
     {% block price_range_css %}
@@ -1031,11 +1034,11 @@
                             {% csrf_token %}
                             <div class="form-group mx-sm-3" style="position: relative;">
                                 <input id="email" type="text" class="form-control" name="email" id="mce-EMAIL"
-                                    placeholder="Enter your email" required="required">
+                                    placeholder="Email adresi daxil edin" required="required">
                                     <div id="error_messages" style="position: absolute; height: 30px; width: 100%; left: 4%; bottom: -30px; color :red;"></div> 
 
                             </div>
-                            <button type="submit" class="btn btn-solid" id="mc-submit">subscribe</button>
+                            <button type="submit" class="btn btn-solid" id="mc-submit">ABUNƏ OL</button>
                         </form>
                         <script>
                             let url = 'http://{{ request.META.HTTP_HOST }}'
@@ -1077,7 +1080,7 @@
                 <div class="row footer-theme partition-f">
                     <div class="col-lg-8 col-md-6">
                         <div class="footer-title footer-mobile-title">
-                            <h4>Haqqımızda</h4>
+                            <!-- <h4>Haqqımızda</h4> -->
                         </div>
                         <div class="footer-contant">
                             <div class="footer-logo"><a href="{% url 'index:home' %}"><img alt="AMD Telecom" src="{% static 'images/icon/logo/logo_125_pixel.png' %}"style="height: 100px; width: 150px;"></a></div>

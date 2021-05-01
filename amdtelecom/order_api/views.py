@@ -85,8 +85,6 @@ def get_order_item(request, pk):
     return Response(serializer.data)
 
 
-
-
 @api_view(['POST'])
 def create_order_item(request):
     serializer = OrderItemSerializer(data=request.data)

@@ -35,12 +35,13 @@
                 <table class="table cart-table table-responsive-xs">
                     <thead>
                         <tr class="table-head">
-                            <th scope="col">Şəkil</th>
-                            <th scope="col">Məhsulun adı</th>
-                            <th scope="col">Qiyməti</th>
-                            <th scope="col">Sayı</th>
-                            <th scope="col">Sil</th>
-                            <th scope="col">Cəmi</th>
+                            <th scope="col">ŞƏKİL</th>
+                            <th scope="col">MƏHSULUN ADI</th>
+                            <th scope="col">QİYMƏTİ</th>
+                            <th scope="col">SAYI</th>
+                            <th scope="col">ENDİRİM</th>
+                            <th scope="col">SİL</th>
+                            <th scope="col">CƏMİ</th>
                         </tr>
                     </thead>
 
@@ -81,7 +82,7 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-3">
-                                        <h2 class="td-color" class='data-price'>{{item.product.price}}
+                                        <h2 class="td-color price" class='data-price'>{{item.product.price}}
                                             <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
                                                 <defs>
                                                     <style>
@@ -120,11 +121,25 @@
                                             min="0"
                                             type="number"
                                             name="quantity"
+                                            discount-unit={{item.product.get_discount}}
                                             data-id-patch={{item.id}}
                                             class="form-control input-number change-quantity"
                                             value="{{item.quantity}}" on>
                                     </div>
                                 </div>
+                            </td>
+                            <td>
+                                <h2 class="d-flex"><span class="td-color disco">{{item.get_disco|floatformat:2}}</span>
+                                    <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
+                                        <defs>
+                                            <style>
+                                                .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
+                                            </style>
+                                        </defs>
+                                        <title>manat</title>
+                                        <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
+                                    </svg>
+                                </h2>
                             </td>
                             <td><a href="#" class="icon" id="delete-order-item"><i data-id={{item.id}} class="ti-close del"></i></a></td>
                             <td>
@@ -163,13 +178,31 @@
                                 </h2>
                             </td>
                         </tr>
-                    </tfoot>
+                        </tfoot>
+                        <tfoot>
+                        <tr>
+                            <td style="font-size: 12px;">Ümumi endirim:</td>
+                            <td>
+                                <h4 class="d-flex"><span class="discount-total-grand">{{order.get_discount_total|floatformat:2}}</span>
+                                    <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
+                                        <defs>
+                                            <style>
+                                4              .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
+                                            </style>
+                                    4</defs>
+                                        <title>manat</title>
+                                        <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
+                                    </svg>
+                                </h4>
+                            </td>
+                        </tr>
+                        </tfoot>
                 </table>
             </div>
         </div>
         <div class="row cart-buttons">
-            <div class="col-6"><a href="{% url 'index:home' %}" class="btn btn-solid">Alış-verişə davam et</a></div>
-            <div class="col-6"><a href="{% url 'order:checkout' %}" class="btn btn-solid">Sifarişi tamamla</a></div>
+            <div class="col-6"><a href="{% url 'index:home' %}" class="btn btn-solid">ALIŞ-VERİŞƏ DAVAM ET</a></div>
+            <div class="col-6"><a href="{% url 'order:checkout' %}" class="btn btn-solid">SİFARİŞİ TAMAMLA</a></div>
         </div>
     </div>
 </section>
@@ -224,9 +257,19 @@
 
         const url = `${domain_api_base}api-order/orderItem-delete/${id}/`;
 
-        let allTotalPrices = document.querySelectorAll(".price-total")
+        let allTotalPrices = document.querySelectorAll(".price-total");
+        let allDiscounst = document.querySelectorAll(".disco");
 
         // console.log("Welcome to delete")
+
+        discountsArrInt = []
+
+        for (let i=0; i < allDiscounst.length; i++){
+            discountsArrInt.push(parseInt(allDiscounst[i].innerHTML))
+        }
+        // console.log(`discountlar: ${discountsArrInt}`)
+
+        document.querySelector(".discount-total-grand").innerHTML = getGrandTotal(discountsArrInt).toFixed(2)
 
         grandTotalPriceInt = []
 
@@ -266,6 +309,7 @@
     }
 
     let changeQuantElem = document.querySelectorAll(".change-quantity")
+    
 
     for (let i = 0; i < changeQuantElem.length; i++){
         changeQuantElem[i].addEventListener("change", confirm_update, false)
@@ -273,13 +317,18 @@
 
     function confirm_update(e){
 
-
+        const discount_unit = parseInt(e.target.getAttribute('discount-unit'));
+        console.log(`discount unit: ${discount_unit}`)
         let id_patch = e.target.getAttribute('data-id-patch')
         const url_patch = `${domain_api_base}api-order/orderItem-patch/${id_patch}/`;
         const url_del = `${domain_api_base}api-order/orderItem-delete/${id_patch}/`;
 
         let clickedTr = e.target.closest("tr")
         clickedPrice = parseInt(e.target.closest("tr").childNodes[5].querySelector("h2").innerHTML.split(" ")[1])
+        clickedDiscount = parseInt(e.target.closest("tr").childNodes[9].querySelector(".disco").innerHTML)
+        
+        console.log(`clicedPrice: ${clickedPrice}`)
+        console.log(`clicedDiscount: ${clickedDiscount}`)
         let quantity = e.target.value
         console.log(`quantity update: ${quantity}`)
 
@@ -303,8 +352,25 @@
             localStorage.setItem('cartItems', 0)
         }
         
-        
-        e.target.closest("tr").childNodes[11].querySelector(".price-total").innerHTML = (clickedPrice * quantity).toFixed(2)
+        console.log(`Quantity: ${quantity}`);
+        console.log(`ClickedPrice: ${clickedPrice}`);
+        console.log(`ClickedDiscount: ${clickedDiscount}`);
+        // console.log(`TotalPrice-in yeri: ${e.target.closest("tr").childNodes[9].innerHTML}`)
+        e.target.closest("tr").childNodes[9].querySelector(".disco").innerHTML = (discount_unit * quantity).toFixed(2)
+        e.target.closest("tr").childNodes[13].querySelector(".price-total").innerHTML = (clickedPrice * quantity).toFixed(2)
+
+        let allDiscounst = document.querySelectorAll(".disco");
+
+        // console.log("Welcome to delete")
+
+        discountsArrInt = []
+
+        for (let i=0; i < allDiscounst.length; i++){
+            discountsArrInt.push(parseInt(allDiscounst[i].innerHTML))
+        }
+        console.log(`discountlar: ${discountsArrInt}`)
+
+        document.querySelector(".discount-total-grand").innerHTML = getGrandTotal(discountsArrInt).toFixed(2)
 
         let allTotalPrices = document.querySelectorAll(".price-total")
 
