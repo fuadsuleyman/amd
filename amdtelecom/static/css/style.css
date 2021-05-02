@@ -263,3 +263,22 @@
 .w-36 {
     width: 36px !important;
 }
+
+
+
+/* PRODUCT DETAIL PAGE */
+
+.logo_new_or_disc {
+    border-radius: 100%;
+    background-color: var(--theme-deafult);
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    position: absolute;
+    padding: 12px 6px;
+    /* text-transform: uppercase; */
+    color: #ffffff;
+    top: 7px;
+    left: 7px;
+    z-index: 1;
+}
