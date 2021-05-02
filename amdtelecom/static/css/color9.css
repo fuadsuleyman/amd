@@ -86,7 +86,7 @@ h2 {
   font-size: 36px;
   color: #222222;
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 600;
   line-height: 1;
   letter-spacing: 0.02em; }
 
@@ -7868,7 +7868,7 @@ footer {
 
 .cart-section tbody tr td,
 .wishlist-section tbody tr td {
-  min-width: 210px;
+  min-width: 150px;
   vertical-align: middle;
   color: #777777;
   border-top: 0;
