@@ -262,6 +262,8 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 slick-container">
+                                    {% if product.is_new %}<div class="lable-block"><span class="lable3">Yeni</span></div>{% endif %}
+                                    {% if product.is_discount %}<div class="lable-block"><span class="lable3" style="left:unset; right:7px">Endirim</span></div>{% endif %}
                                     <div class="product-slick">
                                         {% for photo in photos %}
                                             <div>
