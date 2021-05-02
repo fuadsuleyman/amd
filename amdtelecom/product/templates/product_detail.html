@@ -264,6 +264,22 @@
                                 <div class="col-lg-6 slick-container">
                                     {% if product.is_new %}<div class="lable-block"><span class="lable3">Yeni</span></div>{% endif %}
                                     {% if product.is_discount %}<div class="lable-block"><span class="lable3" style="left:unset; right:7px">Endirim</span></div>{% endif %}
+                                    <style>
+                                        .product-box .img-wrapper .lable-block .lable3, .product-wrap .img-wrapper .lable-block .lable3 {
+                                            border-radius: 100%;
+                                            background-color: var(--theme-deafult);
+                                            text-align: center;
+                                            font-size: 14px;
+                                            font-weight: 700;
+                                            position: absolute;
+                                            padding: 12px 6px;
+                                            /* text-transform: uppercase; */
+                                            color: #ffffff;
+                                            top: 7px;
+                                            left: 7px;
+                                            z-index: 1;
+                                        }
+                                    </style>
                                     <div class="product-slick">
                                         {% for photo in photos %}
                                             <div>
