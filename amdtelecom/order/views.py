@@ -57,7 +57,9 @@ def checkout(request):
     total=0
     for item in items:
         total += item.get_total
-    context = {'items': items, 'form': CheckoutForm, 'total':total}
+    context = {'items': items, 'form': CheckoutForm, 'total':total, 'order': order}
+
+    # {{order.get_discount_total|floatformat:2}}
 
     if request.method == 'POST':
 
