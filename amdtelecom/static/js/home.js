@@ -43,6 +43,9 @@ console.log('home.js -->');
         }
     });
 
+
+
+    // SEARCH INPUTU ACIQ OLDUQDA BODY DE IF SERTINDEN BASQA HER HANSI BIT EVENT HADIDESI OLDUGU ZAMAN BAGLANSIN DEYE
     document.querySelector("body").addEventListener("click", function(e){
         
         if (e.target.getAttribute("class") == 'data-title' || e.target.getAttribute("class") == 'image-attr' || e.target.getAttribute('class') == 'mobile-search--body--input'){

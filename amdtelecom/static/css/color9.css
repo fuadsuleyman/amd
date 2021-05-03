@@ -1351,7 +1351,7 @@ header {
 
 .absolute-logo {
   position: absolute;
-  left: 50%;
+  left: 90%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%); }
 
@@ -17374,7 +17374,7 @@ body.dark {
         display: none; }
   .layout3-menu .main-menu > div:nth-child(2) {
     position: absolute;
-    left: 54%;
+    /* left: 54%; */
     right: 50%;
     -webkit-transform: translate(-50%, 0);
             transform: translate(-50%, 0);
