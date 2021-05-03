@@ -262,6 +262,8 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 slick-container">
+                                    {% if product.is_new %}<div class="lable-block"><span class="lable3 logo_new_or_disc">Yeni</span></div>{% endif %}
+                                    {% if product.is_discount %}<div class="lable-block"><span class="lable3 logo_new_or_disc" style="left:unset; right: 15%">Endirim</span></div>{% endif %}
                                     <div class="product-slick">
                                         {% for photo in photos %}
                                             <div>
@@ -604,6 +606,8 @@
                 <div class="col-xl-2 col-md-4 col-sm-6">
                     <div class="product-box">
                         <div class="img-wrapper">
+                            {% if product.is_new %}<div class="lable-block"><span class="lable3">Yeni</span></div>{% endif %}
+                            {% if product.is_discount %}<div class="lable-block"><span class="lable3" style="left:unset; right:7px">Endirim</span></div>{% endif %}
                             <div class="front">
                                 <a href="{% url 'product:product_detail' product.slug %}">
                                     {% for image in product.images.all %}
