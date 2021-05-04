@@ -8,7 +8,7 @@ from django.http import HttpResponse
 from .serializers import SubscriberSerializer
 from django.shortcuts import render
 from product.models import Product
-
+from ..signals import send_subscribe_mail
 
 
 class SubscribeView(View):
@@ -17,11 +17,12 @@ class SubscribeView(View):
     def post(self, request):
 
         data = json.loads(request.body)
-        print(data, 'datalar')
+        print(data['email'], 'datalar')
         serializer = SubscriberSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return JsonResponse(serializer.data, safe=False)
+        send_subscribe_mail(data['email'])
         return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST, safe=False)
     
 
