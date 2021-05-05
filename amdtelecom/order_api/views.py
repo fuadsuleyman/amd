@@ -89,12 +89,16 @@ def get_order_item(request, pk):
 def create_order_item(request):
     serializer = OrderItemSerializer(data=request.data)
 
+    print('Siz karta elave et api-ndesiz')
+
     if serializer.is_valid():
-        # print('Button-u basanda product', request.data['product'])
 
-        # order1 = OrderItem.objects.filter(product_id = request.data['product']).count()
+        print('Siz karta elave et api-nde is valid-i kecdiz')
+        print('Button-u basanda product req.data:', request.data['product'])
 
-        # print('Button-u basanda count:', order1)
+        order1 = OrderItem.objects.filter(product_id = request.data['product']).count()
+
+        print('Button-u basanda count:', order1)
 
         # if order1 == 0:
         serializer.save()
