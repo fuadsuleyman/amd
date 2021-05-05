@@ -92,7 +92,7 @@ def create_order_item(request):
     if serializer.is_valid():
         # print('Button-u basanda product', request.data['product'])
 
-        order1 = OrderItem.objects.filter(product_id = request.data['product']).count()
+        # order1 = OrderItem.objects.filter(product_id = request.data['product']).count()
 
         # print('Button-u basanda count:', order1)
 
