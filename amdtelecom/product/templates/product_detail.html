@@ -630,10 +630,10 @@
                                     {% endfor %}
                                     </a>
                             </div>
-                            <div class="cart-info cart-wrap">
-                                <button data-toggle="modal" data-target="#addtocart" title="Add to cart">
+                            {% comment %} <div class="cart-info cart-wrap"> {% endcomment %}
+                                {% comment %} <button data-toggle="modal" data-target="#addtocart" title="Add to cart">
                                     <i class="ti-shopping-cart"></i>
-                                </button> 
+                                </button>  {% endcomment %}
                                 {% comment %} <a href="javascript:void(0)" title="Add to Wishlist">
                                     <i class="ti-heart" aria-hidden="true"></i>
                                 </a> 
@@ -643,7 +643,7 @@
                                 <a href="compare.html" title="Compare">
                                     <i class="ti-reload" aria-hidden="true"></i>
                                 </a>  {% endcomment %}
-                            </div>
+                            {% comment %} </div> {% endcomment %}
                         </div>
                         <div class="product-detail">
                             <!-- <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
