@@ -3099,7 +3099,7 @@ header {
     .product-box .product-info h4,
     .product-wrap .product-detail h4,
     .product-wrap .product-info h4 {
-      font-size: 18px;
+      font-size: 12px;
       color: #222222;
       font-weight: 700;
       margin-bottom: 0;
@@ -6366,11 +6366,7 @@ footer.footer-5 {
     21.footer CSS start
 ==========================*/
 
-@media (min-width: 1200px) {
-  .fa-whatsapp{
-    display: none;
-  }
-}
+
 
 footer {
   position: relative; }
