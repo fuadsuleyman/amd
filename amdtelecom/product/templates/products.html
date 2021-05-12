@@ -54,10 +54,10 @@
                         <div class="collection-collapse-block-content">
                             <div class="collection-brand-filter">
 
-                            {% for marka in markas  %}
+                            {% for marka in markas %}
                                 <div class="custom-control custom-checkbox collection-filter-checkbox marka-field">
                                     <input onclick="getData()" data-filter='marka' value="{{ marka.id }}" type="checkbox"  class="filter-item-checkbox custom-control-input" id="{{ marka.title }}">
-                                    <label class="custom-control-label" for="{{ marka.title }}">{{ marka.title }}</label>
+                                    <label class="custom-control-label" for="{{ marka.title }}">{{ marka.title}}</label>
                                 </div>
                             {% endfor %}
 
@@ -68,7 +68,7 @@
                     {% endif %}
                     {% endif %}
 
-                    <!-- operator filter start here -->
+                    <!-- daxili yaddas start here -->
                     {% if internal_storage %}
                     <div class="collection-collapse-block open" id="operator-filter-body">
                         <h3 class="collapse-block-title">DAXİLİ YADDAŞ</h3>
@@ -94,7 +94,7 @@
                         <h3 class="collapse-block-title">RƏNGLƏR</h3>
                         <div class="collection-collapse-block-content">
                             <div class="color-selector collection-brand-filter">
-                                {% for color in colors %}
+                                {% for color in colors|dictsort:"title" %}
                                 <div class="custom-control custom-checkbox collection-filter-checkbox color-field">
                                     <input type="checkbox" onclick="getData()" data-filter="color_title" value="{{ color }}" class="filter-item-checkbox custom-control-input" id="{{ color }}">
                                     <label class="custom-control-label" for="{{ color }}"> {{ color }} </label>
