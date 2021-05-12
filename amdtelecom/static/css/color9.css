@@ -3479,7 +3479,7 @@ header {
     .theme-tab .tab-title2:after {
       content: "";
       position: absolute;
-      border: 1px solid #f1f5f4;
+      /* border: 1px solid #f1f5f4; */
       width: 100%;
       left: 0;
       top: 17px;
@@ -6954,7 +6954,7 @@ footer {
     -webkit-box-pack: end;
         -ms-flex-pack: end;
             justify-content: flex-end;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
     font-size: 14px;
     color: #555555;
     font-weight: 600;

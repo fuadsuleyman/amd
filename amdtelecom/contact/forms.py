@@ -23,21 +23,21 @@ class ContactForm(forms.ModelForm):
             'first_name': forms.TextInput(attrs={
                 'class': "form-control",
                 'id': "name",
-                'placeholder': "Adıvızı daxil edin *",
+                'placeholder': "Adınızı daxil edin *",
                 'maxlength': 50,
                 'required': True
             }),
             'last_name': forms.TextInput(attrs={
                 'class': "form-control",
                 'id': "last-name",
-                'placeholder': "Soyadivızı daxil edin *",
+                'placeholder': "Soyadınızı daxil edin *",
                 'maxlength': 50,
                 'required': True
             }),
             'phone_number': forms.TextInput(attrs={
                 'class': "form-control",
                 'id': "review",
-                'placeholder': "Əlaqə nomrəsini daxil edin *",
+                'placeholder': "Əlaqə nomrənızı daxil edin *",
                 'maxlength': 13,
                 'required': True
             }),
@@ -50,7 +50,7 @@ class ContactForm(forms.ModelForm):
             'message': forms.Textarea(attrs={
                 'class': "form-control",
                 'id': "exampleFormControlTextarea1",
-                'placeholder': "Mesajıvızı daxil edin...",
+                'placeholder': "Mesajınızı daxil edin...",
                 'rows': 6,
                 'required': True
             })

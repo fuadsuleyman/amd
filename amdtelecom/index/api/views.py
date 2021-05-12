@@ -21,8 +21,8 @@ class SubscribeView(View):
         serializer = SubscriberSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
+            send_subscribe_mail(data['email'])
             return JsonResponse(serializer.data, safe=False)
-        send_subscribe_mail(data['email'])
         return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST, safe=False)
     
 
