@@ -54,7 +54,7 @@
                         <div class="collection-collapse-block-content">
                             <div class="collection-brand-filter">
 
-                            {% for marka in markas %}
+                            {% for marka in markas|dictsort:"title" %}
                                 <div class="custom-control custom-checkbox collection-filter-checkbox marka-field">
                                     <input onclick="getData()" data-filter='marka' value="{{ marka.id }}" type="checkbox"  class="filter-item-checkbox custom-control-input" id="{{ marka.title }}">
                                     <label class="custom-control-label" for="{{ marka.title }}">{{ marka.title}}</label>
