@@ -12,10 +12,10 @@ from .signals import send_form
 
 
 
-def deletefromcart(request, id):
-    cartitem = OrderItem.objects.get(id=id)
-    cartitem.delete()
-    return redirect('cart')
+# def deletefromcart(request, id):
+#     cartitem = OrderItem.objects.get(id=id)
+#     cartitem.delete()
+#     return redirect('cart')
 
 
 def cart(request):
