@@ -160,6 +160,7 @@ class ProductsListView(ListView):
             if i['internal_storage'] != None:
                 internal_storages.append(i['internal_storage'])
         internal_storages = list(dict.fromkeys(internal_storages))
+        print(internal_storages, 'yaddas')
 
         # for filter template page for view or no
         marka = False
