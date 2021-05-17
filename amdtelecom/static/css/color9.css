@@ -17055,9 +17055,9 @@ body.dark {
     -webkit-box-align: center;
         -ms-flex-align: center;
             align-items: center; }
-  .cart-section .cart-table thead th:nth-last-child(-n + 4) {
+  .cart-section .cart-table thead th:nth-last-child(-n + 5) {
     display: none; }
-  .cart-section tbody tr td:nth-last-child(-n + 4) {
+  .cart-section tbody tr td:nth-last-child(-n + 5) {
     display: none; }
   .cart-section tbody tr td .mobile-cart-content {
     display: -webkit-box;
