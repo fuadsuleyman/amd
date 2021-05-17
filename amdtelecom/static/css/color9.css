@@ -8835,7 +8835,8 @@ footer {
       position: relative;
       width: 16%;
       float: right;
-      line-height: 1.2em; }
+      line-height: 1.2em;
+      margin-right: 2rem; }
   .order-box .qty {
     position: relative;
     border-bottom: 1px solid #ededed;
