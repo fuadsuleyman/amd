@@ -14840,7 +14840,7 @@ body.dark {
   .cart-section .cart-buttons > div:last-child {
     padding-right: 38px; }
   .cart-section tbody tr td {
-    min-width: 175px; }
+    min-width: 120px; }
     .cart-section tbody tr td .qty-box .input-group .form-control {
       width: 75px; }
   .cart-section tfoot tr td {
