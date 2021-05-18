@@ -2373,6 +2373,10 @@
                 currentCountCartBadge = cart_badge.innerHTML
                 console.log(`product kartda karti basanda yuxarida sebet count: ${currentCountCartBadge}`) 
                 cart_badge.innerText = parseInt(currentCountCartBadge) - 1
+                console.log(`TYPEOF CART BADGE: ${typeof(cart_badge.innerText)}`)
+                if (parseInt(cart_badge.innerText) < 0){
+                    cart_badge.innerText = 0;
+                }
                 console.log(`url-e qoymazdan qabaq ordetitem_id: ${orderitem_id}`)
 
                 setTimeout(function() { deleteOrderItem(); }, 1000);
