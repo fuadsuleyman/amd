@@ -184,6 +184,10 @@ class Product(models.Model):
 
         slug = f' {self.title} {ram} {internal_storage} {color_title}'
         self.slug = f'{slugify(slug)}'
+
+        if self.operator_code:
+            slug = f'{self.operator_code} {self.title}'
+            self.slug = f'{slugify(slug)}'
         
         if self.is_new: 
             changed_is_new.apply_async(args=[self.id], eta=self.is_new_expired)
