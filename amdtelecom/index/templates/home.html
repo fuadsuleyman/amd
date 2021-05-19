@@ -17,80 +17,146 @@
 
 
 <!-- home banner start -->
-    <!-- <div class="container banner-slider">
+{% if banner_main.status and banner_second_yuxari.status and banner_second_ashagi.status %}
+    <div class="container banner-slider">
         <div class="row">
-            <div class="col-md-7"><img src="{% static 'images/electronics/1.jpg' %}"
-                    class="img-fluid blur-up lazyload height-banner" alt=""></div>
+            <div class="col-md-7">
+                {% if banner_main.link %}
+                <a href="{{ banner_main.link }}">
+                    <img src="{{ banner_main.image.url }}" class="img-fluid blur-up lazyload height-banner" alt="">
+                </a>
+                {% else %}
+                    <img src="{{ banner_main.image.url }}" class="img-fluid blur-up lazyload height-banner" alt="">
+                {% endif %}
+            </div>
             <div class="col-md-5">
                 <div class="row home-banner">
                     <div class="col-12">
-                        <a href="#"><img src="{% static 'images/electronics/2.jpg' %}" class="img-fluid blur-up lazyload"
-                                alt=""></a>
+                        {% if banner_second_yuxari.link %}
+                        <a href="{{ banner_second_yuxari.link }}">
+                            <img src="{{ banner_second_yuxari.image.url }}" class="img-fluid blur-up lazyload" alt="">
+                        </a>
+                        {% else %}
+                            <img src="{{ banner_second_yuxari.image.url }}" class="img-fluid blur-up lazyload" alt="">
+                        {% endif %}
                     </div>
                     <div class="col-12">
-                        <a href="#"><img src="{% static 'images/electronics/4.jpg' %}" class="img-fluid blur-up lazyload"
-                                alt=""></a>
+                        {% if banner_second_ashagi.link %}
+                        <a href="{{ banner_second_yuxari.image.url }}">
+                            <img src="{{ banner_second_ashagi.image.url }}" class="img-fluid blur-up lazyload" alt="">
+                        </a>
+                        {% else %}
+                        <img src="{{ banner_second_ashagi.image.url }}" class="img-fluid blur-up lazyload" alt="">
+                        {% endif %}
                     </div>
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
+{% endif %}
     <!-- home banner end  -->
     <!-- collection banner -->
-    <!-- <section class="banner-padding banner-goggles ratio2_1">
+    {% if banner_third_sol.status and banner_third_sag.status and banner_third_orta.status %}
+    <section class="banner-padding banner-goggles ratio2_1">
         <div class="container">
             <div class="row partition3">
                 <div class="col-md-4">
-                    <a href="#">
+                    {% if banner_third_sol.link %}
+                    <a href="{{ banner_third_sol.link }}">
                         <div class="collection-banner p-right text-right">
                             <div class="img-part">
-                                <img src="{% static 'images/electronics/5.jpg' %}" class="img-fluid blur-up lazyload bg-img"
+                                <img src="{{banner_third_sol.image.url}}" class="img-fluid blur-up lazyload bg-img"
                                     alt="">
                             </div>
-                            <div class="contain-banner banner-3">
+                            <!-- <div class="contain-banner banner-3">
                                 <div>
                                     <h4>10% off</h4>
                                     <h2>speaker</h2>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </a>
+                    {% else %}
+                    <div class="collection-banner p-right text-right">
+                        <div class="img-part">
+                            <img src="{{banner_third_sol.image.url}}" class="img-fluid blur-up lazyload bg-img"
+                                alt="">
+                        </div>
+                        <!-- <div class="contain-banner banner-3">
+                            <div>
+                                <h4>10% off</h4>
+                                <h2>speaker</h2>
+                            </div>
+                        </div> -->
+                    </div>
+                    {% endif %}
                 </div>
                 <div class="col-md-4">
-                    <a href="#">
+                    {% if banner_third_orta.link %}
+                    <a href="{{ banner_third_orta.link }}">
                         <div class="collection-banner p-right text-right">
                             <div class="img-part">
-                                <img src="{% static 'images/electronics/6.jpg' %}" class="img-fluid blur-up lazyload bg-img"
+                                <img src="{{banner_third_orta.image.url}}" class="img-fluid blur-up lazyload bg-img"
                                     alt="">
                             </div>
-                            <div class="contain-banner banner-3">
+                            <!-- <div class="contain-banner banner-3">
                                 <div>
-                                    <h4>10% off</h4>
+                                    <h4>15% off</h4>
                                     <h2>earplug</h2>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </a>
+                    {% else %}
+                    <div class="collection-banner p-right text-right">
+                        <div class="img-part">
+                            <img src="{{banner_third_orta.image.url}}" class="img-fluid blur-up lazyload bg-img"
+                                alt="">
+                        </div>
+                        <!-- <div class="contain-banner banner-3">
+                            <div>
+                                <h4>15% off</h4>
+                                <h2>earplug</h2>
+                            </div>
+                        </div> -->
+                    </div>
+                    {% endif %}
                 </div>
                 <div class="col-md-4">
-                    <a href="#">
+                    {% if banner_third_sag.link %}
+                    <a href="{{ banner_third_sag.link }}">
                         <div class="collection-banner p-right text-right">
                             <div class="img-part">
-                                <img src="{% static 'images/electronics/7.jpg' %}" class="img-fluid blur-up lazyload bg-img"
+                                <img src="{{banner_third_sag.image.url}}" class="img-fluid blur-up lazyload bg-img"
                                     alt="">
                             </div>
-                            <div class="contain-banner banner-3">
+                            <!-- <div class="contain-banner banner-3">
                                 <div>
                                     <h4>50% off</h4>
                                     <h2>best deal</h2>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </a>
+                    {% else %}
+                    <div class="collection-banner p-right text-right">
+                        <div class="img-part">
+                            <img src="{{banner_third_sag.image.url}}" class="img-fluid blur-up lazyload bg-img"
+                                alt="">
+                        </div>
+                        <!-- <div class="contain-banner banner-3">
+                            <div>
+                                <h4>50% off</h4>
+                                <h2>best deal</h2>
+                            </div>
+                        </div> -->
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
-    </section> -->
+    </section>
+    {% endif %}
 
     <!-- slider tab  -->
     <section class="section-b-space ratio_asos" style="margin-top: 61px;">
