@@ -23,8 +23,6 @@ from order.models import (
 from account.models import Customer
 
 
-
-
 class SearchProductListView(ListView):
     model = Product
     template_name = 'search.html'
@@ -32,8 +30,12 @@ class SearchProductListView(ListView):
 
     def get_context_data(self, **kwargs):
         products = self.get_queryset
-
-        context = {'products': self.get_queryset}
+        device = self.request.COOKIES.get('device')
+        customer, created = Customer.objects.get_or_create(device=device)
+        order, created = Order.objects.get_or_create(customer=customer, complete=False)
+        context = { 'products': self.get_queryset,
+                    'customer': customer,
+                    'order': order,}
         return context
 
     def get_queryset(self):
