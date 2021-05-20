@@ -178,7 +178,21 @@
                                                         <div>
                                                             {% comment %} <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div> {% endcomment %}
                                                             <a href="{% url 'product:product_detail' product.slug %}">
-                                                                <h6>{{ product.title | upper }}</h6>
+                                                                 <h6>{% if product.marka.all.first %}
+                                                                    {{ product.marka.all.first|upper }} 
+                                                                    {% endif %}
+                                                                    {% if product.title %}
+                                                                    {{product.title|upper}}
+                                                                    {% endif %} 
+                                                                    {% if product.ram %}
+                                                                    {{product.ram|upper}} GB/ 
+                                                                    {% endif %} 
+                                                                    {% if product.internal_storage %}
+                                                                    {{product.internal_storage|upper }} GB
+                                                                    {% endif %} 
+                                                                    {% if product.color_title %}
+                                                                    {{product.color_title|upper}} 
+                                                                    {% endif %}</h6>
                                                             </a>
                                                             <p>{{ product.description }}
                                                             </p>

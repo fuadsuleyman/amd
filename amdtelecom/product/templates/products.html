@@ -78,7 +78,7 @@
 
                                 <div class="custom-control custom-checkbox collection-filter-checkbox operator-field">
                                     <input type="checkbox" onclick="getData()" data-filter="internal_storage" value="{{ storage }}" class="filter-item-checkbox custom-control-input" id="{{ storage }}">
-                                    <label class="custom-control-label" for="{{ storage }}"> {{ storage }} </label>
+                                    <label class="custom-control-label" for="{{ storage }}"> {{ storage }} GB </label>
                                 </div>
 
                                 {% endfor %}
@@ -250,10 +250,10 @@
                                         {{product.title|upper}}
                                         {% endif %} 
                                         {% if product.ram %}
-                                        {{product.ram|upper}} / 
+                                        {{product.ram|upper}} GB/ 
                                         {% endif %} 
                                         {% if product.internal_storage %}
-                                        {{product.internal_storage|upper}}
+                                        {{product.internal_storage|upper }} GB
                                         {% endif %} 
                                         {% if product.color_title %}
                                         {{product.color_title|upper}} 
