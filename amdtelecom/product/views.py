@@ -162,6 +162,8 @@ class ProductsListView(ListView):
             if i['internal_storage'] != None:
                 internal_storages.append(i['internal_storage'])
         internal_storages = list(dict.fromkeys(internal_storages))
+        internal_storages.sort()
+
         print(internal_storages, 'yaddas')
 
         # for filter template page for view or no
