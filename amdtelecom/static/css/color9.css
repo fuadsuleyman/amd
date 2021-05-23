@@ -16661,14 +16661,16 @@ body.dark {
     .home-slider.fullpage .slick-dots li button:before {
       color: #0a0100; }
   .footer-contant {
-    text-align: left; }
+    /* text-align: left;  */
+  }
     .footer-contant .footer-logo {
       margin-top: 20px;
       margin-bottom: 20px; }
     .footer-contant li {
       text-align: left; }
     .footer-contant .footer-social ul {
-      margin: unset; }
+      /* margin: unset;  */
+    }
       .footer-contant .footer-social ul li {
         padding-right: 25px;
         padding-left: 0; }
