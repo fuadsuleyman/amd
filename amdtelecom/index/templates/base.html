@@ -1078,13 +1078,18 @@
         <section class="section-b-space light-layout">
             <div class="container">
                 <div class="row footer-theme partition-f">
-                    <div class="col-lg-8 col-md-6">
+                    <div class="col-lg-4 col-md-6">
                         <div class="footer-title footer-mobile-title">
                             <!-- <h4>Haqqımızda</h4> -->
                         </div>
                         <div class="footer-contant">
                             <div class="footer-logo"><a href="{% url 'index:home' %}"><img alt="AMD Telecom" src="{% static 'images/icon/logo/180px.png' %}"></a></div>
-                            <p>AMD Telecom mağazaları keyfiyyətli, etibarlı və müasir məhsul, o cümlədən xidmətlərlə xidmətinizdədir.</p>
+                            <!-- <p>AMD Telecom mağazaları keyfiyyətli, etibarlı və müasir məhsul, o cümlədən xidmətlərlə xidmətinizdədir.</p> -->
+                            <!-- <div class="map">
+                                <iframe
+                                    src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=AMD%20Telecom+(AMD%20telecom)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+                                    allowfullscreen></iframe>
+                            </div> -->
                             <div class="footer-social">
                                 <ul>
                                     <li><a href="https://www.facebook.com/AMD-Telecom-816875371764530"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
@@ -1096,12 +1101,12 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="col offset-xl-1">
+                    <div class="col offset-xl-1 map-loc" style="margin-left: -20px;">
                         <div class="sub-title">
                             <div class="footer-title">
-                                <h4>my account</h4>
+                                <h4>Mağazanın yerləşməsi</h4>
                             </div>
-                            <div class="footer-contant">
+                            <!-- <div class="footer-contant">
                                 <ul>
                                     <li><a href="#">mens</a></li>
                                     <li><a href="#">womens</a></li>
@@ -1109,9 +1114,14 @@
                                     <li><a href="#">accessories</a></li>
                                     <li><a href="#">featured</a></li>
                                 </ul>
+                            </div> -->
+                            <div class="map">
+                                <iframe
+                                    src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=AMD%20Telecom+(AMD%20telecom)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+                                    allowfullscreen></iframe>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                     {% comment %} <div class="col">
                         <div class="sub-title">
                             <div class="footer-title">
@@ -1128,7 +1138,7 @@
                             </div>
                         </div>
                     </div> {% endcomment %}
-                    <div class="col">
+                    <div class="col" style="margin-left: 50px;">
                         <div class="sub-title">
                             <div class="footer-title">
                                 <h4>Mağaza məlumatları</h4>
