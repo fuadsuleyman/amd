@@ -7751,7 +7751,7 @@ footer {
         text-transform: uppercase;
         padding-top: 5px;
         font-weight: 600;
-        color: #ff4c3b; }
+        color: #000; }
     .contact-page .contact-right ul li p {
       font-weight: 600;
       margin-bottom: 0;
@@ -14751,7 +14751,11 @@ body.dark {
 
 @media (max-width: 480px) {
   .brand-logo img {
-    height: 25px; } }
+    height: 25px; }
+  .banner{
+    padding-top: 40px;
+  }
+  }
 
 /*=====================
     29.Responsive CSS start
@@ -16330,6 +16334,9 @@ body.dark {
     background-color: #2b2b2b; } }
 
 @media (max-width: 767px) {
+  .banner-slider {
+    padding-top: 55px;
+  }
   .layout3-menu .main-menu .menu-left .main-menu-right .toggle-nav {
     left: 0;
 }
@@ -16666,14 +16673,16 @@ body.dark {
     .home-slider.fullpage .slick-dots li button:before {
       color: #0a0100; }
   .footer-contant {
-    text-align: left; }
+    /* text-align: left;  */
+  }
     .footer-contant .footer-logo {
       margin-top: 20px;
       margin-bottom: 20px; }
     .footer-contant li {
       text-align: left; }
     .footer-contant .footer-social ul {
-      margin: unset; }
+      /* margin: unset;  */
+    }
       .footer-contant .footer-social ul li {
         padding-right: 25px;
         padding-left: 0; }
