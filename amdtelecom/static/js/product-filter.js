@@ -87,7 +87,7 @@ function getData() { // filter product data return products
                         </a>
                     </div>
                     <div class="back">
-                        <a href="${domain}product/${product.slug}/">
+                        <a class="text-center" href="${domain}product/${product.slug}/">
                             <img
                                 src="${ product.products_images.length > 1 ? product.products_images[1].image : '' }"
                                 class="img-fluid blur-up lazyload bg-img" alt="${product.title.toUpperCase()}">
@@ -100,11 +100,11 @@ function getData() { // filter product data return products
                         <a href="${domain}product/${product.slug}/">
                         <img
                             src="$${ product.products_images.length > 1 ? product.products_images[1].image : '' }"
-                            class="img-fluid blur-up lazyload bg-img" alt="${product.title.toUpperCase()}">
+                            class="img-fluid blur-up lazyload bg-img text-center" alt="${product.title.toUpperCase()}">
                         </a>
                     </div>
                     `
-
+               
                     var price_no_disc = `
                     <h4 class="">${product.priced} 
                         <svg style='width: 1em; height: 1em;' data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
@@ -199,51 +199,28 @@ function getData() { // filter product data return products
                         `
                     }
                     else {
-                        if (product.color_code != null){ // productun rengi ucun
-                            products += `
-                                    <div class="col-xl-3 col-sm-6 col-md-4 col-grid-box category-pro">
-                                    <div class="product-box">
-                                        <div class="img-wrapper">
-                                            ${ product.products_images.length > 1 ? mainSeconImage : secondImage }
-                                            
-                                        </div>
-                                        <div class="product-detail">
-                                            <div>
-                                                <a href="product-page(no-sidebar).html">
-                                                    <h6>${product.product_marka[0].title.toUpperCase() } ${product.title.toUpperCase()}  ${product.color_title.toUpperCase()}</h6>
-                                                </a>
-                                                <p>${product.description}
-                                                </p>
-                                                ${ product.is_discount ? price_discounted : price_no_disc }
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            `
-                        
-                        }
-                        else {
-                            products += `
-                                    <div class="col-xl-3 col-sm-6 col-md-4 col-grid-box category-pro">
-                                    <div class="product-box">
-                                        <div class="img-wrapper">
+                        // productun rengi ucun
+                        products += `
+                                <div class="col-xl-3 col-sm-6 col-md-4 col-grid-box category-pro">
+                                <div class="product-box">
+                                    <div class="img-wrapper">
                                         ${ product.products_images.length > 1 ? mainSeconImage : secondImage }
                                         
-                                        </div>
-                                        <div class="product-detail">
-                                            <div>
-                                                <a href="product-page(no-sidebar).html">
-                                                    <h6>${product.product_marka[0].title.toUpperCase() } ${product.title.toUpperCase()}</h6>
-                                                </a>
-                                                <p>${product.description}
-                                                </p>
-                                                ${ product.is_discount ? price_discounted : price_no_disc }
-                                            </div>
+                                    </div>
+                                    <div class="product-detail text-center">
+                                        <div>
+                                            <a href="product-page(no-sidebar).html">
+                                                <h6>${product.product_marka[0].title ? product.product_marka[0].title.toUpperCase() : '' } ${product.title.toUpperCase()} ${ product.ram ? product.ram + 'GB/': ''} ${ product.internal_storage ? product.internal_storage + 'GB' : '' } ${product.color_title ? product.color_title.toUpperCase() : ''}</h6>
+                                            </a>
+                                            <p>${product.description}
+                                            </p>
+                                            ${ product.is_discount ? price_discounted : price_no_disc }
                                         </div>
                                     </div>
                                 </div>
-                            `
-                        } // ${a == 1 && retun}
+                            </div>
+                        `
+                        
                     }
                     DOM.html(products)
                     mainSeconImage = ''

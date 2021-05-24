@@ -1351,7 +1351,7 @@ header {
 
 .absolute-logo {
   position: absolute;
-  left: 90%;
+  left: 50%;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%); }
 
@@ -1371,8 +1371,8 @@ header {
     z-index: 9999; }
   .main-menu .brand-logo {
     display: inline-block;
-    padding-top: 35px;
-    padding-bottom: 35px; }
+    /* padding-top: 35px; */
+    padding-bottom: 75px; }
   .main-menu .menu-left {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -14171,7 +14171,11 @@ body.dark {
 }
 @media (max-width: 1200px) and (min-width: 577px){
   .absolute-logo {
-    margin-top: 100px;
+    margin-top: 94px;
+  }
+  .brand-logo {
+    padding-bottom: 50px !important;
+
   }
 }
 
@@ -14708,8 +14712,9 @@ body.dark {
     margin-right: -50%;
     -webkit-transform: translateX(-50%);
             transform: translateX(-50%);
-    padding-top: 30px !important;
-    padding-bottom: 30px !important; }
+    padding-top: 10px !important;
+    /* padding-bottom: 20px !important;  */
+  }
   .toggle-nav {
     padding-top: 30px;
     padding-bottom: 30px; }
@@ -17379,7 +17384,14 @@ body.dark {
   .layout3-menu .main-menu > div:nth-child(3) {
     height: 0; }
   .layout3-menu .brand-logo {
-    left: 35%; }
+    left: 35%;
+    margin-bottom: 20px !important;
+
+   }
+  .brand-logo {
+    margin-bottom: 20px !important;
+
+  }
   .search-overlay > div .closebtn {
     top: 15px;
     right: 30px; }

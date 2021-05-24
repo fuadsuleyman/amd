@@ -149,7 +149,7 @@ else:
             'USER' : 'amd_user',
             'PASSWORD' : 'password4474',
             'HOST' : 'localhost',
-            'PORT' : '5437',
+            'PORT' : '5433',
         }
     }
 
