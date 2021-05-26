@@ -18236,6 +18236,12 @@ body.dark {
     right: 10px; } }
 
 @media (max-width: 420px) {
+  .img-wrapper {
+    overflow: visible !important;
+  }
+  .cart-detail {
+    right: -15px !important
+  }
   h2 {
     font-size: 22px; }
   .product-pagination {
