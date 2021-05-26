@@ -12,7 +12,7 @@ console.log('home.js -->');
     let widthStyle = witdInput.width
     let width = parseInt(widthStyle.split('p')[0])
 
-    if (width == 32) {
+    if (width == 36) {
         inputVal.css('background-color', 'rgb(45, 42, 37)')
     }
     else {
@@ -60,7 +60,7 @@ function changeDisplay(widthSearch) { // for resize search body
     inputVal.toggleClass('bg-white')
     inputJqWidth.toggleClass('w-200')
 
-    if (widthSearch == 32) {
+    if (widthSearch == 36) {
         responseArea.classList.remove('d-none')
         responseArea.classList.remove('d-block')
 
