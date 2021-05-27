@@ -238,7 +238,7 @@
 @media (max-width: 991px) {
     .mobile-search--body {
         width: 36px !important;
-
+        border: 1px solid white;
     }
     /* #search-filter-body {
         display: block !important;

@@ -14,7 +14,6 @@ console.log('home.js -->');
 
     if (width == 36) {
         inputVal.css('background-color', 'rgb(45, 42, 37)')
-        inputVal.css('border-color', 'white')
     }
     else {
         inputVal.css('background-color', 'white')
