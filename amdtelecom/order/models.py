@@ -75,7 +75,7 @@ class OrderItem(models.Model):
         ordering = ('created_at',)
     
     def __str__(self):
-        return self.product.title
+        return str(self.id)
     
 class ShippingAddress(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True)
