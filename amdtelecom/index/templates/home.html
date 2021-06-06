@@ -5,14 +5,19 @@
 
 {% if messages %}
     {% for message in messages %}
-                <div class="result alert alert-success">
+                <div class="premium" style="border: red solid;">
                     {{message}}
                 </div>
     {% endfor %}
 {% endif %}
  
 <!-- home banner start -->
-    
+ <style>
+     .premium {
+            border: red solid;
+            
+        }
+ </style>   
     
 
 
