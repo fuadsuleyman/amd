@@ -241,7 +241,7 @@ else:
 
 if PROD:
     # API_URL = 'http://143.110.156.62/'
-    API_URL = 'http://161.35.26.81/'
+    API_URL = 'http://46.101.151.131/'
 else:
     # url = os.environ.get('POSTGRES_DB')
     # url =url.split(',')
