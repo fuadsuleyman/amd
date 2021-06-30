@@ -38,14 +38,24 @@ def home_page(request):
     products = Product.objects.all()
     category = Category.objects.all()
     details = Product_details.objects.all()
-    banner_main = Banner.objects.get(is_main=True)
-    banner_second_yuxari = Banner.objects.get(is_second_yuxari=True)
-    banner_second_ashagi = Banner.objects.get(is_second_ashagi=True)
-    banner_third_sol = get_object_or_404(Banner, is_third_sol=True)
-    # banner_third_sol = Banner.objects.get(is_third_sol=True)
-    banner_third_sag = get_object_or_404(Banner, is_third_sag=True)
-    # banner_third_sag = Banner.objects.get(is_third_sag=True)
-    banner_third_orta = get_object_or_404(Banner, is_third_orta=True)
+    try:
+        banner_main = Banner.objects.get(is_main=True)
+        banner_second_yuxari = Banner.objects.get(is_second_yuxari=True)
+        banner_second_ashagi = Banner.objects.get(is_second_ashagi=True)
+        banner_third_sol = get_object_or_404(Banner, is_third_sol=True)
+        # banner_third_sol = Banner.objects.get(is_third_sol=True)
+        banner_third_sag = get_object_or_404(Banner, is_third_sag=True)
+        # banner_third_sag = Banner.objects.get(is_third_sag=True)
+        banner_third_orta = get_object_or_404(Banner, is_third_orta=True)
+    except Banner.DoesNotExist:
+        banner_main = None
+        banner_second_yuxari = None
+        banner_second_ashagi = None
+        banner_third_sol = None
+        banner_third_sag = None
+        banner_third_orta = None
+
+
     # banner_third_orta = Banner.objects.get(is_third_orta=True)
     # for home page return filter products
     new_arrivals = products.filter(is_published=True).filter(is_new=True).order_by('-created_at')[:12]
