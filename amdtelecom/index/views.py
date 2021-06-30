@@ -62,7 +62,7 @@ def home_page(request):
     most_sold = products.filter(is_published=True).order_by('-sale_count')[:12]
     discounted_products = products.filter(is_published=True).filter(is_discount=True).order_by('-created_at')[:12]
 
-    print("Main banner image", banner_main.image)
+    
 
     context = {
         'products': products, 
