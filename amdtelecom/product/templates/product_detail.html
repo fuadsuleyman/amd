@@ -296,21 +296,21 @@
                                     <div class="product-right">
                                         
                                         <h2 class="marka-title">
-                            {% if product.marka.all.first %}
-                            {{ product.marka.all.first|upper }} 
-                            {% endif %}
-                            {% if product.title %}
-                            {{product.title|upper}}
-                            {% endif %} 
-                            {% if product.ram %}
-                            {{product.ram|upper}} GB/
-                            {% endif %} 
-                            {% if product.internal_storage %}
-                            {{product.internal_storage|upper}} GB
-                            {% endif %} 
-                            {% if product.color_title %}
-                            {{product.color_title|upper}} 
-                            {% endif %} {% comment %} {% if product.color_title %}{{ product.color_title }} {% endif %} {% endcomment %}
+                                            {% if product.marka.all.first %}
+                                            {{ product.marka.all.first|upper }} 
+                                            {% endif %}
+                                            {% if product.title %}
+                                            {{product.title|upper}}
+                                            {% endif %} 
+                                            {% if product.ram %}
+                                            {{product.ram|upper}} GB/
+                                            {% endif %} 
+                                            {% if product.internal_storage %}
+                                            {{product.internal_storage|upper}} GB
+                                            {% endif %} 
+                                            {% if product.color_title %}
+                                            {{product.color_title|upper}} 
+                                            {% endif %}
                     
                                             <!-- {% for detail in details %}  -->
                                             <!-- <span>ram / yaddas </span> -->
@@ -347,7 +347,7 @@
                                             </li>
                                             {% if product.same_product.all %}
                                                 {% for productt in product.same_product.all %}
-                                                <li style="background-color:{{ productt.color_code }}; border: 5px solid {{ productt.color_code }}; position: relative !important;">
+                                                <li style="background-color:{{ productt.color_code }}; border: 1px solid {% if productt.color_title == 'white' %} black {% else %} {{ product.color_code }} {% endif %}; position: relative !important;">
                                                     <a href="{% url 'product:product_detail' productt.slug %}" title="{{ productt.color_title | lower }}" style="position: absolute; width: 100%; height: 100%;"></a>
                                                 </li> 
                                                 {% endfor %}
@@ -537,51 +537,7 @@
                                             </div>
                                         </div>
                                         {% endif %}
-                                        <!-- <div class="tab-pane fade" id="top-review" role="tabpanel"
-                                            aria-labelledby="review-top-tab">
-                                            <form class="theme-form">
-                                                <div class="form-row">
-                                                    <div class="col-md-12">
-                                                        <div class="media">
-                                                            <label>Rating</label>
-                                                            <div class="media-body ml-3">
-                                                                <div class="rating three-star"><i
-                                                                        class="fa fa-star"></i> <i
-                                                                        class="fa fa-star"></i> <i
-                                                                        class="fa fa-star"></i> <i
-                                                                        class="fa fa-star"></i> <i
-                                                                        class="fa fa-star"></i></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label for="name">Name</label>
-                                                        <input type="text" class="form-control" id="name"
-                                                            placeholder="Enter Your name" required>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label for="email">Email</label>
-                                                        <input type="text" class="form-control" id="email"
-                                                            placeholder="Email" required>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <label for="review">Review Title</label>
-                                                        <input type="text" class="form-control" id="review"
-                                                            placeholder="Enter your Review Subjects" required>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <label for="review">Review Title</label>
-                                                        <textarea class="form-control"
-                                                            placeholder="Wrire Your Testimonial Here"
-                                                            id="exampleFormControlTextarea1" rows="6"></textarea>
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <button class="btn btn-solid" type="submit">Submit YOur
-                                                            Review</button>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div> -->
+
                                     </div>
                                 </div>
                             </div>
@@ -604,68 +560,83 @@
             <div class="row search-product">
                 {% for product in related_products %}
                 {% if product.operator_code == None %}
-                <div class="col-xl-2 col-md-4 col-sm-6">
-                    <div class="product-box">
-                        <div class="img-wrapper">
-                            {% if product.is_new %}<div class="lable-block"><span class="lable3">Yeni</span></div>{% endif %}
-                            {% if product.is_discount %}<div class="lable-block"><span class="lable3" style="left:unset; right:7px">Endirim</span></div>{% endif %}
-                            <div class="front">
-                                <a href="{% url 'product:product_detail' product.slug %}">
-                                    {% for image in product.images.all %}
-                                    {% if image.is_main %}
-                                    <img
-                                        src="{{ image.image.url }}"
-                                        class="img-fluid blur-up lazyload bg-img" alt="">
-                                    {% endif %}
-                                    {% endfor %}
-                                    </a>
+                    <div class="col-xl-2 col-md-4 col-sm-6">
+                        <div class="product-box">
+                            <div class="img-wrapper">
+                                {% if product.is_new %}<div class="lable-block"><span class="lable3">Yeni</span></div>{% endif %}
+                                {% if product.is_discount %}<div class="lable-block"><span class="lable3" style="left:unset; right:7px">Endirim</span></div>{% endif %}
+                                <div class="front">
+                                    <a href="{% url 'product:product_detail' product.slug %}">
+                                        {% for image in product.images.all %}
+                                        {% if image.is_main %}
+                                        <img
+                                            src="{{ image.image.url }}"
+                                            class="img-fluid blur-up lazyload bg-img" alt="">
+                                        {% endif %}
+                                        {% endfor %}
+                                        </a>
+                                </div>
+                                <div class="back">
+                                    <a href="{% url 'product:product_detail' product.slug %}">
+                                        {% for image in product.images.all %}
+                                        {% if image.is_second_main %}
+                                        <img
+                                            src="{{ image.image.url }}"
+                                            class="img-fluid blur-up lazyload bg-img" alt="{{ image.image }}">
+                                        {% endif %}
+                                        {% endfor %}
+                                        </a>
+                                </div>
+                                {% comment %} <div class="cart-info cart-wrap"> {% endcomment %}
+                                    {% comment %} <button data-toggle="modal" data-target="#addtocart" title="Add to cart">
+                                        <i class="ti-shopping-cart"></i>
+                                    </button>  {% endcomment %}
+                                    {% comment %} <a href="javascript:void(0)" title="Add to Wishlist">
+                                        <i class="ti-heart" aria-hidden="true"></i>
+                                    </a> 
+                                    <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View">
+                                        <i class="ti-search" aria-hidden="true"></i>
+                                    </a> 
+                                    <a href="compare.html" title="Compare">
+                                        <i class="ti-reload" aria-hidden="true"></i>
+                                    </a>  {% endcomment %}
+                                {% comment %} </div> {% endcomment %}
                             </div>
-                            <div class="back">
+                            <div class="product-detail">
+                                <!-- <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
+                                        class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div> -->
                                 <a href="{% url 'product:product_detail' product.slug %}">
-                                    {% for image in product.images.all %}
-                                    {% if image.is_second_main %}
-                                    <img
-                                        src="{{ image.image.url }}"
-                                        class="img-fluid blur-up lazyload bg-img" alt="{{ image.image }}">
-                                    {% endif %}
-                                    {% endfor %}
-                                    </a>
+                                    <h6>{% if product.marka.all.first %}
+                                        {{ product.marka.all.first|upper }} 
+                                        {% endif %}
+                                        {% if product.title %}
+                                        {{product.title|upper}}
+                                        {% endif %} 
+                                        {% if product.ram %}
+                                        {{product.ram|upper}} GB/
+                                        {% endif %} 
+                                        {% if product.internal_storage %}
+                                        {{product.internal_storage|upper}} GB
+                                        {% endif %} 
+                                        {% if product.color_title %}
+                                        {{product.color_title|upper}} 
+                                        {% endif %}
+                                    </h6>
+                                </a>
+                                <h4 class='d-flex'>{{ product.price }}
+                                    <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
+                                        <defs>
+                                            <style>
+                                                .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
+                                            </style>
+                                        </defs>
+                                        <title>manat</title>
+                                        <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
+                                    </svg>
+                                </h4>
                             </div>
-                            {% comment %} <div class="cart-info cart-wrap"> {% endcomment %}
-                                {% comment %} <button data-toggle="modal" data-target="#addtocart" title="Add to cart">
-                                    <i class="ti-shopping-cart"></i>
-                                </button>  {% endcomment %}
-                                {% comment %} <a href="javascript:void(0)" title="Add to Wishlist">
-                                    <i class="ti-heart" aria-hidden="true"></i>
-                                </a> 
-                                <a href="#" data-toggle="modal" data-target="#quick-view" title="Quick View">
-                                    <i class="ti-search" aria-hidden="true"></i>
-                                </a> 
-                                <a href="compare.html" title="Compare">
-                                    <i class="ti-reload" aria-hidden="true"></i>
-                                </a>  {% endcomment %}
-                            {% comment %} </div> {% endcomment %}
-                        </div>
-                        <div class="product-detail">
-                            <!-- <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-                                    class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div> -->
-                            <a href="{% url 'product:product_detail' product.slug %}">
-                                <h6>{{ product.title | upper }}</h6>
-                            </a>
-                            <h4 class='d-flex'>{{ product.price }}
-                                <svg style='width: 1em; height: 1em;' class="ml-2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.41 32.09">
-                                    <defs>
-                                        <style>
-                                            .cls-1<!-- -->{<!-- -->fill:#2b2929<!-- -->}
-                                        </style>
-                                    </defs>
-                                    <title>manat</title>
-                                    <path class="cls-1" d="M312.33 418.63q-4.54-9.25-13.63-9.89l-.11-3.83-2.26.92-.14 2.9q-8.91.56-13.57 9.73-3.89 7.71-3.89 18.54h5.51c.2-16 5.47-24.67 11.88-26l-.7 23.66 4-1.37-.65-22.41c6.43.75 11.89 9.45 12 26.1h5.41q-.09-10.85-3.81-18.37z" transform="translate(-278.73 -404.91)" id="Layer_1-2"></path>
-                                </svg>
-                            </h4>
                         </div>
                     </div>
-                </div>
                 {% else %}
 
                 {% endif %}

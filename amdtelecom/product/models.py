@@ -1,3 +1,4 @@
+import uuid
 from datetime import datetime, timedelta
 from django.utils import timezone
 from django import template
@@ -14,6 +15,12 @@ register = template.Library()
 
 def one_month_from_today():
     return timezone.now() + timedelta(days=30)
+
+
+def generate_sku_number():
+    raw_id = uuid.uuid1()
+    raw_membership_id = str(raw_id.int)[:5]
+    return raw_membership_id
 
 
 class Tag(models.Model):
@@ -178,6 +185,7 @@ class Product(models.Model):
         ram = self.ram if self.ram != None  else ''
         internal_storage = self.internal_storage if self.internal_storage != None  else ''
         color_title = self.color_title if self.color_title != None  else ''
+        self.sku = f'{generate_sku_number()}{self.id}' 
         
         if self.slug:
             self.slug=''
