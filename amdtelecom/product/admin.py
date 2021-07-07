@@ -78,7 +78,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ("title", "price", 'show_markas', 'internal_storage', 'ram', "is_new", 'get_color', 'get_image') #"get_image"
     list_display_links = ("title",)
     list_filter = ("price", "category", 'is_new', 'internal_storage', 'ram', 'color_title')
-    search_fields = ('title', "category__title", "Marka")
+    search_fields = ('title', "category__title", "marka__title", 'internal_storage', 'ram', 'color_title')
     readonly_fields = ('slug',)
     inlines = [ImageInline, ProductDetailNameAdmin]
     save_on_top = True
