@@ -15872,7 +15872,7 @@ body.dark {
   .layout-8 .layout-8-bg {
     padding: 0; }
   .alert {
-    max-width: 45% !important; }
+    margin-top: 80px; }
   .theme-modal .modal-dialog .modal-content .modal-body .modal-bg .offer-content img {
     margin-bottom: 20px; }
   .theme-modal .modal-dialog .modal-content .modal-body .modal-bg .offer-content h2 {

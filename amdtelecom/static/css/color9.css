@@ -15871,8 +15871,8 @@ body.dark {
     margin-top: 0; }
   .layout-8 .layout-8-bg {
     padding: 0; }
-  .alert {
-    max-width: 45% !important; }
+ .alert {
+    margin-top: 80px; }
   .theme-modal .modal-dialog .modal-content .modal-body .modal-bg .offer-content img {
     margin-bottom: 20px; }
   .theme-modal .modal-dialog .modal-content .modal-body .modal-bg .offer-content h2 {
