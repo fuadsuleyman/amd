@@ -5,20 +5,12 @@
 
 {% if messages %}
     {% for message in messages %}
-                <div class="premium" style="border: red solid;">
-                    {{message}}
-                </div>
+        <div class="alert alert-success alert-dismissible fade show">
+            {{message}}
+        </div>
     {% endfor %}
 {% endif %}
  
-<!-- home banner start -->
- <style>
-     .premium {
-            border: red solid;
-            
-        }
- </style>   
-    
 
 
 <!-- home banner start -->
@@ -171,7 +163,7 @@
                     <div class="theme-tab">
                         <ul class="tabs tab-title2">
                             <li class="current"><a class="boyuk" href="tab-1">Yeni modellər</a></li>
-                            <li ><a class="boyuk" href="tab-2">Ən çox satılanlar</a></li>
+                            <li ><a class="boyuk" href="tab-2">Ümumi siyahı</a></li>
                             <li ><a  class="boyuk" href="tab-3">Endirimli məhsullar</a></li>
                         </ul>
 
@@ -257,7 +249,7 @@
                                                 {{product.ram|upper}} GB/
                                                 {% endif %} 
                                                 {% if product.internal_storage %}
-                                                {{product.internal_storage|upper}} GB
+                                                {{product.internal_storage|upper}}GB
                                                 {% endif %} 
                                                 {% if product.color_title %}
                                                 {{product.color_title|upper}} 
@@ -325,7 +317,7 @@
                                                                     {{product.ram|upper}} GB/
                                                                     {% endif %}  
                                                                     {% if product.internal_storage %} 
-                                                                    {{product.internal_storage|upper}} GB
+                                                                    {{product.internal_storage|upper}}GB
                                                                     {% endif %} 
                                                                     {% if product.color_title %}
                                                                     {{product.color_title|upper}} 
@@ -462,7 +454,7 @@
                                                 {{product.ram|upper}} GB/ 
                                                 {% endif %} 
                                                 {% if product.internal_storage %}
-                                                {{product.internal_storage|upper}} GB
+                                                {{product.internal_storage|upper}}GB
                                                 {% endif %} 
                                                 {% if product.color_title %}
                                                 {{product.color_title|upper}} 
@@ -530,7 +522,7 @@
                                                 {{product.ram|upper}} GB/
                                                 {% endif %}  
                                                 {% if product.internal_storage %}
-                                                {{product.internal_storage|upper}} GB
+                                                {{product.internal_storage|upper}}GB
                                                 {% endif %} 
                                                 {% if product.color_title %}
                                                 {{product.color_title|upper}} 
@@ -668,7 +660,7 @@
                                                 {{product.ram|upper}} GB/ 
                                                 {% endif %}  
                                                 {% if product.internal_storage %}
-                                                {{product.internal_storage|upper}} GB
+                                                {{product.internal_storage|upper}}GB
                                                 {% endif %} 
                                                 {% if product.color_title %}
                                                 {{product.color_title|upper}} 
@@ -736,7 +728,7 @@
                                                 {{product.ram|upper}} GB/ 
                                                 {% endif %}  
                                                 {% if product.internal_storage %}
-                                                {{product.internal_storage|upper}} GB
+                                                {{product.internal_storage|upper}}GB
                                                 {% endif %} 
                                                 {% if product.color_title %}
                                                 {{product.color_title|upper}} 
