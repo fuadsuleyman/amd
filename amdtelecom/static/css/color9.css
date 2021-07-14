@@ -6930,10 +6930,12 @@ footer {
     font-weight: 500;
     letter-spacing: 3px;
     margin: 40px 0; }
-
+  .breadcrumb-section {
+    margin-top: 42px;
+  }
 .breadcrumb-section {
   background-color: #f8f8f8;
-  padding: 30px 0; }
+  padding: 30px 0}
   .breadcrumb-section .page-title {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -13872,8 +13874,8 @@ body.dark {
   line-height: 23px;
   text-decoration: none;
   /* text-transform: uppercase; */
-  padding-top: 42px;
-  padding-bottom: 42px;
+  /* padding-top: 42px;
+  padding-bottom: 42px; */
   letter-spacing: 0.07em; }
 
 .pixelstrap a:hover {
