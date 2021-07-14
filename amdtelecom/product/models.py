@@ -190,7 +190,7 @@ class Product(models.Model):
         if self.slug:
             self.slug=''
 
-        slug = f' {self.title} {ram} {internal_storage} {color_title}'
+        slug = f'{self.title} {ram} {internal_storage} {color_title}'
         self.slug = f'{slugify(slug)}'
 
         if self.operator_code:
