@@ -79,7 +79,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_display_links = ("title",)
     list_filter = ("price", "category", 'is_new', 'internal_storage', 'ram', 'color_title')
     search_fields = ('title', "category__title", "marka__title", 'internal_storage', 'ram', 'color_title')
-    readonly_fields = ('slug',)
+    readonly_fields = ('slug', 'sku',)
     inlines = [ImageInline, ProductDetailNameAdmin]
     save_on_top = True
     save_as = True #create new product easy way
